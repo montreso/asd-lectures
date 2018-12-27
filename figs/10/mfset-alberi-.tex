@@ -1,0 +1,26 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+
+
+\begin{tikzpicture}[
+  thick,
+  level distance=2cm,
+  level 1/.style={sibling distance=3.6cm},
+  level 2/.style={sibling distance=2.4cm},
+  level 3/.style={sibling distance=1.2cm},
+	font=\ttfamily\bfseries]
+  \node[mynoder, minimum size=0.9cm] at (0,0) (a) {3}
+    child {node[mynode, minimum size=0.9cm]  {2}
+      child {node[mynode, minimum size=0.9cm]  {4}}
+    }
+    child {node[mynode, minimum size=0.9cm] {1}
+    };
+  \draw[edger,->] (a) edge[loop above] node {} (a);
+ \end{tikzpicture}
+
+
+\end{document}

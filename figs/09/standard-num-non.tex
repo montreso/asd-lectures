@@ -1,0 +1,24 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynode] at (0,1.5) (a) {0};
+\node[mynode] at (2,1.5) (b) {1};
+\node[mynode] at (4,1.5) (c) {2};
+\node[mynode] at (0,-1.5) (d) {3};
+\node[mynode] at (2,-1.5) (e) {4};
+\node[mynode] at (4,-1.5) (f) {5};
+%
+\draw[edgen,-] (a) edge node {} (b);
+\draw[edgen,-] (d) edge node {} (a);
+\draw[edgen,-] (b) edge node {} (c);
+\draw[edgen,-] (d) edge node {} (c);
+\draw[edgen,-] (e) edge node {} (d);
+\draw[edgen,-] (c) edge node {} (e);
+\end{tikzpicture}
+
+\end{document}

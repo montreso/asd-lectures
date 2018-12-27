@@ -1,0 +1,1767 @@
+\documentclass[tikz]{standalone}
+
+\IfFileExists{figs/09/mytikz.sty}{\input{figs/09/mytikz.sty}}{\input{mytikz.sty}}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynode] at (0,-3) (b) {b};
+\node[mynode] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynode] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a \}};
+%
+\draw[edgen] (a) edge[bend right=10] node {} (c);
+\draw[edgen] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (a);
+
+\draw[edgen] (b) edge[bend right=10] node {} (c);
+\draw[edgen] (c) edge[bend right=10] node {} (b);
+
+\draw[edgen] (b) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edgen] (f) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynode] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynode] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgen] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (a);
+
+\draw[edgen] (b) edge[bend right=10] node {} (c);
+\draw[edgen] (c) edge[bend right=10] node {} (b);
+
+\draw[edgen] (b) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edgen] (f) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynode] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynode] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (a);
+
+\draw[edgen] (b) edge[bend right=10] node {} (c);
+\draw[edgen] (c) edge[bend right=10] node {} (b);
+
+\draw[edgen] (b) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edgen] (f) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynode] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (a);
+
+\draw[edgen] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edgen] (b) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edgen] (f) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynode] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edgen] (b) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edgen] (f) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder, label={below:$[4, ]$}] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edgen] (f) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder, label={below:$[4, ]$}] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgen] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edgen] (f) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder, label={below:$[4, ]$}] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edgen] (f) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynoder, label={right:$[5, ]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder, label={below:$[4, ]$}] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f, d \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynoder, label={right:$[5, ]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder, label={below:$[4, ]$}] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f, d \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgen] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynoder, label={right:$[5, ]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder, label={below:$[4, ]$}] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f, d \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edgen] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynoder, label={right:$[5, ]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder, label={below:$[4, ]$}] at (4,-4) (f) {f};
+\node[mynoder, label={right:$[6, ]$}] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f, d, g \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynoder, label={right:$[5, ]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder, label={below:$[4, ]$}] at (4,-4) (f) {f};
+\node[mynoder, label={right:$[6, ]$}] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f, d, g \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgen] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynoder, label={right:$[5, ]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder, label={below:$[4, ]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f, d, g \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder, label={below:$[4, ]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f, d \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgen] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynoder, label={$[3, ]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b, f \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynoder, label={$[2, ]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c, b \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgen] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, c \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edgen] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynoder, label={right:$[12, ]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, e \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgen] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynoder, label={right:$[12, ]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, e \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgegd] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edgen] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+% \newpage
+%
+% \begin{tikzpicture}[scale=1.00,transform shape]
+% %
+% \node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+% \node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+% \node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+% \node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+% \node[mynoder, label={right:$[12, ]$}] at (8,-2) (e) {e};
+% \node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+% \node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+% \node[mynode] at (8,-4) (h) {h};
+% \node[mynode] at (7,-6) (j) {j};
+% \node[mynode] at (11,-2) (k) {k};
+% \node[mynode] at (10,-4) (l) {l};
+% \node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, e \}};
+% %
+% \draw[edger] (a) edge[bend right=10] node {} (c);
+% \draw[edgegd] (c) edge[bend right=10] node {} (a);
+%
+% \draw[edger] (a) edge[bend right=10] node {} (e);
+% \draw[edgegd] (e) edge[bend right=10] node {} (a);
+%
+% \draw[edgevd] (a) edge[bend right=10] node {} (f);
+% \draw[edgegd] (f) edge[bend right=10] node {} (a);
+%
+% \draw[edgegd] (b) edge[bend right=10] node {} (c);
+% \draw[edger] (c) edge[bend right=10] node {} (b);
+%
+% \draw[edger] (b) edge[bend right=10] node {} (f);
+% \draw[edgegd] (f) edge[bend right=10] node {} (b);
+%
+% \draw[edgevd] (c) edge[bend right=10] node {} (d);
+% \draw[edgegd] (d) edge[bend right=10] node {} (c);
+%
+% \draw[edgevd] (f) edge[bend right=10] node {} (g);
+% \draw[edgegd] (g) edge[bend right=10] node {} (f);
+%
+% \draw[edger] (d) edge[bend right=10] node {} (g);
+% \draw[edgegd] (g) edge[bend right=10] node {} (d);
+%
+% \draw[edgen] (e) edge[bend right=10] node {} (h);
+% \draw[edgen] (h) edge[bend right=10] node {} (e);
+%
+% \draw[edgen] (k) edge[bend right=10] node {} (l);
+% \draw[edgen] (l) edge[bend right=10] node {} (k);
+%
+% \draw[edger] (f) edge[bend right=10] node {} (d);
+% \draw[edgegd] (d) edge[bend right=10] node {} (f);
+%
+% \draw[edgen] (h) edge[bend right=10] node {} (j);
+% \draw[edgen] (j) edge[bend right=10] node {} (h);
+%
+% \end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynoder, label={right:$[12, ]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynoder, label={right:$[13, ]$}] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, e, h \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgegd] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edger] (e) edge[bend right=10] node {} (h);
+\draw[edgen] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+% \begin{tikzpicture}[scale=1.00,transform shape]
+% %
+% \node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+% \node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+% \node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+% \node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+% \node[mynoder, label={right:$[12, ]$}] at (8,-2) (e) {e};
+% \node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+% \node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+% \node[mynoder, label={right:$[13, ]$}] at (8,-4) (h) {h};
+% \node[mynode] at (7,-6) (j) {j};
+% \node[mynode] at (11,-2) (k) {k};
+% \node[mynode] at (10,-4) (l) {l};
+% \node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, e, h \}};
+% %
+% \draw[edger] (a) edge[bend right=10] node {} (c);
+% \draw[edgegd] (c) edge[bend right=10] node {} (a);
+%
+% \draw[edger] (a) edge[bend right=10] node {} (e);
+% \draw[edgegd] (e) edge[bend right=10] node {} (a);
+%
+% \draw[edgevd] (a) edge[bend right=10] node {} (f);
+% \draw[edgegd] (f) edge[bend right=10] node {} (a);
+%
+% \draw[edgegd] (b) edge[bend right=10] node {} (c);
+% \draw[edger] (c) edge[bend right=10] node {} (b);
+%
+% \draw[edger] (b) edge[bend right=10] node {} (f);
+% \draw[edgegd] (f) edge[bend right=10] node {} (b);
+%
+% \draw[edgevd] (c) edge[bend right=10] node {} (d);
+% \draw[edgegd] (d) edge[bend right=10] node {} (c);
+%
+% \draw[edgevd] (f) edge[bend right=10] node {} (g);
+% \draw[edgegd] (g) edge[bend right=10] node {} (f);
+%
+% \draw[edger] (d) edge[bend right=10] node {} (g);
+% \draw[edgegd] (g) edge[bend right=10] node {} (d);
+%
+% \draw[edger] (e) edge[bend right=10] node {} (h);
+% \draw[edgegd] (h) edge[bend right=10] node {} (e);
+%
+% \draw[edgen] (k) edge[bend right=10] node {} (l);
+% \draw[edgen] (l) edge[bend right=10] node {} (k);
+%
+% \draw[edger] (f) edge[bend right=10] node {} (d);
+% \draw[edgegd] (d) edge[bend right=10] node {} (f);
+%
+% \draw[edgen] (h) edge[bend right=10] node {} (j);
+% \draw[edgen] (j) edge[bend right=10] node {} (h);
+%
+% \end{tikzpicture}
+%
+% \newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynoder, label={right:$[12, ]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynoder, label={right:$[13, ]$}] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, e, h \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgegd] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edger] (e) edge[bend right=10] node {} (h);
+\draw[edgegd] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edgen] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynoder, label={right:$[12, ]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynoder, label={right:$[13, ]$}] at (8,-4) (h) {h};
+\node[mynoder, label={right:$[14, ]$}] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, e, h, j \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgegd] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edger] (e) edge[bend right=10] node {} (h);
+\draw[edgegd] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edger] (h) edge[bend right=10] node {} (j);
+\draw[edgen] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynoder, label={right:$[12, ]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynoder, label={right:$[13, ]$}] at (8,-4) (h) {h};
+\node[mynodeb, label={right:$[14, 15]$}] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, e, h, j \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgegd] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edger] (e) edge[bend right=10] node {} (h);
+\draw[edgegd] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edger] (h) edge[bend right=10] node {} (j);
+\draw[edgegd] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynoder, label={right:$[12, ]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynodeb, label={right:$[13, 16]$}] at (8,-4) (h) {h};
+\node[mynodeb, label={right:$[14, 15]$}] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, e, h \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgegd] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edger] (e) edge[bend right=10] node {} (h);
+\draw[edgegd] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edger] (h) edge[bend right=10] node {} (j);
+\draw[edgegd] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder, label={$[1, ]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynodeb, label={right:$[12, 17]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynodeb, label={right:$[13, 16]$}] at (8,-4) (h) {h};
+\node[mynodeb, label={right:$[14, 15]$}] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a, e\}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgegd] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edger] (e) edge[bend right=10] node {} (h);
+\draw[edgegd] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edger] (h) edge[bend right=10] node {} (j);
+\draw[edgegd] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb, label={$[1, 18]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynodeb, label={right:$[12, 17]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynodeb, label={right:$[13, 16]$}] at (8,-4) (h) {h};
+\node[mynodeb, label={right:$[14, 15]$}] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ a \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgegd] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edger] (e) edge[bend right=10] node {} (h);
+\draw[edgegd] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edger] (h) edge[bend right=10] node {} (j);
+\draw[edgegd] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb, label={$[1, 18]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynodeb, label={right:$[12, 17]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynodeb, label={right:$[13, 16]$}] at (8,-4) (h) {h};
+\node[mynodeb, label={right:$[14, 15]$}] at (7,-6) (j) {j};
+\node[mynoder, label={above left:$[19, ]$}] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ k \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgegd] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edger] (e) edge[bend right=10] node {} (h);
+\draw[edgegd] (h) edge[bend right=10] node {} (e);
+
+\draw[edgen] (k) edge[bend right=10] node {} (l);
+\draw[edgen] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edger] (h) edge[bend right=10] node {} (j);
+\draw[edgegd] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb, label={$[1, 18]$}] at (4, 0) (a) {a};
+\node[mynodeb, label={$[3, 10]$}] at (0,-3) (b) {b};
+\node[mynodeb, label={$[2, 11]$}] at (2,-2) (c) {c};
+\node[mynodeb, label={right:$[5, 8]$}] at (6,-2) (d) {d};
+\node[mynodeb, label={right:$[12, 17]$}] at (8,-2) (e) {e};
+\node[mynodeb, label={below:$[4, 9]$}] at (4,-4) (f) {f};
+\node[mynodeb, label={right:$[6, 7]$}] at (6,-4) (g) {g};
+\node[mynodeb, label={right:$[13, 16]$}] at (8,-4) (h) {h};
+\node[mynodeb, label={right:$[14, 15]$}] at (7,-6) (j) {j};
+\node[mynodeb, label={above left:$[19, 22]$}] at (11,-2) (k) {k};
+\node[mynodeb, label={below:$[20, 21]$}] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Stack = \{ \}};
+%
+\draw[edger] (a) edge[bend right=10] node {} (c);
+\draw[edgegd] (c) edge[bend right=10] node {} (a);
+
+\draw[edger] (a) edge[bend right=10] node {} (e);
+\draw[edgegd] (e) edge[bend right=10] node {} (a);
+
+\draw[edgevd] (a) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (a);
+
+\draw[edgegd] (b) edge[bend right=10] node {} (c);
+\draw[edger] (c) edge[bend right=10] node {} (b);
+
+\draw[edger] (b) edge[bend right=10] node {} (f);
+\draw[edgegd] (f) edge[bend right=10] node {} (b);
+
+\draw[edgevd] (c) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (c);
+
+\draw[edgevd] (f) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (f);
+
+\draw[edger] (d) edge[bend right=10] node {} (g);
+\draw[edgegd] (g) edge[bend right=10] node {} (d);
+
+\draw[edger] (e) edge[bend right=10] node {} (h);
+\draw[edgegd] (h) edge[bend right=10] node {} (e);
+
+\draw[edger] (k) edge[bend right=10] node {} (l);
+\draw[edgegd] (l) edge[bend right=10] node {} (k);
+
+\draw[edger] (f) edge[bend right=10] node {} (d);
+\draw[edgegd] (d) edge[bend right=10] node {} (f);
+
+\draw[edger] (h) edge[bend right=10] node {} (j);
+\draw[edgegd] (j) edge[bend right=10] node {} (h);
+
+\end{tikzpicture}
+
+\end{document}

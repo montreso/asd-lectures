@@ -1,0 +1,345 @@
+\ifhandouts
+\documentclass[t,handout,notes]{beamer}
+\fi
+\ifslides
+\documentclass[t]{beamer}
+\fi
+\ifwide
+\documentclass[t,aspectratio=169]{beamer}
+\fi
+\ifnotes
+\documentclass[t,handout,notes=onlyslideswithnotes]{beamer}
+\fi
+
+%% Language-specific 
+\usepackage[italian]{babel}
+
+
+%% Packages
+\usepackage{eurosym}
+\usepackage{etex}
+\usepackage{pgfpages}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{alltt}
+\usepackage{color}
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{xspace}
+\usepackage[normalem]{ulem}
+\usepackage{filemod}
+\usepackage{bibentry}
+\usepackage{multicol}
+\usepackage[absolute,overlay]{textpos}
+\usepackage{array}
+\newcounter{chapter} 
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{templates/macros}
+
+\usepackage{listings}
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  keywordstyle=\color{red}\bfseries,
+  commentstyle=\color{purple},
+  keepspaces=true,
+  showstringspaces=false,
+  tabsize=4,
+  escapeinside={<@}{@>},
+}
+
+
+\author{Alberto Montresor}
+\institute[UniTN]{Università di Trento}
+\date{\filemodprintdate{\jobname.tex}}
+
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{G}[1]{>{\centering\arraybackslash}p{#1}}
+\setlength\abovedisplayskip{0pt}
+\AtBeginDocument{\setlength\abovedisplayskip{0pt}}
+
+\usetheme[secheader]{Boadilla}
+\usecolortheme{beaver}
+\usefonttheme{serif}
+
+\colorlet{custom}{beamerstructure}
+
+\definecolor{DarkBlue}{RGB}{20,20,255}
+\definecolor{DarkRed}{RGB}{220,10,10}
+\definecolor{Ocra}{RGB}{255,255,204}
+\definecolor{VeryLightGray}{RGB}{242,242,242}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{alerted text}{fg=DarkRed,bg=Ocra}
+
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamertemplate{itemize subitem}[ball]
+\setbeamercolor{itemize subsubitem}{fg=blue}
+\setbeamertemplate{itemize subsubitem}[ball]
+
+\setbeamercolor*{palette primary}{use=structure,fg=black,bg=structure.fg!20}
+\setbeamercolor*{palette secondary}{use=structure,fg=black,bg=structure.fg!40}
+\setbeamercolor*{palette tertiary}{use=structure,fg=white,bg=structure.fg!70}
+\setbeamercolor*{palette quaternary}{fg=white,bg=black}
+
+\setbeamercolor{block body}{bg=gray!20}
+\setbeamercolor{frametitle}{bg=gray!20}
+\setbeamercolor{block title}{bg=blue!20,fg=black}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Better frames
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\mdfdefinestyle{mybox}{roundcorner=6pt,linecolor=blue!30,linewidth=1.5pt,backgroundcolor=white}
+
+\newenvironment{mybox}{
+\begin{mdframed}[style=mybox]\relax%
+}{
+\end{mdframed}
+}
+
+
+\newenvironment{myboxtitle}[1][]{%
+  \mdfsetup{%
+    frametitle={%
+      \tikz[baseline=(current bounding box.east),outer sep=0pt]
+      \node[anchor=east,rectangle,inner sep=5pt,rounded corners,fill=blue!20]
+      {#1};
+    }
+  }%
+  \mdfsetup{innertopmargin=0pt,roundcorner=6pt,linecolor=blue!30,linewidth=1.5pt,topline=true,frametitleaboveskip=\dimexpr-\ht\strutbox\relax,}
+  \begin{mdframed}[]\relax%
+}
+{
+  \end{mdframed}
+}
+
+
+\newcommand{\FrameTitle}[1]{
+	{
+	\setbeamertemplate{footline}{} 
+	\setbeamertemplate{headline}{} 
+	\begin{frame}[noframenumbering]
+		\titlepage
+		\medskip
+		#1
+		\begin{tabular}{@{\extracolsep{\fill}}  P{0.75\textwidth}  P{0.20\textwidth} }			
+		\bigskip
+		\href{http://creativecommons.org/licenses/by-sa/4.0/}{This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.} & 
+		\bigskip
+		\includegraphics[width=2.5cm]{figs/by-sa.pdf} 
+		\end{tabular}
+		
+		\invisible{
+		\nobibliography*{references}
+		\bibliographystyle{abbrv}
+		\bibliography{references}  
+		}
+	\end{frame}
+	}
+}
+
+\newenvironment{PlainFrame}[2][shrink,noframenumbering]{
+	\setbeamertemplate{headline}
+	{
+	  \leavevmode%
+	  \hbox{%
+	  \begin{beamercolorbox}[wd=1.0\paperwidth,ht=2.25ex,dp=2.25ex,center]{author in head/foot}%
+	    \usebeamerfont{author in head/foot}~
+	  \end{beamercolorbox}}%
+	  \vskip0pt%
+	}
+	\setbeamertemplate{footline}
+	{
+	  \leavevmode%
+	  \hbox{%
+	  \begin{beamercolorbox}[wd=1.0\paperwidth,ht=2.25ex,dp=2.25ex,center]{author in head/foot}%
+	    \usebeamerfont{author in head/foot}~
+	  \end{beamercolorbox}}%
+	  \vskip0pt%
+	}
+	\begin{frame}[#1]{#2}
+}{
+	\end{frame}
+}
+
+\newcommand{\FrameContent}{
+	\begin{PlainFrame}{Sommario}
+		\tableofcontents
+	\end{PlainFrame}
+}
+
+\newenvironment{RMFrame}{
+  \begin{PlainFrame}{Materiale aggiuntivo}
+  \footnotesize
+}{
+  \end{PlainFrame}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ifslides
+\usepackage{pgfpages}
+\AtBeginSection[]{
+\ifnumcomp{\value{section}}{=}{1}{}{
+	{
+	\setbeamertemplate{headline}
+	{
+	  \leavevmode%
+	  \hbox{%
+	  \begin{beamercolorbox}[wd=1.0\paperwidth,ht=2.25ex,dp=2.25ex,center]{author in head/foot}%
+	    \usebeamerfont{author in head/foot}~
+	  \end{beamercolorbox}}%
+	  \vskip0pt%
+	}
+	\setbeamertemplate{footline}
+	{
+	  \leavevmode%
+	  \hbox{%
+	  \begin{beamercolorbox}[wd=1.0\paperwidth,ht=2.25ex,dp=2.25ex,center]{author in head/foot}%
+	    \usebeamerfont{author in head/foot}~
+	  \end{beamercolorbox}}%
+	  \vskip0pt%
+	}
+	\begin{frame}<beamer>[shrink,noframenumbering]
+		\frametitle{Sommario}
+		\bigskip
+		\tableofcontents[currentsection]
+	\end{frame}
+	}
+}
+}
+\fi
+\ifnotes
+\fi
+
+\setbeamertemplate{navigation symbols}{}
+
+\AtBeginNote
+{
+\footnotesize
+}
+
+
+\makeatletter
+\defbeamertemplate{note page}{infolines}
+{%
+  {%
+    \scriptsize
+    \insertvrule{.25\paperheight}{white!90!black}
+    \vskip-.25\paperheight
+    \nointerlineskip
+    \vbox{
+      \hfill\insertslideintonotes{0.25}\hskip-\Gm@rmargin\hskip0pt%
+      \vskip-0.25\paperheight%
+      \nointerlineskip
+      \begin{pgfpicture}{0cm}{0cm}{0cm}{0cm}
+        \begin{pgflowlevelscope}{\pgftransformrotate{90}}
+          {\pgftransformshift{\pgfpoint{-2cm}{0.2cm}}%
+          \pgftext[base,left]{\footnotesize\the\year-\ifnum\month<10\relax0\fi\the\month-\ifnum\day<10\relax0\fi\the\day}}
+        \end{pgflowlevelscope}
+      \end{pgfpicture}}
+    \nointerlineskip
+    \vbox to .25\paperheight{\vskip0.5em
+      \hbox{\insertshorttitle[width=8cm]}%
+      \setbox\beamer@tempbox=\hbox{\insertsection}%
+      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip4pt\raise3pt\hbox{\vrule
+            width0.4pt height7pt\vrule width 9pt
+            height0.4pt}}\hskip1pt\hbox{\begin{minipage}[t]{7.5cm}\def\breakhere{}\insertsection\end{minipage}}\fi%
+      }%
+      \setbox\beamer@tempbox=\hbox{\insertsubsection}%
+      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip17.4pt\raise3pt\hbox{\vrule
+            width0.4pt height7pt\vrule width 9pt
+            height0.4pt}}\hskip1pt\hbox{\begin{minipage}[t]{7.5cm}\def\breakhere{}\insertsubsection\end{minipage}}\fi%
+      }%
+      \setbox\beamer@tempbox=\hbox{\insertshortframetitle}%
+      \hbox{\ifdim\wd\beamer@tempbox>1pt{\hskip30.8pt\raise3pt\hbox{\vrule
+            width0.4pt height7pt\vrule width 9pt
+            height0.4pt}}\hskip1pt\hbox{\insertshortframetitle[width=7cm]}\fi%
+      }%
+      \vfil}%
+  }%
+  \vskip.25em
+  \nointerlineskip
+  \begin{minipage}{\textwidth} % this is an addition
+  {\footnotesize \insertnote}
+  \end{minipage}               % this is an addition
+}
+\makeatother
+
+\setbeamertemplate{note page}[infolines]
+
+
+\newcommand{\BB}[1]{
+\begin{mybox}
+#1
+\end{mybox}
+}
+
+\newcommand{\BBC}[1]{
+\begin{beamerboxesrounded}{upper=block title,lower=block title,shadow=true}
+\centering #1
+\end{beamerboxesrounded}
+}
+
+\newcommand{\BREAK}{
+\vspace{-12pt}
+\hrulefill
+\vspace{-3pt}
+}
+
+
+\newcommand{\BF}[1]{\begin{frame}{#1}}
+\newcommand{\EF}{\end{frame}}
+
+\newcommand{\BI}{\begin{itemize}}
+\newcommand{\EI}{\end{itemize}}
+
+\newcommand{\BEN}{\begin{enumerate}}
+\newcommand{\EEN}{\end{enumerate}}
+
+\newcommand{\BIL}{\begin{itemize}
+  \setlength{\itemsep}{8pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+\newcommand{\EIL}{\end{itemize}}
+
+\newcommand{\BEL}{\begin{enumerate}
+  \setlength{\itemsep}{8pt}
+  \setlength{\parskip}{0pt}
+  \setlength{\parsep}{0pt}
+}
+\newcommand{\EEL}{\end{enumerate}}
+
+\newcommand{\TwoColsCustom}[4]{
+\begin{columns}[T]
+\begin{column}{#1\linewidth}
+#3
+\end{column}
+\hfill
+\begin{column}{#2\linewidth}
+#4
+\end{column}	
+\end{columns}
+}
+
+\newcommand{\TwoCols}[2]{
+\begin{columns}[T]
+\begin{column}{0.48\textwidth}
+#1
+\end{column}
+\hfill
+\begin{column}{0.48\textwidth}
+#2
+\end{column}	
+\end{columns}
+}
+
+\newcommand{\IG}[2]{
+\begin{center}
+\includegraphics[width=#1\textwidth]{#2}
+\end{center}
+}

@@ -1,0 +1,418 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{violet}{#1}}
+
+\begin{document}
+
+%%%% 1
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (a) edge[above left] node {\B{2}} (b);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[below left] node {\B{8}} (c);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[above] node {\B{3}} (e);
+\draw[edgen] (c) edge[below] node {\B{6}} (e);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (e) edge[below] node {\B{4}} (f);
+\end{tikzpicture}
+
+%%%% 2
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edger] (a) edge[above left] node {\B{2}} (b);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[below left] node {\B{8}} (c);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edger] (b) edge[above] node {\B{3}} (e);
+\draw[edgen] (c) edge[below] node {\B{6}} (e);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edger] (e) edge[below] node {\B{4}} (f);
+\end{tikzpicture}
+
+%%%% 3
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgeb] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[below left] node {\B{8}} (c);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edger] (b) edge[above] node {\B{3}} (e);
+\draw[edgen] (c) edge[below] node {\B{6}} (e);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edger] (e) edge[below] node {\B{4}} (f);
+
+\end{tikzpicture}
+
+%%%% 4
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[below left] node {\B{8}} (c);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edgeb] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edgeb] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edgen] (c) edge[below] node {\B{6}} (e);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edger] (e) edge[below] node {\B{4}} (f);
+\end{tikzpicture}
+
+%%% 5
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[below left] node {\B{8}} (c);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edgen] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edgen] (c) edge[below] node {\B{6}} (e);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgeb] (e) edge[bend left=10,above] node {\B{2}} (f);
+\draw[edgeb] (f) edge[dashed,bend left=10,below] node {\B{2}} (e);
+\end{tikzpicture}
+
+%%% 6
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edger] (a) edge[below left] node {\B{8}} (c);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edgen] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edger] (c) edge[below] node {\B{6}} (e);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edger] (e) edge[bend left=10,above] node {\B{2}} (f);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{2}} (e);
+\end{tikzpicture}
+
+%%% 7
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgeb] (a) edge[bend left=10,above] node {\B{6}} (c);
+\draw[edgeb] (c) edge[dashed,bend left=10,below] node {\B{2}} (a);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edgen] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edger] (c) edge[below] node {\B{6}} (e);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edger] (e) edge[bend left=10,above] node {\B{2}} (f);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{2}} (e);
+\end{tikzpicture}
+
+%%% 8
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[bend left=10,above] node {\B{6}} (c);
+\draw[edgen] (c) edge[dashed,bend left=10,below] node {\B{2}} (a);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edgen] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edgeb] (c) edge[below] node {\B{4}} (e);
+\draw[edgeb] (e) edge[dashed,bend right=20,above] node {\B{2}} (c);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edger] (e) edge[bend left=10,above] node {\B{2}} (f);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{2}} (e);
+\end{tikzpicture}
+
+%%% 9
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[bend left=10,above] node {\B{6}} (c);
+\draw[edgen] (c) edge[dashed,bend left=10,below] node {\B{2}} (a);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edgen] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edgen] (c) edge[below] node {\B{4}} (e);
+\draw[edgen] (e) edge[dashed,bend right=20,above] node {\B{2}} (c);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgeb] (f) edge[dashed,bend left=10,below] node {\B{4}} (e);
+\end{tikzpicture}
+
+%%% 10
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edger] (a) edge[bend left=10,above] node {\B{6}} (c);
+\draw[edgen] (c) edge[dashed,bend left=10,below] node {\B{2}} (a);
+\draw[edger] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edger] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edger] (c) edge[below] node {\B{4}} (e);
+\draw[edgen] (e) edge[dashed,bend right=20,above] node {\B{2}} (c);
+\draw[edger] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{4}} (e);
+\end{tikzpicture}
+
+%%% 11
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgeb] (a) edge[bend left=10,above] node {\B{4}} (c);
+\draw[edgeb] (c) edge[dashed,bend left=10,below] node {\B{4}} (a);
+\draw[edger] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edger] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edger] (c) edge[below] node {\B{4}} (e);
+\draw[edgen] (e) edge[dashed,bend right=20,above] node {\B{2}} (c);
+\draw[edger] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{4}} (e);
+
+\end{tikzpicture}
+
+%%% 12
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[bend left=10,above] node {\B{4}} (c);
+\draw[edgen] (c) edge[dashed,bend left=10,below] node {\B{4}} (a);
+\draw[edger] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edger] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edgeb] (c) edge[below] node {\B{2}} (e);
+\draw[edgeb] (e) edge[dashed,bend right=20,above] node {\B{4}} (c);
+\draw[edger] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{4}} (e);
+\end{tikzpicture}
+
+%%% 13
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[bend left=10,above] node {\B{4}} (c);
+\draw[edgen] (c) edge[dashed,bend left=10,below] node {\B{4}} (a);
+\draw[edger] (b) edge[above] node {\B{7}} (d);
+\draw[edgeb] (b) edge[bend left=10,above] node {\B{3}} (e);
+\draw[edgen] (c) edge[below] node {\B{2}} (e);
+\draw[edgen] (e) edge[dashed,bend right=20,above] node {\B{4}} (c);
+\draw[edger] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{4}} (e);
+
+%%% 14
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[bend left=10,above] node {\B{4}} (c);
+\draw[edgen] (c) edge[dashed,bend left=10,below] node {\B{4}} (a);
+\draw[edgeb] (b) edge[above] node {\B{5}} (d);
+\draw[edgeb] (d) edge[dashed,bend left=20,below] node {\B{2}} (b);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{3}} (e);
+\draw[edgen] (c) edge[below] node {\B{2}} (e);
+\draw[edgen] (e) edge[dashed,bend right=20,above] node {\B{4}} (c);
+\draw[edger] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{4}} (e);
+
+\end{tikzpicture}
+
+%%% 15
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[bend left=10,above] node {\B{4}} (c);
+\draw[edgen] (c) edge[dashed,bend left=10,below] node {\B{4}} (a);
+\draw[edgen] (b) edge[above] node {\B{5}} (d);
+\draw[edgen] (d) edge[dashed,bend left=20,below] node {\B{2}} (b);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{3}} (e);
+\draw[edgen] (c) edge[below] node {\B{2}} (e);
+\draw[edgen] (e) edge[dashed,bend right=20,above] node {\B{4}} (c);
+\draw[edgeb] (d) edge[bend left=10,above] node {\B{1}} (f);
+\draw[edgeb] (f) edge[dashed,bend left=10,below] node {\B{2}} (d);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{4}} (e);
+
+\end{tikzpicture}
+
+%%% 16
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[bend left=10,above] node {\B{4}} (c);
+\draw[edgen] (c) edge[dashed,bend left=10,below] node {\B{4}} (a);
+\draw[edgen] (b) edge[above] node {\B{5}} (d);
+\draw[edgen] (d) edge[dashed,bend left=20,below] node {\B{2}} (b);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{3}} (e);
+\draw[edgen] (c) edge[below] node {\B{2}} (e);
+\draw[edgen] (e) edge[dashed,bend right=20,above] node {\B{4}} (c);
+\draw[edgen] (d) edge[bend left=10,above] node {\B{1}} (f);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{2}} (d);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{4}} (e);
+
+\end{tikzpicture}
+
+%%% 17 (5 bis)
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[below left] node {\B{8}} (c);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edgen] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edgen] (c) edge[below] node {\B{6}} (e);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (e) edge[bend left=10,above] node {\B{2}} (f);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{2}} (e);
+\end{tikzpicture}
+
+%%% 18 (9 bis)
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynode] at (2.0, 3.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (b) edge[dashed,above left] node {\B{2}} (a);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[bend left=10,above] node {\B{6}} (c);
+\draw[edgen] (c) edge[dashed,bend left=10,below] node {\B{2}} (a);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[bend left=10,above] node {\B{1}} (e);
+\draw[edgen] (e) edge[dashed,bend left=10,below] node {\B{2}} (b);
+\draw[edgen] (c) edge[below] node {\B{4}} (e);
+\draw[edgen] (e) edge[dashed,bend right=20,above] node {\B{2}} (c);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (f) edge[dashed,bend left=10,below] node {\B{4}} (e);
+\end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,48 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{blue}{#1}}
+\newcommand{\G}[1]{\textcolor{violet}{#1}}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynodew] at (0.0, 2.5) (sum) {+};
+\node[mynodew] at (5.0, 2.5) (sum) {=};
+
+\node[mynode, label={above left:$s$}] at (0.0, 1.0) (a1) {a};
+\node[mynode] at (2.0, 2.0) (b1) {b};
+\node[mynode] at (2.0, 0.0) (c1) {c};
+\node[mynode, label={above right:$t$}] at (4.0, 1.0) (d1) {d};
+\draw[edgen] (a1) edge[above] node {\R{1}/\B{2}} (b1);
+\draw[edgen] (a1) edge[below] node {\R{1}/\B{2}} (c1);
+\draw[edgen] (c1) edge[right] node {\R{1}/\B{1}} (b1);
+\draw[edgen] (c1) edge[below] node {\R{0}/\B{1}} (d1);
+\draw[edgen] (b1) edge[above] node {\R{2}/\B{3}} (d1);
+
+\node[mynode, label={above left:$s$}] at (0.0, 4.0) (a2) {a};
+\node[mynode] at (2.0, 5.0) (b2) {b};
+\node[mynode] at (2.0, 3.0) (c2) {c};
+\node[mynode, label={above right:$t$}] at (4.0, 4.0) (d2) {d};
+\draw[edgen] (a2) edge[above] node {\R{1}/\B{2}} (b2);
+\draw[edgen] (a2) edge[below] node {\R{1}/\B{2}} (c2);
+\draw[edgen] (c2) edge[right] node {\R{0}/\B{1}} (b2);
+\draw[edgen] (c2) edge[below] node {\R{1}/\B{1}} (d2);
+\draw[edgen] (b2) edge[above] node {\R{1}/\B{3}} (d2);
+
+\node[mynode, label={above left:$s$}] at (6.0, 2.5) (a3) {a};
+\node[mynode] at (8.0, 3.5) (b3) {b};
+\node[mynode] at (8.0, 1.5) (c3) {c};
+\node[mynode, label={above right:$t$}] at (10.0, 2.5) (d3) {d};
+\draw[edgen] (a3) edge[above] node {\R{2}/\B{2}} (b3);
+\draw[edgen] (a3) edge[below] node {\R{2}/\B{2}} (c3);
+\draw[edgen] (c3) edge[right] node {\R{1}/\B{1}} (b3);
+\draw[edgen] (c3) edge[below] node {\R{1}/\B{1}} (d3);
+\draw[edgen] (b3) edge[above] node {\R{3}/\B{3}} (d3);
+
+\end{tikzpicture}
+
+
+\end{document}

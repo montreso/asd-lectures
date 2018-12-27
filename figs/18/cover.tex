@@ -1,0 +1,71 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{violet}{#1}}
+
+\begin{document}
+
+%%%% 1
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode] at (0.0, 2.0) (a) {a};
+\node[mynode] at (0.0, 0.0) (c) {c};
+\node[mynode] at (2.0, 0.0) (d) {d};
+\node[mynode] at (2.0, 2.0) (b) {b};
+\node[mynode] at (1.0, 1.0) (e) {e};
+%
+\draw[edgen, -] (a) edge node {} (b);
+\draw[edgen, -] (a) edge node {} (c);
+\draw[edgen, -] (b) edge node {} (d);
+\draw[edgen, -] (c) edge node {} (d);
+\draw[edgen, -] (a) edge node {} (e);
+\draw[edgen, -] (b) edge node {} (e);
+\draw[edgen, -] (c) edge node {} (e);
+\draw[edgen, -] (d) edge node {} (e);
+\end{tikzpicture}
+
+%%%% 2
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode] at (0.0, 2.0) (a) {a};
+\node[mynoder] at (0.0, 0.0) (c) {c};
+\node[mynode] at (2.0, 0.0) (d) {d};
+\node[mynoder] at (2.0, 2.0) (b) {b};
+\node[mynoder] at (1.0, 1.0) (e) {e};
+%
+\draw[edgen, -] (a) edge node {} (b);
+\draw[edgen, -] (a) edge node {} (c);
+\draw[edgen, -] (b) edge node {} (d);
+\draw[edgen, -] (c) edge node {} (d);
+\draw[edgen, -] (a) edge node {} (e);
+\draw[edgen, -] (b) edge node {} (e);
+\draw[edgen, -] (c) edge node {} (e);
+\draw[edgen, -] (d) edge node {} (e);
+\end{tikzpicture}
+
+%%%% 2
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode] at (0.0, 2.0) (a) {a};
+\node[mynoder] at (0.0, 0.0) (c) {c};
+\node[mynode] at (2.0, 0.0) (d) {d};
+\node[mynoder] at (2.0, 2.0) (b) {b};
+\node[mynoder] at (1.0, 1.0) (e) {e};
+\node[mynode,ellipse,minimum width=1.6cm] at (4.0, 1.5) (V) {\small $S$};
+\node[mynoder,ellipse,minimum width=1.6cm] at (4.0, 0.5) (VS) {\small $V-S$};
+
+%
+\draw[edgen, -] (a) edge node {} (b);
+\draw[edgen, -] (a) edge node {} (c);
+\draw[edgen, -] (b) edge node {} (d);
+\draw[edgen, -] (c) edge node {} (d);
+\draw[edgen, -] (a) edge node {} (e);
+\draw[edgen, -] (b) edge node {} (e);
+\draw[edgen, -] (c) edge node {} (e);
+\draw[edgen, -] (d) edge node {} (e);
+\draw[edger, -, dashed] (a) edge[bend left=30] node {} (d);
+\end{tikzpicture}
+
+
+
+
+\end{document}

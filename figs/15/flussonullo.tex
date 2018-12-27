@@ -1,0 +1,24 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{blue}{#1}}
+\newcommand{\G}[1]{\textcolor{violet}{#1}}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 1.0) (a) {a};
+\node[mynode] at (2.0, 2.0) (b) {b};
+\node[mynode] at (2.0, 0.0) (c) {c};
+\node[mynode, label={above right:$t$}] at (4.0, 1.0) (d) {d};
+\draw[edgen] (a) edge[above] node {\R{0}/\B{2}} (b);
+\draw[edgen] (a) edge[below] node {\R{0}/\B{2}} (c);
+\draw[edgen] (c) edge[right] node {\R{0}/\B{1}} (b);
+\draw[edgen] (c) edge[below] node {\R{0}/\B{1}} (d);
+\draw[edgen] (b) edge[above] node {\R{0}/\B{2}} (d);
+\end{tikzpicture}
+
+
+\end{document}

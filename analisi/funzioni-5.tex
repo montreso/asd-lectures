@@ -1,0 +1,415 @@
+\title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e Strutture Dati}\\[18pt]Analisi di algoritmi\\Ricorrenze comuni}
+
+%-------------------------------------------------------------------------
+\FrameTitle{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Metodo dell'esperto}
+
+
+\begin{frame}{Metodo dell'esperto}
+
+\begin{myboxtitle}[Metodi per risolvere ricorrenze]
+\begin{itemize}
+\item Metodo dell'albero di ricorsione, o per livelli
+\item Metodo di sostituzione, o per tentativi
+\item \alert{Metodo dell'esperto, o delle ricorrenze comuni}
+\end{itemize}
+\end{myboxtitle}
+
+
+\begin{myboxtitle}[Ricorrenze comuni]
+Esiste un'ampia classe di ricorrenze che possono essere risolte facilmente 
+facendo ricorso ad alcuni teoremi, ognuno dei quali si occupa di una classe
+particolare di equazioni di ricorrenza.	
+\end{myboxtitle}
+
+\end{frame}
+
+\begin{frame}{Ricorrenze lineari con partizione bilanciata}
+
+\begin{myboxtitle}[Teorema]
+Siano $a$ e $b$ costanti intere tali che $a \ge 1$ e $b \ge 2$, e $c$,
+$\beta$ costanti reali tali che $c > 0$ e $\beta \ge 0$. Sia
+$T(n)$ data dalla relazione di ricorrenza:
+
+\[
+T(n) = \begin{cases}
+  aT(n/b) + cn^\beta & n>1 \\
+  d & n \leq 1
+\end{cases}
+\]
+
+Posto $\alpha = \log a / \log b = \log_b a$, allora:
+
+\[
+T(n) =\begin{cases}
+\Theta(n^\alpha) & \alpha > \beta \\
+\Theta(n^\alpha\log n) & \alpha = \beta \\
+\Theta(n^\beta) & \alpha < \beta 
+\end{cases}
+\]
+\end{myboxtitle}	
+	
+\end{frame}
+
+\begin{frame}{Ricorrenze lineari con partizione bilanciata}
+
+\begin{myboxtitle}[Assunzioni]
+Assumiamo che $n$ sia una potenza intera di $b$: $n=b^k, k= \log_b n$
+\end{myboxtitle}
+
+\begin{myboxtitle}[Perchè ci serve?]
+Semplifica tutti i calcoli successivi
+\end{myboxtitle}
+
+\begin{myboxtitle}[Influisce sul risultato?]
+\BI
+\item Supponiamo che l'input abbia dimensione $b^k+1$
+\item Estendiamo l'input fino ad una dimensione $b^{k+1}$ (\alert{padding})
+\item L'input è stato esteso al massimo di un fattore costante $b$
+\item Ininfluente al fine della complessità computazionale
+\EI
+\end{myboxtitle}
+
+\end{frame}
+
+
+\begin{frame}{Ricorrenze lineari con partizione bilanciata}
+
+\vspace{-6pt}
+\begin{mybox}
+$T(n) = aT(n/b) + cn^\beta \qquad T(1) = d$
+\end{mybox}	
+\bgroup
+\begin{center}
+\def\arraystretch{1.1}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Liv.} & \textbf{Dim.} & \textbf{Costo chiam.} & \textbf{N. chiamate} & \textbf{Costo livello} \\\hline
+$0$ & $b^k$ & $cb^{k\beta}$  & $1$ & $cb^{k\beta}$ \\
+\hline
+$1$ & $b^{k-1}$ & $cb^{(k-1)\beta}$ & $a$ & $acb^{(k-1)\beta}$ \\
+\hline
+$2$ & $b^{k-2}$ & $cb^{(k-2)\beta}$& $a^2$  & $a^2cb^{(k-2)\beta}$ \\
+\hline
+$\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+\hline
+$i$  & $b^{k-i}$ & $cb^{(k-i)\beta}$ & $a^i$& $a^icb^{(k-i)\beta}$ \\
+\hline
+$\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+\hline
+$k-1$  & $b$ & $cb^\beta$ & $a^{k-1}$ & $a^{k-1}cb^{\beta}$ \\
+\hline
+$k$ & $1$ & $d$ & $a^k$ &$da^k$ \\
+\hline
+\end{tabular}
+\end{center}
+\egroup
+
+\end{frame}
+
+\begin{frame}{Ricorrenze lineari con partizione bilanciata}
+
+\bgroup
+\begin{center}
+\def\arraystretch{1.1}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Liv.} & \textbf{Dim.} & \textbf{Costo chiam.} & \textbf{N. chiamate} & \textbf{Costo livello} \\\hline
+$i$  & $b^{k-i}$ & $cb^{(k-i)\beta}$ & $a^i$& $a^icb^{(k-i)\beta}$ \\
+\hline
+$k$ & $1$ & $d$ & $a^k$ &$da^k$ \\
+\hline
+\end{tabular}
+\end{center}
+\egroup
+
+\begin{mybox}
+Sommando i costi totali di tutti i livelli, si ottiene:
+
+\[
+T(n) =\quad da^k + cb^{k\beta} \sum_{i=0}^{k-1} \frac{a^i}{b^{i\beta}} =\quad da^k + cb^{k\beta} \sum_{i=0}^{k-1} \left(\frac{a}{b^{\beta}}\right)^i
+\]
+\end{mybox}
+
+\end{frame}
+
+\begin{frame}{Ricorrenze lineari con partizione bilanciata}
+
+\begin{mybox}
+\[
+T(n) =\quad da^k + cb^{k\beta} \sum_{i=0}^{k-1} \frac{a^i}{b^{i\beta}} =\quad da^k + cb^{k\beta} \sum_{i=0}^{k-1} \left(\frac{a}{b^{\beta}}\right)^i
+\]
+\end{mybox}
+
+\begin{myboxtitle}[Osservazioni]
+\BIL
+\item $\alert{a^k} = a^{\log_b n} = a^{\log n / \log b} = 2^{\log a \log n / \log b}=
+n^{\log a / \log b} = \alert{n^\alpha}$
+\item $\alpha = \log a / \log b \Rightarrow \alpha \log b = \log a \Rightarrow \log b^\alpha = \log a \Rightarrow \alert{a= b^{\alpha}}$
+\item Poniamo $\alert{q} = \frac{a}{b^\beta} = \frac{b^\alpha}{b^\beta} = \alert{b^{\alpha-\beta}}$
+\EIL
+\end{myboxtitle}
+
+\begin{mybox}
+\[
+T(n) = da^k + cb^{k\beta} \sum_{i=0}^{k-1} \left(\frac{a}{b^{\beta}}\right)^i = dn^\alpha  + cb^{k\beta} \sum_{i=0}^{k-1} q^i
+\]
+\end{mybox}
+	
+\end{frame}
+
+\begin{frame}[shrink=5]{Ricorrenze lineari con partizione bilanciata}
+	
+	
+\BB{Caso 1: $\alpha > \beta$}	
+
+Ne segue che: $q = b^{\alpha-\beta} > 1$:
+
+\begin{align*}
+T(n) &= dn^\alpha  + cb^{k\beta} \textstyle\sum_{i=0}^{k-1} q^i \\
+&=n^\alpha d + cb^{k\beta} \alert{[(q^k - 1)/(q - 1)]} && \textrm{Serie geometrica finita} \\
+&\le n^\alpha d + cb^{k\beta}\alert{q^k}/(q - 1) && \textrm{Disequazione}\\
+&= n^\alpha d + \frac{cb^{k\beta}\alert{a^k}}{\alert{b^{k\beta}}}/(q - 1) && \textrm{Sostituzione $q$}\\
+&= n^\alpha d + \textit{ca}^k/(q - 1) && \textrm{Passi algebrici}\\
+&= \alert{n^\alpha[d+ c/(q - 1)]} && a^k = n^\alpha, \textrm{raccolta termini}
+\end{align*}
+
+\BIL
+\item Quindi $T(n)$ è $O(n^\alpha)$. 
+\item Per via della componente $dn^\alpha$, $T(n)$ è anche $\Omega(n^\alpha)$,
+e quindi $T(n) = \Theta(n^\alpha)$.
+\EIL
+
+
+\end{frame}
+
+\begin{frame}{Ricorrenze lineari con partizione bilanciata}
+	
+\BB{Caso 2: $\alpha = \beta$}	
+
+Ne segue che: $q = b^{\alpha-\beta} = 1$:
+
+\begin{align*}
+T(n) &= dn^\alpha  + cb^{k\beta} \textstyle\sum_{i=0}^{k-1} q^i \\
+&= n^\alpha d + cn^\beta \alert{k} && q^i = 1^i = 1\\
+&= n^\alpha d + c n^{\alert{\alpha}} k && \alpha=\beta\\
+&= n^\alpha (d + ck) && \textrm{Raccolta termini}\\
+&= n^\alpha [d + c\alert{\log n / \log b}] && k = \log_b n
+\end{align*}
+
+e quindi $T(n)$ è $\Theta(n^\alpha \log n)$;
+
+\end{frame}
+
+\begin{frame}{Ricorrenze lineari con partizione bilanciata}
+	
+\BB{Caso 3: $\alpha < \beta$}	
+
+Ne segue che: $q = b^{\alpha-\beta} < 1$:
+
+\begin{align*}
+T(n) &= dn^\alpha  + cb^{k\beta} \textstyle\sum_{i=0}^{k-1} q^i \\
+&= n^\alpha d + cb^{k\beta} \alert{[(q^k-1)/(q-1)]} && \textrm{Serie geometrica finita}\\
+&= n^\alpha d + cb^{k\beta} \alert{[(1 - q^k)/(1 - q)]} && \textrm{Inversione}\\
+&\le n^\alpha d + cb^{k\beta} [\alert{1}/(1 - q)] && \textrm{Disequazione}\\
+&= n^\alpha d + c\alert{n}^\beta/(1 - q) && b^k=n
+\end{align*}
+
+\BIL
+\item Quindi $T(n)$ è $O(n^\beta)$. 
+\item Poichè $T(n) = \Omega(n^\beta)$ per il termine non ricorsivo, si ha che
+$T(n) = \Theta(n^\beta)$. 
+\EIL
+
+\end{frame}
+
+
+
+
+\begin{frame}{Ricorrenze lineari con partizione bilanciata (Estesa)}
+
+\begin{myboxtitle}[Teorema]
+Sia $a \geq 1$, $b > 1$, $f(n)$ asintoticamente positiva, e sia 
+
+\[
+T(n) = \begin{cases}
+     a T(n/b) + f(n) & n > 1 \\
+     d & n \leq 1
+  \end{cases} 
+\]
+Sono dati tre casi:
+
+\vspace{-12pt}
+\bgroup
+\begin{center}
+\def\arraystretch{1.5}
+\begin{tabular}{|P{0.5cm}|P{5cm}P{0.4cm}P{3.7cm}|}
+\hline
+(1) & $\exists \epsilon>0: f(n) = O(n^{\log_b a - \epsilon})$ & $\Rightarrow$ & $T(n) = \Theta(n^{\log_b a})$\\
+\hline
+(2) & $f(n) = \Theta(n^{\log_b a})$ & $\Rightarrow$ & $T(n) = \Theta(f(n) \log n)$ \\
+\hline
+~\newline(3) & $\exists \epsilon>0: f(n) = \Omega(n^{\log_b a + \epsilon}) \wedge {}$\newline
+$\exists c: 0 < c < 1, \exists m>0:$  \newline
+$af(n/b) \leq cf(n), \forall n \geq m$
+& ~\newline $\Rightarrow$ 
+& ~\newline $T(n) = \Theta(f(n))$\\
+\hline
+\end{tabular}
+\end{center}
+\egroup
+
+\end{myboxtitle}
+
+\end{frame}
+
+\begin{frame}{Ricorrenze lineari di ordine costante}
+
+\begin{myboxtitle}[Teorema]
+Siano $a_1$, $a_2$, \ldots, $a_h$ costanti intere non negative, con $h$
+costante positiva, $c$ e $\beta$ costanti reali tali che $c > 0$ e $\beta \ge
+0$, e sia $T(n)$ definita dalla relazione di ricorrenza:
+
+\[
+T(n) = \begin{cases}
+\sum_{1 \le i \le h} a_iT(n - i) + cn^\beta & n > m \\
+\Theta(1) & n \le m \le h
+\end{cases}
+\]
+
+Posto $a = \displaystyle\sum_{1 \le i \le h}a_i$, allora:
+\begin{enumerate}
+\item $T(n)$ è $\Theta(n^{\beta+1})$, se $a = 1$,
+\item $T(n)$ è $\Theta(a^nn^\beta)$, se $a \ge 2$.
+\end{enumerate}
+
+\end{myboxtitle}
+
+\end{frame}
+
+
+\begin{frame}{Alcuni esempi}
+
+\bgroup
+\def\arraystretch{1.1}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = 9T(n/3)+n$ & 9 & 3 & 2 & (1) & $T(n) = \Theta(n^2)$ \\
+\hline
+\end{tabular}
+\egroup
+
+\begin{mybox}
+$f(n) = n = O(n^{\log_b a - \epsilon}) = O(n^{2-\epsilon})$, con $\epsilon < 1$
+\end{mybox}
+
+\end{frame}
+
+\begin{frame}{Alcuni esempi}
+
+\bgroup
+\def\arraystretch{1.1}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = T(2n/3)+1$ & 1 & $\frac{3}{2}$ & 0 & (2) & $T(n) = \Theta(\log n)$ \\
+\hline
+
+\end{tabular}
+\egroup
+
+\begin{mybox}
+$f(n) = n^0 = \Theta(n^{\log_b a}) = \Theta(n^0)$ 
+\end{mybox}
+
+\end{frame}
+
+\begin{frame}{Alcuni esempi}
+
+\bgroup
+\def\arraystretch{1.1}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = 3T(n/4)+n \log n$ & 3 & 4 & $\approx 0.79$ & (3) & $T(n) = \Theta(n \log n)$ \\
+\hline
+
+\end{tabular}
+\egroup
+
+\begin{mybox}
+ $f(n) = n \log n = \Omega(n^{\log_4 3 + \epsilon})$, con $\epsilon < 1-\log_4 3 \approx 0.208$ \\[3pt]
+  
+Dobbiamo dimostrare che: 
+
+$\exists c\leq 1, m \geq: af(n/b) \leq cf(n), \forall n \geq m$
+
+\begin{align*}
+af(n/b) &= 3 n/4 \log n/4 \\
+&= 3/4 n \log n - 3/4n \log 2 \\
+&\leq 3/4 n \log n \\
+&\stackrel{?}{\leq} c n \log n
+\end{align*}
+
+L'ultima è diseguazione è soddisfatta da $c=3/4$ e $m=1$.
+
+\end{mybox}
+
+\end{frame}
+
+
+
+\begin{frame}[shrink=6]{Alcuni esempi}
+
+\bgroup
+\def\arraystretch{1.1}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = 2T(n/2)+n \log n$ & 2 & 2 & 1 & -- & Non applicabile \\
+\hline
+\end{tabular}
+\egroup
+
+\begin{mybox}
+$f(n) = n \log n \neq O(n^{1-\epsilon})$, con $\epsilon>0$\\[3pt]
+$f(n) = n \log n \neq \Theta(n)$\\[3pt]
+$f(n) = n \log n \neq \Omega(n^{1+\epsilon})$, con $\epsilon>0$\\[3pt]
+   
+Nessuno dei tre casi è applicabile e bisogna utilizzare altri metodi.
+\end{mybox}
+
+\end{frame}
+
+
+\begin{frame}[shrink=6]{Alcuni esempi}
+
+\bgroup
+\def\arraystretch{1.1}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+&\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{\beta}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+(A) & $T(n) = T(n-10)+n^2$ & 1 & 2 & (1) & $T(n) = \Theta(n^3)$ \\
+\hline
+(B) & $T(n) = T(n-2)+T(n-1)+1$ & 2 & 0 & (2) & $T(n) = 2^n$ \\
+\hline
+\end{tabular}
+\egroup
+
+\begin{mybox}
+\BIL
+\item[(A)] Poiché $a=1$, il costo è polinomiale.
+\item[(B)] Poiché $a=2$, il costo è esponenziale.
+\EIL
+\end{mybox}
+
+\end{frame}

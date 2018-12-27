@@ -1,0 +1,1904 @@
+\documentclass[tikz]{standalone}
+
+\IfFileExists{figs/09/mytikz.sty}{\input{figs/09/mytikz.sty}}{\input{mytikz.sty}}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynode] at (0,2) (a) {a}; % ,label={1}
+\node[mynode] at (2,2) (b) {b}; % ,label={1}
+\node[mynode] at (4,2) (c) {c}; % ,label={1}
+\node[mynode] at (2,0) (d) {d}; %,label={below:1}
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edgen] (a) edge[bend left=10] node {} (b);
+\draw[edgen] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (a);
+
+\draw[edgen] (b) edge[bend left=10] node {} (c);
+\draw[edgen] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (b);
+
+\draw[edgen] (c) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynode] at (2,2) (b) {b}; % ,label={1}
+\node[mynode] at (4,2) (c) {c}; % ,label={1}
+\node[mynode] at (2,0) (d) {d}; %,label={below:1}
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edgen] (a) edge[bend left=10] node {} (b);
+\draw[edgen] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (a);
+
+\draw[edgen] (b) edge[bend left=10] node {} (c);
+\draw[edgen] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (b);
+
+\draw[edgen] (c) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynode] at (4,2) (c) {c}; % ,label={1}
+\node[mynode] at (2,0) (d) {d}; %,label={below:1}
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edgen] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (a);
+
+\draw[edgen] (b) edge[bend left=10] node {} (c);
+\draw[edgen] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (b);
+
+\draw[edgen] (c) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynode] at (4,2) (c) {c}; % ,label={1}
+\node[mynode] at (2,0) (d) {d}; %,label={below:1}
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (a);
+
+\draw[edgen] (b) edge[bend left=10] node {} (c);
+\draw[edgen] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (b);
+
+\draw[edgen] (c) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynoder,label={1}] at (4,2) (c) {c}; % ,label={1}
+\node[mynode] at (2,0) (d) {d}; %,label={below:1}
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edgen] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (b);
+
+\draw[edgen] (c) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynoder,label={1}] at (4,2) (c) {c}; % ,label={1}
+\node[mynode] at (2,0) (d) {d}; %,label={below:1}
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (b);
+
+\draw[edgen] (c) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynoder,label={1}] at (4,2) (c) {c}; 
+\node[mynoder,label={below:1}] at (2,0) (d) {d}; 
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynoder,label={1}] at (4,2) (c) {c}; 
+\node[mynoder,label={below:1}] at (2,0) (d) {d}; 
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynoder,label={1}] at (4,2) (c) {c}; 
+\node[mynoder,label={below:1}] at (2,0) (d) {d}; 
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edgen] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynoder,label={1}] at (4,2) (c) {c}; 
+\node[mynoder,label={below:1}] at (2,0) (d) {d}; 
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynoder,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edgen] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynoder,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edgen] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynode] at (6,2) (e) {e}; % ,label={2}
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynode] at (8,2) (f) {f}; % ,label={2}
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edgen] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynode] at (8,0) (h) {h}; % ,label={below:2}
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edgen] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynoder,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edgen] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynode] at (6,0) (g) {g}; %,label={below:2}
+\node[mynoder,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edgen] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynoder,label={below:2}] at (6,0) (g) {g}; %
+\node[mynoder,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynoder,label={below:2}] at (6,0) (g) {g}; %
+\node[mynoder,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edgen] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynoder,label={below:2}] at (6,0) (g) {g}; %
+\node[mynoder,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynoder,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynode] at (10,1) (i) {i}; %,label={2}
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edgen] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynoder,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynoder,label={2}] at (10,1) (i) {i}; %
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (f);
+
+\draw[edger] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynoder,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynoder,label={2}] at (10,1) (i) {i}; %
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (f);
+
+\draw[edger] (h) edge[bend left=10] node {} (i);
+\draw[edgen] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynoder,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynoder,label={2}] at (10,1) (i) {i}; %
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (f);
+
+\draw[edger] (h) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynoder,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynodeb,label={2}] at (10,1) (i) {i}; %
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (f);
+
+\draw[edger] (h) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynodeb,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynodeb,label={2}] at (10,1) (i) {i}; %
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edgen] (f) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (f);
+
+\draw[edger] (h) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynoder,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynodeb,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynodeb,label={2}] at (10,1) (i) {i}; %
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (f) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (f);
+
+\draw[edger] (h) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynodeb,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynodeb,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynodeb,label={2}] at (10,1) (i) {i}; %
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edgen] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (f) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (f);
+
+\draw[edger] (h) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynoder,label={2}] at (6,2) (e) {e}; % 
+\node[mynodeb,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynodeb,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynodeb,label={2}] at (10,1) (i) {i}; %
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edger,dashed] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (f) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (f);
+
+\draw[edger] (h) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynodeb,label={2}] at (6,2) (e) {e}; % 
+\node[mynodeb,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynodeb,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynodeb,label={2}] at (10,1) (i) {i}; %
+\node[mynode] at (3,-2) (j) {j}; % ,label={3}
+\node[mynode] at (5,-2) (k) {k}; % ,label={3}
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edger,dashed] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (f) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (f);
+
+\draw[edger] (h) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (h);
+
+\draw[edgen] (j) edge[bend left=10] node {} (k);
+\draw[edgen] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+\newpage %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynodeb,label={1}] at (0,2) (a) {a}; 
+\node[mynodeb,label={1}] at (2,2) (b) {b};
+\node[mynodeb,label={1}] at (4,2) (c) {c}; 
+\node[mynodeb,label={below:1}] at (2,0) (d) {d}; 
+\node[mynodeb,label={2}] at (6,2) (e) {e}; % 
+\node[mynodeb,label={2}] at (8,2) (f) {f}; % 
+\node[mynodeb,label={below:2}] at (6,0) (g) {g}; %
+\node[mynodeb,label={below:2}] at (8,0) (h) {h}; % 
+\node[mynodeb,label={2}] at (10,1) (i) {i}; %
+\node[mynodeb,label={3}] at (3,-2) (j) {j}; % 
+\node[mynodeb,label={3}] at (5,-2) (k) {k}; % 
+%
+\draw[edger] (a) edge[bend left=10] node {} (b);
+\draw[edger,dashed] (b) edge[bend left=10] node {} (a);
+
+\draw[edger,dashed] (a) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (a);
+
+\draw[edger] (b) edge[bend left=10] node {} (c);
+\draw[edger,dashed] (c) edge[bend left=10] node {} (b);
+
+\draw[edger,dashed] (b) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (b);
+
+\draw[edger] (c) edge[bend left=10] node {} (d);
+\draw[edger,dashed] (d) edge[bend left=10] node {} (c);
+
+\draw[edger] (e) edge[bend left=10] node {} (f);
+\draw[edger,dashed] (f) edge[bend left=10] node {} (e);
+
+\draw[edger,dashed] (e) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (e);
+
+\draw[edger] (h) edge[bend left=10] node {} (g);
+\draw[edger,dashed] (g) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (h) edge[bend left=10] node {} (f);
+\draw[edger] (f) edge[bend left=10] node {} (h);
+
+\draw[edger,dashed] (f) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (f);
+
+\draw[edger] (h) edge[bend left=10] node {} (i);
+\draw[edger,dashed] (i) edge[bend left=10] node {} (h);
+
+\draw[edger] (j) edge[bend left=10] node {} (k);
+\draw[edger,dashed] (k) edge[bend left=10] node {} (j);
+
+\path[use as bounding box] (-0.5,-3.0) rectangle (10.5, 3.0);
+\end{tikzpicture}
+
+
+\end{document}
+
+

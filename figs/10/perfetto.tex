@@ -1,0 +1,24 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+\begin{tikzpicture}[
+	thick,
+	level distance=1cm,
+  level 1/.style={sibling distance=2cm},
+  level 2/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode] {}
+    child {node[mynode] {}
+      child {node[mynode] {}}
+      child {node[mynode] {}}
+    }
+    child {node[mynode] {}
+      child {node[mynode] {}}
+      child {node[mynode] {}}
+    };
+\end{tikzpicture}
+
+\end{document}

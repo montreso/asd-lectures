@@ -1,0 +1,659 @@
+\input templates/header
+
+\usepackage{tikz}
+\usepackage{xmpmulti}
+\usepackage{listings}
+
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+	keywordstyle=\color{red}\bfseries,
+	commentstyle=\color{blue},
+	showstringspaces=false,
+}
+
+\newcommand{\Sum}{\mathit{sum}}
+
+
+\title[ASD - Insiemi e dizionari]{\textbf{Algoritmi e Strutture Dati}\\[24pt]Insiemi e dizionari\\Riassunto finale}
+
+\graphicspath{{figs/08/}}
+
+\begin{document}
+
+%-------------------------------------------------------------------------
+\FrameTitle{}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Insiemi e dizionari}
+
+\vspace{-12pt}
+\TwoCols{
+\BB{Insiemi}
+\BI
+\item Collezione di oggetti
+\EI
+}{
+\BB{Dizionari}	
+\BI
+\item Associazioni chiave-valore
+\EI
+}
+
+\bigskip
+\BB{Implementazione}
+\BI 
+\item Molte delle strutture dati viste finora
+\item Vantaggi e svantaggi
+\EI
+
+\end{frame}
+
+
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Insiemi realizzati con vettori booleani}
+
+\vspace{-12pt}
+\TwoCols{
+\BB{Insieme}
+\BI
+\item Interi $1 \ldots m$
+\item Collezione di $m$ oggetti memorizzati in un vettore
+\EI
+}{
+\BB{Rappresentazione}
+\BI
+\item Vettore booleano di $m$ elementi
+\EI
+}
+
+\bigskip
+\TwoCols{
+\BB{Vantaggi}
+\BI
+\item Notevolmente semplice
+\item Efficiente verificare se un elemento appartiene all’insieme
+\EI
+}{
+\BB{Svantaggi}
+\BI
+\item Memoria occupata $O(m)$, indipendente dalle dimensioni effettive
+\item Alcune operazioni inefficienti -- $O(m)$
+\EI
+}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}[shrink=12]{Insiemi realizzati con vettori booleani}
+
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{\Set (vettore booleano)}
+
+\begin{multicols}{2}
+$\BOOLEAN[\,]\ V$\;
+$\INTEGER\ \setsize$\;
+$\INTEGER\ \setcap$\;
+\BlankLine
+
+\PROCEDURE{\Set \setconstructor(\INTEGER $m$)}
+{
+  $\Set\ t = \NEW\ \Set$\;
+  $t.\setsize = 0$\;
+  $t.\setcap = m$\;
+	$t.V = [ \FALSE] * m$\;
+  \Return $t$\;
+}
+\BlankLine
+
+\BOOLEAN\ \PROCEDURE{\setcontains(\INTEGER $x$)}
+{
+	\eIf{$1 \leq x \leq \setcap$}{
+  	\Return\ $V[x]$\;
+	}{
+		\Return \FALSE\;
+	}
+}
+\BlankLine
+
+\INTEGER\ \PROCEDURE{size()}
+{
+  \Return\ $\setsize$\;
+}
+\BlankLine
+
+\PROCEDURE{\setinsert(\INTEGER $x$)}
+{
+	\If{$1 \leq x \leq \setcap$}{
+  	\If{\NOT $V[x]$}{
+    	$\setsize = \setsize+1$\;
+  		$V[x] = \TRUE$\;
+  	}
+	}
+}
+\BlankLine
+
+\PROCEDURE{\setremove(\INTEGER $x$)}
+{
+	\If{$1 \leq x \leq \setcap$}{
+  	\If{$V[x]$}{
+    	$\setsize = \setsize-1$\;
+			$V[x] = \FALSE$\;
+  	}
+  }
+}
+\end{multicols}
+\BlankLine
+\BlankLine
+\end{Procedure}
+
+\end{frame}
+
+\begin{frame}[shrink=12]{Insiemi realizzati con vettori booleani}
+
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{\Set (vettore booleano)}
+
+\bigskip
+\TwoColsCustom{0.46}{0.54}{
+
+%\begin{multicols}{2}
+\Set\ \PROCEDURE{\setunion(\Set $A$, \Set $B$)}
+{
+  $\Set\ C = \setconstructor(\MAX(A.\setcap, B.\setcap))$\;
+  \For{$i = 1$ \TO\ $A.\setcap$}
+  {
+    \If{$A.\setcontains(i)$}{$C.\setinsert(i)$}
+  }
+  \For{$i = 1$ \TO\ $B.\setcap$}
+  {
+    \If{$B.\setcontains(i)$}{$C.\setinsert(i)$}
+  }
+}
+}{
+\Set\ \PROCEDURE{\setdifference(\Set $A$, \Set $B$)}
+{
+  $\Set\ C = \setconstructor(A.\setcap)$\;
+  \For{$i = 1$ \TO\ $A.\setcap$}
+  {
+    \If{$A.\setcontains(i)\ \AND\ \NOT\ B.\setcontains(i)$}{$C.\setinsert(i)$}
+  }
+}
+}
+\Set\ \PROCEDURE{\setintersection(\Set $A$, \Set $B$)}
+{
+  $\Set\ C = \setconstructor(\MIN(A.\setcap, B.\setcap))$\;
+  \For{$i = 1$ \TO\ $\MIN.\setcap, B.\setcap)$}
+  {
+    \If{$A.\setcontains(i)\ \AND\ B.\setcontains(i)$}{$C.\setinsert(i)$}
+  }
+}
+%\end{multicols}
+\BlankLine
+\BlankLine
+\end{Procedure}
+
+\end{frame}
+
+\begin{frame}{BitSet}
+
+\BB{Java - \texttt{class java.util.BitSet}}
+
+\medskip
+{\footnotesize
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Metodo} & \textbf{Operaz.} \\\hline
+\texttt{void and(BitSet set)} & Union \\\hline
+\texttt{void or(BitSet set)} & Intersection \\\hline
+\texttt{int cardinality()} & Set size \\\hline
+\end{tabular}
+\hfill
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Metodo} & \textbf{Operaz.} \\\hline
+\texttt{void clear(int i)} & Remove \\\hline
+\texttt{void set(int i)} & Insert \\\hline
+\texttt{boolean get(int i)} & Contains \\\hline
+\end{tabular}
+}
+
+\bigskip
+\BB{C++ STL}
+
+\BI
+\item \alert{\texttt{std::bitset}} -- 
+Stuttura dati bitset con dimensione fissata nel template al momento della compilazione.
+\item \alert{\texttt{std::vector<bool>}} --
+Specializzazione di \texttt{std::vector} per ottimizzare la memorizzazione, dimensione dinamica.
+\EI
+
+
+\end{frame}
+
+
+
+\begin{frame}{Insiemi realizzati con liste / vettori non ordinati}
+	
+\begin{myboxtitle}[Costo operazioni]
+\BI
+\item Operazioni di ricerca, inserimento e cancellazione: \alert{$O(n)$}
+\item Operazioni di inserimento (assumendo assenza): \alert{$O(1)$}
+\item Operazioni di unione, intersezione e differenza: \alert{$O(nm)$}
+\EI
+\end{myboxtitle}
+
+
+\begin{Procedure}
+\caption[A]{\Set\ \setdifference($\Set\ A, \Set\ B$)}
+
+  $\Set\ C = \setconstructor()$\;
+  \ForEach{$s \in A$}
+  {
+    \If{\NOT $B.\setcontains(s)$}
+    {
+       $C.\listinsert(s)$\;
+    }
+  }
+  \Return\ $C$\;
+\end{Procedure}
+	
+
+	
+\end{frame}
+
+
+\begin{frame}[shrink=5]{Insiemi realizzati con liste / vettori ordinati}
+
+\vspace{-6pt}
+
+\TwoColsCustom{0.52}{0.46}{
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{\List\ \setintersection(\List\ $A$, \List\ $B$)}
+
+  $\List\ C = \setconstructor()$\;
+  $\Postype\ p = A.\listhead()$\;
+  $\Postype\ q = B.\listhead()$\;
+  \While{\NOT $A.\listend(p)\ \AND\ \newline \makebox[1.15cm]{} \NOT\ B.\listend(q)$}
+  {
+    \uIf{$A.\listread(p) \Eq B.\listread(q)$}
+    {
+       $C.\listinsert(C.\listtail(), A.\listread(p))$\;
+       $p = A.\listsucc(p)$\;
+       $q = B.\listsucc(q)$\;
+    }
+    \uElseIf{$A.\listread(p) < B.\listread(q)$}
+    {
+       $p = A.\listsucc(p)$\;
+    }
+    \Else
+    {
+       $q = B.\listsucc(q)$\;
+    }
+  }
+  \Return\ $C$\;
+\end{Procedure}
+}{
+\BB{Costo operazioni}
+\BIL
+\item Ricerca: 
+\BI
+\item $O(n)$ (liste) 
+\item $O(\log n)$ (vettori)
+\EI
+\item Inserimento/cancellazione
+\BI
+\item $O(n)$
+\EI
+\item Unione, intersezione e differenza: 
+\BI
+\item $O(n)$
+\EI
+\EIL
+}
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Insiemi -- Strutture dati complesse}
+	
+\TwoCols{
+\begin{myboxtitle}[Alberi bilanciati]
+\BIL
+\item Ricerca, inserimento, cancellazione: \alert{$O(\log n)$}
+\item Iterazione: \alert{$O(n)$}
+\item Con ordinamento
+\item Implementazioni:
+\BI
+\item Java \texttt{TreeSet}
+\item Python \texttt{OrderedSet}
+\item C++ STL \texttt{set}
+\EI
+\EIL
+\end{myboxtitle}
+}{
+\begin{myboxtitle}[Hash table]
+\BIL
+\item Ricerca, inserimento, cancellazione: \alert{$O(1)$}
+\item Iterazione: \alert{$O(m)$}
+\item Senza ordinamento
+\item Implementazioni:
+\BI
+\item Java \texttt{HashSet}
+\item Python \texttt{set}
+\item C++ STL \texttt{unordered\_set}
+\EI
+\EIL
+\end{myboxtitle}
+}	
+	
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}[shrink=20]{Insiemi -- Riassunto}
+	
+\renewcommand{\arraystretch}{1.3}
+
+\begin{tabular}{|P{3.1cm}|P{1.5cm}|P{1.5cm}|P{1.5cm}|P{1.5cm}|P{1.7cm}|P{1.3cm}|}	
+\hline
+& \textsf{contains}\newline\textsf{lookup} & \textsf{insert} & \textsf{remove} & \textsf{min} & \textsf{foreach}\newline (Memoria) & Ordine \\
+\hline
+Vettore booleano & $O(1)$ & $O(1)$ & $O(1)$ & $O(m)$ & $O(m)$ & Sì \\\hline
+Lista non ordinata & $O(n)$ & $O(n)$ & $O(n)$ & $O(n)$ & $O(n)$ & No\\\hline
+Lista ordinata & $O(n)$ & $O(n)$ & $O(n)$ & $O(1)$ & $O(n)$ & Sì\\\hline
+Vettore ordinato & $O(\log n)$ & $O(n)$ & $O(n)$ & $O(1)$ & $O(n)$ & Sì\\\hline
+Alberi bilanciati & $O(\log n)$ & $O(\log n)$ & $O(\log n)$ & $O(\log n)$ & $O(n)$ & Sì \\\hline
+Hash\newline (Mem. interna) & $O(1)$ & $O(1)$ & $O(1)$ & $O(m)$ & $O(m)$ & No\\\hline
+Hash\newline (Mem. esterna) & $O(1)$ & $O(1)$ & $O(1)$ & $O(m+n)$ & $O(m+n)$ & No \\\hline
+\end{tabular}
+	
+\bigskip
+$m \equiv$ dimensione del vettore o della tabella hash
+	
+\end{frame}
+
+
+
+\begin{frame}{Python -- List}
+\vspace{-12pt}
+\begin{center}
+\begin{tabular}{|P{2.7cm}P{2.0cm}|G{2.7cm}|G{2.7cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Operazione}}& \textbf{Caso medio} & \textbf{Caso pessimo ammortizzato} \\
+\hline
+\texttt{L.copy()} & \textcolor{blue}{Copy}  & $O(n)$ & $O(n)$ \\
+\hline
+\texttt{L.append(x)} & \textcolor{blue}{Append} & $O(1)$ & $O(1)$ \\
+\hline
+\texttt{L.insert(i,x)} & \textcolor{blue}{Insert} & $O(n)$ & $O(n)$ \\
+\hline
+\texttt{L.remove(x)} & \textcolor{blue}{Remove} & $O(n)$ & $O(n)$ \\
+\hline
+\texttt{L[i]} & \textcolor{blue}{Index} & $O(1)$ & $O(1)$ \\
+\hline
+\texttt{for x in L} & \textcolor{blue}{Iterator} & $O(n)$ & $O(n)$ \\
+\hline
+\texttt{L[i:i+k]} & \textcolor{blue}{Slicing} & $O(k)$ & $O(k)$ \\
+\hline
+\texttt{L.extend(s)} & \textcolor{blue}{Extend} &$O(k)$ & $O(k)$ \\
+\hline
+\texttt{x in L} & \textcolor{blue}{Contains} & $O(n)$ & $O(n)$ \\
+\hline
+\texttt{min(L)}, \texttt{max(L)} & \textcolor{blue}{Min, Max} & $O(n)$ & $O(n)$ \\
+\hline
+\texttt{len(L)} & \textcolor{blue}{Get length} &$O(1)$ & $O(1)$ \\
+\hline
+\end{tabular}
+
+\bigskip
+$n=\mathtt{len(L)}$
+\end{center}
+\end{frame}
+
+\begin{frame}[shrink=3]{Python -- Set}
+\vspace{-12pt}
+\begin{center}
+\begin{tabular}{|P{2.7cm}P{2.0cm}|G{2.7cm}|G{2.7cm}|}
+\hline
+\multicolumn{2}{|c|}{\textbf{Operazione}}& \textbf{Caso medio} & \textbf{Caso pessimo} \\
+\hline
+\texttt{x in S} & \textcolor{blue}{Contains} & $O(1)$ & $O(n)$ \\
+\hline
+\texttt{S.add(x)} & \textcolor{blue}{Insert} & $O(1)$ & $O(n)$ \\
+\hline
+\texttt{S.remove(x)} & \textcolor{blue}{Remove} & $O(1)$ & $O(n)$ \\
+\hline
+\texttt{S|T} & \textcolor{blue}{Union} & $O(n + m)$ & $O(n \cdot m)$\\
+\hline
+\texttt{S\&T} & \textcolor{blue}{Intersection} & $O(\min(n, m))$ & $O(n \cdot m)$ \\
+\hline
+\texttt{S-T} & \textcolor{blue}{Difference} & $O(n)$ & $O(n \cdot m)$ \\
+\hline
+\end{tabular}
+
+\bigskip
+$n=\mathtt{len(S)}, m = \mathtt{len(T)}$
+\end{center}
+\end{frame}
+
+
+
+
+\begin{frame}{BitSet + Tabelle Hash = Bloom Filters}
+
+\vspace{-12pt}
+\begin{columns}[c]
+\begin{column}{0.48\textwidth}
+\begin{myboxtitle}[BitSet]
+\alert{Vantaggi}
+\BI
+\item 1 bit/oggetto
+\EI
+\medskip
+\alert{Svantaggi}
+\BI
+\item Elenco prefissato di oggetti
+\EI
+\end{myboxtitle}
+
+\end{column}
+\hfill
+\begin{column}{0.48\textwidth}
+\begin{myboxtitle}[Tabelle Hash]
+\alert{Vantaggi}
+\BI
+\item Struttura dati dinamica
+\EI
+\medskip
+\alert{Svantaggi}
+\BI
+\item Alta occupazione di memoria
+\EI
+\end{myboxtitle}
+
+\end{column}
+\end{columns}
+
+\medskip
+\begin{myboxtitle}[Bloom filters]
+\medskip
+\TwoCols{
+\alert{Vantaggi}
+\BI
+\item Struttura dati dinamica
+\item Bassa occupazione di memoria
+(10 bit/oggetto)
+\EI
+}
+{
+\alert{Svantaggi}
+\BI
+\item Niente cancellazioni
+\item Risposta probabilistica
+\item No memorizzazione
+\EI
+}
+\end{myboxtitle}
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Bloom filter}
+
+\vspace{-6pt}
+\begin{myboxtitle}[Specifica]
+\BI
+\item $\textsf{insert}(k)$: Inserisce l'elemento $x$ nel bloom filter
+\item $\BOOLEAN\ \textsf{contains}(k)$\\
+\BI
+\item Se restituisce \FALSE, l'elemento $x$ è sicuramente non presente
+nell'insieme
+\item Se restituisce \TRUE, l'elemento $x$ può essere presente oppure no \\
+(\alert{falsi positivi})
+\EI
+\EI
+\end{myboxtitle}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Bloom filter}
+
+\vspace{-6pt}
+\BB{Trade-off fra occupazione di memoria e probabilità di falso positivo}
+\TwoColsCustom{0.7}{0.26}{
+\BI
+\item Sia $\epsilon$ la probabilità di falso positivo
+\item I bloom filter richiedono $1.44\log_2(1/\epsilon)$ bit per elemento
+inserito
+\EI
+}{
+\begin{tabular}{|c|r|}
+\hline
+$\epsilon$ & Bit \\
+\hline
+$10^{-1}$ & 4.78 \\
+\hline
+$10^{-2}$ & 9.57 \\
+\hline
+$10^{-3}$ & 14.35 \\
+\hline
+$10^{-4}$ & 19.13 \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+
+\begin{frame}{Applicazioni dei Bloom Filter}
+	
+\BB{Chrome Safe Browsing}
+\BIL
+\item Chrome contiene un database delle URL associate a siti con malware, costantemente aggiornato
+\item Fino al 2012, memorizzato con un Bloom Filter
+\item Chrome verifica l'appartenenza di ogni URL al database
+\BI
+\item Se la risposta è \FALSE, non appartiene
+\item Se la risposta è \TRUE, potrebbe appartenere e viene fatta una verifica
+tramite un servizio centralizzato di Google
+\EI
+\EIL
+
+\BB{Qualche dato (da prendere cum grano salis)}
+\BI
+\item Nel 2011, 650k URL memorizzati in 1.94MB
+\item 25 bit per URL, $\epsilon \approx 10^{-5}$
+\EI
+
+\end{frame}
+
+\begin{frame}{Applicazioni dei Bloom Filter}
+
+\BB{Ogni qual volta una verifica locale permette di evitare un'operazione
+più costosa, quali operazioni di I/O e comunicazioni di rete}
+
+\begin{myboxtitle}[They say...]
+\BI
+\item \alert{Facebook} uses bloom filters for typeahead search, to fetch friends and friends of friends to a user typed query.
+\item \alert{Apache HBase} uses bloom filter to boost read speed by filtering out unnecessary disk reads of HFile blocks which do not contain a particular row or column.
+\item \alert{Transactional Memory} (TM) has recently applied Bloom filters to detect memory access conflicts among threads.
+\item When you log into \alert{Yahoo} mail, the browser page requests a bloom filter representing your contact list
+\EI
+\end{myboxtitle}
+	
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Implementazione}
+
+\vspace{-6pt}
+\begin{overprint}
+\onslide<1|handout:1>
+\BI
+\item Un vettore booleano $A$ di $m$ bit, inizializzato a \FALSE 
+\item $k$ funzioni hash $h_1, h_2, \ldots, h_k: U \rightarrow [0, m-1]$
+\EI
+\onslide<2-4|handout:2>
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{$\textsf{insert}(k)$}
+\For{$i = 1$ \TO\ $k$}{
+  $A[h_i(k)] = \TRUE$\;
+}
+\end{Procedure}
+\onslide<5|handout:3>
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{$\BOOLEAN\ \textsf{contains}(k)$}
+\For{$i = 1$ \TO\ $k$}{
+  \lIf{$A[h_i(k)] \Eq \FALSE$}{
+		\Return \FALSE
+	}
+}
+\Return \TRUE\;
+\end{Procedure}
+\end{overprint}
+
+\vspace{-6pt}
+\begin{overprint}
+\includegraphics<1|handout:1>[width=1.0\textwidth,page=1]{bloom-crop.pdf}
+\includegraphics<2|handout:0>[width=1.0\textwidth,page=2]{bloom-crop.pdf}
+\includegraphics<3|handout:0>[width=1.0\textwidth,page=3]{bloom-crop.pdf}
+\includegraphics<4|handout:2>[width=1.0\textwidth,page=4]{bloom-crop.pdf}
+\includegraphics<5|handout:3>[width=1.0\textwidth,page=5]{bloom-crop.pdf}
+\end{overprint}
+
+\end{frame}
+
+\begin{frame}{Qualche formula (senza dimostrazione)}
+\BI
+\item Dati $n$ oggetti, $m$ bit, $k$ funzioni hash, la probabilità di un falso
+positivo è pari a:
+
+\[
+ \epsilon = \left( 1 - e^{-kn/m} \right)^k
+\]
+\item Dati $n$ oggetti e $m$ bit, il valore ottimale per $k$ è pari a
+
+\[
+  k = \frac{m}{n}\ln 2
+\]
+\item Dati $n$ oggetti e una probabilità di falsi positivi $\epsilon$, il numero
+di bit $m$ richiesti è pari a:
+
+\[
+ m = -\frac{n \ln \epsilon}{(\ln 2)^2}
+\]
+\EI
+
+\end{frame}
+
+
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

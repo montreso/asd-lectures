@@ -1,0 +1,22 @@
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta}
+
+\tikzset{
+    mynode/.style = {circle, thick, draw=black, align=center,fill=yellow!40,font=\ttfamily\bfseries\Large},
+    mynoder/.style = {circle, thick, draw=black, align=center,fill=red!30,font=\ttfamily\bfseries\Large},
+    mynodeb/.style = {circle, thick, draw=black, align=center,fill=blue!30,font=\ttfamily\bfseries\Large},
+    mynodew/.style = {circle, thick, draw=white, align=center,fill=white,font=\ttfamily\bfseries\Huge},
+    edgen/.style = {-latex,ultra thick},
+    edger/.style = {-latex,ultra thick,red},
+    edgeb/.style = {-latex,ultra thick,blue},
+    edgeg/.style = {-latex,ultra thick,gray},
+    edgegd/.style = {-latex,ultra thick,brown,dashed}, % back
+    edgevd/.style = {-latex,ultra thick,violet,dotted}, % forward
+    edgexd/.style = {-latex,ultra thick,blue,densely dotted}, % traversal
+    every picture/.style={/utils/exec={\ttfamily\bfseries}},
+    every picture/.style={font issue=\ttfamily\bfseries},
+    font issue/.style={execute at begin picture={#1\selectfont}}
+}

@@ -1,0 +1,833 @@
+\input templates/header
+\title[ASD - Divide-et-impera]{\textbf{Algoritmi e Strutture Dati}\\[24pt]Divide-et-impera}
+
+\renewcommand{\Primo}{\mathit{start}\xspace}
+\renewcommand{\Ultimo}{\mathit{end}\xspace}
+
+\usepackage{tikz}
+\usepackage{xmpmulti}
+\usepackage{listings}
+
+\lstset{
+  basicstyle=\ttfamily,
+  columns=fullflexible,
+  keywordstyle=\color{red}\bfseries,
+  commentstyle=\color{blue},
+  showstringspaces=false,
+}
+
+\graphicspath{{figs/12/}}
+
+\begin{document}
+
+%-------------------------------------------------------------------------
+\FrameTitle{}
+
+%-------------------------------------------------------------------------
+\FrameContent
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduzione}
+
+\subsection{Risoluzione problemi}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Risoluzione problemi}
+
+\BB{Dato un problema}
+\BIL
+\item Non ci sono "ricette generali" per risolverlo in modo efficiente
+\item Tuttavia, è possibile evidenziare quattro fasi
+\BI
+\item \alert{Classificazione del problema}
+\item \alert{Caratterizzazione della soluzione}
+\item \alert{Tecnica di progetto}
+\item \alert{Utilizzo di strutture dati}
+\EI
+\item Queste fasi non sono necessariamente sequenziali
+\EIL
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Classificazione dei problemi}
+
+\begin{myboxtitle}[Problemi decisionali]
+\BIL
+\item Il dato di ingresso soddisfa una certa proprietà?
+\item Soluzione: risposta sì/no
+\item Esempio: Stabilire se un grafo è connesso
+\EIL
+\end{myboxtitle}
+\begin{myboxtitle}[Problemi di ricerca]
+\BIL
+\item Spazio di ricerca: insieme di "soluzioni" possibili
+\item Soluzione ammissibile: soluzione che rispetta certi vincoli
+\item Esempio: posizione di una sottostringa in una stringa
+\EIL
+\end{myboxtitle}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Classificazione dei problemi}
+
+\begin{myboxtitle}[Problemi di ottimizzazione]
+\BIL
+\item Ogni soluzione è associata ad una funzione di costo
+\item Vogliamo trovare la soluzione di costo minimo
+\item Esempio: cammino più breve fra due nodi
+\EIL
+\end{myboxtitle}
+
+\begin{myboxtitle}[Problemi di approssimazione]
+\BIL
+\item A volte, trovare la soluzione ottima è computazionalmente impossibile
+\item Ci si accontenta di una soluzione approssimata: costo basso, ma non sappiamo se ottimo
+\item Esempio: problema del commesso viaggiatore
+\EIL
+\end{myboxtitle}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Definizione matematica del problema}
+
+\BB{E' fondamentale definire bene il problema dal punto di vista matematico}
+	\BIL
+	\item Spesso la formulazione è banale...
+	\item ... ma può suggerire una prima idea di soluzione
+	\item Esempio: Data una sequenza di $n$ elementi, una permutazione ordinata 
+	è data dal minimo seguito da una permutazione ordinata dei restanti $n-1$ elementi
+	(Selection Sort)
+	\EIL
+	
+\medskip
+\BB{La definizione matematica può suggerire una  possibile tecnica}
+	\BIL
+	\item \alert{Sottostruttura ottima} $\rightarrow$ \alert{Programmazione dinamica}
+	\item \alert{Proprietà greedy} $\rightarrow$ \alert{Tecnica greedy}
+	\EIL
+
+
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Tecniche di soluzione problemi}
+
+\begin{myboxtitle}[Divide-et-impera]
+\BI
+\item Un problema viene suddiviso in sotto-problemi indipendenti, che vengono
+risolti ricorsivamente (top-down)
+\item Ambito: problemi di decisione, ricerca
+\EI
+\end{myboxtitle}
+
+\begin{myboxtitle}[Programmazione dinamica]
+\BI
+\item La soluzione viene costruita (bottom-up) a partire da un insieme di
+sotto-problemi potenzialmente ripetuti
+\item Ambito: problemi di ottimizzazione
+\EI
+\end{myboxtitle}
+\begin{myboxtitle}[Memoization (o annotazione)]
+\BI
+\item Versione top-down della programmazione dinamica
+\EI
+\end{myboxtitle}
+
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Tecniche di soluzione problemi}
+
+\begin{myboxtitle}[Tecnica greedy]
+\BI
+\item Approccio "ingordo": si fa sempre la scelta localmente ottima
+\EI
+\end{myboxtitle}
+
+\begin{myboxtitle}[Backtrack]
+\BI
+\item Procediamo per "tentativi", tornando ogni tanto sui nostri passi
+\EI
+\end{myboxtitle}
+
+\begin{myboxtitle}[Ricerca locale]
+\BI
+\item La soluzione ottima viene trovata "migliorando" via via soluzioni esistenti
+\EI
+\end{myboxtitle}
+
+\begin{myboxtitle}[Algoritmi probabilistici]
+\BI
+\item Meglio scegliere con giudizio (ma in maniera costosa) o scegliere a caso ("gratuitamente")
+\EI
+\end{myboxtitle}
+
+\end{frame}
+
+\begin{frame}{Divide-et-impera}
+\BB{Tre fasi}
+\BIL
+\item \alert{Divide}: Dividi il problema in sotto-problemi più piccoli e indipendenti
+\item \alert{Impera}: Risolvi i sotto-problemi ricorsivamente
+\item \alert{Combina}: "unisci" le soluzioni dei sottoproblemi
+\EIL
+
+\bigskip
+\BB{Non esiste una ricetta "unica" per divide-et-impera}
+\BIL
+\item Merge Sort: "divide" banale, "combina" complesso
+\item Quicksort: "divide" complesso, niente fase di "combina"
+\item E' necessario uno sforzo creativo
+\EIL
+
+\end{frame}
+
+\begin{frame}{Minimo divide-et-impera}
+	
+\vspace{-9pt}
+\begin{Procedure}
+\caption[A]{\textsf{minrec}($\INTEGER[\,]\ A$, \INTEGER $i$, \INTEGER $j$)}
+\eIf{$i = j$}{
+  \Return $A[i]$\;
+}{
+	$m = \lfloor (i+j)/2 \rfloor$\;
+	\Return $\textsf{min}(\textsf{minrec}(A,i,m), \textsf{minrec}(A,m+1,j))$\;
+}
+\end{Procedure}
+
+\BB{Complessità}
+\pause
+$T(n) = \Theta(n)$ -- Non ne vale la pena
+
+\[
+  T(n) = \begin{cases} 
+		2T(n/2) + 1 & n>1 \\
+		1 & n=1
+	\end{cases}
+\]
+
+\end{frame}
+
+
+\subsection{Torri di Hanoi}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Le torri di Hanoi}
+	
+\vspace{-12pt}
+\TwoColsCustom{0.6}{0.37}{
+\BB{Gioco matematico}
+\BI
+\item tre pioli
+\item $n$ dischi di dimensioni diverse
+\item Inizialmente, i dischi sono impilati in ordine decrescente 
+nel piolo di sinistra
+\EI
+}{
+\IG{1.0}{hanoi.jpg}
+\vspace{-10pt}
+{\tiny \url{https://it.wikipedia.org/wiki/File:Tower_of_Hanoi.jpeg}}
+}
+
+
+\BB{Scopo del gioco}
+\BI
+\item Impilare in ordine decrescente i dischi sul piolo di destra
+\item Senza mai impilare un disco più grande su uno più piccolo
+\item Muovendo al massimo un disco alla volta
+\item Utilizzando il piolo centrale come appoggio
+\EI
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Le torri di Hanoi}
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{\textsf{hanoi}(\INTEGER\ $n$, \INTEGER\ $\mathit{src}$, \INTEGER\ $\mathit{dest}$, \INTEGER\ $\mathit{middle}$)}
+
+\eIf{$n=1$}
+{
+  \PRINT $\mathit{src} \rightarrow \mathit{dest}$\;
+}
+{
+  $\textsf{hanoi}(n-1, \mathit{src}, \mathit{middle}, \mathit{dest})$\;
+  \PRINT $\mathit{src} \rightarrow \mathit{dest}$\;
+ 	$\textsf{hanoi}(n-1, \mathit{middle}, \mathit{dest}, \mathit{src})$\;
+}
+\end{Procedure}
+
+\TwoCols{
+\vspace{-6pt}
+\BB{\textbf{Divide-et-impera}}
+\BIL
+\item $n-1$ dischi da $\mathit{src}$ a $\mathit{middle}$
+\item $1$ disco da $\mathit{src}$ a $\mathit{dest}$
+\item $n-1$ dischi da $\mathit{middle}$ a $\mathit{dest}$
+\EI
+}{
+\begin{overprint}
+\onslide<0|handout:1>
+\includegraphics[width=\textwidth]{hanoi-0.png}
+\onslide<1-40|handout:0>
+\multiinclude[<+>][format=png,start=0,end=39,graphics={width=\textwidth}]{hanoi}
+{\tiny \url{https://it.wikipedia.org/wiki/Torre_di_Hanoi\#/media/File:Tower_of_Hanoi_4.gif}}
+\end{overprint}
+}
+\end{frame}
+
+\begin{frame}{Le torri di Hanoi}
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{\textsf{hanoi}(\INTEGER\ $n$, \INTEGER\ $\mathit{src}$, \INTEGER\ $\mathit{dest}$, \INTEGER\ $\mathit{middle}$)}
+
+\eIf{$n=1$}
+{
+  \PRINT $\mathit{src} \rightarrow \mathit{dest}$\;
+}
+{
+  $\textsf{hanoi}(n-1, \mathit{src}, \mathit{middle}, \mathit{dest})$\;
+  \PRINT $\mathit{src} \rightarrow \mathit{dest}$\;
+ 	$\textsf{hanoi}(n-1, \mathit{middle}, \mathit{dest}, \mathit{src})$\;
+}
+\end{Procedure}
+
+\BIL
+\item Questa soluzione è ottima (si può dimostrare)
+\item Ricorrenza: $T(n) = 2T(n-1)+1$
+\item Costo computazionale? \pause \alert{$O(2^n)$}
+\EIL
+
+\end{frame}
+
+\subsection{Quicksort}
+
+\begin{frame}{Quicksort}
+	
+\BB{Algoritmo di ordinamento basato su divide-et-impera}
+\BI
+\item Caso medio: $O(n \log n)$
+\item Caso pessimo: $O(n^2)$
+\EI
+
+\BB{Caso medio vs caso pessimo}
+\BI
+\item Il fattore costante di Quicksort è migliore di Merge Sort
+\item "In-memory": non utilizza memoria addizionale
+\item Tecniche "euristiche" per evitare il caso pessimo
+\item Quindi spesso è preferito ad altri algoritmi
+\EI
+
+\smallskip
+\BB{
+\footnotesize
+R. Sedgewick, "\alert{\emph{Implementing Quicksort Programs}}". Communications of the ACM, 21(10):847-857, 1978.
+\url{http://portal.acm.org/citation.cfm?id=359631}
+}
+\end{frame}
+
+
+\begin{frame}{Quicksort}
+
+\BB{Input}
+\BI
+\item Vettore $A[1 \ldots n]$, 
+\item Indici $\Primo$, $\Ultimo$ tali che $1 \leq \Primo \leq \Ultimo \leq n$
+\EI
+
+\medskip
+\BB{\alert{Divide}}
+\BIL
+\item Sceglie un valore $p \in A[\Primo \ldots \Ultimo]$ 
+  detto \alert{perno} (\alert{pivot})
+\item Sposta gli elementi del vettore $A[\Primo \ldots \Ultimo]$ in modo
+tale che:
+
+$ \displaystyle
+    \begin{aligned}
+  \forall i \in [\Primo \ldots j - 1]: &A[i] \leq p \\
+  \forall i \in [j + 1 \ldots \Ultimo]: &A[i] \geq p \\
+ \end{aligned}
+  $
+\item L'indice $j$ viene calcolato in modo tale da rispettare tale condizione
+\item Il perno viene messo in posizione $A[j]$
+\EIL
+
+\end{frame}
+
+\begin{frame}{Quicksort}
+\BB{\alert{Impera}} 
+ordina i due sottovettori $A[\Primo \ldots j  -  1]$ e $A[j + 1 \ldots \Ultimo]$ 
+richiamando ricorsivamente Quicksort
+
+\bigskip
+\BB{\alert{Combina}} 
+Non fa nulla:
+\BI
+\item il primo sottovettore,
+\item $A[j]$,
+\item il secondo sottovettore 
+\EI
+formano già un vettore ordinato
+
+\end{frame}
+
+
+
+\begin{frame}{Quicksort -- \Perno()}
+
+\begin{Procedure}
+\caption[A]{\INTEGER \Perno($\Item[\,]\ A$, \INTEGER $\Primo$, \INTEGER $\Ultimo$)}
+$\Item\ p = A[\Primo]$\;
+$\INTEGER\ j = \Primo$\;
+\For{$i = \Primo+1$ \TO\ $\Ultimo$}
+{
+  \If{$A[i] < p$}
+  {
+    $j = j + 1$\;
+    $A[i] \leftrightarrow A[j]$\;  
+  }
+}
+$A[\Primo] = A[j]$\;
+$A[j] = p$\;
+\Return{$j$}
+\end{Procedure}
+
+\end{frame}
+
+\begin{frame}{Quicksort -- Procedura principale}
+\begin{Procedure}
+\caption[A]{\Quicksort($\Item[\,]\ A$, \INTEGER $\Primo$, \INTEGER $\Ultimo$)}
+\If{$\Primo < \Ultimo$}
+{
+  $\INTEGER\ j = \Perno(A, \Primo, \Ultimo)$\;
+  $\Quicksort(A, \Primo, j  -  1)$\;
+  $\Quicksort(A, j + 1, \Ultimo)$\;
+}
+\end{Procedure}
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Funzionamento \textsf{perno}()}
+
+\vspace{-9pt}
+\begin{overprint}
+\includegraphics<1|handout:1>[width=0.95\textwidth,page=1]{quicksort1}
+\includegraphics<2|handout:2>[width=0.95\textwidth,page=2]{quicksort1}
+\end{overprint}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Svolgimento ricorsione}
+
+\vspace{-12pt}
+\begin{overprint}
+\begin{center}
+\includegraphics<1|handout:1>[width=0.60\textwidth,page=1]{quicksort2}
+\includegraphics<2|handout:2>[width=0.60\textwidth,page=2]{quicksort2}
+\end{center}
+\end{overprint}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Quicksort: Complessità computazionale}
+
+\BB{Costo di $\Perno()$}
+\BI
+\item $\Theta(n)$
+\EI
+
+\BB{Costo Quicksort: dipende dal partizionamento}
+\BIL
+\item \alert{Partizionamento peggiore}
+\BI
+\item Dato un vettore di dimensione $n$, viene diviso in due sottoproblemi di 
+dimensione $0$ e $n-1$
+\item $T(n) = T(n-1)+T(0)+\Theta(n) = T(n-1) + \Theta(n) = \Theta(n^2)$
+\item Domanda: Quando si verifica il caso pessimo?
+\EI
+\item \alert{Partizionamento migliore}
+\BI
+\item Dato un vettore di dimensione $n$, viene sempre diviso in due 
+sottoproblemi di dimensione $n/2$
+\item $T(n) = 2T(n/2)+\Theta(n) = \Theta(n \log n)$
+\EI
+\EIL
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Quicksort: Complessità computazionale}
+
+\BB{Partizionamenti parzialmente bilanciati}
+\BIL
+\item Il partizionamento nel caso medio di Quicksort è molto più vicino al caso ottimo che al caso peggiore
+\item Esempio: Partizionamento 9-a-1:	
+
+\vspace{-6pt}
+\[T(n) = T(n/10)+T(9n/10)+cn = \Theta(n \log n)\]
+\item Esempio: Partizionamento 99-a-1:	
+
+\vspace{-6pt}
+\[T(n) = T(n/100)+T(99n/100)+cn  = \Theta(n \log n)\]
+\EIL
+\BB{Note}
+\BIL
+\item In questi esempi, il partizionamento ha proporzionalità limitata
+\item I fattori moltiplicativi possono essere importanti
+\EIL
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Quicksort: Complessità computazionale}
+\BB{Caso medio}
+\BIL
+\item Il costo dipende dall'ordine degli elementi, non dai loro valori
+\item Dobbiamo considerare tutte le possibili permutazioni
+\item Difficile dal punto di vista analitico
+\EIL
+
+\BB{Caso medio: un'intuizione}
+\BIL
+\item Alcuni partizionamenti saranno parzialmente bilanciati
+\item Altri saranno pessimi
+\item In media, questi si alterneranno nella sequenza di partizionamenti
+\item I partizionamenti parzialmente bilanciati “dominano” quelli pessimi
+\EIL
+\end{frame}
+
+
+\begin{frame}<handout:0>[fragile,shrink=20]{\url{https://xkcd.com/1185/}}
+\vspace{-12pt}
+\begin{lstlisting}
+define JobInterviewQuicksort(list):
+  Ok so you choose a pivot
+  Then divide the list in half
+  for each half:
+    check to see if it's sorted
+      no, wait, it doesn't matter
+    compare each element to the pivot
+      the bigger ones go in a new list
+      the equal ones go into, uh
+      the second list from before
+    hang on, let me name the lists
+      this is list A
+      the new one is list B
+    put the big ones into list B
+    now take the second list
+      call it list, uh, A2
+    which one was the pivot in?
+    scratch all that
+    it just recursively calls itself
+    until both lists are empty
+      right?
+    not empty, but you know what I mean
+  am I allowed to use the standard libraries?
+\end{lstlisting}
+
+\end{frame}
+
+
+
+\subsection{Algoritmo di Strassen}
+
+\begin{frame}{Moltiplicazione matrici}
+
+\vspace{-6pt}
+\TwoColsCustom{0.28}{0.70}{
+\begin{align*}
+C &= A \times B\\
+c_{i,j} &= \alert{\sum_{k=1}^{n_k} a_{i,k} \cdot b_{k,j}}\\
+T(n) &= \Theta(n_i \cdot n_k \cdot n_j) \\
+							 &= \Theta(n^3)
+\end{align*}
+}{
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{\textsf{matrixProduct}($\REAL[\,][\,]\ A, B, C,\ \INTEGER\ n_i, n_k, n_j$)}	
+
+\For(\Comment*[f]{Righe}){$i = 1$ \TO\ $n_i$}
+{
+  \For(\Comment*[f]{Colonne}){$j = 1$ \TO\ $n_j$}
+  {
+\alert{
+     $C[i,j] = 0$\;
+     \For{$k = 1$ \TO\ $n_k$}
+     {
+        $C[i,j] = C[i,j] + A[i,k] \cdot B[k,j]$\;
+     }
+}
+  }
+}
+\end{Procedure}
+}
+\vspace{-12pt}
+\begin{center}
+	\includegraphics[width=0.60\textwidth]{matrix.pdf}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Approccio divide-et-impera}
+
+\small
+\BB{Suddividiamo le matrici $n \times n$ in quattro matrici $n/2 \times n/2$}
+
+\[
+A = 
+\begin{bmatrix} 
+A_{1,1} & A_{1,2}\\	
+A_{2,1} & A_{2,2} 
+\end{bmatrix}
+\qquad
+B = 
+\begin{bmatrix} 
+B_{1,1} & B_{1,2}\\	
+B_{2,1} & B_{2,2} 
+\end{bmatrix}
+\]
+
+\medskip
+\BB{Calcolo prodotto matrice}
+
+\[
+C = 
+\begin{bmatrix} 
+A_{1,1} \alert{\times} B_{1,1} + A_{1,2} \alert{\times} B_{2,1} & A_{1,1} \alert{\times} B_{1,2} + A_{1,2} \alert{\times} B_{2,2} \\
+A_{2,1} \alert{\times} B_{1,1} + A_{2,2} \alert{\times} B_{2,1} & A_{2,1} \alert{\times} B_{1,2} + A_{2,2} \alert{\times} B_{2,2} \\
+\end{bmatrix}
+\]
+
+\medskip
+\BB{Equazione di ricorrenza}
+
+\[
+T(n) = \left\{ 
+  \begin{array}{ll}
+     1 & n = 1\\
+     8T(n/2) + n^2  & n > 1 
+  \end{array} 
+\right.
+\]
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Algoritmo di Strassen}
+\small
+\vspace{-12pt}
+\TwoCols{
+\BB{Calcolo elementi intermedi}
+
+\vspace{-12pt}
+\begin{align*}
+X_{1} &= (A_{11} + A_{22}) \alert{\times} (B_{11} + B_{22})\\
+X_{2} &= (A_{21} + A_{22}) \alert{\times} B_{11}\\ 
+X_{3} &= A_{11} \alert{\times} (B_{12} - B_{22})\\
+X_{4} &= A_{22} \alert{\times} (B_{21} - B_{11})\\
+X_{5} &= (A_{11} + A_{12}) \alert{\times} B_{22}\\
+X_{6} &= (A_{21} - A_{11}) \alert{\times} (B_{11} + B_{12})\\
+X_{7} &= (A_{12} - A_{22}) \alert{\times} (B_{21} + B_{22}).
+\end{align*}
+}
+{
+\BB{Equazione di ricorrenza}
+
+\vspace{-12pt}
+\begin{align*}
+T(n) &= \left\{ 
+  \begin{array}{ll}
+     1 & n = 1\\
+     7T(n/2) + n^2  & n > 1 
+  \end{array} 
+\right.\\
+T(n) &= \Theta(n^{\log_2 7}) \approx \Theta(n^{2.81})
+\end{align*}
+}
+\bigskip
+\BB{Calcolo matrice finale}
+
+\[
+C = 
+\begin{bmatrix} 
+ X_{1} + X_{4} - X_{5} + X_{7} & X_{3} + X_{5} \\
+X_{2} + X_{4} & X_{1} + X_{3} - X_{2} + X_{6} \\
+\end{bmatrix}
+\]
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Moltiplicazione matrici -- Panoramica storica}
+
+\BB{Algoritmo di Strassen (1969)}
+\BI
+\item $\Theta(n^{2.81})$
+\item Il primo ad “scoprire” che era possibile moltiplicare due matrici in meno di $n^3$ 
+moltiplicazioni scalari
+\EI
+
+\medskip
+\BB{Coppersmith and Winograd (1990)}
+\BI
+\item $O(n^{2.37})$
+\item Attuale algoritmo migliore
+\item Fattori moltiplicativi molto alti
+\EI
+
+\medskip
+\BB{Limite inferiore}
+\BI
+\item $\Omega(n^2)$
+\EI
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Conclusioni}
+
+\BB{Quando applicare divide-et-impera}
+\BIL
+\item I passi “divide” e “combina” devono essere semplici
+\item Ovviamente, i costi devono essere migliori del corrispondente algoritmo iterativo
+\BI 
+\item Esempio ok: sorting 
+\item Esempio non ok: ricerca del minimo
+\EI
+\EIL
+
+\bigskip
+\BB{Ulteriori vantaggi}
+\BIL
+\item Facile parallelizzazione
+\item utilizzo ottimale della cache (“cache oblivious”)
+\EIL
+
+\end{frame}
+
+\begin{frame}{Gap}
+\begin{myboxtitle}[Gap]
+In un vettore $V$ contenente $n \geq 2$ interi, un \alert{gap} è un indice $i$, $1 < i \leq n$,
+tale che $V[i-1]<V[i]$.
+\begin{itemize}
+\item Dimostrare che se $n \geq 2$ e $V[1]<V[n]$, allora $V$ contiene almeno un gap
+\item Progettare un algoritmo che, dato un vettore $V$ contenente $n \geq 2$
+interi e tale che $V[1]<V[n]$, restituisca la posizione di un gap nel vettore.
+\end{itemize}
+\end{myboxtitle}
+
+\end{frame}
+
+\begin{frame}{Gap}
+
+Per assurdo:
+\begin{itemize}
+\item Supponiamo che non ci sia un gap nel vettore
+\item Allora $V[1] \geq  V[2] \geq V[3] \geq \ldots \geq V[n-1]$, che contraddice 
+il fatto che $V[1]<V[n]$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Gap -- Dimostrazione per induzione}
+
+Proviamo a riformulare la proprietà tenendo conto di due indici:
+\BIL
+\item Sia $V$ un vettore di dimensione $n$
+\item Siano $i,j$ due indici tali che  
+$1 \leq i < j \leq n$ e $V[i]<V[j]$
+\EIL
+
+\bigskip
+In altre parole, ci sono più di due elementi nel sottovettore
+$V[i \ldots j]$ e il primo elemento $V[i]$ è più piccolo dell'ultimo
+elemento $V[j]$.
+\end{frame}
+
+\begin{frame}{Gap -- Dimostrazione per induzione}
+Vogliamo provare per induzione sulla dimensione $n$ del sottovettore che 
+il sottovettore contiene un gap.
+\BIL
+\item \alert{Caso base}: $n=j-i+1=2$, i.e. $j = i+1$: \\
+$V[i]<V[j]$ implica che $V[i] < V[i+1]$, che è un gap.
+\item \alert{Ipotesi induttiva}: dato un qualunque (sotto)vettore $V[h \ldots k]$ di 
+dimensione $n'<n$, tale che $V[h] < V[k]$, allora $V[h \ldots k]$ contiene un gap
+\item \alert{Passo induttivo}: consideriamo un qualunque elementpo
+$m$ tale che $i<m<j$. Almeno un dei due casi seguenti è vero:
+\BI
+\item Se $V[m] < V[j]$, allora esiste un gap in $V[m \ldots j]$, per ipotesi
+induttiva
+\item Se $V[i] < V[m]$, allora esiste un gap in $V[i \ldots m]$, per ipotesi
+induttiva
+\EI
+\EIL
+
+\end{frame}
+
+\begin{frame}{Gap}
+
+\begin{Procedure}
+\caption[A]{\textsf{gap}($\INTEGER[\,]\ V$, \INTEGER $n$)}
+  \Return $\textsf{gapRec}(V, 1, n)$\;
+\end{Procedure}
+
+\begin{Procedure}
+\caption[A]{\textsf{gapRec}($\INTEGER[\,]\ V$, \INTEGER $i$, \INTEGER $j$)}
+\If{$j\Eq i+1$}{
+	\Return $j$\;
+}
+$m = \lfloor (i+j)/2 \rfloor$\;
+\eIf{$V[m] < V[j]$}{
+	\Return $\textsf{gapRec}(V,m,j)$
+}{
+	\Return $\textsf{gapRec}(V,i,m)$
+}
+
+\end{Procedure}
+
+
+\end{frame}
+
+\begin{frame}{Performance evaluation}
+
+\begin{center}
+\begin{tabular}{|r|r|r|}
+\hline
+$n$ & \textbf{Iterativa (ms)} & \textbf{Ricorsiva (${\mu}$s)}\\\hline
+$10^3$ & 0.06 & 2.05\\\hline
+$10^4$ & 0.61 & 2.78\\\hline
+$10^5$ & 6.11 & 3.36\\\hline
+$10^6$ & 62.44 & 4.01\\\hline
+$10^7$ & 621.69 & 4.87\\\hline
+$10^8$ & 6205.72 & 5.47\\\hline
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+
+
+
+\end{document}
+
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{}
+
+\end{frame}

@@ -1,0 +1,31 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{violet}{#1}}
+
+\begin{document}
+
+%% 1 Con disuglianza
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode] at ( 0.00,  0.00) (a) {a};
+\node[mynode] at ( 1.50,  1.50) (b) {b};
+\node[mynode] at ( 3.00,  0.00) (c) {c};
+\draw[edgen, thick,-] (a) edge[above] node {5} (c);
+\draw[edgen, thick,-] (a) edge[above] node {3} (b);
+\draw[edgen, thick,-] (b) edge[above] node {3} (c);
+\end{tikzpicture}
+
+%% 1 Senza disuguaglianza
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode] at ( 4.50,  0.00) (d) {a};
+\node[mynode] at ( 6.00,  1.50) (e) {b};
+\node[mynode] at ( 7.50,  0.00) (f) {c};
+\draw[edgen, thick,-] (d) edge[above] node {5} (f);
+\draw[edgen, thick,-] (d) edge[above] node {2} (e);
+\draw[edgen, thick,-] (e) edge[above] node {2} (f);
+
+\end{tikzpicture}
+
+\end{document}

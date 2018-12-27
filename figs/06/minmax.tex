@@ -1,0 +1,186 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+\begin{tikzpicture}[
+	level distance=1.8cm,
+    level 1/.style={sibling distance=5cm},
+    level 2/.style={sibling distance=2.5cm},
+    level 3/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+  \node[mynode] {6}
+    child[edgen] {node[mynode] {2}
+      child[edgen] {node[mynode] {1}}
+      child[edgen] {node[mynode] {4}
+        child[edgen] {node[mynode] {3}}
+        child[missing] {node[mynode] {}}
+      }
+    }
+    child[edgen] {node[mynode] {8}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {12}
+           child[edgen] {node[mynode] {9}}
+           child[edgen] {node[mynode] {15}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+	level distance=1.8cm,
+    level 1/.style={sibling distance=5cm},
+    level 2/.style={sibling distance=2.5cm},
+    level 3/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+  \node[mynode] {6}
+    child[edgen] {node[mynode] {2}
+      child[edgen] {node[mynoder] {1}}
+      child[edgen] {node[mynode] {4}
+        child[edgen] {node[mynode] {3}}
+        child[missing] {node[mynode] {}}
+      }
+    }
+    child[edgen] {node[mynode] {8}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {12}
+           child[edgen] {node[mynode] {9}}
+           child[edgen] {node[mynode] {15}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+	level distance=1.8cm,
+    level 1/.style={sibling distance=5cm},
+    level 2/.style={sibling distance=2.5cm},
+    level 3/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+  \node[mynode] {6}
+    child[edgen] {node[mynode] {2}
+      child[edgen] {node[mynoder] {1}}
+      child[edgen] {node[mynode] {4}
+        child[edgen] {node[mynode] {3}}
+        child[missing] {node[mynode] {}}
+      }
+    }
+    child[edgen] {node[mynode] {8}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {12}
+           child[edgen] {node[mynode] {9}}
+           child[edgen] {node[mynoder] {15}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+	level distance=1.8cm,
+    level 1/.style={sibling distance=5cm},
+    level 2/.style={sibling distance=2.5cm},
+    level 3/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+  \node[mynode] {6}
+    child[edgen] {node[mynode] {2}
+      child[edgen] {node[mynoder] {1}}
+      child[edgen] {node[mynoder] {4}
+        child[edgen] {node[mynode] {3}}
+        child[missing] {node[mynode] {}}
+      }
+    }
+    child[edgen] {node[mynode] {8}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {12}
+           child[edgen] {node[mynode] {9}}
+           child[edgen] {node[mynoder] {15}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+	level distance=1.8cm,
+    level 1/.style={sibling distance=5cm},
+    level 2/.style={sibling distance=2.5cm},
+    level 3/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+  \node[mynode] {6}
+    child[edgen] {node[mynode] {2}
+      child[edgen] {node[mynoder] {1}}
+      child[edgen] {node[mynoder] {4}
+        child[edgen] {node[mynode] {3}}
+        child[missing] {node[mynode] {}}
+      }
+    }
+    child[edgen] {node[mynoder] {8}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {12}
+           child[edgen] {node[mynode] {9}}
+           child[edgen] {node[mynoder] {15}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+\newpage
+\begin{tikzpicture}[
+	level distance=1.8cm,
+    level 1/.style={sibling distance=5cm},
+    level 2/.style={sibling distance=2.5cm},
+    level 3/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+  \node[mynode] {}
+    child[edgen] {node[mynode] {}
+      child[edgen] {node[mynode] {}}
+      child[edgen] {node[mynode] {}
+        child[edgen] {node[mynode] {}}
+        child[missing] {node[mynode] {}}
+      }
+    }
+    child[edgen] {node[mynode] {}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {}
+           child[edgen] {node[mynode] {}}
+           child[edgen] {node[mynode] {}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+
+
+\end{document}

@@ -1,0 +1,30 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+\begin{tikzpicture}[
+	level distance=1.8cm,
+    level 1/.style={sibling distance=5cm},
+    level 2/.style={sibling distance=2.5cm},
+    level 3/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+
+  \node[mynode] {10}
+    child[edgen] {node[mynode] {6}
+      child[edgen] {node[mynode] {4}}
+      child[edgen] {node[mynode] {8}}
+    }
+    child[edgen] {node[mynode] {15}
+      child[edgen] {node[mynode] {12}}
+      child[edgen] {node[mynode] {18}}
+    };
+    
+\end{tikzpicture}
+
+
+
+\end{document}

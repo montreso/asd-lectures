@@ -1,0 +1,48 @@
+\documentclass[tikz]{standalone}
+
+\IfFileExists{figs/09/mytikz.sty}{\input{figs/09/mytikz.sty}}{\input{mytikz.sty}}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynode] at (3, 0) (a) {a};
+\node[mynode] at (3, 2) (b) {b};
+\node[mynode] at (0, 0) (g) {g};
+\node[mynode] at (0, 2) (h) {h};
+%
+\draw[edgen,-] (a) edge node {} (b);
+\draw[edgen,-] (a) edge node {} (g);
+\draw[edgen,-] (h) edge node {} (g);
+\draw[edgen,-] (h) edge node {} (b);
+
+\draw[edger] (4, 1) to (5,1);
+
+
+\draw[edgen,|-|] (8,2) to  (11,2);
+\draw[edgen,|-|] (6,1) to (9,1);
+\draw[edgen,|-|] (10,1) to (13,1);
+\draw[edgen,|-|] (8, 0) to (11,0);
+
+
+\node at (9.5, 2.5) {\huge a};
+\node at (9.5, 0.5) {\huge h};
+\node at ( 7.5, 1.5) {\huge b};
+\node at (11.5, 1.5) {\huge g};
+
+\draw[edger] (14, 1) to (15,1);
+
+%
+\node[mynode] at (19, 0) (aa) {a};
+\node[mynode] at (19, 2) (bb) {b};
+\node[mynode] at (16, 0) (gg) {g};
+\node[mynode] at (16, 2) (hh) {h};
+\draw[edgen,-] (aa) edge node {} (bb);
+\draw[edgen,-] (aa) edge node {} (gg);
+\draw[edgen,-] (hh) edge node {} (gg);
+\draw[edgen,-] (hh) edge node {} (bb);
+\draw[edgen,-,dashed] (hh) edge node {} (aa);
+
+\end{tikzpicture}
+
+\end{document}

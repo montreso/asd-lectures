@@ -1,0 +1,34 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{violet}{#1}}
+
+\begin{document}
+
+\tikzset{
+    every picture/.style={font issue=\rmfamily},
+}
+
+%%%% 1
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode,label={below:Pisa}] at (0.0, 0.0) (pisa) {};
+\node[mynode,label={below:Vinci}] at (2.0, -0.1) (vinci) {};
+\node[mynode,label={above:Firenze}] at (3.8, -0.5) (firenze) {};
+\node[mynode,label={below:Rignano}] at (4.5, -0.9) (rignano) {};
+\node[mynode,label={above:Firenzuola}] at (4.6, 1.1) (firenzuola) {};
+\node[mynode,label={above:\hspace{0.8cm}Serravalle}] at (2.1, 0.6) (serravalle) {};
+\node[mynode,label={above:Castelnuovo}] at (0.8, 1.5) (castelnuovo) {};
+\draw[edgen, thick,-] (pisa) edge node {} (vinci);
+\draw[edgen, thick,-] (vinci) edge node {} (firenze);
+\draw[edgen, thick,-] (firenze) edge node {} (rignano);
+\draw[edgen, thick,-] (rignano) edge node {} (firenzuola);
+\draw[edger, dashed, thick,-] (firenzuola) edge node {} (serravalle);
+\draw[edgen, thick,-] (serravalle) edge node {} (castelnuovo);
+\draw[edgen, thick,-] (castelnuovo) edge node {} (pisa);
+\end{tikzpicture}
+
+
+
+\end{document}

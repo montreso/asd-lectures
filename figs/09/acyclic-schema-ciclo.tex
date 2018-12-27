@@ -1,0 +1,105 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode] at (0.0, 0.0) (a) {a};
+\node[mynode] at (2.0, 2.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (c) {c};
+%
+\draw[edgen] (a) edge node {} (b);
+\draw[edgen] (b) edge node {} (c);
+\draw[edgen] (c) edge node {} (a);
+
+\path[use as bounding box] (-0.5,-1.00) rectangle (4.7, 2.0);
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder, label={below:$[1, ]$}] at (0.0, 0.0) (a) {a};
+\node[mynode] at (2.0, 2.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (c) {c};
+%
+\draw[edgen] (a) edge node {} (b);
+\draw[edgen] (b) edge node {} (c);
+\draw[edgen] (c) edge node {} (a);
+
+\path[use as bounding box] (-0.5,-1.00) rectangle (4.7, 2.0);
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder, label={below:$[1, ]$}] at (0.0, 0.0) (a) {a};
+\node[mynode] at (2.0, 2.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (c) {c};
+%
+\draw[edger] (a) edge[right] node {$dt[v]=0$} (b);
+\draw[edgen] (b) edge node {} (c);
+\draw[edgen] (c) edge node {} (a);
+
+\path[use as bounding box] (-0.5,-1.00) rectangle (4.7, 2.0);
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder, label={below:$[1, ]$}] at (0.0, 0.0) (a) {a};
+\node[mynoder, label={below:$[2, ]$}] at (2.0, 2.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (c) {c};
+%
+\draw[edger] (a) edge node {} (b);
+\draw[edgen] (b) edge node {} (c);
+\draw[edgen] (c) edge node {} (a);
+
+\path[use as bounding box] (-0.5,-1.00) rectangle (4.7, 2.0);
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder, label={below:$[1, ]$}] at (0.0, 0.0) (a) {a};
+\node[mynoder, label={below:$[2, ]$}] at (2.0, 2.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (c) {c};
+%
+\draw[edger] (a) edge node {} (b);
+\draw[edger] (b) edge[above right] node {$dt[v]=0$} (c);
+\draw[edgen] (c) edge node {} (a);
+
+\path[use as bounding box] (-0.5,-1.00) rectangle (4.7, 2.0);
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder, label={below:$[1, ]$}] at (0.0, 0.0) (a) {a};
+\node[mynoder, label={below:$[2, ]$}] at (2.0, 2.0) (b) {b};
+\node[mynoder, label={below:$[3, ]$}] at (4.0, 0.0) (c) {c};
+%
+\draw[edger] (a) edge node {} (b);
+\draw[edger] (b) edge node {} (c);
+\draw[edgen] (c) edge node {} (a);
+
+\path[use as bounding box] (-0.5,-1.00) rectangle (4.7, 2.0);
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder, label={below:$[1, ]$}] at (0.0, 0.0) (a) {a};
+\node[mynoder, label={below:$[2, ]$}] at (2.0, 2.0) (b) {b};
+\node[mynoder, label={below:$[3, ]$}] at (4.0, 0.0) (c) {c};
+%
+\draw[edger] (a) edge node {} (b);
+\draw[edger] (b) edge node {} (c);
+\draw[edgegd] (c) edge[above] node {\footnotesize $dt[u] > dt[v], ft[v] = 0$} (a); 
+
+\path[use as bounding box] (-0.5,-1.00) rectangle (4.7, 2.0);
+\end{tikzpicture}
+
+
+
+\end{document}

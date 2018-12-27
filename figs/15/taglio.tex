@@ -1,0 +1,33 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{blue}{#1}}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder, label={above left:$s$}] at (0.0, 1.5) (a) {a};
+\node[mynoder] at (2.0, 3.0) (b) {b};
+\node[mynoder] at (2.0, 0.0) (c) {c};
+\node[mynoder] at (5.0, 3.0) (d) {d};
+\node[mynode] at (5.0, 0.0) (e) {e};
+\node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
+%
+\draw[edgen] (a) edge[above left] node {\B{2}} (b);
+\draw[edgen] (b) edge[right] node {\B{2}} (c);
+\draw[edgen] (a) edge[below left] node {\B{8}} (c);
+\draw[edgen] (b) edge[above] node {\B{7}} (d);
+\draw[edgen] (b) edge[above] node {\B{3}} (e);
+\draw[edgen] (c) edge[below] node {\B{6}} (e);
+\draw[edgen] (d) edge[above] node {\B{3}} (f);
+\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (e) edge[below] node {\B{4}} (f);
+
+\path[draw,dashed,ultra thick,red] (3.0,-0.5) -- (6.2,3.0);
+
+\end{tikzpicture}
+
+
+\end{document}

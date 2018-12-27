@@ -1,0 +1,32 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{violet}{#1}}
+
+\begin{document}
+
+\tikzset{
+    every picture/.style={font issue=\rmfamily},
+}
+
+%%%% 1
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode] at (0.0, 0.0) (pisa) {};
+\node[mynode] at (2.0, -0.1) (vinci) {};
+\node[mynode,label={below left:Firenze}] at (3.8, -0.5) (firenze) {};
+\node[mynode,label={below:Rignano}] at (4.5, -0.9) (rignano) {};
+\node[mynode,label={above:Firenzuola}] at (4.6, 1.1) (firenzuola) {};
+\node[mynode] at (2.1, 0.6) (serravalle) {};
+\node[mynode] at (0.8, 1.5) (castelnuovo) {};
+
+\draw[edgen, thick,->] (firenze) edge[bend left=20] node {} (firenzuola);
+\draw[edger, dashed, thick,->] (firenzuola) edge[bend left=10] node {} (firenze);
+\draw[edger, dashed, thick,->] (firenze) edge[bend left=20] node {} (rignano);
+\draw[edgen, thick,->] (firenzuola) edge[bend left=20] node {} (rignano);
+\end{tikzpicture}
+
+
+
+\end{document}

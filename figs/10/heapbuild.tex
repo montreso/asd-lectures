@@ -1,0 +1,299 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+\begin{tikzpicture}[
+	thick,
+	level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm,label={above:$A[1]$}] {14}
+    child {node[mynode, minimum size=0.9cm,label={above:$A[2]$}] {45}
+      child {node[mynode, minimum size=0.9cm,label={above:$A[4]$}] {34}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[8]$}] {30}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[9]$}] {21}}
+      }
+      child {node[mynode, minimum size=0.9cm,label={above:$A[5]$}] {15}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[10]$}] {25}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[11]$}] {16}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm,label={above:$A[3]$}] {28}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[6]$}] {20}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[7]$}] {22}
+      }
+    };
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+  thick,
+  level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm,label={above:$A[1]$}] {14}
+    child {node[mynode, minimum size=0.9cm,label={above:$A[2]$}] {45}
+      child {node[mynode, minimum size=0.9cm,label={above:$A[4]$}] {34}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[8]$}] {30}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[9]$}] {21}}
+      }
+      child {node[mynodeb, minimum size=0.9cm,label={above:$A[5]$}] (a) {15}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[10]$}] (b) {25}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[11]$}] {16}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm,label={above:$A[3]$}] {28}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[6]$}] {20}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[7]$}] {22}
+      }
+    };
+  \draw[edger,<->] (a) edge[bend right=20] node {} (b);
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+  thick,
+  level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm,label={above:$A[1]$}] {14}
+    child {node[mynode, minimum size=0.9cm,label={above:$A[2]$}] {45}
+      child {node[mynode, minimum size=0.9cm,label={above:$A[4]$}] {34}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[8]$}] {30}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[9]$}] {21}}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[5]$}] (a) {25}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[10]$}] (b) {15}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[11]$}] {16}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm,label={above:$A[3]$}] {28}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[6]$}] {20}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[7]$}] {22}
+      }
+    };
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+  thick,
+  level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm,label={above:$A[1]$}] {14}
+    child {node[mynode, minimum size=0.9cm,label={above:$A[2]$}] {45}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[4]$}] {34}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[8]$}] {30}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[9]$}] {21}}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[5]$}] (a) {25}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[10]$}] (b) {15}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[11]$}] {16}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm,label={above:$A[3]$}] {28}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[6]$}] {20}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[7]$}] {22}
+      }
+    };
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+  thick,
+  level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm,label={above:$A[1]$}] {14}
+    child {node[mynode, minimum size=0.9cm,label={above:$A[2]$}] {45}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[4]$}] {34}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[8]$}] {30}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[9]$}] {21}}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[5]$}] (a) {25}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[10]$}] (b) {15}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[11]$}] {16}}
+      }
+    }
+    child {node[mynoder, minimum size=0.9cm,label={above:$A[3]$}] {28}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[6]$}] {20}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[7]$}] {22}
+      }
+    };
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+  thick,
+  level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm,label={above:$A[1]$}] {14}
+    child {node[mynoder, minimum size=0.9cm,label={above:$A[2]$}] {45}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[4]$}] {34}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[8]$}] {30}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[9]$}] {21}}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[5]$}] (a) {25}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[10]$}] (b) {15}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[11]$}] {16}}
+      }
+    }
+    child {node[mynoder, minimum size=0.9cm,label={above:$A[3]$}] {28}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[6]$}] {20}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[7]$}] {22}
+      }
+    };
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+  thick,
+  level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynodeb, minimum size=0.9cm,label={above:$A[1]$}] (a) {14}
+    child {node[mynoder, minimum size=0.9cm,label={above:$A[2]$}] (b) {45}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[4]$}] {34}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[8]$}] {30}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[9]$}] {21}}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[5]$}]  {25}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[10]$}] {15}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[11]$}] {16}}
+      }
+    }
+    child {node[mynoder, minimum size=0.9cm,label={above:$A[3]$}] {28}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[6]$}] {20}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[7]$}] {22}
+      }
+    };
+  \draw[edger,<->] (a) edge[bend left=20] node {} (b);
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+  thick,
+  level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynodeb, minimum size=0.9cm,label={above:$A[1]$}] {45}
+    child {node[mynodeb, minimum size=0.9cm,label={above:$A[2]$}] (a) {14}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[4]$}] (b) {34}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[8]$}] {30}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[9]$}] {21}}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[5]$}]  {25}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[10]$}] {15}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[11]$}] {16}}
+      }
+    }
+    child {node[mynoder, minimum size=0.9cm,label={above:$A[3]$}] {28}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[6]$}] {20}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[7]$}] {22}
+      }
+    };
+  \draw[edger,<->] (a) edge[bend left=20] node {} (b);
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+  thick,
+  level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynodeb, minimum size=0.9cm,label={above:$A[1]$}] {45}
+    child {node[mynodeb, minimum size=0.9cm,label={above:$A[2]$}]  {34}
+      child {node[mynodeb, minimum size=0.9cm,label={above:$A[4]$}] (a) {14}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[8]$}] (b) {30}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[9]$}] {21}}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[5]$}]  {25}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[10]$}] {15}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[11]$}] {16}}
+      }
+    }
+    child {node[mynoder, minimum size=0.9cm,label={above:$A[3]$}] {28}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[6]$}] {20}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[7]$}] {22}
+      }
+    };
+  \draw[edger,<->] (a) edge[bend right=20] node {} (b);
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+  thick,
+  level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynoder, minimum size=0.9cm,label={above:$A[1]$}] {45}
+    child {node[mynoder, minimum size=0.9cm,label={above:$A[2]$}]  {34}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[4]$}] (a) {30}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[8]$}] (b) {14}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[9]$}] {21}}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[5]$}]  {25}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[10]$}] {15}}
+        child {node[mynoder, minimum size=0.9cm,label={below:$A[11]$}] {16}}
+      }
+    }
+    child {node[mynoder, minimum size=0.9cm,label={above:$A[3]$}] {28}
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[6]$}] {20}
+      }
+      child {node[mynoder, minimum size=0.9cm,label={above:$A[7]$}] {22}
+      }
+    };
+    
+\end{tikzpicture}
+
+
+\end{document}

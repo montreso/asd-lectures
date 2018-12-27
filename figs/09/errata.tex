@@ -1,0 +1,129 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynode] at (4, 0) (a) {a};
+\node[mynode] at (0,-3) (b) {b};
+\node[mynode] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynode] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Queue = \{ a \}};
+%
+\draw[edgen,-] (a) edge node {} (c);
+\draw[edgen,-] (a) edge node {} (e);
+\draw[edgen,-] (a) edge node {} (f);
+\draw[edgen,-] (b) edge node {} (c);
+\draw[edgen,-] (b) edge node {} (f);
+\draw[edgen,-] (c) edge node {} (d);
+\draw[edgen,-] (f) edge node {} (g);
+\draw[edgen,-] (d) edge node {} (g);
+\draw[edgen,-] (e) edge node {} (h);
+\draw[edgen,-] (k) edge node {} (l);
+\draw[edgen,-] (f) edge node {} (d);
+\draw[edgen,-] (g) edge node {} (j);
+\draw[edgen,-] (h) edge node {} (j);
+\end{tikzpicture}
+
+\newpage
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynoder] at (4, 0) (a) {a};
+\node[mynode] at (0,-3) (b) {b};
+\node[mynode] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynode] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Queue = \{ c,f,e \}};
+%
+\draw[edger,-] (a) edge node {} (c);
+\draw[edger,-] (a) edge node {} (e);
+\draw[edger,-] (a) edge node {} (f);
+\draw[edgen,-] (b) edge node {} (c);
+\draw[edgen,-] (b) edge node {} (f);
+\draw[edgen,-] (c) edge node {} (d);
+\draw[edgen,-] (f) edge node {} (g);
+\draw[edgen,-] (d) edge node {} (g);
+\draw[edgen,-] (e) edge node {} (h);
+\draw[edgen,-] (k) edge node {} (l);
+\draw[edgen,-] (f) edge node {} (d);
+\draw[edgen,-] (g) edge node {} (j);
+\draw[edgen,-] (h) edge node {} (j);
+\end{tikzpicture}
+
+\newpage
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynode] at (4, 0) (a) {a};
+\node[mynode] at (0,-3) (b) {b};
+\node[mynoder] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynode] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Queue = \{ f,e,b,a,d \}};
+%
+\draw[edger,-] (a) edge node {} (c);
+\draw[edgen,-] (a) edge node {} (e);
+\draw[edgen,-] (a) edge node {} (f);
+\draw[edger,-] (b) edge node {} (c);
+\draw[edgen,-] (b) edge node {} (f);
+\draw[edger,-] (c) edge node {} (d);
+\draw[edgen,-] (f) edge node {} (g);
+\draw[edgen,-] (d) edge node {} (g);
+\draw[edgen,-] (e) edge node {} (h);
+\draw[edgen,-] (k) edge node {} (l);
+\draw[edgen,-] (f) edge node {} (d);
+\draw[edgen,-] (g) edge node {} (j);
+\draw[edgen,-] (h) edge node {} (j);
+\end{tikzpicture}
+
+\newpage
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynode] at (4, 0) (a) {a};
+\node[mynode] at (0,-3) (b) {b};
+\node[mynode] at (2,-2) (c) {c};
+\node[mynode] at (6,-2) (d) {d};
+\node[mynode] at (8,-2) (e) {e};
+\node[mynoder] at (4,-4) (f) {f};
+\node[mynode] at (6,-4) (g) {g};
+\node[mynode] at (8,-4) (h) {h};
+\node[mynode] at (7,-6) (j) {j};
+\node[mynode] at (11,-2) (k) {k};
+\node[mynode] at (10,-4) (l) {l};
+\node[align=left,above right,draw=none] at (0,-6) {Queue = \{ e,b,a,d,a,b,d,g \}};
+%
+\draw[edgen,-] (a) edge node {} (c);
+\draw[edgen,-] (a) edge node {} (e);
+\draw[edger,-] (a) edge node {} (f);
+\draw[edgen,-] (b) edge node {} (c);
+\draw[edger,-] (b) edge node {} (f);
+\draw[edgen,-] (c) edge node {} (d);
+\draw[edger,-] (f) edge node {} (g);
+\draw[edgen,-] (d) edge node {} (g);
+\draw[edgen,-] (e) edge node {} (h);
+\draw[edgen,-] (k) edge node {} (l);
+\draw[edger,-] (f) edge node {} (d);
+\draw[edgen,-] (g) edge node {} (j);
+\draw[edgen,-] (h) edge node {} (j);
+\end{tikzpicture}
+
+\end{document}

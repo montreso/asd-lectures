@@ -1,0 +1,99 @@
+\title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e Strutture Dati}\\[18pt]Analisi di algoritmi\\Funzioni di costo, notazione asintotica}
+
+
+%-------------------------------------------------------------------------
+\FrameTitle{}
+
+% %-------------------------------------------------------------------------
+% \begin{PlainFrame}{Sommario}
+%  \tableofcontents
+% \end{PlainFrame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduzione all'analisi}
+
+\subsection{Notazione asintotica}
+
+\begin{frame}{Notazioni $O$, $\Omega$, $\Theta$}
+
+\begin{myboxtitle}[Definizione -- Notazione $O$]
+Sia $g(n)$ una funzione di costo; indichiamo con $O(g(n))$ l'insieme
+delle funzioni $f(n)$ tali per cui:\\[-6pt]
+\[
+  \exists c>0, \exists m \geq 0: \alert{f(n) \leq cg(n)}, \forall n \geq m
+\]
+\end{myboxtitle}
+
+\medskip
+\begin{itemize}
+\item Come si legge: $f(n)$ è “\alert{O grande}” (big-O) di $g(n)$
+\item Come si scrive: $f(n) = O(g(n))$
+\item $g(n)$ è un \alert{limite asintotico superiore} per $f(n)$
+\item $f(n)$ cresce al più come $g(n)$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Notazioni $O$, $\Omega$, $\Theta$}
+
+\begin{myboxtitle}[Definizione -- Notazione $\Omega$]
+Sia $g(n)$ una funzione di costo; indichiamo con $\Omega(g(n))$ l'insieme
+delle funzioni $f(n)$ tali per cui:\\[-6pt]
+\[
+  \exists c>0, \exists m \geq 0: \alert{f(n) \geq cg(n)}, \forall n \geq m
+\]
+\end{myboxtitle}
+
+\medskip
+\begin{itemize}
+\item Come si legge: $f(n)$ è “\alert{Omega grande}”  di $g(n)$
+\item Come si scrive: $f(n) = \Omega(g(n))$
+\item $g(n)$ è un \alert{limite asintotico inferiore} per $f(n)$
+\item $f(n)$ cresce almeno quanto $g(n)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Notazioni $O$, $\Omega$, $\Theta$}
+
+\begin{myboxtitle}[Definizione -- Notazione $\Theta$]
+Sia $g(n)$ una funzione di costo; indichiamo con $\Theta(g(n))$ l'insieme
+delle funzioni $f(n)$ tali per cui:\\[-6pt]
+\[
+  \exists c_1>0, \exists c_2>0, \exists m \geq 0: \alert{c_1g(n) \leq f(n) \leq c_2g(n)}, \forall n \geq m
+\]
+\end{myboxtitle}
+
+\medskip
+\begin{itemize}
+\item Come si legge: $f(n)$ è “\alert{Theta}” di $g(n)$
+\item Come si scrive: $f(n) = \Theta(g(n))$
+\item $f(n)$ cresce esattamente come $g(n)$
+\item $f(n) = \Theta(g(n))$ se e solo se $f(n) = O(g(n))$ e $f(n) = \Omega(g(n))$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Algoritmi vs problemi}
+
+\BB{Complessità in tempo di un \alert{algoritmo}} 
+{\em La più grande quantità di tempo richiesta per un input di dimensione $n$}
+\BI
+\item \alert{$O(f(n))$}: Per tutti gli input, l'algoritmo costa al più $f(n)$ 
+\item \alert{$\Omega(f(n))$}: Per tutti gli input, l'algoritmo costa almeno $f(n)$ 
+\item \alert{$\Theta(f(n))$}: L'algoritmo richiede $\Theta(f(n))$ per tutti gli input
+\EI
+
+\bigskip
+\BB{Complessità in tempo di un \alert{problema computazionale}}
+{\em La complessità in tempo relative a tutte le possibili soluzioni}
+\BI
+\item \alert{$O(f(n))$}: Complessità del miglior algoritmo che risolve il 
+problema
+\item \alert{$\Omega(f(n))$}: Dimostrare che nessun algoritmo può risolvere il problema in tempo inferiore a $\Omega(f(n))$
+\item \alert{$\Theta(f(n))$}: Algoritmo ottimo
+\EI
+
+
+
+\end{frame}
+

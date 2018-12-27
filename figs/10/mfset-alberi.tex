@@ -1,0 +1,83 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+
+
+\begin{tikzpicture}[thick,font=\ttfamily\bfseries]
+\node[mynode] at (0, 0) (a4) {4};
+\node[mynode] at (0, 1.5) (a2) {2};
+\node[mynode] at (1.5, 1.5) (a3) {3};
+\node[mynode] at (0.75, 3) (a1) {1};
+\node[mynode] at (3, 3) (b5) {5};
+\node[mynode] at (3, 1.5) (b6) {6};
+\node[mynode] at (3, 0) (b7) {7};
+%
+\draw[edgen] (a4) edge node {} (a2);
+\draw[edgen] (a2) edge node {} (a1);
+\draw[edgen] (a3) edge node {} (a1);
+\draw[edgen] (a1) edge[loop above,->] node {} (a1);
+\draw[edgen] (b7) edge node {} (b6);
+\draw[edgen] (b6) edge node {} (b5);
+\draw[edgen,->] (b5) edge[loop above] node[->] {} (b5);
+
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[thick,font=\ttfamily\bfseries]
+\node[mynode] at (0, 0) (a4) {4};
+\node[mynode] at (0, 1.5) (a2) {2};
+\node[mynode] at (1.5, 1.5) (a3) {3};
+\node[mynode] at (0.75, 3) (a1) {1};
+\node[mynode] at (3, 1.5) (b5) {5};
+\node[mynode] at (3, 0) (b6) {6};
+\node[mynode] at (3, -1.5) (b7) {7};
+%
+\draw[edgen] (a4) edge node {} (a2);
+\draw[edgen] (a2) edge node {} (a1);
+\draw[edgen] (a3) edge node {} (a1);
+\draw[edgen] (a1) edge[loop above,->] node {} (a1);
+\draw[edgen] (b7) edge node {} (b6);
+\draw[edgen] (b6) edge node {} (b5);
+\draw[edger] (b5) edge node {} (a1);
+
+\end{tikzpicture}
+
+\begin{tikzpicture}[thick,font=\ttfamily\bfseries]
+\node[mynode] at (0, 0) (a4) {4};
+\node[mynode] at (0, 1.5) (a2) {2};
+\node[mynode] at (1.5, 1.5) (a3) {3};
+\node[mynode] at (0.75, 3) (a1) {1};
+\node[mynode] at (3, 3) (b5) {5};
+\node[mynode] at (3, 1.5) (b6) {6};
+%
+\draw[edgen] (a4) edge node {} (a2);
+\draw[edgen] (a2) edge node {} (a1);
+\draw[edgen] (a3) edge node {} (a1);
+\draw[edgen] (a1) edge[loop above,->] node {} (a1);
+\draw[edgen] (b6) edge node {} (b5);
+\draw[edgen,->] (b5) edge[loop above] node[->] {} (b5);
+
+\end{tikzpicture}
+
+\begin{tikzpicture}[thick,font=\ttfamily\bfseries]
+\node[mynode] at (0, 0) (a4) {4};
+\node[mynode] at (0, 1.5) (a2) {2};
+\node[mynode] at (1.5, 1.5) (a3) {3};
+\node[mynode] at (0.75, 3) (a1) {1};
+\node[mynode] at (3, 1.5) (b5) {5};
+\node[mynode] at (3, 0) (b6) {6};
+%
+\draw[edgen] (a4) edge node {} (a2);
+\draw[edgen] (a2) edge node {} (a1);
+\draw[edgen] (a3) edge node {} (a1);
+\draw[edgen] (a1) edge[loop above,->] node {} (a1);
+\draw[edgen] (b6) edge node {} (b5);
+\draw[edger] (b5) edge node {} (a1);
+
+\end{tikzpicture}
+
+
+\end{document}

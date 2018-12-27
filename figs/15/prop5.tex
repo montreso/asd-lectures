@@ -1,0 +1,19 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{blue}{#1}}
+\newcommand{\G}[1]{\textcolor{violet}{#1}}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode] at (0.0, 0.0) (a) {a};
+\node[mynode] at (3.0, 0.0) (b) {b};
+\draw[edgen] (a) edge[bend left=25, above] node[rounded corners=2pt,fill=gray!10] {\R{5}+\G{2}/\B{7}} (b);
+\draw[edgen] (b) edge[dashed,bend left=25, below] node[rounded corners=2pt,fill=gray!10] {\R{-5}+\G{5}/\B{0}} (a);
+\end{tikzpicture}
+
+
+\end{document}

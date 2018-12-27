@@ -1,0 +1,23 @@
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+\usetikzlibrary{arrows.meta}
+
+\tikzset{
+    mynode/.style = {circle, ultra thick, draw=black, align=center,fill=yellow!30,font=\ttfamily\bfseries\Large,text=black},
+    mynoder/.style = {circle, ultra thick, draw=black, align=center,fill=red!30,font=\ttfamily\bfseries\Large,text=black},
+    mynodeb/.style = {circle, ultra thick, draw=black, align=center,fill=blue!30,font=\ttfamily\bfseries\Large,text=black},
+    mynodeg/.style = {circle, ultra thick, draw=gray, align=center,fill=gray!05,font=\ttfamily\bfseries\Large,text=gray!20},
+    mynodegr/.style = {circle, ultra thick, draw=gray, align=center,fill=gray!05,font=\ttfamily\bfseries\Large,text=red},
+    edgen/.style = {-,ultra thick,black},
+    edger/.style = {-,ultra thick,red},
+    edgeb/.style = {-,ultra thick,blue},
+    edgeg/.style = {-,ultra thick,gray},
+    edgegd/.style = {-,ultra thick,brown,dashed}, % back
+    edgevd/.style = {-,ultra thick,violet,dotted}, % forward
+    edgexd/.style = {-,ultra thick,blue,densely dotted}, % traversal
+    every picture/.style={/utils/exec={\ttfamily\bfseries}},
+    every picture/.style={font issue=\ttfamily\bfseries},
+    font issue/.style={execute at begin picture={#1\selectfont}}
+}

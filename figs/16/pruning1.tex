@@ -1,0 +1,15 @@
+\documentclass[tikz]{standalone}
+
+\input{figs/16/mytikz.sty}
+
+\begin{document}
+
+\begin{forest}
+for tree={circle,draw,thick,edge={thick},fill=yellow!40,l=1.00cm,l sep=8pt, s sep=10pt}
+[ 
+    [,fill=red [ [ [] [] ] [ [] [] ] ] [ [ [] [] ] [ [] [] ] ] ]
+    [ [ [ [] [] ] [,fill=red [] [] ] ] [,fill=red [ [] [] ] [ [] [] ] ] ]
+]
+\end{forest}
+
+\end{document}

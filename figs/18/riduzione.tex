@@ -1,0 +1,26 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{violet}{#1}}
+
+\begin{document}
+
+%%%% 1
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[rectangle, ultra thick, draw=black,minimum width = 5.6cm, minimum height =2.0cm,label={[yshift=-2.0cm]$A_1$},fill=yellow!20] at (5.0,0.0) (e) {};
+\node[rectangle, draw=none] at (0.0, 0.0) (a) {};
+\node[rectangle, thick, draw=black,minimum width = 1.0cm, minimum height =1.0cm,fill=red!20] at (3.2,0.0) (b) {$f$};
+\node[rectangle, thick, draw=black,minimum width = 1.0cm, minimum height =1.0cm,fill=red!20] at (6.8,0.0) (c) {$A_2$};
+\node[rectangle, draw=none] at (10.5, 0.0) (d) {};
+%
+\draw[thick,draw=black,->] (a) edge[above] node {$x \in I_1$} (b);
+\draw[thick,draw=black,->] (b) edge[above] node {$f(x) \in I_2$} (c);
+\draw[thick,draw=black,->] (c) edge[above] node {$s \in \{0,1\}$} (d);
+\end{tikzpicture}
+
+
+
+
+\end{document}

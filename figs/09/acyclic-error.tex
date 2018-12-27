@@ -1,0 +1,74 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode] at (0.0, 0.0) (a) {a};
+\node[mynode] at (2.0, 2.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (c) {c};
+%
+\draw[edgen] (a) edge node {} (b);
+\draw[edgen] (b) edge node {} (c);
+\draw[edgen] (a) edge node {} (c);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder] at (0.0, 0.0) (a) {a};
+\node[mynode] at (2.0, 2.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (c) {c};
+%
+\draw[edgen] (a) edge node {} (b);
+\draw[edgen] (b) edge node {} (c);
+\draw[edgen] (a) edge node {} (c);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder] at (0.0, 0.0) (a) {a};
+\node[mynoder] at (2.0, 2.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (c) {c};
+%
+\draw[edger] (a) edge node {} (b);
+\draw[edgen] (b) edge node {} (c);
+\draw[edgen] (a) edge node {} (c);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder] at (0.0, 0.0) (a) {a};
+\node[mynoder] at (2.0, 2.0) (b) {b};
+\node[mynoder] at (4.0, 0.0) (c) {c};
+%
+\draw[edger] (a) edge node {} (b);
+\draw[edger] (b) edge node {} (c);
+\draw[edgen] (a) edge node {} (c);
+
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynoder] at (0.0, 0.0) (a) {a};
+\node[mynoder] at (2.0, 2.0) (b) {b};
+\node[mynodeb] at (4.0, 0.0) (c) {c};
+%
+\draw[edger] (a) edge node {} (b);
+\draw[edger] (b) edge node {} (c);
+\draw[edger] (a) edge node {} (c);
+
+\end{tikzpicture}
+
+
+
+
+
+\end{document}

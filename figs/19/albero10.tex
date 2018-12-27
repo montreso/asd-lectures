@@ -1,0 +1,31 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+\usetikzlibrary{positioning}
+\usepackage{forest}
+
+\tikzset{
+    LabelT/.style = {midway,left,above,draw=none,fill=none},
+    LabelL/.style = {midway,left,draw=none,fill=none},
+    LabelR/.style = {midway,right,draw=none,fill=none},
+}	
+
+\begin{document}
+
+\begin{forest}
+for tree={circle,draw,thick,edge={thick},fill=yellow!40,l=1.00cm,l sep=8pt, s sep=10pt}
+[ 
+    [,edge label={node[LabelT] {\small $S[0]$}} 
+			[,edge label={node[LabelL] {\small $S[1]$}}  
+				[  
+					[,edge label={node[LabelL,white] {\small $S[3]$}}] 
+					[] 
+				] 
+			[,edge label={node[LabelR] {\small $S[2]$}}  
+			 [,edge label={node[LabelL] {\small $S[3]$}}
+			 ] [] ] ] [ [ [] [] ] [ [] [] ] ] ]
+    [ [ [ [] [] ] [ [] [] ] ] [ [ [] [] ] [ [] [] ] ] ]
+]
+\end{forest}
+
+\end{document}

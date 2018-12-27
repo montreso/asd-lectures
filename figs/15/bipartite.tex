@@ -1,0 +1,33 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{blue}{#1}}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode] at (0.0,  2.0) (a) {a};
+\node[mynode] at (0.0,  4.0) (b) {b};
+\node[mynode] at (0.0,  6.0) (c) {c};
+\node[mynode] at (0.0,  8.0) (d) {d};
+\node[mynode] at (0.0, 10.0) (e) {e};
+
+\node[mynode] at (4.0,  2.0) (1) {1};
+\node[mynode] at (4.0,  4.0) (2) {2};
+\node[mynode] at (4.0,  6.0) (3) {3};
+\node[mynode] at (4.0,  8.0) (4) {4};
+\node[mynode] at (4.0, 10.0) (5) {5};
+%
+\draw[edgen] (e) edge[above] node {} (3);
+\draw[edgen] (d) edge[above] node {} (2);
+\draw[edgen] (c) edge[above] node {} (4);
+\draw[edgen] (b) edge[above] node {} (5);
+\draw[edgen] (b) edge[above] node {} (1);
+\draw[edgen] (a) edge[above] node {} (1);
+\draw[edgen] (a) edge[above] node {} (3);
+\end{tikzpicture}
+
+
+\end{document}

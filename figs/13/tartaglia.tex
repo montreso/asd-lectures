@@ -1,0 +1,95 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+\begin{tikzpicture}[level distance=2cm,
+  thick,
+  level 1/.style={sibling distance=22cm},
+  level 2/.style={sibling distance=13cm},
+  level 3/.style={sibling distance=7cm},
+  level 4/.style={sibling distance=4cm},
+  level 5/.style={sibling distance=2cm},
+  level 6/.style={sibling distance=1cm},
+  level 7/.style={sibling distance=1cm},
+  font=\ttfamily\bfseries]
+    \node[mynode] {$7,5$}
+      child {node[mynode] {$6,5$}
+        child {node[mynode] {$5,5$}
+        }
+        child {node[mynode] {$5,4$}
+          child {node[mynode] {$4,4$}
+          }
+          child {node[mynode] {$4,3$}
+            child {node[mynode] {$3,3$}
+            }
+            child {node[mynode] {$3,2$}
+              child {node[mynode] {$2,2$}
+              }
+              child {node[mynode] {$2,1$}
+                child {node[mynode] {$1,1$}
+                }
+                child {node[mynode] {$1,0$}
+                }
+              }
+            }
+          }
+        }
+      }
+      child {node[mynode] {$6,4$}
+        child {node[mynode] {$5,4$}
+          child {node[mynode] {$4,4$}
+          }
+          child {node[mynode] {$4,3$}
+            child {node[mynode] {$3,3$}
+            }
+            child {node[mynode] {$3,2$}
+              child {node[mynode] {$2,2$}
+              }
+              child {node[mynode] {$2,1$}
+                child {node[mynode] {$1,1$}
+                }
+                child {node[mynode] {$1,0$}
+                }
+              }
+            }
+          }
+        }
+        child {node[mynode] {$4,3$}
+          child {node[mynode] {$4,3$}
+            child {node[mynode] {$3,3$}
+            }
+            child {node[mynode] {$3,2$}
+              child {node[mynode] {$2,2$}
+              }
+              child {node[mynode] {$2,1$}
+                child {node[mynode] {$1,1$}
+                }
+                child {node[mynode] {$1,0$}
+                }
+              }
+            }
+          }
+          child {node[mynode] {$4,2$}
+            child {node[mynode] {$3,2$}
+            }
+            child {node[mynode] {$3,1$}
+              child {node[mynode] {$2,2$}
+              }
+              child {node[mynode] {$2,1$}
+                child {node[mynode] {$1,1$}
+                }
+                child {node[mynode] {$1,0$}
+                }
+              }
+            }
+          }
+        }
+      }
+  ;
+\end{tikzpicture}
+
+
+
+\end{document}

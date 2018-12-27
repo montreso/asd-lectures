@@ -1,0 +1,437 @@
+\title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e Strutture Dati}\\[18pt]Analisi di algoritmi\\Ricorrenze, metodo dell'albero di ricorsione}
+
+%-------------------------------------------------------------------------
+\FrameTitle{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ricorrenze}
+
+\subsection{Introduzione}
+
+\begin{frame}{Introduzione}
+
+\begin{overprint}
+
+\onslide<1|handout:1>
+\begin{myboxtitle}[Equazioni di ricorrenza]
+Quando si calcola la complessità di un algoritmo ricorsivo, questa viene espressa tramite un'\alert{equazione di ricorrenza}, ovvero una formula matematica definita in  maniera... ricorsiva!
+\end{myboxtitle}
+
+\onslide<2-3|handout:2-3>
+\begin{myboxtitle}[Forma chiusa]
+Il nostro obiettivo è ottenere, quando possibile, una \alert{formula chiusa} che rappresenti la classe di complessità della funzione.
+\end{myboxtitle}
+
+\end{overprint}
+
+\bigskip
+\begin{overprint}
+\onslide<1-2|handout:1-2>
+\begin{myboxtitle}[MergeSort]
+\[
+T(n) = 
+  \begin{cases}
+      T(\lfloor n/2 \rfloor)  +  T(\lceil n/2 \rceil)  + \Theta(n) & n > 1 \\
+     \Theta(1) & n \leq 1
+  \end{cases} 
+\]	
+\end{myboxtitle}
+
+\onslide<3|handout:3>
+\begin{myboxtitle}[MergeSort]
+\[
+T(n) = \Theta(n \log n)
+\]
+\end{myboxtitle}
+
+\end{overprint}
+
+\end{frame}
+
+\begin{frame}{Oltre l'analisi di algoritmi}
+
+\begin{mybox}
+Utilizzeremo le equazioni di ricorrenza anche per risolvere problemi
+\end{mybox}
+
+\begin{myboxtitle}[Problema]
+Un bambino scende una scala composta da $n$ scalini. Ad ogni passo, può decidere di fare $1$,$2$,$3$,$4$ scalini alla volta. Determinare in quanti modi diversi può scendere le scale. Ad esempio, se $n=7$, alcuni dei modi possibili sono i seguenti:
+\BI
+\item 1,1,1,1,1,1,1
+\item 1,2,4
+\item 4,2,1
+\item 2,2,2,1
+\item 1,2,2,1,1
+\EI
+\end{myboxtitle}
+
+
+\end{frame}
+
+\begin{frame}{Oltre l'analisi di algoritmi}
+
+\begin{myboxtitle}[Soluzione]
+Sia $M(n)$ il numero di modi in cui è possibile scegliere $n$ scalini; allora $M(n)$ può essere espresso nel modo seguente:
+\[
+M(n) = \begin{cases}
+  0 & n < 0 \\
+  1 & n = 0 \\
+  \sum_{k = 1}^{4} M(n-k) & n>0
+\end{cases}
+\]
+\end{myboxtitle}
+
+\begin{mybox}
+Questa ricorrenza può essere trasformata in un algoritmo tramite semplice ricorsione o tramite programmazione dinamica.
+\end{mybox}
+
+
+\begin{myboxtitle}[Numeri di Tetranacci]
+1, 1, 2, 4, 8, 15, 29, 56, 108, 208, 401, 773, 1490, 2872, 5536, \ldots
+\end{myboxtitle}
+
+
+\end{frame}
+
+
+\subsection{Albero di ricorsione, o per livelli}
+
+\begin{frame}{Metodo dell'albero di ricorsione, o per livelli}
+
+\begin{myboxtitle}[Metodi per risolvere ricorrenze]
+\begin{itemize}
+\item \alert{Analisi per livelli}
+\item Analisi per tentativi, o per sostituzione
+\item Metodo dell'esperto, o delle ricorrenze comuni
+\end{itemize}
+\end{myboxtitle}
+
+
+\begin{myboxtitle}[Metodo dell'albero di ricorsione, o per livelli]
+“Srotoliamo” la ricorrenza in un albero i cui nodi rappresentano i costi ai vari livelli della ricorsione
+\end{myboxtitle}
+
+\end{frame}
+
+\begin{frame}{Primo esempio}
+
+\vspace{-6pt}
+\begin{mybox}
+\[
+T(n) = 
+  \begin{cases}
+     T(n/2) + b & n > 1 \\
+     1 & n \leq 1
+  \end{cases} 
+\]
+\end{mybox}
+
+E' possibile risolvere questa ricorrenza nel modo seguente:
+
+\begin{columns}
+\begin{column}{0.54\textwidth}
+\begin{eqnarray*}
+T(n) &=& b + T(n/2) \\
+     &=& b + b + T(n/4) \\
+     &=& b + b + b + T(n/8) \\
+     &=& \ldots \\
+     &=& \underbrace{b + b + \ldots + b }_{\log n}+ T(1)
+\end{eqnarray*}
+
+\end{column}
+\begin{column}{0.45\textwidth}
+\begin{mybox}
+Assumiamo per semplicità:\\
+$n=2^k$, ovvero $k = \log n$
+\end{mybox}	
+\onslide<2>
+\begin{mybox}
+$T(n) = b \log n + T(1) = \Theta(\log n)$	
+\end{mybox}	
+\end{column}
+\end{columns}
+
+
+\end{frame}
+
+\begin{frame}{Secondo esempio}
+
+\vspace{-6pt}
+\begin{mybox}
+\[
+T(n) = \begin{cases}
+     4 T(n/2) + n & n > 1 \\
+     1 & n \leq 1
+  \end{cases}
+\]
+\end{mybox}
+
+E' possibile risolvere questa ricorrenza nel modo seguente:
+\begin{overprint}
+
+%%%%%%%%%%%%%%%%%%%
+\onslide<1|handout:1>
+\begin{align*}
+T(n) &= n + 4T(n/2) \\
+     &= n + 4n/2 + 16 T(n/2^2) \\
+     &= n + 2n + 16n/4 + 64 T(n/8) \\
+     &= \ldots \\
+     &= n + 2n + 4n + 8 n + \ldots + 2^{\log n-1}n + 4^{\log n} T(1) \\
+     &= n \sum_{j=0}^{\log n-1} 2^j + 4^{\log n}
+\end{align*}
+
+%%%%%%%%%%%%%%%%%%%
+\onslide<2|handout:2>
+\begin{flalign*}
+T(n) = n \sum_{j=0}^{\log n-1} 2^j \phantom{\quad n \cdot \frac{2^{\log n}-1}{2-1} \quad  n(n-1)}+ 4^{\log n} &&
+\end{flalign*}
+
+
+%%%%%%%%%%%%%%%%%%%
+\onslide<3|handout:3>
+\begin{flalign*}
+T(n) = \cancel{n \sum_{j=0}^{\log n-1} 2^j} \quad \alert{n \cdot \frac{2^{\log n}-1}{2-1}} \phantom{\quad  n(n-1)}+ 4^{\log n} &&
+\end{flalign*}
+\begin{mybox}
+Serie geometrica finita:
+\[
+  \forall x \neq 1: \sum_{j=0}^k x^j = \frac{x^{k+1}-1}{x-1}
+\]
+\end{mybox}
+
+%%%%%%%%%%%%%%%%%%%
+\onslide<4|handout:4>
+\begin{flalign*}
+T(n) &= \cancel{n \sum_{j=0}^{\log n-1} 2^j} \quad \cancel{n \cdot \frac{2^{\log n}-1}{2-1}} \quad \alert{n(n-1)} + 4^{\log n} &&
+\end{flalign*}
+
+\begin{mybox}
+Passaggi algebrici
+\end{mybox}
+
+%%%%%%%%%%%%%%%%%%%
+\onslide<5|handout:5>
+\begin{flalign*}
+T(n) &= \cancel{n \sum_{j=0}^{\log n-1} 2^j} \quad \cancel{n \cdot \frac{2^{\log n}-1}{2-1}} \quad n(n-1) + \cancel{4^{\log n}} \quad \alert{n^{\log 4}} &&
+\end{flalign*}
+
+\begin{mybox}
+Cambiamento di base:
+\begin{align*}	
+\log_b n = (\log_b a) \cdot (\log_a n) & \Rightarrow \\
+   a^{\log_b n} = n^{\log_b a} &
+\end{align*}
+\end{mybox}
+
+%%%%%%%%%%%%%%%%%%%
+\onslide<6|handout:6>
+\begin{flalign*}
+T(n) &= \cancel{n \sum_{j=0}^{\log n-1} 2^j} \quad \cancel{n \cdot \frac{2^{\log n}-1}{2-1}} \quad n(n-1) + \cancel{4^{\log n}} \quad \cancel{n^{\log 4}} \quad n^2 &&
+\end{flalign*}
+
+\medskip
+\begin{flalign*}
+\phantom{T(n)} &= 2n^2-n = \Theta(n^2)&&
+\end{flalign*}
+
+
+\end{overprint}
+
+\end{frame}
+
+\begin{frame}[shrink=5]{Terzo esempio}
+
+\vspace{-6pt}
+\begin{mybox}
+\[
+T(n) = \begin{cases}
+     4T(n/2) + n^3 & n > 1 \\
+     1 & n \leq 1
+  \end{cases}
+\]
+\end{mybox}
+
+Proviamo a visualizzare l'albero delle chiamate, per i primi tre livelli:
+
+{\tiny
+\begin{eqnarray*}
+& n^3 &\\
+&\overbrace{\mleft(\frac{n}{2}\mright)^3 \hspace{78pt} \mleft(\frac{n}{2}\mright)^3 \hspace{78pt} \mleft(\frac{n}{2}\mright)^3 \hspace{78pt} \mleft(\frac{n}{2}\mright)^3} & \\
+& \overbrace{\mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3} 
+  \overbrace{\mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3} 
+  \overbrace{\mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3} 
+  \overbrace{\mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3 \, \mleft(\frac{n}{4}\mright)^3} &
+\end{eqnarray*}
+}
+
+\end{frame}
+
+\begin{frame}[noframenumbering,shrink=5]{Terzo esempio}
+
+\vspace{-6pt}
+\begin{mybox}
+\[
+T(n) = \left\{ 
+  \begin{array}{ll}
+     4T(n/2) + n^3 & n > 1 \\
+     1 & n \leq 1
+  \end{array} 
+\right.
+\]
+\end{mybox}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Livello} & \textbf{Dim.} & \textbf{Costo chiam.} & \textbf{N. chiamate} & \textbf{Costo livello} \\\hline
+$0$ & $n$   & $n^3$     & $1$  & $n^3$ \\\hline
+$1$ & $n/2$ & $(n/2)^3$ & $4$  & $4(n/2)^3$\\\hline
+$2$ & $n/4$ & $(n/4)^3$ & $16$ & $16(n/4)^3$\\\hline
+$\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\\hline
+$i$ & $n/2^i$ & $(n/2^i)^3$ & $4^i$ & $4^i (n/2^i)^3$ \\\hline
+$\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\\hline
+${\ell-1}$ & $n/2^{\ell-1}$ & $(n/2^{\ell-1})^3$ & $4^{\ell-1}$ & $4^{\ell-1} (n/2^{\ell-1})^3$ \\\hline
+$\ell = \log n$ & 1 & $T(1)$ & $4^{\log n}$ & $4^{\log n}$ \\\hline
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[noframenumbering,shrink=5]{Terzo esempio}
+
+\vspace{-6pt}
+\begin{mybox}
+\[
+T(n) = \left\{ 
+  \begin{array}{ll}
+     4T(n/2) + n^3 & n > 1 \\
+     1 & n \leq 1
+  \end{array} 
+\right.
+\]
+\end{mybox}
+
+La sommatoria dà origine a:
+\begin{overprint}
+\onslide<1|handout:1>
+\TwoColsCustom{0.43}{0.55}{
+\begin{flalign*}
+  T(n) &= \sum_{i=0}^{\log n-1} 4^i \cdot n^3 / 2^{3i} \ + 4^{\log n} &&\\ 
+       &= \alert{n^3} \sum_{i=0}^{\log n-1} \alert{\frac{2^{2i}}{2^{3i}}} \ + 4^{\log n} && \\
+       &= n^3 \sum_{i=0}^{\log n-1} \alert{\mleft(\frac{1}{2}\mright)^i} \ + 4^{\log n} && 
+\end{flalign*}
+}{
+\vspace{42pt}
+\begin{mybox}
+Passaggi algebrici
+\end{mybox}
+\bigskip
+\begin{mybox}
+Passaggi algebrici
+\end{mybox}
+}
+\onslide<2|handout:2>
+\TwoColsCustom{0.43}{0.55}{
+\begin{flalign*}
+T(n) &= n^3 \sum_{i=0}^{\log n-1} \mleft(\frac{1}{2}\mright)^i \ + 4^{\log n} && \\
+     &= n^3 \sum_{i=0}^{\log n-1} \mleft(\frac{1}{2}\mright)^i \ + \alert{n^2} && \\
+     &\alert{\leq} n^3 \sum_{i=0}^{\alert{\infty}} \mleft(\frac{1}{2}\mright)^i \ + n^2 && \\
+\end{flalign*}
+}{
+\vspace{42pt}
+\begin{mybox}
+Cambiamento di base
+\end{mybox}
+\bigskip
+\begin{mybox}
+Estensione della sommatoria
+\end{mybox}
+}
+\onslide<3|handout:3>
+\TwoColsCustom{0.43}{0.55}{
+\begin{flalign*}
+T(n) &\leq n^3 \sum_{i=0}^{\infty} \mleft(\frac{1}{2}\mright)^i \ + n^2 && \\
+     &= n^3 \cdot \alert{\frac{1}{1-\frac{1}{2}}}    + n^2&& \\
+     &= \alert{2n^3} + n^2 && \\
+\end{flalign*}
+}{
+\vspace{30pt}
+\begin{mybox}
+Serie geometrica infinita decrescente:
+\[
+ \forall x, |x|<1: \sum_{i=0}^{\infty} x^i = \frac{1}{1-x}
+\]
+\end{mybox}
+}
+\end{overprint}
+
+\end{frame}
+
+\begin{frame}[noframenumbering,shrink=5]{Terzo esempio}
+
+\vspace{-6pt}
+\begin{mybox}
+\[
+T(n) = \begin{cases}
+     4T(n/2) + n^3 & n > 1 \\
+     1 & n \leq 1
+  \end{cases} 
+\]
+\end{mybox}
+
+Abbiamo dimostrato che:
+\[
+  T(n) \leq 2n^3 + n^2
+\]
+
+\bigskip
+\BIL
+\item Possiamo affermare che  $T(n) = O(n^3)$
+\item Non possiamo affermare che $T(n) = \Theta(n^3)$, perchè  abbiamo
+dimostrato solo un limite superiore
+\EIL
+
+\end{frame}
+
+\begin{frame}[shrink=10]{Quarto esempio}
+
+\vspace{-6pt}
+\begin{mybox}
+\[
+T(n) = \begin{cases}
+     4T(n/2) + n^2 & n > 1 \\
+     1 & n \leq 1
+  \end{cases}
+\]
+\end{mybox}
+
+\begin{overprint}
+
+\onslide<1|handout:1>
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Livello} & \textbf{Dimensione} & \textbf{Costo chiamata} & \textbf{N. chiamate} & \textbf{Costo livello} \\\hline
+$0$ & $n$   & $n^2$     & $1$  & $n^2$ \\\hline
+$1$ & $n/2$ & $(n/2)^2$ & $4$  & $4(n/2)^2$\\\hline
+$2$ & $n/4$ & $(n/4)^2$ & $16$ & $16(n/4)^2$\\\hline
+$\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\\hline
+$i$ & $n/2^i$ & $(n/2^i)^2$ & $4^i$ & $4^i (n/2^i)^2$ \\\hline
+$\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\\hline
+${\ell-1}$ & $n/2^{\ell-1}$ & $(n/2^{\ell-1})^2$ & $4^{\ell-1}$ & $4^{\ell-1} (n/2^{\ell-1})^2$ \\\hline
+$\ell = \log n$ & 1 & $T(1)$ & $4^{\log n}$ & $4^{\log n}$ \\\hline
+\end{tabular}
+\end{center}
+
+\onslide<2|handout:2>
+\begin{align*}
+  T(n) &= \sum_{i=0}^{\log n-1} n^2 / 2^{2i} \cdot 4^i + 4^{\log n} \\
+       &= n^2 \sum_{i=0}^{\log n-1} \frac{2^{2i}}{2^{2i}} + n^2 \\
+       &= n^2 \sum_{i=0}^{\log n-1} 1 + n^2 \\
+       &= n^2 \log n + n^2 = \Theta(n^2 \log n)
+\end{align*}
+
+\end{overprint}
+\end{frame}
+

@@ -1,0 +1,38 @@
+\documentclass[tikz]{standalone}
+
+\IfFileExists{figs/09/mytikz.sty}{\input{figs/09/mytikz.sty}}{\input{mytikz.sty}}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+%
+\node[mynode] at (0, 6.0) (a) {a};
+\node[mynode] at (2, 6.0) (b) {b};
+\node[mynode] at (0, 4.5) (c) {c};
+\node[mynode] at (2, 4.5) (d) {d};
+%
+\draw[edgen] (a) edge node {} (b);
+\draw[edgen] (a) edge node {} (d);
+\draw[edgen] (c) edge[bend right=10] node {} (a);
+\draw[edgen] (a) edge[bend right=10] node {} (c);
+\draw[edgen] (d) edge node {} (b);
+\draw[edgen] (d) edge node {} (c);
+\draw[edgen] (b) edge node {} (c);
+%
+\node[mynode] at (1, 3.5) (a2) {a};
+\node[mynode] at (0, 2.0) (b2) {b};
+\node[mynode] at (0.5, 0.5) (c2) {c};
+\node[mynode] at (2, 2.0) (d2) {d};
+%
+\draw[edger] (a2) edge node {} (b2);
+\draw[edger] (a2) edge node {} (d2);
+\draw[edgegd] (c2) edge node {} (a2);
+\draw[edgevd] (a2) edge[bend right=75] node {} (c2);
+\draw[edgexd] (d2) edge node {} (b2);
+\draw[edgexd] (d2) edge node {} (c2);
+\draw[edger] (b2) edge node {} (c2);
+
+
+\end{tikzpicture}
+
+\end{document}

@@ -1,0 +1,27 @@
+\input templates/header
+
+\graphicspath{{figs/02/}}
+
+\usepackage{cancel}
+\usepackage{mleftright}
+
+\def\arraystretch{1.1}
+
+\newcommand*{\ballref}[1]{%
+    \begin{pgfpicture}{-1ex}{-0.65ex}{1ex}{1ex}
+    \usebeamercolor[fg]{item projected}
+    {\pgftransformscale{1.75}\pgftext{\normalsize\pgfuseshading{bigsphere}}}
+    {\pgftransformshift{\pgfpoint{0pt}{0.5pt}}
+      \pgftext{\usebeamerfont*{item projected}\ref{#1}}}
+  \end{pgfpicture}}%
+
+\begin{document}
+
+\input analisi/funzioni-1.tex
+\input analisi/funzioni-2.tex
+\input analisi/funzioni-3.tex
+\input analisi/funzioni-4.tex
+\input analisi/funzioni-5.tex
+
+
+\end{document}

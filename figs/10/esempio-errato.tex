@@ -1,0 +1,214 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+\begin{tikzpicture}[
+	thick,
+	level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynoder, minimum size=0.9cm] {3}
+    child {node[mynode, minimum size=0.9cm] {14}
+      child {node[mynode, minimum size=0.9cm] {8}
+        child {node[mynode, minimum size=0.9cm] {2}}
+        child {node[mynode, minimum size=0.9cm] {4}}
+      }
+      child {node[mynode, minimum size=0.9cm] {7}
+        child {node[mynode, minimum size=0.9cm] {1}}
+        child[missing] {node[mynode, minimum size=0.9cm] {}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm] {10}
+      child {node[mynode, minimum size=0.9cm] {9}
+      }
+      child {node[mynode, minimum size=0.9cm] {3}
+      }
+    };
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+	thick,
+	level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynoder, minimum size=0.9cm] (a) {3}
+    child {node[mynode, minimum size=0.9cm] (b) {14}
+      child {node[mynode, minimum size=0.9cm] {8}
+        child {node[mynode, minimum size=0.9cm] {2}}
+        child {node[mynode, minimum size=0.9cm] {4}}
+      }
+      child {node[mynode, minimum size=0.9cm] {7}
+        child {node[mynode, minimum size=0.9cm] {1}}
+        child[missing] {node[mynode, minimum size=0.9cm] {}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm] {10}
+      child {node[mynode, minimum size=0.9cm] {9}
+      }
+      child {node[mynode, minimum size=0.9cm] {3}
+      }
+    };
+    
+  \draw[edger,<->] (a) edge[bend right=20] node {} (b);
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+	thick,
+	level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm] (a) {14}
+    child {node[mynoder, minimum size=0.9cm] (b) {3}
+      child {node[mynode, minimum size=0.9cm] {8}
+        child {node[mynode, minimum size=0.9cm] {2}}
+        child {node[mynode, minimum size=0.9cm] {4}}
+      }
+      child {node[mynode, minimum size=0.9cm] {7}
+        child {node[mynode, minimum size=0.9cm] {1}}
+        child[missing] {node[mynode, minimum size=0.9cm] {}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm] {10}
+      child {node[mynode, minimum size=0.9cm] {9}
+      }
+      child {node[mynode, minimum size=0.9cm] {3}
+      }
+    };
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+	thick,
+	level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm] {14}
+    child {node[mynoder, minimum size=0.9cm] (a) {3}
+      child {node[mynode, minimum size=0.9cm] (b) {8}
+        child {node[mynode, minimum size=0.9cm] {2}}
+        child {node[mynode, minimum size=0.9cm] {4}}
+      }
+      child {node[mynode, minimum size=0.9cm] {7}
+        child {node[mynode, minimum size=0.9cm] {1}}
+        child[missing] {node[mynode, minimum size=0.9cm] {}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm] {10}
+      child {node[mynode, minimum size=0.9cm] {9}
+      }
+      child {node[mynode, minimum size=0.9cm] {3}
+      }
+    };
+    
+  \draw[edger,<->] (a) edge[bend right=20] node {} (b);
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+	thick,
+	level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm] {14}
+    child {node[mynode, minimum size=0.9cm] (a) {8}
+      child {node[mynoder, minimum size=0.9cm] (b) {3}
+        child {node[mynode, minimum size=0.9cm] {2}}
+        child {node[mynode, minimum size=0.9cm] {4}}
+      }
+      child {node[mynode, minimum size=0.9cm] {7}
+        child {node[mynode, minimum size=0.9cm] {1}}
+        child[missing] {node[mynode, minimum size=0.9cm] {}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm] {10}
+      child {node[mynode, minimum size=0.9cm] {9}
+      }
+      child {node[mynode, minimum size=0.9cm] {3}
+      }
+    };
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+	thick,
+	level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm] {14}
+    child {node[mynode, minimum size=0.9cm] {8}
+      child {node[mynoder, minimum size=0.9cm] (a) {3}
+        child {node[mynode, minimum size=0.9cm] {2}}
+        child {node[mynode, minimum size=0.9cm] (b) {4}}
+      }
+      child {node[mynode, minimum size=0.9cm] {7}
+        child {node[mynode, minimum size=0.9cm] {1}}
+        child[missing] {node[mynode, minimum size=0.9cm] {}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm] {10}
+      child {node[mynode, minimum size=0.9cm] {9}
+      }
+      child {node[mynode, minimum size=0.9cm] {3}
+      }
+    };
+
+  \draw[edger,<->] (a) edge[bend right=20] node {} (b);
+    
+\end{tikzpicture}
+
+\newpage
+
+\begin{tikzpicture}[
+	thick,
+	level distance=2cm,
+  level 1/.style={sibling distance=3cm},
+  level 2/.style={sibling distance=2cm},
+  level 3/.style={sibling distance=1cm},
+	font=\ttfamily\bfseries]
+  \node[mynode, minimum size=0.9cm] {14}
+    child {node[mynode, minimum size=0.9cm] {8}
+      child {node[mynode, minimum size=0.9cm] (a) {4}
+        child {node[mynode, minimum size=0.9cm] {2}}
+        child {node[mynoder, minimum size=0.9cm] (b) {3}}
+      }
+      child {node[mynode, minimum size=0.9cm] {7}
+        child {node[mynode, minimum size=0.9cm] {1}}
+        child[missing] {node[mynode, minimum size=0.9cm] {}}
+      }
+    }
+    child {node[mynode, minimum size=0.9cm] {10}
+      child {node[mynode, minimum size=0.9cm] {9}
+      }
+      child {node[mynode, minimum size=0.9cm] {3}
+      }
+    };
+
+    
+\end{tikzpicture}
+
+
+
+\end{document}
