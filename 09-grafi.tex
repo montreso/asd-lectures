@@ -1010,7 +1010,7 @@ $\mathit{parent}[r] = \Nil$\;
   $\Node\ u = Q.\queueremove()$\;
   \ForEach{$v \in G.\adj(u)$}
   {
-    \If(\REMF{Se il nodo $v$ non è stato scoperto}){$\erdosn[v] == \infty$}
+    \If(\REMF{Se il nodo $v$ non è stato scoperto}){$\erdosn[v] \Eq \infty$}
     {
       $\erdosn[v] = \erdosn[u]+1$\;
       $\mathit{parent}[v] = u$\;
@@ -1059,7 +1059,7 @@ $\mathit{parent}[r] = \Nil$\;
   $\Node\ u = S.\queueremove()$\;
   \ForEach{$v \in G.\adj(u)$}
   {
-    \If{$\erdosn[v] == \infty$}
+    \If{$\erdosn[v] \Eq \infty$}
     {
       $\erdosn[v] = \erdosn[u]+1$\;
       \alert{$\mathit{parent}[v] = u$}\;
@@ -1072,11 +1072,11 @@ $\mathit{parent}[r] = \Nil$\;
 \begin{Procedure}
 \caption[A]{\textsf{printPath}($\Node\ r,\ \Node\ s,\ \Node[\,]\ \mathit{parent}$)}
 
-\uIf{$r == s$}
+\uIf{$r \Eq s$}
 {
   \textbf{print} $s$
 }
-\uElseIf{$\mathit{parent}[s] == \Nil$}
+\uElseIf{$\mathit{parent}[s] \Eq \Nil$}
 {
   \textbf{print} “error”\;
 }
@@ -1367,7 +1367,7 @@ $\INTEGER[\,]\ \components = \NEW\ \INTEGER[1 \mldots G.\textsf{size}()]$\;
 \INTEGER\ $\mathit{counter} = 0$\;
 \ForEach{$u \in G.\VV()$}
 {
-  \If{$\components[u] == 0$}
+  \If{$\components[u] \Eq 0$}
   {
     $\mathit{counter} = \mathit{counter}+1$\;
     $\ccdfs(G, \mathit{counter}, u, \components)$\;
@@ -1381,7 +1381,7 @@ $\INTEGER[\,]\ \components = \NEW\ \INTEGER[1 \mldots G.\textsf{size}()]$\;
 $\components[u] = \mathit{counter}$\;
 \ForEach{$v \in G.\adj(u)$}
 {
-  \If{$\components[v] == 0$}{$\ccdfs(G, \mathit{counter}, v, \components)$}
+  \If{$\components[v] \Eq 0$}{$\ccdfs(G, \mathit{counter}, v, \components)$}
 }
 \end{Procedure}
 \end{columns}
@@ -1635,12 +1635,12 @@ $\orologio = \orologio + 1$;~~ $\ddt[u] = \orologio$\;
 \ForEach{$v \in G.\adj(u)$}
 {
   \{ visita l'arco $(u,v)$ (qualsiasi) \} \;
-  \uIf{$\ddt[v] == 0$}
+  \uIf{$\ddt[v] \Eq 0$}
   {
 		\color{red}{\{ visita l'arco $(u,v)$ (albero) \}} \;
         $\dfsschema(G, v, \orologio, \ddt, \dft)$\; 
   }
-  \uElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] == 0$}{
+  \uElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}{
 		\color{brown}{\{ visita l'arco $(u,v)$ (indietro) \}} \;
   }
   \uElseIf{$\ddt[u]<\ddt[v]$ \AND $\dft[v] \neq 0$}{
@@ -1716,12 +1716,12 @@ $\dft[u] = \orologio$\;
 $\orologio = \orologio + 1$;~~ $\ddt[u] = \orologio$\;
 \ForEach{$v \in G.\adj(u)$}
 {
-  \uIf{$\ddt[v] == 0$}
+  \uIf{$\ddt[v] \Eq 0$}
   {
 		\color{red}{\{ visita l'arco $(u,v)$ (albero) \}} \;
         $\dfsschema(G, v, \orologio, \ddt, \dft)$\; 
   }
-  \uElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] == 0$}{
+  \uElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}{
 		\color{brown}{\{ visita l'arco $(u,v)$ (indietro) \}} \;
   }
   \uElseIf{$\ddt[u]<\ddt[v]$ \AND $\dft[v] \neq 0$}{
@@ -1821,11 +1821,11 @@ $\orologio = \orologio + 1$;~~
 $\ddt[u] = \orologio$\;
 \ForEach{$v \in G.\adj(u)$}
 {
-  \uIf{$\ddt[v] == 0$}
+  \uIf{$\ddt[v] \Eq 0$}
   {
     \If{$\textsf{hasCycle}(G, v, \orologio, \ddt, \dft)$}{\Return \TRUE} 
   }
-  \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] == 0$}
+  \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}
   {
     \Return \TRUE\;
   }
@@ -1855,7 +1855,7 @@ $\dft[u] = \orologio$\;
 
 \bigskip
 \begin{tabular}{rl}
-Arco dell'albero & \color{red}{$\ddt[v] == 0$}\\
+Arco dell'albero & \color{red}{$\ddt[v] \Eq 0$}\\
 Arco all'indietro: & \color{brown}{$\ddt[u]>\ddt[v]$ \AND $\dft[v] = 0$}\\
 Arco in avanti: & \color{violet}{$\ddt[u]<\ddt[v]$ \AND $\dft[v] \neq 0$} \\
 Arco attraversamento: & \color{blue}{altrimenti}
@@ -1876,11 +1876,11 @@ $\orologio = \orologio + 1$;~~
 $\ddt[u] = \orologio$\;
 \ForEach{$v \in G.\adj(u)$}
 {
-  \uIf{$\ddt[v] == 0$}
+  \uIf{$\ddt[v] \Eq 0$}
   {
     \If{$\textsf{hasCycle}(G, v, \orologio, \ddt, \dft)$}{\Return \TRUE} 
   }
-  \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] == 0$}
+  \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}
   {
     \Return \TRUE\;
   }
@@ -1907,7 +1907,7 @@ $\dft[u] = \orologio$\;
 
 \bigskip
 \begin{tabular}{rl}
-Arco dell'albero & \color{red}{$\ddt[v] == 0$}\\
+Arco dell'albero & \color{red}{$\ddt[v] \Eq 0$}\\
 Arco all'indietro: & \color{brown}{$\ddt[u]>\ddt[v]$ \AND $\dft[v] = 0$}\\
 Arco in avanti: & \color{violet}{$\ddt[u]<\ddt[v]$ \AND $\dft[v] \neq 0$} \\
 Arco attraversamento: & \color{blue}{altrimenti}
@@ -1927,11 +1927,11 @@ $\orologio = \orologio + 1$;~~
 $\ddt[u] = \orologio$\;
 \ForEach{$v \in G.\adj(u)$}
 {
-  \uIf{$\ddt[v] == 0$}
+  \uIf{$\ddt[v] \Eq 0$}
   {
     \If{$\textsf{hasCycle}(G, v, \orologio, \ddt, \dft)$}{\alert{\Return \TRUE}} 
   }
-  \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] == 0$}
+  \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}
   {
     \alert{\Return \TRUE}\;
   }
@@ -2280,7 +2280,7 @@ $\INTEGER[\,]\ \components = \NEW\ \INTEGER[1 \mldots G.\textsf{size}()]$\;
 \While{\alert{\NOT\ $S.\textsf{isEmpty}()$}}
 {
   \alert{$u = S.\textsf{pop}()$}\;
-  \If{$\components[u] == 0$}
+  \If{$\components[u] \Eq 0$}
   {
     $\mathit{counter} = \mathit{counter}+1$\;
     $\ccdfs(G, \mathit{counter}, u, \components)$\;
@@ -2294,7 +2294,7 @@ $\INTEGER[\,]\ \components = \NEW\ \INTEGER[1 \mldots G.\textsf{size}()]$\;
 $\components[u] = \mathit{counter}$\;
 \ForEach{$v \in G.\adj(u)$}
 {
-  \If{$\components[v] == 0$}{$\ccdfs(G, \mathit{counter}, v, \components)$\;}
+  \If{$\components[v] \Eq 0$}{$\ccdfs(G, \mathit{counter}, v, \components)$\;}
 }
 \end{Procedure}
 \end{columns}

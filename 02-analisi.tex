@@ -593,7 +593,7 @@ XY &= ac \cdot 2^n + (ad+bc) \cdot 2^{n/2} + bd
 \begin{frame}{Moltiplicare numeri binari tramite Divide-et-impera}
 \begin{Procedure}
 \caption[A]{\BOOLEAN[\,] \textsf{pdi}($\BOOLEAN[\,]\ X$, $\BOOLEAN[\,]\ Y$, \INTEGER $n$)}
-\eIf{$n==1$}{
+\eIf{$n \Eq 1$}{
   \Return $X[1] \cdot Y[1]$\;
 }
 {
@@ -667,7 +667,7 @@ A_2 &= m\alert{-}A_1\alert{-}A_3=ad+bc
 
 \begin{Procedure}
 \caption[A]{\BOOLEAN[\,] \textsc{karatsuba}($\BOOLEAN[\,]\ X$, $\BOOLEAN[\,]\ Y$, \INTEGER $n$)}
-\eIf{$n==1$}{
+\eIf{$n \Eq 1$}{
   \Return $X[1] \cdot Y[1]$\;
 }
 {

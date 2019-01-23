@@ -43,16 +43,25 @@
 %-------------------------------------------------------------------------
 \FrameTitle{}
 
-\begin{PlainFrame}{}
+\begin{OnlySlides}{Greed is good}
 
+\TwoCols{
+
+\footnotesize
+\IG{0.7}{gekko.jpg}
+
+\url{https://www.youtube.com/watch?v=VVxYOQS6ggk}
+}{
+\vspace{-24pt}
 \epigraph{The point is, ladies and gentleman, that greed, for lack of a better
 word, is good. Greed is right, greed works. Greed clarifies, cuts through, and
 captures the essence of the evolutionary spirit. Greed, in all of its forms;
 greed for life, for money, for love, for knowledge has marked the upward surge of mankind. And greed, you mark my words, will not only save Teldar Paper, but
 that other malfunctioning corporation called the USA. Thank you very
 much.}{\textit{Gordon Gekko, Wall Street}}
+}
 
-\end{PlainFrame}
+\end{OnlySlides}
 
 %-------------------------------------------------------------------------
 \FrameContent
@@ -65,23 +74,26 @@ much.}{\textit{Gordon Gekko, Wall Street}}
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
-\BB{Problemi di ottimizzazione}
+\begin{myboxtitle}[Problemi di ottimizzazione]
 \BI
 \item Gli algoritmi per problemi di ottimizzazione eseguono una sequenza di decisioni
 \EI
+\end{myboxtitle}
 
-\BB{Programmazione dinamica}
+\begin{myboxtitle}[Programmazione dinamica]
 \BI
 \item In maniera bottom-up, valuta tutte le decisioni possibili
 \item Evitando però di ripetere sotto-problemi (decisioni) già percorse
 \EI
+\end{myboxtitle}
 
-\BB{Algoritmi greedy (ingordi, golosi)}
+\begin{myboxtitle}[Algoritmi greedy (ingordi, golosi)]
 \BI
 \item Seleziona una sola delle possibile decisioni...
 \item ... quella che sembra ottima (ovvero, è localmente ottima)
 \item E' però necessario dimostare che si ottiene un ottimo globale
 \EI
+\end{myboxtitle}
 \end{frame}
 
 
@@ -95,7 +107,6 @@ much.}{\textit{Gordon Gekko, Wall Street}}
 \BB{Quando il problema ha sottostruttura ottima}
 "\emph{Fatta tale scelta, resta un sottoproblema con la stessa struttura del problema principale.}"
 
-\bigskip
 \BB{Note}
 \BI
 \item Non tutti i problemi hanno una scelta ingorda
@@ -107,10 +118,11 @@ much.}{\textit{Gordon Gekko, Wall Street}}
 \section{Insieme indipendente di intervalli}
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Insieme indipendente di intervalli}
 \TwoColsCustom{0.7}{0.25}{
 \vspace{-18pt}
-\begin{block}{Input}
+\begin{myboxtitle}[Input]
 Sia $S=\{ 1, 2, \ldots, n \}$ un insieme di intervalli della retta reale.
 Ogni intervallo $[a_i, b_i[$, con $i \in S$, è chiuso a sinistra e aperto
 a destra.
@@ -118,12 +130,12 @@ a destra.
 \item $a_i$: \alert{tempo di inizio}
 \item $b_i$: \alert{tempo di fine}
 \EI
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Definizione del problema}
+\begin{myboxtitle}[Definizione del problema]
 Trovare un \alert{insieme indipendente massimale} è un sottoinsieme di massima
 cardinalità formato da intervalli tutti disgiunti tra loro.
-\end{block}
+\end{myboxtitle}
 
 }{
 \vspace{-9pt}
@@ -143,7 +155,7 @@ cardinalità formato da intervalli tutti disgiunti tra loro.
 11 & 12 & 14 \\ \hline
 \end{tabular}
 }
-\bigskip
+
 \BB{\centering Confronta con "Insieme indipendente di intervalli pesati"}
 \end{frame}
 
@@ -233,7 +245,6 @@ Utilizzando il metodo cut-and-paste
 	A[i,j] = A[i,k] \cup \{ k \} \cup A[k, j]
 \]
 
-\bigskip
 \BB{Definizione ricorsiva del suo costo}
 \BIL
 \item Come determinare $k$? Analizzando tutte le possibilità
@@ -269,6 +280,7 @@ costo $O(n)$ per sottoproblema nel caso peggiore
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Scelta ingorda (Greedy Choice)}
 
 \BB{Teorema}
@@ -308,6 +320,7 @@ stessa dimensione di $A'[i,j]$ e tutti gli intervalli sono indipendenti.
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{}
 
 \includegraphics<1|handout:1>[width=1.0\textwidth,page=3]{esempio1.pdf}
@@ -315,6 +328,7 @@ stessa dimensione di $A'[i,j]$ e tutti gli intervalli sono indipendenti.
 
 \end{frame}	
 
+%-------------------------------------------------------------------------
 \begin{frame}{Conseguenze}
 
 \BIL
@@ -331,6 +345,7 @@ stessa dimensione di $A'[i,j]$ e tutti gli intervalli sono indipendenti.
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Algoritmo}
 
 \vspace{-12pt}
@@ -355,6 +370,7 @@ $\INTEGER\ \Ultimo = 1$\REMR{Ultimo intervallo inserito}
 \makebox[2.5cm][l]{} $O(n)$ se l'input è già ordinato.
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{}
 
 \includegraphics<1|handout:0>[width=1.0\textwidth,page=1]{esempio2.pdf}
@@ -373,6 +389,7 @@ $\INTEGER\ \Ultimo = 1$\REMR{Ultimo intervallo inserito}
 \end{frame}	
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Approccio a partire da Programmazione Dinamica}
 
 \BIL
@@ -396,19 +413,19 @@ $\INTEGER\ \Ultimo = 1$\REMR{Ultimo intervallo inserito}
 \begin{frame}{Problema del resto}
 
 \vspace{-12pt}
-\begin{block}{Input}
+\begin{myboxtitle}[Input]
 \BI
 \item Un insieme di "tagli" di monete, memorizzati in un vettore di interi positivi $t[1 \ldots n]$.
 \item Un intero $R$ rappresentante il resto che dobbiamo restituire.
 \EI
-\end{block}
+\end{myboxtitle}
 
 \smallskip
-\begin{block}{Definizione del problema}
+\begin{myboxtitle}[Definizione del problema]
 Trovare il più piccolo numero intero di pezzi necessari per dare un resto di $R$ 
 centesimi utilizzando i tagli di cui sopra, assumendo di avere un numero illimitato di
 monete per ogni taglio.
-\end{block}
+\end{myboxtitle}
 
 Matematicamente: trovare un vettore $x$ di interi non negativi tale che:
 $\displaystyle
@@ -417,6 +434,7 @@ $ \qquad
 e \qquad $m = \sum_{i=1}^n x[i]$ ha valore minimo
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Soluzione basata su programmazione dinamica}
 
 \BB{Sottostruttura ottima}
@@ -482,19 +500,15 @@ $DP[0] = 0$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Scelta greedy}
 
-
-\bigskip
 \BB{Domanda}
 E' possibile pensare ad una soluzione greedy?
 
 \pause
-\bigskip
 \BB{Risposta}
 Selezionare la moneta $j$ più grande tale per cui $t[j] \leq R$, e poi risolvere 
 il problema $S(R-t[j])$.
 
 \pause
-\bigskip
 \BB{Esempi}
 \BIL
 \item Tagli: $200, 100, 50, 20, 10, 5, 2, 1$
@@ -581,7 +595,8 @@ m_1 &= 10 \cdot x[2] + m_2 && \leq 40 + m_2 < 40 + 10 = 50 = t[1] \\
 \EIL
 \end{frame}
 
-\begin{frame}{Fun facts}
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{Fun facts}
 
 \vspace{-12pt}
 \begin{columns}[T]
@@ -602,9 +617,10 @@ m_1 &= 10 \cdot x[2] + m_2 && \leq 40 + m_2 < 40 + 10 = 50 = t[1] \\
 \IG{0.5}{52dollars.jpg}
 \end{center}
 
-\end{frame}
+\end{OnlySlides}
 
-\begin{frame}{Fun facts}
+%-------------------------------------------------------------------------
+\begin{frame}<1|handout:0>[noframenumbering]{Fun facts}
 \vspace{-12pt}
 \IG{0.9}{18cents.pdf}
 \end{frame}
@@ -613,15 +629,15 @@ m_1 &= 10 \cdot x[2] + m_2 && \leq 40 + m_2 < 40 + 10 = 50 = t[1] \\
 %-------------------------------------------------------------------------
 \begin{frame}{Scheduling}
 
-\begin{block}{Input}	
+\begin{myboxtitle}[Input]
 	
 Supponiamo di avere un processore e $n$ job da eseguire su di esso,
 ognuno caratterizzato da un tempo di esecuzione $t[i]$ noto a priori.
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Problema}
+\begin{myboxtitle}[Problema]
 Trovare una sequenza di esecuzione (permutazione) che minimizzi il \alert{tempo di completamento medio}.
-\end{block}
+\end{myboxtitle}
 
 \bigskip
 Dato un vettore $A[1 \ldots n]$ contenente una	permutazione di $\{ 1, \ldots n \}$,
@@ -656,7 +672,6 @@ il \alert{tempo di completamento} dell'$h$-esimo job nella permutazione è:
 
 Tempo di completamento medio: $(4+5+11+14)/4 = 34/4 = 8.5$
 
-\bigskip
 \pause
 \BB{\alert{Shortest job first}}
 
@@ -690,7 +705,6 @@ Tempo di completamento medio: $(1+4+8+14)/4 = 27/4 = 6.75$
 Esiste una soluzione ottima $A$ in cui il job con minor tempo di fine $m$ si
 trova in prima posizione ($A[1] = m)$.
 
-\bigskip
 \BB{Teorema -- Sottostruttura ottima}
 Sia $A$ una soluzione ottima di un problema con $n$ job, in cui il job
 con minor tempo di fine $m$ si trova in prima posizione. La permutazione dei
@@ -699,6 +713,7 @@ job $m$ non viene considerato.
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Dimostrazione di correttezza}
 
 \BB{Dimostrazione - Scelta greedy}
@@ -730,7 +745,7 @@ e quindi anche $A$ è ottima.
 \begin{frame}{Problema dello zaino}
 
 \vspace{-6pt}
-\begin{block}{Input}
+\begin{myboxtitle}[Input]
 \BIL
 \item Un intero positivo $C$  - la capacità dello zaino
 \item $n$ oggetti, tali che l'oggetto $i$-esimo è caratterizzato da
@@ -739,18 +754,18 @@ e quindi anche $A$ è ottima.
   \item un peso $w_i \in \mathbb{Z^+}$
 	\EI
 \EIL
-\end{block}
+\end{myboxtitle}
 
 	
-\begin{block}{Zaino 0/1}
+\begin{myboxtitle}[Zaino 0/1]
 Trovare un sottoinsieme $S$ di $\{1, \ldots , n\}$ di oggetti tale che il loro
 peso totale non superi la capacità massima e il loro profitto totale sia
 massimo.
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Zaino reale (o Zaino frazionario)}
+\begin{myboxtitle}[Zaino reale (o Zaino frazionario)]
 E' possibile prendere frazioni di oggetti.
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -884,6 +899,7 @@ $i$ & $p_i$ & $w_i$ & $p_i/w_i$ \\
 \end{overprint}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Algoritmo}
 \begin{Procedure}
 \caption[A]{\zaino($\REAL[\,]\ p,\ \REAL[\,]\ v,\REAL\ C,\ \INTEGER\ n,\ \REAL[\,]\ x$)}
@@ -904,6 +920,7 @@ che deve essere prelevata.
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Correttezza}
 
 \BB{Informalmente}
@@ -933,7 +950,6 @@ che il profitto specifico dell'oggetto $1$ è massimo
 \item Obiettivo: risparmio spazio su disco e tempo di trasferimento
 \EIL
 
-\bigskip
 \BB{Una possibile tecnica di compressione: \alert{codifica di caratteri}}
 \BIL
 \item Tramite \alert{funzione di codifica} $f: f(c) = x$
@@ -945,6 +961,7 @@ che il profitto specifico dell'oggetto $1$ è massimo
 \EIL
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Possibili codifiche}
 
 \BB{Esempio}
@@ -983,20 +1000,19 @@ che il profitto specifico dell'oggetto $1$ è massimo
 \end{overprint}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Codifica a prefissi}
 
-\begin{block}{Codice a prefisso}
+\begin{myboxtitle}[Codice a prefisso]
 In un codice a prefisso (meglio sarebbe "senza prefissi"), \alert{nessun codice è
 prefisso di un altro codice} (condizione necessaria per la decodifica).
-\end{block}
+\end{myboxtitle}
 
-\bigskip
 \BB{Esempio 1}
 \BI
 \item "\texttt{babaca}": $\texttt{100} \cdot \texttt{0} \cdot \texttt{100} \cdot \texttt{0} \cdot \texttt{101} \cdot \texttt{0}$
 \EI
 
-\bigskip
 \BB{Esempio 2}
 \BI
 \item Codice: "\texttt{a}" $\rightarrow$ \texttt{0}, "\texttt{b}" $\rightarrow$ \texttt{1}, "\texttt{c}" $\rightarrow$ \texttt{11}
@@ -1006,6 +1022,7 @@ prefisso di un altro codice} (condizione necessaria per la decodifica).
 \end{frame}
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Rappresentazione ad albero per la codifica}
 
 \BB{Alcune domande}
@@ -1032,12 +1049,12 @@ prefisso di un altro codice} (condizione necessaria per la decodifica).
 
 \vspace{-12pt}
 \TwoColsCustom{0.55}{0.40}{
-\begin{block}{Alberi binari di decodifica}
+\begin{myboxtitle}[Alberi binari di decodifica]
 \BI
 \item Figlio sinistro/destro: $0$ / $1$
 \item Caratteri dell'alfabeto sulle foglie
 \EI
-\end{block}
+\end{myboxtitle}
 \smallskip
 \begin{tikzpicture}[
 	level distance=1.5cm,
@@ -1111,12 +1128,12 @@ parti dalla radice\;
 
 \vspace{-12pt}
 \TwoColsCustom{0.55}{0.40}{
-\begin{block}{Alberi binari di decodifica}
+\begin{myboxtitle}[Alberi binari di decodifica]
 \BI
 \item Figlio sinistro/destro: $0$ / $1$
 \item Caratteri dell'alfabeto sulle foglie
 \EI
-\end{block}
+\end{myboxtitle}
 \smallskip
 \begin{tikzpicture}[
 	level distance=1.5cm,
@@ -1192,12 +1209,12 @@ parti dalla radice\;
 
 \vspace{-12pt}
 \TwoColsCustom{0.55}{0.40}{
-\begin{block}{Alberi binari di decodifica}
+\begin{myboxtitle}[Alberi binari di decodifica]
 \BI
 \item Figlio sinistro/destro: $0$ / $1$
 \item Caratteri dell'alfabeto sulle foglie
 \EI
-\end{block}
+\end{myboxtitle}
 \smallskip
 \begin{tikzpicture}[
 	level distance=1.5cm,
@@ -1263,6 +1280,7 @@ parti dalla radice\;
 \end{frame}
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Definizione formale del problema}
 
 \BB{Input}
@@ -1284,6 +1302,7 @@ parti dalla radice\;
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Algoritmo di Huffman}
 \BB{Principio del codice di Huffman}
 \BIL
@@ -1301,14 +1320,15 @@ parti dalla radice\;
 \EIL
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}[fragile]{Funzionamento algoritmo}
 
 \vspace{-6pt}
-\begin{block}{}
+\BB{
 \BI
 \item Costruire una lista ordinata di nodi foglia per ogni carattere, etichettato con la propria frequenza
 \EI
-\end{block}
+}
 
 \medskip
 \begin{tikzpicture}[
@@ -1333,17 +1353,18 @@ parti dalla radice\;
 \end{frame}
 
 
+%-------------------------------------------------------------------------
 \begin{frame}[fragile]{Funzionamento algoritmo}
 
 \vspace{-6pt}
-\begin{block}{}
+\BB{
 \BI
 \item Rimuovere i due nodi con frequenze minori $f_x$, $f_y$ 
 \item Creare un nodo padre con etichetta "-" e frequenza $f_x+f_y$
 \item Collegare i due nodi rimossi con il nuovo nodo
 \item Aggiungere il nodo così creato alla lista, mantenendo l'ordine
 \EI
-\end{block}
+}
 \medskip
 	
 \begin{tikzpicture}[
@@ -1369,17 +1390,18 @@ parti dalla radice\;
 \end{tikzpicture}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}[fragile]{Funzionamento algoritmo}
 
 \vspace{-6pt}
-\begin{block}{}
+\BB{
 \BI
 \item Rimuovere i due nodi con frequenze minori $f_x$, $f_y$ 
 \item Creare un nodo padre con etichetta "-" e frequenza $f_x+f_y$
 \item Collegare i due nodi rimossi con il nuovo nodo
 \item Aggiungere il nodo così creato alla lista, mantenendo l'ordine
 \EI
-\end{block}
+}
 \medskip
 	
 \begin{tikzpicture}[
@@ -1407,17 +1429,18 @@ parti dalla radice\;
 \end{tikzpicture}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}[fragile]{Funzionamento algoritmo}
 
 \vspace{-6pt}
-\begin{block}{}
+\BB{
 \BI
 \item Rimuovere i due nodi con frequenze minori $f_x$, $f_y$ 
 \item Creare un nodo padre con etichetta "-" e frequenza $f_x+f_y$
 \item Collegare i due nodi rimossi con il nuovo nodo
 \item Aggiungere il nodo così creato alla lista, mantenendo l'ordine
 \EI
-\end{block}
+}
 \medskip
 	
 \begin{tikzpicture}[
@@ -1448,17 +1471,18 @@ parti dalla radice\;
 \end{frame}
 
 
+%-------------------------------------------------------------------------
 \begin{frame}[fragile]{Funzionamento algoritmo}
 
 \vspace{-6pt}
-\begin{block}{}
+\BB{
 \BI
 \item Rimuovere i due nodi con frequenze minori $f_x$, $f_y$ 
 \item Creare un nodo padre con etichetta "-" e frequenza $f_x+f_y$
 \item Collegare i due nodi rimossi con il nuovo nodo
 \item Aggiungere il nodo così creato alla lista, mantenendo l'ordine
 \EI
-\end{block}
+}
 \medskip
 	
 \begin{tikzpicture}[
@@ -1490,14 +1514,15 @@ child { node[treenode]  {-\,:\,30}
 \end{tikzpicture}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}[fragile]{Funzionamento algoritmo}
 
 \vspace{-6pt}
-\begin{block}{}
+\BB{
 \BI
 \item Si termina quando resta un solo nodo nella lista
 \EI
-\end{block}
+}
 \medskip
 	
 \begin{tikzpicture}[
@@ -1532,15 +1557,16 @@ child { node[treenode] {-\,:\,55}
 \end{tikzpicture}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}[fragile]{Funzionamento algoritmo}
 
 \vspace{-6pt}
-\begin{block}{}
+\BB{
 \BI
 \item Al termine, si etichettano gli archi dell'albero con bit \texttt{0},\texttt{1}
 \EI
 
-\end{block}
+}
 \medskip
 	
 \TwoColsCustom{0.7}{0.25}{
@@ -1596,6 +1622,7 @@ f & \B{1}\B{1}\R{0}\B{1} \\\hline
 }
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Algoritmo}
 
 \TwoColsCustom{0.53}{0.45}{
@@ -1643,13 +1670,13 @@ f & \B{1}\B{1}\R{0}\B{1} \\\hline
 }
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Correttezza}
 
-\begin{block}{Teorema}
+\begin{myboxtitle}[Teorema]
 	L'output dell'algoritmo Huffman per un dato file è un codice a prefisso ottimo
-\end{block}
+\end{myboxtitle}
 
-\bigskip
 \BB{Schema della dimostrazione}
 \BIL
 \item \alert{Proprietà della scelta greedy}
@@ -1664,6 +1691,7 @@ f & \B{1}\B{1}\R{0}\B{1} \\\hline
 \end{frame}
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Scelta greedy}
 
 \BB{Ipotesi}
@@ -1686,6 +1714,7 @@ profondità massima e i loro codici differiscono solo per l'ultimo bit (sono fog
 \EI
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Scelta greedy}
 
 \vspace{-6pt}
@@ -1700,6 +1729,7 @@ profondità massima e i loro codici differiscono solo per l'ultimo bit (sono fog
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}[shrink=5]{Scelta greedy}
 
 \BIL
@@ -1720,12 +1750,34 @@ C(T') - C(T'') &\geq& 0 \qquad \textrm{Come sopra}
 
 \end{frame}
 
+\begin{OnlySlides}{MC Microcomputer n.49 - Febbraio 1986}
+
+\TwoCols{
+\vspace{-21pt}
+\IG{0.90}{mc049-huffman.pdf}
+}{
+Nelle pubblicità:
+\BIL
+\item Hard-disk 10MB per l'equivalente di 2400 Euro
+%%% Proiettando, un'hard SSD da 1TB, che costa 160 euro nel 2019 su amazon, a questi prezzi viene 240 milioni di euro, una fattore 1.5 milioni
+\item Mouse (con rotellina) per l'equivalente di 200 Euro
+\EIL
+
+\IG{0.4}{huffman-david.jpg}
+\vspace{-18pt}
+\begin{center}
+Foto: Don Harris
+\end{center}
+}
+
+\end{OnlySlides}
+
 \section{Alberi di copertura minimi}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Albero di copertura di peso minimo}
 \vspace{-6pt}
-\begin{block}{Problema}
+\begin{myboxtitle}[Problema]
 Dato un grafo pesato, determinare come interconnettere tutti i suoi nodi
 minimizzando il costo del peso associato ai suoi archi.
 \BI
@@ -1733,9 +1785,8 @@ minimizzando il costo del peso associato ai suoi archi.
 \item \alert{Albero di connessione (di peso) minimo}
 \item \alert	{Minimum spanning tree}
 \EI
-\end{block}
+\end{myboxtitle}
 
-\medskip
 \BB{Esempio di applicazione}
 Una compagnia di telecomunicazioni deve stendere una nuova rete
 in un quartiere; deve seguire le connessioni esistenti (la rete stradale)
@@ -1745,7 +1796,7 @@ e ogni arco ha un costo associato distinto (costi di scavo, etc.)
 %-------------------------------------------------------------------------
 \begin{frame}{Definizione del problema}
 \vspace{-6pt}
-\begin{block}{Input}
+\begin{myboxtitle}[Input]
 \BIL
 \item \alert{$G=(V,E)$}: un grafo non orientato e connesso 
 \item \alert{$w: V \times V \rightarrow \mathbb{R}$}: una funzione di peso (costo di connessione)
@@ -1755,7 +1806,7 @@ e ogni arco ha un costo associato distinto (costi di scavo, etc.)
 \EI
 \item Poiché $G$ non è orientato, $w(u,v) = w(v,u)$
 \EIL
-\end{block}
+\end{myboxtitle}
 \bigskip	
 \centering
 \begin{tikzpicture}[
@@ -1805,7 +1856,7 @@ e ogni arco ha un costo associato distinto (costi di scavo, etc.)
 \begin{frame}{Definizione del problema}
 
 
-\begin{block}{Albero di copertura (Spanning tree)}
+\begin{myboxtitle}[Albero di copertura (Spanning tree)]
 Dato un grafo $G=(V,E)$ non orientato e connesso, un albero di copertura di $G$ è un sottografo $T=(V, E_T)$ 
 tale che 
 \BI
@@ -1813,7 +1864,7 @@ tale che
 \item $E_T \subseteq E$
 \item $T$ contiene tutti i vertici di $G$
 \EI
-\end{block}
+\end{myboxtitle}
 
 \bigskip	
 \centering
@@ -1859,16 +1910,17 @@ tale che
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Definizione del problema}
 \vspace{-6pt}
-\begin{block}{Output: albero di copertura di peso minimo}
+\begin{myboxtitle}[Output: albero di copertura di peso minimo]
 Trovare l'albero di copertura il cui \alert{peso totale} sia minimo rispetto a ogni
 altro albero di copertura.
 
 \[
 w(T) = \sum_{[u,v] \in E_T} w(u,v)
 \]
-\end{block}
+\end{myboxtitle}
 
 Non è detto che l'albero di copertura minimo sia univoco
 
@@ -1980,9 +2032,9 @@ rispettata la seguente invariante:
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo generico}
 
-\begin{block}{Arco sicuro}
+\begin{myboxtitle}[Arco sicuro]
 Un arco $[u,v]$ è detto \alert{sicuro per $A$} se $A \cup \{[u,v]\}$ è ancora un sottoinsieme di qualche albero di connessione minimo.
-\end{block}
+\end{myboxtitle}
 
 \medskip
 \begin{Procedure}
@@ -2000,6 +2052,7 @@ Un arco $[u,v]$ è detto \alert{sicuro per $A$} se $A \cup \{[u,v]\}$ è ancora 
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Definizioni}
 % Per caratterizzare gli archi sicuri dobbiamo introdurre alcune definizioni:
 \BI
@@ -2068,9 +2121,10 @@ peso è minimo fra i pesi degli archi che attraversano un taglio
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Arco sicuro}
 
-\begin{block}{Teorema}	
+\begin{myboxtitle}[Teorema]
 \BIL
 \item Sia $G=(V,E)$ un grafo non orientato e connesso 
 \item Sia $w: V \times V \rightarrow \mathbb{R}$
@@ -2079,7 +2133,7 @@ peso è minimo fra i pesi degli archi che attraversano un taglio
 \item Sia $[u,v]$ un arco leggero che attraversa il taglio
 \EIL
 Allora  l'arco $[u,v]$ è sicuro per $A$	
-\end{block}
+\end{myboxtitle}
 \end{frame}
 
 
@@ -2294,14 +2348,14 @@ Arco blu non sicuro
 %-------------------------------------------------------------------------
 \begin{frame}{Dimostrazione}
 
-\begin{block}{}
+\BB{
 Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi:
   \BI
 	\item $(u,v) \in T$: allora $(u,v)$ è sicuro per $A$
 	\item $(u,v) \not\in T$: trasformiamo $T$ in un albero $T'$ contenente
 	  $(u,v)$ e dimostriamo che $T'$ è un albero di copertura minimo
 	\EI
-\end{block}
+}
 
 \TwoColsCustom{0.75}{0.21}{
 \BIL
@@ -2350,14 +2404,14 @@ Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi:
 %-------------------------------------------------------------------------
 \begin{frame}{Dimostrazione}
 
-\begin{block}{}
+\BB{
 Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi
   \BI
 	\item $(u,v) \in T$: allora $(u,v)$ è sicuro per $A$
 	\item $(u,v) \not\in T$: trasformiamo $T$ in un albero $T'$ contenente
 	  $(u,v)$ e dimostriamo che $T'$ è un albero di copertura minimo
 	\EI
-\end{block}
+}
 
 \TwoColsCustom{0.75}{0.21}{
 \BIL
@@ -2410,7 +2464,7 @@ Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi
 %-------------------------------------------------------------------------
 \begin{frame}{Archi sicuri}
 
-\begin{block}{Corollario}
+\begin{myboxtitle}[Corollario]
 \BIL
 \item Sia $G=(V,E)$ un grafo non orientato e connesso 
 \item Sia $w: V \times V \rightarrow \mathbb{R}$
@@ -2419,7 +2473,7 @@ Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi
 \item Sia $[u,v]$ un arco leggero che connette $C$ a qualche altra componente in $G_A$
 \EIL
 Allora l'arco $[u,v]$ è sicuro per $A$
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -3024,6 +3078,7 @@ $\INTEGER\ i = 1$\;
 
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Analisi della complessità algoritmo di Kruskal}
 
 \BB{Analisi della complessità}
@@ -3039,6 +3094,7 @@ $\INTEGER\ i = 1$\;
 \EIL
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Algoritmo di Prim}
 
 \BB{Idea}
@@ -3057,6 +3113,7 @@ dove $V_A$ è l'insieme di nodi raggiunti da archi in $A$
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Implementazione}
 	
 \BB{Una struttura dati per i nodi non ancora nell'albero}
@@ -3067,7 +3124,6 @@ coda con min-priorità $Q$ ordinata in base alla seguente definizione di priorit
 un vertice nell'albero, o $+\infty$ se tale arco non esiste""
 \EI
 
-\bigskip
 \BB{Albero registrato come \alert{vettore dei padri}}
 \BI
 \item Ogni nodo $v$ mantiene un puntatore al padre $p[v]$
@@ -3077,6 +3133,7 @@ un vertice nell'albero, o $+\infty$ se tale arco non esiste""
 
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Algoritmo di Prim}
 
 \vspace{-12pt}
@@ -3103,6 +3160,7 @@ $p[r] = 0$\;
 \end{Procedure}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 %%%%%% 1 %%%%%%%%%%%%%%%%%
 \begin{tikzpicture}[
@@ -3288,6 +3346,7 @@ $p[r] = 0$\;
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 
 \begin{tikzpicture}[
@@ -3474,6 +3533,7 @@ $p[r] = 0$\;
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 \centering
 \begin{tikzpicture}[
@@ -3523,6 +3583,7 @@ $p[r] = 0$\;
 \end{frame}
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Algoritmo di Prim: Analisi}
 
 L’efficienza dell’algoritmo di Prim dipende dalla coda con priorità
@@ -3548,6 +3609,7 @@ L’efficienza dell’algoritmo di Prim dipende dalla coda con priorità
 \EIL
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Discussione}
 
 \BB{Vero o falso}
@@ -3557,7 +3619,6 @@ L’efficienza dell’algoritmo di Prim dipende dalla coda con priorità
 \item L’arco con il terzo peso minimo è sicuro
 \EI
 
-\bigskip
 \BB{Albero di copertura minima in un piano}
 \BI
 \item Input: $n$ punti nel piano 
@@ -3568,6 +3629,7 @@ L’efficienza dell’algoritmo di Prim dipende dalla coda con priorità
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Applicazioni}
 
 \BB{Applicazioni dirette nella progettazione di}
@@ -3578,7 +3640,6 @@ L’efficienza dell’algoritmo di Prim dipende dalla coda con priorità
 \item Reti elettriche
 \EI
 
-\bigskip
 \BB{Alcuni utilizzi particolari}
 \BI
 \item Segmentazione di immagini
@@ -3590,6 +3651,7 @@ L’efficienza dell’algoritmo di Prim dipende dalla coda con priorità
 \end{frame}
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Prospettiva storica}
 	
 \BIL
@@ -3618,16 +3680,16 @@ L’efficienza dell’algoritmo di Prim dipende dalla coda con priorità
 
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Conclusioni}
 \BB{Vantaggi}
 \BIL
-\item  Semplici da programmare
+\item Semplici da programmare
 \item Molto efficienti
 \item Quando è possibile dimostrare la proprietà di scelta ingorda, danno la soluzione ottima
 \item La soluzione sub-ottima può essere accettabile
 \EIL
 
-\bigskip
 \BB{Svantaggi}
 \BIL
 \item Non sempre applicabili se si vuole la soluzione ottima

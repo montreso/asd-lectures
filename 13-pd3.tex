@@ -49,55 +49,60 @@
 \section{String matching approssimato}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}[shrink=5]{String matching approssimato}
+%-------------------------------------------------------------------------
+\begin{frame}{String matching approssimato}
 
-\BB{Input}
+\vspace{-9pt}
+\begin{myboxtitle}[Definizione]
+
+Un'\alert{occorrenza $k$-approssimata} di $P$ in $T$, dove
 \BI
-\item Una stringa $P = p_1 \ldots p_m$ (\alert{pattern})
-\item Una stringa $T = p_1 \ldots p_n$ (\alert{testo}), con $m \leq n$
+\item $P = p_1 \ldots p_m$ è una stringa detta \alert{pattern}
+\item $T = t_1 \ldots t_n$ è una stringa detta \alert{testo}, con $m \leq n$,
 \EI
-
-\medskip
-\BB{Definizione}
-Un’\alert{occorrenza $k$-approssimata} di $P$ in $T$ , con $0 \leq k \leq m$, è una copia di $P$ in $T$ in cui sono ammessi $k$ "errori" (o differenze) tra caratteri di $P$ e caratteri di $T$, del seguente tipo:
+è una copia di $P$ in $T$ in cui sono ammessi $k$ "errori" (o differenze) tra caratteri di $P$ e caratteri di $T$, del seguente tipo:
 \begin{enumerate}
-\item i corrispondenti caratteri in $P$ e in $T$ sono diversi (\alert{sostituzione}) 
+\item i corrispondenti caratteri in $P, T$ sono diversi (\alert{sostituzione}) 
 \item un carattere in $P$ non è incluso in $T$ (\alert{inserimento})
 \item un carattere in $T$ non è incluso in $P$ (\alert{cancellazione})
 \end{enumerate}
+\end{myboxtitle}
 
-\medskip
-\BB{Problema -- Approximated string matching}
-Trovare un’occorrenza $k$-approssimata di $P$ in $T$ per cui $k$ sia minimo.
+\begin{myboxtitle}[Problema -- Approximated string matching]
+Trovare un'occorrenza $k$-approssimata di $P$ in $T$ con $k$ minimo\\ 
+($0 \leq k \leq m$).
+\end{myboxtitle}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 
-\begin{block}{}
+\vspace{-9pt}
+\begin{myboxtitle}[Esempio]
 T = \texttt{questoèunoscempio} \\
 P = \texttt{unesempio}
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Domande}
+\begin{myboxtitle}[Domande]
 \BIL
 \item Qual è il minimo valore $k$ per cui si trova una occorrenza $k$-approssimata di $P$ in $T$?
 \item A partire da dove?
 \item Con quali errori?
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Sottostruttura ottima}
 
-\vspace{-6pt}
-\begin{block}{Definizione}
+\vspace{-9pt}
+\begin{myboxtitle}[Definizione]
 Sia $DP[0 \ldots m, 0 \ldots n]$ una tabella di programmazione dinamica
 tale che $DP[i][j]$ contiene il minimo valore $k$ per cui esiste un'occorrenza $k$-approssimata di $P(i)$ in $T(j)$, che termina nella posizione $j$.
-\end{block}
+\end{myboxtitle}
 
-\bigskip
 \BB{Quattro possibilità}
 \smallskip
 \begin{tabular}{ll}
@@ -109,9 +114,10 @@ $DP[i][j-1]+1$				& avanza sul testo (\alert{cancellazione})\\
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Sottostruttura ottima}
 
-\vspace{-12pt}
+\vspace{-9pt}
 \[
 DP[i][j] = \begin{cases}
 0  & \textrm{$i=0$}\\
@@ -122,17 +128,18 @@ i  & \textrm{$j=0$}\\
 \end{cases}
 \]
 
-\bigskip
 \begin{center}
 \IG{0.4}{stringmatching.pdf}
 \end{center}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Ricostruzione della soluzione finale}
 
+\vspace{-9pt}
 \BIL
-\item $DP[m][j] = k$ se e solo se esiste un’occorrenza $k$-approssimata di $P$ in $T(j)$ che
+\item $DP[m][j] = k$ se e solo se esiste un'occorrenza $k$-approssimata di $P$ in $T(j)$ che
 termina nella posizione $j$.
 \item La soluzione del problema è data dal più piccolo valore $DP[m][j]$, per $0 \leq j \leq n$
 \EIL
@@ -143,8 +150,10 @@ termina nella posizione $j$.
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}[shrink=3]{}
-\vspace{-12pt}
+
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\INTEGER\ \stringmatching($\Item[\,]\ P,\ \Item[\,]\ T,\ \INTEGER\ m,\ \INTEGER\ n$)}
 
@@ -171,20 +180,23 @@ $\INTARRAY[\,]\ DP = \NEW\ \INTEGER[0 \mldots m][ 0 \mldots n]$\;
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{String matching approssimato}
 
-\vspace{-6pt}
-\begin{block}{Take-home message -- prendi e porta a casa}
+\vspace{-9pt}
+\begin{myboxtitle}[Take-home message -- prendi e porta a casa]
 Non è detto che "la soluzione finale" si trovi nella casella "in basso a destra"; è invece possibile che la soluzione debba essere ricercata essa 
 stessa nella tabella $DP$
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
-\begin{frame}{Note conclusive}
+%-------------------------------------------------------------------------
+\begin{frame}{Reality check}
 
-Approximate String Matching è un esempio di \alert{string metric}
-(\url{https://en.wikipedia.org/wiki/String_metric}):
+\vspace{-9pt}
+\BB{
+Approximate String Matching è un esempio di \alert{string metric}:
 
 \begingroup
 \small
@@ -195,11 +207,13 @@ String metrics are used heavily in information integration and are currently use
 \end{quote}
 \endgroup
 
-\bigskip
-\BB{Esempi}
-\BIL
-\item \alert{Edit distance}, detta anche \alert{distanza di Levenshtein}
-\EIL
+\url{https://en.wikipedia.org/wiki/String_metric}
+}
+
+\begin{myboxtitle}[Esempi]
+\alert{Edit distance}, detta anche \alert{distanza di Levenshtein}
+\end{myboxtitle}
+
 \end{frame}
 
 
@@ -208,17 +222,18 @@ String metrics are used heavily in information integration and are currently use
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Prodotto di catena di matrici}
 
-\begin{block}{Problema}
+\vspace{-9pt}
+\begin{myboxtitle}[Problema]
 Data una sequenza di $n$ matrici $A_1, A_2, A_3, \ldots, A_n$, compatibili due a due al prodotto, vogliamo calcolare il loro prodotto.
 \BIL
 \item  Il prodotto di matrici non è \alert{commutativo} \ldots .
 \item  \ldots .ma è \alert{associativo}: $(A_1 \cdot A_2) \cdot A_3 = A_1 \cdot (A_2 \cdot A_3)$ 
 \EIL
-\end{block}
+\end{myboxtitle}
 
-\bigskip
 \BB{Cosa vogliamo ottimizzare}
 \BIL
 \item Il prodotto di matrici si basa sulla \alert{moltiplicazione scalare} come operazione elementare
@@ -227,8 +242,10 @@ Data una sequenza di $n$ matrici $A_1, A_2, A_3, \ldots, A_n$, compatibili due a
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio 1}
     
+\vspace{-9pt}
 \begin{columns}[T]
 \column{0.20\textwidth}
 \begingroup
@@ -247,8 +264,10 @@ C & $100 \times 1$ \\\hline
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio 2}
 
+\vspace{-9pt}
 \begin{columns}[T]
 \column{0.20\textwidth}
 \begingroup
@@ -268,28 +287,18 @@ D & $30 \times 5$ \\\hline
 
 \end{frame}
 
-\begin{frame}{Risolvere il problema con programmazione dinamica}
 
-\BB{Fasi}
-\BIL 
-\item Caratterizzare la \alert{struttura} di una soluzione ottima
-\item Definire ricorsivamente il \alert{valore} di una soluzione ottima
-\item Calcolare il \alert{valore} di una soluzione ottima "bottom-up" (dal basso verso l'alto)
-\item Ricostruzione di una soluzione ottima 
-\EIL
-
-\end{frame}
-
+%-------------------------------------------------------------------------
 \begin{frame}{Parentesizzazione}
 
-\vspace{-6pt}
-\begin{block}{Parentesizzazione}
+\vspace{-9pt}
+\begin{myboxtitle}[Parentesizzazione]
 Una \alert{parentesizzazione} $P_{i,j}$ del prodotto $A_i \cdot A_{i+1} \cdot \cdot \cdot A_j$ consiste:
 \BI
 \item nella matrice $A_i$, se $i = j$; 
 \item nel prodotto di due parentesizzazioni ($P_{i,k} \cdot P_{k+1,j}$), altrimenti.
 \EI
-\end{block}
+\end{myboxtitle}
 
 \begin{columns}[T]
 \column{0.42\textwidth}
@@ -306,30 +315,34 @@ In questo caso, $k=3$ e il prodotto evidenziato
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Parentesizzazione ottima}
 
-\vspace{-6pt}
-\begin{block}{Parentesizzazione ottima}
+\vspace{-9pt}
+\begin{myboxtitle}[Parentesizzazione ottima]
 La parentesizzazione che richiede il minor numero di moltiplicazioni scalari per essere completata, fra tutte le parentesizzazioni possibili.
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Motivazione}
+\begin{myboxtitle}[Motivazione]
 Vale la pena preprocessare i dati per cercare la parentesizzazione migliore, per risparmiare tempo dopo nel calcolo vero e proprio
+\end{myboxtitle}
 
-\bigskip
-\BB{Domanda}
+\begin{myboxtitle}[Domanda]
 Quante sono le parentesizzazioni possibili?
 \begin{center}
 \begin{tabular}{|c|r|r|r|r|r|r|r|r|r|r|}
 \hline
-$n$ & \phantom{00}1 & \phantom{00}2 & \phantom{00}3 & \phantom{00}4 & \phantom{00}5 & \phantom{00}6 & \phantom{00}7 & \phantom{00}8 & \phantom{00}9 & \phantom{0}10 \\\hline
+$n$ & \phantom{0}1 & \phantom{0}2 & \phantom{0}3 & \phantom{0}4 & \phantom{0}5 & \phantom{0}6 & \phantom{0}7 & \phantom{0}8 & \phantom{0}9 & \phantom{0}10 \\\hline
 $P(n)$ & 1 & 1 & 2 & 5 & ? & ? & ? & ? & ? & ? \\\hline
 \end{tabular}
 \end{center}
+\end{myboxtitle}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Parentesizzazione ottima}
+
+\vspace{-9pt}
 \BIL
 \item $P(n)$: numero di parentesizzazioni per $n$ matrici $A_1 \cdot \ldots \cdot A_n$
 \item L'ultimo prodotto può occorrere in $n-1$ posizioni diverse
@@ -351,20 +364,21 @@ $P(n)$ & 1 & 1 & 2 & 5 & ? & ? & ? & ? & ? & ? \\\hline
 \begin{center}
 \begin{tabular}{|c|r|r|r|r|r|r|r|r|r|r|}
 \hline
-$n$ & \phantom{00}1 & \phantom{00}2 & \phantom{00}3 & \phantom{00}4 & \phantom{00}5 & \phantom{00}6 & \phantom{00}7 & \phantom{00}8 & \phantom{00}9 & \phantom{0}10 \\\hline
+$n$ & \phantom{0}1 & \phantom{0}2 & \phantom{0}3 & \phantom{0}4 & \phantom{0}5 & \phantom{0}6 & \phantom{0}7 & \phantom{0}8 & \phantom{0}9 & \phantom{0}10 \\\hline
 $P(n)$ & 1 & 1 & 2 & 5 & 14 & 42 & 132 & 429 & 1430 & 4862 \\\hline
 \end{tabular}
 \end{center}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Parentesizzazione ottima}
 
-\vspace{-6pt}
-\begin{block}{Numero di Catalan}
+\vspace{-9pt}
+\begin{myboxtitle}[Numero di Catalan]
 \[
 P(n+1) = C(n) = \frac{1}{n+1} {2n\choose n} = \frac{(2n)!}{(n+1)!n!} = \Omega\left(\frac{4^n}{n^{3/2}}\right)
 \]
-\end{block}
+\end{myboxtitle}
 
 \begin{columns}[T]
 \column{0.48\textwidth}
@@ -375,13 +389,13 @@ $C(n)$: numero di modi in cui un poligono convesso con $n+2$ lati può essere su
 \BB{Esercizio}
 Dimostrare che $P(n) = \Omega(2^n)$
 
-\bigskip
 \BB{Implicazione}
 Algoritmi di forza bruta non vanno quindi bene
 \end{columns}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Definizioni matematiche}
 
 \begin{tabular}{|P{3cm}|P{8cm}|}
@@ -394,9 +408,11 @@ $P[i \ldots j]$ & una parentesizzazione per $A[i \ldots j]$ \newline(non necessa
 \end{tabular}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Struttura di una parentesizzazione ottima}
     
-\BB{Osservazioni}
+\vspace{-9pt}
+\begin{myboxtitle}[Osservazioni]
 \BIL
 \item Sia $A[i \ldots j]$ una sottosequenza del prodotto di matrici
 \item Si consideri una parentesizzazione ottima $P[i \ldots j]$ di $A[i \ldots j]$
@@ -406,11 +422,13 @@ $P[i \ldots j]$ & una parentesizzazione per $A[i \ldots j]$ \newline(non necessa
   P[i\ \ldots j] = P[i \ldots k] \cdot  P[k+1 \ldots j]
 \]
 \EIL
+\end{myboxtitle}
 
 \begin{columns}[T]
-\column{0.45\textwidth}
-\BB{Domanda}
-Quali sono le caratteristiche dei due sottoprodotti $P[i \ldots k]$ e $P[k+1 \ldots j]$?
+\column{0.48\textwidth}
+\begin{myboxtitle}[Domanda]
+Quali sono le caratteristiche dei due sottoprodotti\\ $P[i \ldots k]$ e $P[k+1 \ldots j]$?
+\end{myboxtitle}
 \column{0.45\textwidth}
 \vspace{-9pt}
 \IG{0.8}{sottostruttura.pdf}
@@ -418,40 +436,48 @@ Quali sono le caratteristiche dei due sottoprodotti $P[i \ldots k]$ e $P[k+1 \ld
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Teorema sottostruttura ottima}
 
-\vspace{-6pt}
-\begin{block}{Teorema}
+\vspace{-9pt}
+\begin{myboxtitle}[Teorema]
 \alert{Se} $P[i \ldots j] =  P[i \ldots k]  \cdot P[k+1 \ldots j]$ è una parentesizzazione ottima del prodotto $A[i \ldots j]$, \alert{allora}:
 \BI
 \item $P[i \ldots k]$ è parentesizzazione ottima del prodotto $A[i \ldots k]$
 \item $P[k+1 \ldots j]$ è parentesizzazione ottima del prodotto $A[k+1 \ldots j]$
 \EI
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Dimostrazione -- per assurdo}
+\begin{myboxtitle}[Dimostrazione -- per assurdo]
 \BIL
 \item Supponiamo esista un parentesizzazione ottima $P'[i \ldots k]$ di $A[i \ldots k]$ con costo inferiore a $P[i \ldots k]$.
 \item Allora, $P'[i \ldots k] \cdot P[k+1 \ldots j]$ sarebbe una parentesizzazione di $A[i \ldots j]$ con costo inferiore a $P[i \ldots j]$, assurdo.
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Teorema sottostruttura ottima}
 
-\BB{In altre parole}
+\vspace{-9pt}
+\begin{myboxtitle}[In altre parole]
 Il teorema afferma che esiste una \alert{sottostruttura ottima}: Ogni soluzione ottima al problema della parentesizzazione contiene al suo interno le soluzioni ottime dei due sottoproblemi
+\end{myboxtitle}
 
-\bigskip
-\BB{Programmazione dinamica}
+
+\begin{myboxtitle}[Programmazione dinamica]
 L'esistenza di sottostrutture ottime ci indica che in questo problema, la programmazione dinamica è applicabile
+\end{myboxtitle}
 
-\bigskip
-\BB{Prossima fase}
+\begin{myboxtitle}[Prossima fase]
 Definire ricorsivamente il costo di una soluzione ricorsiva
+\end{myboxtitle}
+
+
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Valore della soluzione ottima}
 
 Sia \alert{$DP[i][j]$} il minimo numero di moltiplicazioni scalari necessarie per calcolare il prodotto $A[i \ldots j]$
@@ -479,15 +505,18 @@ DP[i][j] = DP[i][k] + DP[k+1][j] + c_{i-1} \cdot c_k \cdot c_j
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Valore della soluzione ottima}
 
-\vspace{-12pt}
+\vspace{-9pt}
 \IG{0.85}{matrix.pdf}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Valore della soluzione ottima}
 
+\vspace{-9pt}
 \BB{Ma qual è il valore di $k$?}
 \BIL
 \item Non lo conosciamo....
@@ -495,17 +524,19 @@ DP[i][j] = DP[i][k] + DP[k+1][j] + c_{i-1} \cdot c_k \cdot c_j
 \item $k$ può assumere valori fra $i$ e $j-1$
 \EIL
 
-\bigskip
-\BB{Formula finale}
+\begin{myboxtitle}[Formula finale]
+\small
 \[
   DP[i][j] = \begin{cases}
     0 & i=j \\
     \min_{i \leq k < j} \{ DP[i][k] + DP[k+1][j] + c_{i-1} \cdot c_k \cdot c_j \}  & i<j 
   \end{cases}
 \]
+\end{myboxtitle}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 \vspace{-12pt}
 \begin{center}
@@ -513,6 +544,7 @@ DP[i][j] = DP[i][k] + DP[k+1][j] + c_{i-1} \cdot c_k \cdot c_j
 \end{center}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 \vspace{-12pt}
 \begin{center}
@@ -520,6 +552,7 @@ DP[i][j] = DP[i][k] + DP[k+1][j] + c_{i-1} \cdot c_k \cdot c_j
 \end{center}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 \vspace{-12pt}
 \begin{center}
@@ -527,6 +560,7 @@ DP[i][j] = DP[i][k] + DP[k+1][j] + c_{i-1} \cdot c_k \cdot c_j
 \end{center}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 \vspace{-12pt}
 \begin{center}
@@ -534,6 +568,7 @@ DP[i][j] = DP[i][k] + DP[k+1][j] + c_{i-1} \cdot c_k \cdot c_j
 \end{center}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 \vspace{-12pt}
 \begin{center}
@@ -541,9 +576,11 @@ DP[i][j] = DP[i][k] + DP[k+1][j] + c_{i-1} \cdot c_k \cdot c_j
 \end{center}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Dalla formula al codice}
 
-\BB{Input}
+\vspace{-9pt}
+\begin{myboxtitle}[Input]
 \BIL
 \item Un vettore $c[0 \ldots n]$ contenente le dimensioni delle matrici
 \BI
@@ -553,16 +590,18 @@ DP[i][j] = DP[i][k] + DP[k+1][j] + c_{i-1} \cdot c_k \cdot c_j
 \EI
 \item Due indici $i$, $j$ che rappresentano l'intervallo di matrici da moltiplicare
 \EIL
+\end{myboxtitle}
 
-\bigskip
-\BB{Output}
+\begin{myboxtitle}[Output]
 Il numero di moltiplicazioni scalari per calcolare il prodotto delle matrici comprese fra gli indici $i$ e $j$
+\end{myboxtitle}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Approccio ricorsivo}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\INTEGER \fontproc{recPar}($\INTEGER[\,]\ c$, \INTEGER $i$, \INTEGER $j$)}
 \eIf{$i=j$}
@@ -581,8 +620,10 @@ Il numero di moltiplicazioni scalari per calcolare il prodotto delle matrici com
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Valutazione}
 
+\vspace{-9pt}
 \BB{Alcune riflessioni}
 \BIL
 \item La soluzione ricorsiva top-down è $\Omega(2^n$)
@@ -593,20 +634,24 @@ Il numero di moltiplicazioni scalari per calcolare il prodotto delle matrici com
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Versione bottom-up}
 
-\BB{Tabelle programmazione dinamica}
+\vspace{-9pt}
+\begin{myboxtitle}[Tabelle programmazione dinamica]
 Due matrici $DP$, $\mathit{last}$ di dimensione $n \times n$ tali che:
 \BIL
 \item $DP[i][j]$ contiene il numero di moltiplicazioni scalari necessarie
 per moltiplicare le matrici $A[i \ldots j]$
 \item $\mathit{last}[i][j]$ contiene il valore $k$ dell'ultimo prodotto che minimizza il costo per il sottoproblema
 \EIL
+\end{myboxtitle}
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}[shrink=10]{Versione bottom-up}
 
-\vspace{-12pt}
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\textsf{computePar}($\INTARRAY\ c$, \INTEGER $n$)}	
 $\INTARRAY[\,]\ DP = \NEW\ \INTEGER[1 \ldots n][1 \ldots n]$\;
@@ -635,6 +680,7 @@ $\INTARRAY[\,]\ \mathit{last} = \NEW\ \INTEGER[1 \ldots n][1 \ldots n]$\;
 \end{frame}
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{}
 
 \begingroup
@@ -645,7 +691,7 @@ $\INTARRAY[\,]\ \mathit{last} = \NEW\ \INTEGER[1 \ldots n][1 \ldots n]$\;
 \begin{tabular}{|r|r|r|r|r|r|r|}
 \hline
 $DP$ &  \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} \\\hline
-\textbf{1} & \phantom{00}0 & \color{blue}{224} & \color{blue}{176} & \alert{218} & 276 & 350 \\\hline
+\textbf{1} & \phantom{0}0 & \color{blue}{224} & \color{blue}{176} & \alert{218} & 276 & 350 \\\hline
 \textbf{2} &   & 0 & 64 & \color{blue}{112} & 174 & 250 \\\hline
 \textbf{3} &   &   & 0 & \color{blue}{24}    & 70 & 138 \\\hline
 \textbf{4} &   &   &   & 0 & 30 & 90 \\\hline
@@ -683,6 +729,7 @@ $DP[1][4]$ & $=$ & $\displaystyle\min_{1 \leq k < 4}$ & \{ & $DP[1][k]$ & $+$ & 
 \end{frame}
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{}
 
 \begingroup
@@ -693,7 +740,7 @@ $DP[1][4]$ & $=$ & $\displaystyle\min_{1 \leq k < 4}$ & \{ & $DP[1][k]$ & $+$ & 
 \begin{tabular}{|r|r|r|r|r|r|r|}
 \hline
 $\mathit{last}$ &  \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} \\\hline
-\textbf{1} & \phantom{00}0 & \phantom{00}1 & \phantom{00}1 & \phantom{00}\alert{3} & \phantom{00}3 & \phantom{00}3 \\\hline
+\textbf{1} & \phantom{0}0 & \phantom{0}1 & \phantom{0}1 & \phantom{0}\alert{3} & \phantom{0}3 & \phantom{0}3 \\\hline
 \textbf{2} &   & 0 & 2 & 3 & 3 & 3 \\\hline
 \textbf{3} &   &   & 0 & 3 & 3 & 3 \\\hline
 \textbf{4} &   &   &   & 0 & 4 & 5 \\\hline
@@ -732,20 +779,25 @@ $DP[1][4]$ & $=$ & $\displaystyle\min_{1 \leq k < 4}$ & \{ & $DP[1][k]$ & $+$ & 
 
 
 
+%-------------------------------------------------------------------------
 \begin{frame}{Parentesizzazione ottima}
 
-\BB{Considerazioni}
+\vspace{-9pt}
+\begin{myboxtitle}[Considerazioni]
 \BIL
 \item Il costo computazionale è $O(n^3)$, in quanto ogni cella richiede $O(n)$ per essere riempita
 \item Il costo della funzione si trova nella posizione $DP[1][n]$
 \item E' anche necessario mostrare la soluzione trovata
 \item Per questo motivo abbiamo registrato informazioni sulla soluzione nella matrice $\mathit{last}$
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Ricostruzione della soluzione -- Stampa}
 
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\textsf{computePar}($\INTARRAY\ c$, \INTEGER $n$)}	
 [\ldots]\;
@@ -755,7 +807,7 @@ $\fontproc{printPar}(\mathit{last}, 1, n)$\;
 
 \begin{Procedure}
 \caption[A]{\fontproc{printPar}($\INTARRAY[\,]\ \mathit{last}$, \INTEGER $i$, \INTEGER $j$)}
-\eIf{$i==j$}
+\eIf{$i \Eq j$}
 { \PRINT\ "A[";\ \PRINT\ $i$;\ \PRINT\ "]"\; }
 {
   \PRINT\ "("; 
@@ -768,11 +820,13 @@ $\fontproc{printPar}(\mathit{last}, 1, n)$\;
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Ricostruzione della soluzione -- Calcolo effettivo}
 
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{$\INTARRAY[\,]$ \fontproc{multiply}($\mathbf{matrix}[\,]\ A$, $\INTARRAY[\,]\ S$, \INTEGER $i$, \INTEGER $j$)}
-\eIf{$i==j$}
+\eIf{$i \Eq j$}
 { \Return\ $A[i]$\; }
 {
   $\INTARRAY[\,]\ X = \fontproc{multiply}(\mathit{last}, i, \mathit{last}[i][j])$\;
@@ -783,8 +837,10 @@ $\fontproc{printPar}(\mathit{last}, 1, n)$\;
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 
+\vspace{-9pt}
 \begin{columns}[T]
 \column{0.45\textwidth}
 \begin{align*}
@@ -808,22 +864,22 @@ $\mathit{last}$ &  \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5
 \end{tabular}
 \end{columns}
 
-\bigskip
-\BB{Risultato finale}
-
+\begin{myboxtitle}[Risultato finale]
 \[
  A = ( ( A_1 \cdot  (A_2 \cdot A_3) ) \cdot ( (A_4 \cdot A_5 )  \cdot A_6) )
 \]
+\end{myboxtitle}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Prodotto di catena di matrici}
 
-\vspace{-6pt}
-\begin{block}{Take-home message -- prendi e porta a casa}
+\vspace{-9pt}
+\begin{myboxtitle}[Take-home message -- prendi e porta a casa]
 A volte, bisogna fare attenzione a come riempire la tabella - non è detto che 
 riempire una riga dopo l'altra sia possibile.
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -831,25 +887,29 @@ riempire una riga dopo l'altra sia possibile.
 \section{Insieme indipendente di intervalli pesati}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%-------------------------------------------------------------------------
 \begin{frame}{Insieme indipendente di intervalli pesati -- Introduzione}
 
-\BB{Input}
-Siano dati $n$ intervalli distinti $[a_1, b_1[, \ldots, [a_n,b_n[$ della retta reale, aperti a destra, dove all’intervallo $i$ è associato un profitto $w_i, 1 \leq i \leq n$. 
+\vspace{-9pt}
+\begin{myboxtitle}[Input]
+Siano dati $n$ intervalli distinti $[a_1, b_1[, \ldots, [a_n,b_n[$ della retta reale, aperti a destra, dove all'intervallo $i$ è associato un profitto $w_i, 1 \leq i \leq n$. 
+\end{myboxtitle}
 
-\bigskip
-\BB{Intervalli disgiunti}
+\begin{myboxtitle}[Intervalli disgiunti]
 Due intervalli $i$ e $j$ si dicono \alert{disgiunti} se:  $b_j \leq a_i$  oppure  $b_i \leq a_j$
+\end{myboxtitle}
 
-\bigskip
-\BB{Problema}
+\begin{myboxtitle}[Problema]
 Trovare un \alert{insieme indipendente di peso massimo}, ovvero un sottoinsieme di intervalli disgiunti tra loro tale che la somma dei loro profitti sia la più
 grande possibile.
 \BI
 \item Esempio: prenotazione di una sala conferenza
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 
 \vspace{-12pt}
@@ -859,6 +919,7 @@ grande possibile.
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 
 \vspace{-12pt}
@@ -868,14 +929,16 @@ grande possibile.
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Pre-elaborazione}
+
+\vspace{-9pt}
 Per usare la programmazione dinamica, è necessario effettuare una pre-elaborazione: ordinare gli intervalli per estremi finali crescenti
 
   \[
      b_1 \leq b_2 \leq \ldots \leq b_n
   \]
 
-\smallskip
 \BB{Profitto massimo, prima versione}
 $DP[i]$ contiene il profitto massimo ottenibile con i primi $i$ intervalli
 
@@ -886,7 +949,7 @@ $DP[i]$ contiene il profitto massimo ottenibile con i primi $i$ intervalli
   \end{cases}
 \]
 
-\BB{Costo computazionale dell'algoritmo associato a questa formula}
+\BB{Costo computazionale dell'algoritmo associato a questa formula?}
 \pause 
 
 \smallskip
@@ -894,9 +957,10 @@ $O(n^2)$
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Pre-elaborazione}
 
-\vspace{-6pt}
+\vspace{-9pt}
 Una seconda possibile pre-elaborazione consiste nel pre-calcolare il \alert{predecessore} \alert{$\mathit{pred}_i = j$} di $i$, dove:
 \BIL
 \item $j<i$ è il massimo indice tale che $b_j \leq a_i$
@@ -918,9 +982,10 @@ Una seconda possibile pre-elaborazione consiste nel pre-calcolare il \alert{pred
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Pre-elaborazione - calcolo predecessori}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{$\INTEGER[\,]$ \textsf{computePredecessor($\INTEGER[\,]\ a$, $\INTEGER[\,]\ a$, \INTEGER $n$)}}    
 $\INTARRAY\ \mathit{pred} = \NEW\ \INTEGER[0 \ldots n]$\;
@@ -935,30 +1000,31 @@ $\mathit{pred}[0] = 0$\;
 \Return $\mathit{pred}$\;
 \end{Procedure}
 
+\vspace{-9pt}
 \begin{columns}[T]
 \column{0.65\textwidth}
 \BB{Quanto costa pre-calcolare i predecessori?}
 \pause
 \column{0.25\textwidth}
-\smallskip
+\bigskip\smallskip
 $O(n^2)$
 \end{columns}
 
-\bigskip
 \begin{columns}[T]
 \column{0.65\textwidth}
 \BB{Si può fare meglio di così?}
 \pause
 \column{0.25\textwidth}
-\smallskip
+\bigskip\smallskip
 Sì!
 \end{columns}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}[shrink=10]{Versione completa}
 
-\vspace{-12pt}
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\Set\ \maxinterval($\INTARRAY\ a,\ \INTARRAY\ b,\ \INTARRAY w$, \INTEGER $n$)}	
 
@@ -986,8 +1052,10 @@ $\Set\ S = \setconstructor()$\;
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Costo computazionale}
 
+\vspace{-9pt}
 \BB{Costo computazionale}
 \BIL
 \item Ordinamento intervalli: \alert{$O(n \log n)$}
@@ -997,39 +1065,64 @@ $\Set\ S = \setconstructor()$\;
 \item Algoritmo totale: \alert{$O(n \log n)$}
 \EIL
 
-\bigskip
 \BB{Esercizio}
 Scrivere una funzione di calcolo predecessori in tempo $O(n \log n)$
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Insieme indipendente di intervalli pesati -- Conclusioni}
 
-\begin{block}{Take-home message -- prendi e porta a casa}
+\vspace{-9pt}
+\begin{myboxtitle}[Take-home message -- prendi e porta a casa]
 Talvolta, può essere necessario pre-processare l'input per poter applicare nella maniera più efficiente possibile la programmazione dinamica
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Per concludere}
 
-\begin{block}{Una lezione ancora più importante}
+\vspace{-9pt}
+\begin{myboxtitle}[Una lezione ancora più importante]
 La programmazione dinamica non è la soluzione di tutti i vostri problemi. Esistono altre tecniche che possono fare "meglio di così". Inoltre, è possibile che soluzioni ad-hoc possano essere migliori
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempi}
+\begin{myboxtitle}[Esempi]
 \BIL
 \item \alert{Longest increasing subsequence}: può essere risolto in tempo $O(n \log n)$
 \item \alert{Longest common subsequence}: può essere risolto in tempo $O(mn/\log n)$ (con alfabeto limitato)
+\item \alert{Four Russians algorithm}: tecnica generale che può essere applicata a vari problemi su matrice con alfabeto limitato $O(n^2/\log n)$
+\BI
+\item Edit distance
+\item Transitive closure
+\item ...
+\EI
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
+%-------------------------------------------------------------------------
 \begin{frame}{Approccio generale}
 
-\vspace{-12pt}
+\vspace{-9pt}
 \IG{1.0}{progrdyn.pdf}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Risolvere problemi con programmazione dinamica}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Fasi]
+\BIL 
+\item Caratterizzare la \alert{struttura} di una soluzione ottima
+\item Definire ricorsivamente il \alert{valore} di una soluzione ottima
+\item Calcolare il \alert{valore} di una soluzione ottima "bottom-up" (dal basso verso l'alto)
+\item Ricostruzione di una soluzione ottima 
+\EIL
+\end{myboxtitle}
 
 \end{frame}
 

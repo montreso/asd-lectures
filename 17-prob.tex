@@ -44,6 +44,7 @@
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
+\vspace{-9pt}
 \BB{“Audentes furtuna iuvat” - Virgilio}
 \BIL
 \item Se non sapete quale strada prendere, fate una scelta casuale
@@ -70,12 +71,14 @@
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
-\BB{Algoritmi probabilistici}
+\vspace{-9pt}
+\begin{myboxtitle}[Algoritmi probabilistici]
 Il calcolo delle probabilità è applicato non ai dati di input, ma ai dati di output
 \BIL
 \item  Algoritmi corretti, il cui tempo di funzionamento è probabilistico (\alert{Las Vegas})
 \item Algoritmi la cui correttezza è probabilistica (\alert{Montecarlo})
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -85,20 +88,20 @@ Il calcolo delle probabilità è applicato non ai dati di input, ma ai dati di o
 \begin{frame}{Test di primalità}
 
 \vspace{-9pt}
-\begin{block}{Piccolo teorema di Fermat}
+\begin{myboxtitle}[Piccolo teorema di Fermat]
 Per ogni numero primo $n$ e ogni $b \in [2, \ldots, n-1]$:
 $
 b^{n-1} \bmod n = 1
 $
-\end{block}
+\end{myboxtitle}
 
 \begin{columns}[T]
 \column{0.45\textwidth}
 \begin{overprint}
 \onslide<1-2|handout:1>
-\BB{Test di primalità di Fermat (V1)}
+\BB{Test di primalità di Fermat}
 \begin{Procedure}
-\caption[A]{\textsf{isPrime}(\INTEGER\ $n$)}
+\caption[A]{\textsf{isPrime1}(\INTEGER\ $n$)}
   $b = \textsf{random}(2, n-1)$\;
   \If{$b^{n-1} \bmod n \neq 1$}{
     \Return \FALSE\;
@@ -107,9 +110,9 @@ $
   }
 \end{Procedure}
 \onslide<3-4|handout:2>
-\BB{Test di primalità di Fermat (V2)}
+\BB{Test di primalità di Fermat}
 \begin{Procedure}
-\caption[A]{\textsf{isPrime}(\INTEGER\ $n$)}
+\caption[A]{\textsf{isPrime2}(\INTEGER\ $n$)}
 \For{$i=1$ \TO\ $k$}{
   $b = \textsf{random}(2, n-1)$\;
   \If{$b^{n-1} \bmod n \neq 1$}{
@@ -119,8 +122,9 @@ $
 \Return \TRUE\;
 \end{Procedure}
 \end{overprint}
-\column{0.48\textwidth}
+\column{0.50\textwidth}
 \onslide<1-4|handout:1-2>
+\vspace{-8pt}
 \BB{Questo algoritmo è corretto?}
 \begin{overprint}
 \onslide<2|handout:1>
@@ -162,6 +166,7 @@ tali che:
 %-------------------------------------------------------------------------
 \begin{frame}{Test di Miller-Rabin}
 
+\vspace{-9pt}
 \BIL
 \item Esprimiamo $n-1$ come: $n-1 = m 2^v$ con $m$ dispari
   \BI
@@ -171,7 +176,6 @@ tali che:
 \item Sia $b$ un numero in $[1, \ldots, n-1]$
 \EIL
 
-\bigskip
 \begin{overprint}
 \onslide<1|handout:1>
 \BB{Se un numero $n$ è \alert{primo}, allora valgono entrambe le seguenti condizioni}
@@ -188,6 +192,7 @@ tali che:
 %-------------------------------------------------------------------------
 \begin{frame}{Test di Miller-Rabin}
 
+\vspace{-9pt}
 \BIL
 \item Rabin ha dimostrato che se $n$ è composto, allora ci sono
 almeno $3/4(n-1)$ valori in $[1, \ldots, n-1]$ per i quali una delle condizioni sopra è falsa
@@ -211,20 +216,22 @@ erroneamente
 %-------------------------------------------------------------------------
 \begin{frame}{Test di Miller-Rabin}
 
-\BB{Riassunto}
+\vspace{-9pt}
+\begin{myboxtitle}[Riassunto]
 \BIL
 \item Complessità: $O(k \log^2 n \log \log n \log \log \log n)$
 \item Probabilità di errore: $(1/4)^k$
 \item Algoritmo di tipo Montecarlo
 \EIL
+\end{myboxtitle}
 
-\bigskip
-\BB{Algoritmi probabilistici vs algoritmi deterministici}
+\begin{myboxtitle}[Algoritmi probabilistici vs algoritmi deterministici]
 \BIL
 \item Dal 2002, esiste l'algoritmo deterministico AKS di complessità $O(\log^{6+\epsilon})$
 \item I fattori moltiplicativi coinvolti sono molto alti
 \item Si preferisce quindi l'algoritmo di Miller-Rabin
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -232,17 +239,17 @@ erroneamente
 \begin{frame}{Esempio -- Espressione polinomiale nulla}
 
 \vspace{-9pt}
-\begin{block}{Problema}
+\begin{myboxtitle}[Problema]
 Data un’espressione algebrica polinomiale $p(x_1 , \ldots , x_n)$ 
 in $n$ variabili, determinare se $p$ è identicamente nulla oppure no.
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-Discussione
+\begin{myboxtitle}[Discussione]
 \BIL
 \item Assumiamo che non sia in forma di monomi - altrimenti è banale
 \item Gli algoritmi basati su semplificazioni sono molto complessi
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -250,7 +257,8 @@ Discussione
 %-------------------------------------------------------------------------
 \begin{frame}{Esempio -- Espressione polinomiale nulla}
 
-\BB{Algoritmo}
+\vspace{-9pt}
+\begin{myboxtitle}[Algoritmo]
 \BIL
 \item Si genera una $n$-pla di valori $v_1, \ldots, v_n$
 \item Si calcola $x= p(v_1 , \ldots , v_n)$
@@ -262,6 +270,7 @@ Discussione
 il grado del polinomio, allora la probabilità di errore non supera $1/2$.
 \item Si ripete $k$ volte, riducendo la probabilità di errore a $(1/2)^k$
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -270,47 +279,50 @@ il grado del polinomio, allora la probabilità di errore non supera $1/2$.
 %-------------------------------------------------------------------------
 \begin{frame}{Statistica}
 
-\begin{block}{Algoritmi statistici su vettori}
+\vspace{-9pt}
+\begin{myboxtitle}[Algoritmi statistici su vettori]
 Estraggono alcune caratteristiche statisticamente rilevanti da un vettore numerico 
-\end{block}
+\end{myboxtitle}
 
-\medskip
-\BB{Esempi}
+\begin{myboxtitle}[Esempi]
 \BIL
 \item \alert{Media}: $\mu = \frac{1}{n} 	\sum_{i=1}^n A[i]$
 \item \alert{Varianza}: $\sigma^2 = \frac{1}{n} \sum_{i=1}^n (A[i]- \mu)^2$
 \item \alert{Moda}: il valore (o i valori) più frequenti
 \EIL
+\end{myboxtitle}
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Statistiche d'ordine}
 
-\begin{block}{Selezione}
+\vspace{-9pt}
+\begin{myboxtitle}[Selezione]
 Dato un array $A$ contenente $n$ valori e un valore $1 \leq k \leq n$, 
 trovare l'elemento che si occuperebbe la posizione $k$ se il vettore fosse ordinato
-\end{block}
+\end{myboxtitle}
 
-\medskip
-\begin{block}{Mediana}
+\begin{myboxtitle}[Mediana]
 Il problema del calcolo della mediana è un sottoproblema del problema
 della selezione con $k=\lceil n/2 \rceil$.
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Selezione per piccoli valori di $k$}
 
-\BB{Intuizione}
+\vspace{-9pt}
+\begin{myboxtitle}[Intuizione]
 \BIL
 \item L'albero del torneo può essere “simulato” da uno heap
 \item L'algoritmo può essere generalizzato a valori generici di $k > 2$
 \EIL
+\end{myboxtitle}
 
-\TwoColsCustom{0.55}{0.42}{
+\TwoColsCustom{0.59}{0.40}{
 \begin{Procedure}
-\caption[A]{\textsf{heapSelect}(\Item[\,]\ $A$, \INTEGER $n$, \INTEGER $k$)}
+\caption[A]{\INTEGER \textsf{heapSelect}(\Item[\,]\ $A$, \INTEGER $n$, \INTEGER $k$)}
   $\textsf{buildHeap}(A)$\;
   \For{i = 1 \TO\ k-1}{
     $\textsf{deleteMin}(A, n)$\;
@@ -318,20 +330,21 @@ della selezione con $k=\lceil n/2 \rceil$.
   \Return $\textsf{deleteMin}(A,n)$\;
 \end{Procedure}
 }{
-\medskip
-\BB{Complessità computazionale}
+
+\begin{myboxtitle}[Complessità]
 \BIL
 \item $O(n + k \log n)$
 \item Se $k = O(n/\log n)$,\\ il costo è $O(n)$
-\item Non va bene per $k = n/2$
+\item Se $k = n/2$, non va bene
 \EIL
+\end{myboxtitle}
 }
 \end{frame}
 	
 %-------------------------------------------------------------------------
-\begin{frame}{}
+\begin{frame}{Idea}
 
-\BB{Idea}
+\vspace{-9pt}
 \BIL
 \item Approccio divide-et-impera simile al Quicksort
 \item Essendo un problema di ricerca, non è necessario cercare in entrambe le partizioni, basta cercare in una sola di esse
@@ -347,12 +360,12 @@ della selezione con $k=\lceil n/2 \rceil$.
 \small
 \begin{Procedure}
 \caption[A]{\Item \textsf{selection}($\Item[\,]\ A$, \INTEGER $\Primo$, \INTEGER $\Ultimo$, \INTEGER $k$)}
-\eIf{$\Primo == \Ultimo$}{
+\eIf{$\Primo \Eq \Ultimo$}{
   \Return $A[\Primo]$\;
 }{
   $\INTEGER\ j = \textsf{pivot}(A, \Primo, \Ultimo)$\;
   $\INTEGER\ q = j - \Primo + 1$\;
-  \uIf{$k==q$}{
+  \uIf{$k \Eq q$}{
     \Return $A[j]$\;
   }
   \uElseIf{$k<q$}{
@@ -364,16 +377,16 @@ della selezione con $k=\lceil n/2 \rceil$.
 }
 \end{Procedure}
 \vspace{-18pt}
-\IG{0.8}{mediana.pdf}
+\IG{0.8}{mediana-crop.pdf}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Complessità}
 
-\vspace{-9pt}
-\TwoCols{
-\BB{Caso pessimo}
+\vspace{-20pt}
+\TwoColsCustom{0.48}{0.48}{
+\begin{myboxtitle}[Caso pessimo]
 \begin{align*}
   T(n) &= \begin{cases}
     1 & n \leq 1 \\
@@ -381,8 +394,9 @@ della selezione con $k=\lceil n/2 \rceil$.
   \end{cases} \\
   T(n) &= O(n^2)
 \end{align*}  
+\end{myboxtitle}
 }{
-\BB{Caso ottimo}
+\begin{myboxtitle}[Caso ottimo]
 \begin{align*}
   T(n) &= \begin{cases}
     1 & n \leq 1 \\
@@ -390,22 +404,23 @@ della selezione con $k=\lceil n/2 \rceil$.
   \end{cases} \\
   T(n) &= O(n)
 \end{align*}  
+\end{myboxtitle}
 }
 
-\bigskip
-\BB{Caso medio}
+\begin{myboxtitle}[Caso medio]
 Assumiamo che \textsf{pivot}() restituisca con la stessa probabilità una qualsiasi posizione $j$ del vettore $A$
 \begin{alignat*}{2}
 T(n) &= n-1 + \frac{1}{n}\sum_{q=1}^{n} T\left(\max\{q-1, n-q\}\right)\\
      &\le n-1 + \frac{2}{n} \sum_{q=\lfloor n/2\rfloor}^{n-1} T(q), &&\qquad\textrm{per $n > 1$}
 \end{alignat*}
-
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Complessità}
 
+\vspace{-9pt}
 \begin{align*}
 T\left(n\right) &\le n - 1 + \frac{2c}{n} \sum_{q=\left\lfloor n/2\right\rfloor}^{n-1}q \\
 &\le n + \frac{2c}{n}\left(\sum_{q=1}^{n-1}q - \sum_{q=1}^{\left\lfloor n/2\right\rfloor-1}q\right)\\
@@ -421,6 +436,7 @@ T\left(n\right) &\le n - 1 + \frac{2c}{n} \sum_{q=\left\lfloor n/2\right\rfloor}
 %-------------------------------------------------------------------------
 \begin{frame}{Complessità}
    
+\vspace{-9pt}
 \BIL
 \item  Siamo partiti dall’assunzione 
   \BI
@@ -446,40 +462,45 @@ T\left(n\right) &\le n - 1 + \frac{2c}{n} \sum_{q=\left\lfloor n/2\right\rfloor}
 %-------------------------------------------------------------------------
 \begin{frame}{Selezione deterministica}
 
-\BB{Algoritmo black-box}
+\vspace{-9pt}
+\begin{myboxtitle}[Algoritmo black-box]
 Supponiamo di avere un algoritmo “black box” che mi ritorni il mediano di $n$ valori in tempo $O(n)$
+\end{myboxtitle}
 
-\bigskip
-\BB{Domande}
+\begin{myboxtitle}[Domande]
 \BIL
 \item Potrei utilizzarlo per ottimizzare il problema della selezione?
 \item Che complessità otterrei?
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Selezione deterministica}
 
-\BB{Se conoscessi tale algoritmo}
+\vspace{-9pt}
+\begin{myboxtitle}[Se conoscessi tale algoritmo]
 \BIL
 \item il problema della selezione sarebbe quindi risolto...
 \item ... ma dove lo trovo un simile algoritmo?
 \EIL
+\end{myboxtitle}
 
-\bigskip
-\BB{Rilassiamo le nostre pretese}
+\begin{myboxtitle}[Rilassiamo le nostre pretese]
 \BIL
 \item Supponiamo di avere un algoritmo “black box” che mi ritorni un valore che dista al più $\frac{3}{10}n$ dal mediano (nell'ordinamento)
 \item Potrei utilizzarlo per ottimizzare il problema della selezione?
 \item Che complessità otterrei?
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
 \begin{frame}{Selezione deterministica}
 
-\BB{Idea}
+\vspace{-9pt}
+\begin{myboxtitle}[Idea]
 \BIL
 \item Suddividi i valori in gruppi di 5. Chiameremo l'$i$-esimo gruppo $S_i$, con $i \in \left[1, \lceil n/5 \rceil \right]$
 \item Trova il mediano $M_i$ di ogni gruppo $S_i$
@@ -489,6 +510,7 @@ $[M_1, M_2, \ldots, M_{\lceil n/5 \rceil}]$
 \item Quando la dimensione scende sotto una certa dimensione, possiamo
 utilizzare un algoritmo di ordinamento per trovare il mediano
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -531,7 +553,7 @@ $\INTEGER\ j = \textsf{pivot}(A, \Primo, \Ultimo, m)$\Comment*[f]{Versione con $
 \% Calcola l'indice $q$ di $m$ in $[\Primo \ldots \Ultimo]$\;
 \% Confronta $q$ con l'indice cercato e ritorna il valore conseguente\;
 $\INTEGER\ q = j-\Primo+1$\;
-\uIf{$q==k$}{
+\uIf{$q \Eq k$}{
   \Return $m$\;
 }
 \uElseIf{$q < k$}{
@@ -547,6 +569,7 @@ $\INTEGER\ q = j-\Primo+1$\;
 
 \begin{frame}{Selezione deterministica}
 
+\vspace{-9pt}
 \BIL
 \item  Il calcolo dei mediani $M[]$ richiede al più $6 \lceil n/5 \rceil$  confronti.
 \item La prima chiamata ricorsiva dell'algoritmo $\textsf{select}()$ viene effettuata su $\lceil n/5 \rceil$ elementi
@@ -570,21 +593,23 @@ $\INTEGER\ q = j-\Primo+1$\;
 
 \begin{frame}{Conclusioni}
 
-\BB{Quale preferire?}
+\vspace{-9pt}
+\begin{myboxtitle}[Quale preferire?]
 \BIL
 \item Algoritmo probabilistico Las Vegas in tempo atteso $O(n)$
 \item Algoritmo deterministico in tempo $O(n)$, con fattori moltiplicativi
   più alti
 \EIL
+\end{myboxtitle}
 
 
-\bigskip
-\BB{Note storiche}
+\begin{myboxtitle}[Note storiche]
 \BIL
 \item Nel 1883 Lewis Carroll (!) notò che il secondo premio nei tornei di tennis non veniva assegnato in maniera equa.
 \item Nel 1932, Schreier dimostrò che $n + \log n - 2$  incontri sono sempre sufficienti per trovare il secondo posto
 \item Nel 1973, a opera di Blum, Floyd, Pratt, Rivest e Tarjan, appare il primo algoritmo deterministico
 \EIL
+\end{myboxtitle}
 \end{frame}
 
 \end{document}
