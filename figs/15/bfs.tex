@@ -1,0 +1,60 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\newcommand{\R}[1]{\textcolor{red}{#1}}
+\newcommand{\B}[1]{\textcolor{blue}{#1}}
+
+\begin{document}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node[mynode, label={above left:$s$}] at (0.0, 0.0) (a) {a};
+\node[mynode] at (2.0, 0.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (d) {d};
+\node[mynode, label={above right:$t$}] at (6.0, 0.0) (e) {e};
+\node[mynode] at (3.0, 1.5) (c) {c};
+%
+\draw[edgen] (a) edge[above] node {\B{2}} (b);
+\draw[edgen] (b) edge[above] node {\B{1}} (d);
+\draw[edgen] (d) edge[above] node {\B{2}} (e);
+\draw[edgen] (b) edge[left] node {\B{1}} (c);
+\draw[edgen] (c) edge[right] node {\B{1}} (d);
+
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node at (5.0, 1.0) (x) {$\delta_f(s,t)=3$};
+
+\node[mynode, label={above left:$s$}] at (0.0, 0.0) (a) {a};
+\node[mynode] at (2.0, 0.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (d) {d};
+\node[mynode, label={above right:$t$}] at (6.0, 0.0) (e) {e};
+\node[mynode] at (3.0, 1.5) (c) {c};
+%
+\draw[edger] (a) edge[above] node {\B{2}} (b);
+\draw[edger] (b) edge[above] node {\B{1}} (d);
+\draw[edger] (d) edge[above] node {\B{2}} (e);
+\draw[edgen] (b) edge[left] node {\B{1}} (c);
+\draw[edgen] (c) edge[right] node {\B{1}} (d);
+
+\end{tikzpicture}
+
+\begin{tikzpicture}[scale=1.00,transform shape]
+\node at (5.0, 1.0) (x) {$\delta_{f'}(s,t)=4$};
+
+\node[mynode, label={above left:$s$}] at (0.0, 0.0) (a) {a};
+\node[mynode] at (2.0, 0.0) (b) {b};
+\node[mynode] at (4.0, 0.0) (d) {d};
+\node[mynode, label={above right:$t$}] at (6.0, 0.0) (e) {e};
+\node[mynode] at (3.0, 1.5) (c) {c};
+%
+\draw[edger] (a) edge[above] node {\B{1}} (b);
+\draw[edger] (d) edge[above] node {\B{1}} (e);
+\draw[edgen] (b) edge[left] node {\B{1}} (c);
+\draw[edgen] (c) edge[right] node {\B{1}} (d);
+
+\end{tikzpicture}
+
+
+\end{document}
