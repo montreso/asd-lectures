@@ -61,7 +61,7 @@
   \EI
 \item Hashing
   \BI 
-  \item Le funzion hash equivalgono a "randomizzare" le chiavi
+  \item Le funzioni hash equivalgono a "randomizzare" le chiavi
   \item Distribuzione uniforme
   \EI
 \EIL
@@ -101,7 +101,7 @@ $
 \onslide<1-2|handout:1>
 \BB{Test di primalità di Fermat}
 \begin{Procedure}
-\caption[A]{\textsf{isPrime1}(\INTEGER\ $n$)}
+\caption[A]{\BOOLEAN\ \textsf{isPrime1}(\INTEGER\ $n$)}
   $b = \textsf{random}(2, n-1)$\;
   \If{$b^{n-1} \bmod n \neq 1$}{
     \Return \FALSE\;
@@ -112,7 +112,7 @@ $
 \onslide<3-4|handout:2>
 \BB{Test di primalità di Fermat}
 \begin{Procedure}
-\caption[A]{\textsf{isPrime2}(\INTEGER\ $n$)}
+\caption[A]{\BOOLEAN\ \textsf{isPrime2}(\INTEGER\ $n$)}
 \For{$i=1$ \TO\ $k$}{
   $b = \textsf{random}(2, n-1)$\;
   \If{$b^{n-1} \bmod n \neq 1$}{
@@ -176,17 +176,19 @@ tali che:
 \item Sia $b$ un numero in $[1, \ldots, n-1]$
 \EIL
 
+\BB{
 \begin{overprint}
 \onslide<1|handout:1>
-\BB{Se un numero $n$ è \alert{primo}, allora valgono entrambe le seguenti condizioni}
+Se un numero $n$ è \alert{primo}, allora valgono entrambe le seguenti condizioni:
 \onslide<2|handout:2>
-\BB{Se un numero $n$ è \alert{composto}, allora almeno una delle seguenti condizioni è falsa}
+Se un numero $n$ è \alert{composto}, allora almeno una delle seguenti condizioni è falsa:
 \end{overprint}
+\bigskip
 \BEL
 \item $\textsf{mcd}(n,b) = 1$
 \item $b^m \bmod n = 1$ oppure $\exists i, 0 \leq i \leq v-1: b^{2^im} \bmod n = -1$
 \EEL
-      
+}
 \end{frame}
 
 %-------------------------------------------------------------------------
@@ -201,7 +203,7 @@ erroneamente
 \EIL
 
 \begin{Procedure}
-\caption[A]{\textsf{isPrime}(\INTEGER\ $n$)}
+\caption[A]{\BOOLEAN\ \textsf{isPrime}(\INTEGER\ $n$)}
 \For{$i=1$ \TO\ $k$}{
   $b = \textsf{random}(2, n-1)$\;
   \If{$\textsf{isComposite}(n,b)$}{
@@ -315,7 +317,7 @@ della selezione con $k=\lceil n/2 \rceil$.
 \vspace{-9pt}
 \begin{myboxtitle}[Intuizione]
 \BIL
-\item L'albero del torneo può essere “simulato” da uno heap
+\item Si può utilizzare uno heap
 \item L'algoritmo può essere generalizzato a valori generici di $k > 2$
 \EIL
 \end{myboxtitle}
@@ -324,7 +326,7 @@ della selezione con $k=\lceil n/2 \rceil$.
 \begin{Procedure}
 \caption[A]{\INTEGER \textsf{heapSelect}(\Item[\,]\ $A$, \INTEGER $n$, \INTEGER $k$)}
   $\textsf{buildHeap}(A)$\;
-  \For{i = 1 \TO\ k-1}{
+  \For{$i = 1$ \TO\ $k-1$}{
     $\textsf{deleteMin}(A, n)$\;
   }
   \Return $\textsf{deleteMin}(A,n)$\;
@@ -506,7 +508,7 @@ Supponiamo di avere un algoritmo “black box” che mi ritorni il mediano di $n
 \item Trova il mediano $M_i$ di ogni gruppo $S_i$
 \item Tramite una chiamata ricorsiva, trova il mediano $m$ dei mediani
 $[M_1, M_2, \ldots, M_{\lceil n/5 \rceil}]$
-\item Usa $M$ come pivot e richiama l'algoritmo ricorsivamente sull'array opportuno, come nella \textsf{selection}() randomizzata
+\item Usa $m$ come pivot e richiama l'algoritmo ricorsivamente sull'array opportuno, come nella \textsf{selection}() randomizzata
 \item Quando la dimensione scende sotto una certa dimensione, possiamo
 utilizzare un algoritmo di ordinamento per trovare il mediano
 \EIL
@@ -571,7 +573,7 @@ $\INTEGER\ q = j-\Primo+1$\;
 
 \vspace{-9pt}
 \BIL
-\item  Il calcolo dei mediani $M[]$ richiede al più $6 \lceil n/5 \rceil$  confronti.
+\item  Il calcolo dei mediani $M[\,]$ richiede al più $6 \lceil n/5 \rceil$  confronti.
 \item La prima chiamata ricorsiva dell'algoritmo $\textsf{select}()$ viene effettuata su $\lceil n/5 \rceil$ elementi
 \item La seconda chiamata ricorsiva dell'algoritmo $\textsf{select}()$ viene effettuata al massimo  su $7n/10$ elementi\\
  (esattamente $n - 3 \lceil  \lceil n/5 \rceil /2 \rceil$) 

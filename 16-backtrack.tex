@@ -30,7 +30,7 @@
 
 
 %-------------------------------------------------------------------------
-\FrameTitle{}q
+\FrameTitle{}
 
 %-------------------------------------------------------------------------
 \FrameContent
@@ -43,6 +43,7 @@
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
+\vspace{-9pt}
 \BB{Classi di problemi (decisionali, di ricerca, di ottimizzazione)}
 
 \BI
@@ -63,27 +64,31 @@ che soddisfa un certo insieme di criteri
 %-------------------------------------------------------------------------
 \begin{frame}{Problemi tipici}
 
-\BB{Enumerazione}
+\vspace{-9pt}
+\begin{myboxtitle}[Enumerazione]
 \BIL
 \item Elencare algoritmicamente tutte le soluzioni ammissibili (spazio di ricerca)
 \item Esempio: elencare tutte le permutazioni di un insieme
 \EIL
+\end{myboxtitle}
 
-\medskip
-\BB{Costruire almeno una soluzione}
+\begin{myboxtitle}[Costruire almeno una soluzione]
 \BIL
 \item Si utilizza l'algoritmo per l'enumerazione, fermandosi alla prima soluzione 
 disponibile
 \item Esempio: identificare una sequenza di mosse nel gioco del 15
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Problemi tipici}
 
-\smallskip
-\BB{Contare le soluzioni}
+\vspace{-9pt}
+\begin{myboxtitle}[Contare le soluzioni]
+
+\medskip
 \TwoCols{
 \BIL
 \item In alcuni casi, è possibile contare in modo analitico
@@ -100,31 +105,40 @@ insieme di $n$ elementi
 è un numero primo.
 \EI
 }
+\end{myboxtitle}
+
 \end{frame}
 
 
 %-------------------------------------------------------------------------
 \begin{frame}{Problemi tipici}
 
-\BB{Trovare le soluzioni ottimali}
+\vspace{-9pt}
+\begin{myboxtitle}[Trovare le soluzioni ottimali]
 \BIL
 \item Si enumerano tutte le soluzioni, che vengono valutate tramite una
 funzione di costo
 \item Si possono utilizzare altre tecniche:
 	\BI
-	\item Programmazione dinamica, greedy
+	\item Prog. dinamica, greedy
 	\item Tecniche risolutive per problemi intrattabili
 	\EI
 \item Esempio: Circuito hamiltoniano (commesso viaggiatore)
 \EIL
+\end{myboxtitle}
+
 
 \end{frame}
 
 \begin{frame}{Costruire tutte le soluzioni}
 
-\BB{Per costruire tutte le  soluzioni, si utilizza un approccio "\alert{brute-force}"}
+\vspace{-9pt}
+\begin{myboxtitle}[Brute-force]
+Un approccio per costruire tutte le soluzioni
+\end{myboxtitle}
 
-\medskip
+
+
 \BIL
 \item Si esamina interamente lo spazio delle possibili soluzioni
 \item A volte è l'unica strada possibile
@@ -141,37 +155,42 @@ interamente
 %-------------------------------------------------------------------------
 \begin{frame}{Backtracking}
 
-\BB{Filosofia}
+\vspace{-9pt}
+\begin{myboxtitle}[Filosofia]
 \BIL
 \item  "\emph{Prova a fare qualcosa, e se non va bene, disfalo e prova qualcos'altro}"
 \item "\emph{Ritenta, e sarai più fortunato}"
 \EIL
+\end{myboxtitle}
 
-\medskip
-\BB{Come funziona?}
+\begin{myboxtitle}[Come funziona?]
 \BI
 \item Un metodo sistematico per iterare su tutte le possibili istanze di uno spazio di ricerca
 \item E' una tecnica algoritmica che, come altre, deve essere personalizzata per ogni applicazione individuale
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
 
 \begin{frame}{Organizzazione generale}
-\BB{Organizzazione generale}
+    
+\begin{myboxtitle}[Organizzazione generale]
 \BI
 \item Una soluzione viene rappresentata come un \alert{vettore $S[1 \ldots n]$} 
 \item  Il contenuto degli elementi $S[i]$ è preso da un \alert{insieme di scelte $C$} dipendente dal problema
 \EI
+\end{myboxtitle}
 
-\medskip
-\BB{Esempi}
+\begin{myboxtitle}[Esempi]
 \BI
 \item $C$ insieme generico, possibili soluzioni \alert{permutazioni} di $C$
 \item $C$ insieme generico, possibili soluzioni \alert{sottoinsiemi} di $C$
 \item $C$ mosse di gioco, possibili soluzioni \alert{sequenze di mosse}
 \item $C$ archi di un grafo, possibili soluzioni \alert{percorsi sul grafo}
 \EI
+\end{myboxtitle}
+
 \end{frame}
 
 \begin{frame}{Soluzioni parziali}
@@ -236,18 +255,21 @@ $k \geq 0$ scelte sono state prese
 
 \begin{frame}{Backtracking - Due possibili approcci}
 
-\BB{Ricorsivo}
+\vspace{-9pt}
+\begin{myboxtitle}[Ricorsivo]
 \BIL
 \item Lavora tramite una visita in profondità nell'albero delle scelte, basata su un approccio ricorsivo
 \EIL
+\end{myboxtitle}
 
-\medskip
-\BB{Iterativo} 
+
+\begin{myboxtitle}[Iterativo]
 \BIL
 \item Utilizza un approccio greedy, eventualmente tornando sui propri passi
 \item Esempio: \alert{Inviluppo convesso}
 \item Esempio: \alert{String matching}
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -256,9 +278,11 @@ $k \geq 0$ scelte sono state prese
 
 \begin{frame}{Enumerazione}
 
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\BOOLEAN\ \enumerazione($\Item[\,]\ S$, \INTEGER $n$, \INTEGER\ $i$, \mldots)}
-$\Set\ C = \getChoices(S, n, i, \mldots)$\REMR{Determina $C$ in funzione di $S[1 \mldots i-1]$}
+\Comment{Determina $C$ in funzione di $S[1 \mldots i-1]$}
+$\Set\ C = \getChoices(S, n, i, \mldots)$\;
 \ForEach{$c \in C$}
 {
   $S[i] = c$\;
@@ -303,7 +327,7 @@ $\Set\ C = \IIF(i \leq n, \{ 0, 1 \}, \emptyset)$\;
 \ForEach{$c \in C$}
 {
   $S[i] = c$\;
-  \If{$i=n$}
+  \If{$i \Eq n$}
   {
     $\processSolution(S,n)$\;
   }
@@ -320,15 +344,13 @@ $\Set\ C = \IIF(i \leq n, \{ 0, 1 \}, \emptyset)$\;
 
 \begin{Procedure}
 \caption[A]{\enumerasottoinsiemi($\INTEGER[\,]\ S$, \INTEGER $n$, \INTEGER $i$)}
-\ForEach{$c \in \{ 0, 1 \}$}
-{
-  $S[i] = c$\;
-  \eIf{$i=n$}
-  {
-    $\processSolution(S,n)$\;
-  }{
+\eIf{$i \Eq n+1$}{
+  $\processSolution(S,n)$\;
+}{
+  \ForEach{$c \in \{ 0, 1 \}$}{
+    $S[i] = c$\;
   	$\enumerasottoinsiemi(S, n, i+1)$\;
-	}
+  }
 }
 \end{Procedure}
 
@@ -368,7 +390,7 @@ Ma questo avviene per definizione
 
 \begin{frame}{Esempio 2}
 
-\BB{Elencare tutti i sottoinsiemi di dimensione $k$ di un insieme $\{ 1, \ldots, n \}$}
+\BB{Elencare tutti i sottoinsiemi di $k$ elementi di un insieme $\{ 1, \ldots, n \}$}
 
 \BIL
 \item Versione iterativa
@@ -392,13 +414,13 @@ $\Set\ C = \IIF(i \leq n, \{ 0, 1 \}, \emptyset)$\;
 \ForEach{$c \in C$}
 {
   $S[i] = c$\;
-  \If{$i=n$}
+  \If{$i \Eq n$}
   {
     $\INTEGER\ \Count = 0$\;
     \For{$j = 1$ \TO $n$}{
        $\Count = \Count + S[j]$\;
     }
-    \If{$\Count = k$}{
+    \If{$\Count \Eq k$}{
       $\processSolution(S, n)$\;
     }
   }
@@ -417,7 +439,7 @@ $\Set\ C = \IIF(i \leq n, \{ 0, 1 \}, \emptyset)$\;
 {
   $S[i] = c$\;
   $\Count = \Count + S[i]$\;
-  \If{$i=n$ \AND\ $\Count = k$}
+  \If{$i \Eq n$ \AND\ $\Count \Eq k$}
   {
     $\processSolution(S,n)$\;
   }
@@ -506,11 +528,11 @@ $\Set\ C = \IIF(\Count < k$ \AND\ $\Count + (n-i+1) \geq k, \{ 0, 1 \}, \emptyse
 %-------------------------------------------------------------------------
 \begin{frame}{Problema delle otto regine}
 
-\vspace{-12pt}
-\begin{block}{Problema}
+\vspace{-9pt}
+\begin{myboxtitle}[Problema]
 Posizionare $n$ regine in una scacchiera $n \times n$, in modo tale che 
 nessuna regina ne "minacci" un'altra. 
-\end{block}
+\end{myboxtitle}
 
 \TwoCols{
 \BIL
@@ -536,7 +558,7 @@ mano a mano raffiniamo la soluzione.
 \medskip
 \begin{tabular}{|P{4cm}|P{7.1cm}|}
 \hline
-$S[1..n^2]$ array binario	&	$S[i] = \TRUE \Rightarrow \textrm{"regina in $S[i]$"}$ \\\hline
+$S[1 \ldots n^2]$ array binario	&	$S[i] = \TRUE \Rightarrow \textrm{"regina in $S[i]$"}$ \\\hline
 controllo soluzione	& se $i = n^2$ \\\hline
 $\getChoices(S, n, i)$	&	$\{ \TRUE, \FALSE \}$ \\\hline
 pruning	&	se la nuova regina minaccia una delle regine esistenti, restituisce $\emptyset$ \\\hline
@@ -648,38 +670,45 @@ pruning	&	elimina le diagonali \\\hline
 
 \begin{frame}{Problema delle otto regine}
 
-\begin{block}{Minimum-conflicts heuristic}
+\vspace{-9pt}
+\begin{myboxtitle}[Minimum-conflicts heuristic]
 Si parte da una soluzione iniziale “ragionevolmente buona”, e si muove
 il pezzo con il più grande numero di conflitti nella casella della stessa 
 colonna che genera il numero minimo di conflitti. Si ripete fino a quando non ci
 sono più pezzi da muovere.
-\end{block}
+\end{myboxtitle}
 	
-\BI
+\BIL
 \item Algoritmo in tempo lineare
 \item Ad esempio, con $n=1,000,000$, richiede $50$ passi in media
-\item Questo algoritmo non garantisce che la terminazione sia sempre corretta	
-\EI
+\item Questo algoritmo non garantisce che la terminazione sia sempre corretta
+ \BI
+ \item Greedy (Capitolo 14)
+ \item Ricerca locale (Capitolo 15)
+ \item Soluzioni per problemi intrattabili (Capitolo 19)
+ \EI	
+\EIL
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Giro di cavallo}
 
-\vspace{-6pt}
-\begin{block}{Problema}
+\vspace{-9pt}
+\begin{myboxtitle}[Problema]
  Si consideri ancora una scacchiera $n \times n$; lo scopo è trovare un “giro di
 cavallo”, ovvero un percorso di mosse valide del cavallo in modo che ogni
 casella venga visitata al più una volta
-\end{block}
+\end{myboxtitle}
 
 \IG{0.45}{girocavallo.pdf}
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Giro di cavallo}
-	
-\BB{Soluzione}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Soluzione]
 
 \BIL
 \item  Matrice $n \times n$ le cui celle contengono: 
@@ -691,6 +720,7 @@ casella venga visitata al più una volta
 \item Ma: ad ogni passo ho al massimo $8$ caselle possibili, quindi ne visito al più $8^{64} \approx 10^{57}$
 \item In realtà, grazie al pruning ne visito molto meno	
 \EIL
+\end{myboxtitle}
 \end{frame}
 
 %-------------------------------------------------------------------------
@@ -701,7 +731,7 @@ casella venga visitata al più una volta
 $\Set\ C = \fontproc{mosse}(S, x, y)$\;
 \ForEach{$c \in C$}
 {
-  $S[x,y] = i$\;
+  $S[x][y] = i$\;
   \uIf{$i=64$}
   {
     $\processSolution(S)$\;
@@ -711,7 +741,7 @@ $\Set\ C = \fontproc{mosse}(S, x, y)$\;
   {
      \Return \TRUE;
   }
-  $S[x,y] = 0$\;
+  $S[x][y] = 0$\;
 }
 \Return \FALSE\;
 \end{Procedure}
@@ -727,7 +757,7 @@ $\Set\ C = \setconstructor()$\;
 \For{\INTEGER $i = 1$ \TO $8$}{
   $n_x = x + m_x[i]$\;
   $n_y = y + m_y[i]$\;
-  \If{$1 \leq n_x \leq 8$ \AND $1 \leq n_y \leq 8$ \AND $S[n_x,n_y] = 0$}{
+  \If{$1 \leq n_x \leq 8$ \AND $1 \leq n_y \leq 8$ \AND $S[n_x][n_y] \Eq 0$}{
     $C.\setinsert(i)$\;
   }
 }
@@ -781,25 +811,25 @@ $\INTEGER\ x = i \bmod 9$\;
 $\INTEGER\ y = \lfloor i / 9 \rfloor$\;
 $\Set\ C = \setconstructor()$\;
 \If{$i \leq 80$}{
-  \eIf{$S[x,y] \neq 0$}{$C.\setinsert(S[x,y])$\;}{
+  \eIf{$S[x][y] \neq 0$}{$C.\setinsert(S[x][y])$\;}{
     \For{$c = 1$ \TO\ 9}
     {
       \If{$\Verifica(S, x, y, c)$}{$C.\setinsert(c)$}
     }
   } 
 }
-\INTEGER $\mathit{old} = S[x,y]$\;
+\INTEGER $\mathit{old} = S[x][y]$\;
 \ForEach{$c \in C$}
 {
-  $S[x,y] = c$\;
-  \If{$i = 80$}
+  $S[x][y] = c$\;
+  \If{$i \Eq 80$}
   {
     $\processSolution(S,n)$\;
     \Return \TRUE
   }
   \If{$\sudoku(S, i+1)$}{\Return \TRUE}
 }
-$S[x,y] = \mathit{old}$\;
+$S[x][y] = \mathit{old}$\;
 \Return \FALSE\;
 \end{multicols}
 \BlankLine
@@ -816,8 +846,8 @@ $S[x,y] = \mathit{old}$\;
 \begin{Procedure}
 \caption[A]{\BOOLEAN \Verifica($\INTEGER[\,][\,]\ S$, \INTEGER $x$, \INTEGER $y$, \INTEGER $c$)}
 \For{$j = 0$ \TO\ $8$}{
-  \If{$S[x,j] = c$}{\Return \FALSE\Comment*{Controllo sulla colonna}}
-  \If{$S[j,y] = c$}{\Return \FALSE\Comment*{Controllo sulla riga}}
+  \If{$S[x][j] \Eq c$}{\Return \FALSE\Comment*{Controllo sulla colonna}}
+  \If{$S[j][y] \Eq c$}{\Return \FALSE\Comment*{Controllo sulla riga}}
 }
 \INTEGER\ $b_x = \lfloor x / 3 \rfloor$\;
 \INTEGER\ $b_y = \lfloor y / 3 \rfloor$\;
@@ -825,7 +855,7 @@ $S[x,y] = \mathit{old}$\;
 {
   \For(\REMF{Controllo sulla sottotabella}){\INTEGER $i_y = 0$ \TO $2$}
   {
-    \If{$S[b_x \cdot 3+i_x, b_y \cdot 3+i_y] = c$}{\Return \FALSE}
+    \If{$S[b_x \cdot 3+i_x][b_y \cdot 3+i_y] = c$}{\Return \FALSE}
   }
 }
 \Return \TRUE\;
@@ -875,27 +905,51 @@ $S[x,y] = \mathit{old}$\;
 \subsection{Inviluppo convesso}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Inviluppo convesso}
+\begin{frame}{Inviluppo convesso (Convex Hull)}
 
 \vspace{-12pt}
 \TwoCols{
-\begin{block}{Poligono convesso}
+\begin{myboxtitle}[Poligono convesso]
 Un poligono nel piano è \alert{convesso} se ogni segmento di retta che
 congiunge due punti del poligono sta interamente nel poligono stesso, incluso
 il bordo.
-\end{block}
+\end{myboxtitle}
 }{
-\begin{block}{Inviluppo convesso}
+\begin{myboxtitle}[Inviluppo convesso]
 Dati $n$ punti $p_1, \ldots, p_n$ nel piano, con $n \geq 3$, l'\alert{inviluppo convesso}
 (\alert{convex hull}) è il più piccolo 
 poligono convesso che li contiene tutti
-\end{block}
+\end{myboxtitle}
 }
 
 \medskip
 \IG{1.0}{16-back-geometry1.pdf}
 
 \end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{"Stessa parte"}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Problema]
+Data una retta definita dai punti $p_1$ e $p_2$, determinare se due punti $p$ e $q$ 
+stanno nello stesso semipiano definito dalla retta.
+\end{myboxtitle}
+
+\medskip
+\begin{Procedure}
+\caption[A]{\BOOLEAN\ \textsf{sameSide}(\Point $p_1$, \Point $p_2$, \Point $p$, \Point $q$)}
+\REAL\ $dx = p_2.x - p_1.x$\;
+\REAL\ $dy = p_2.y - p_1.y$\;
+\REAL\ $dx_1 = p.x - p_1.x$\;
+\REAL\ $dy_1 = p.y - p_1.y$\;
+\REAL\ $dx_2 = q.x - p_2.x$\;
+\REAL\ $dy_2 = q.y - p_2.y$\;
+\Return $((dx \cdot dy_1 - dy \cdot dx_1) \cdot (dx \cdot dy_2 - dy \cdot dx_2) \ge 0)$\;
+\end{Procedure}
+
+\end{frame}
+
 
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo inefficiente -- $O(n^3)$}
@@ -911,37 +965,36 @@ spigolo $S_{ij}$ fa parte dell’inviluppo convesso
 \end{frame}
 
 
-
 %-------------------------------------------------------------------------
-\begin{frame}{Stessa parte}
+\begin{frame}{Algoritmo di Jarvis (Gift Packing) -- $O(nh)$}
 
-Data una retta definita dai punti $p_1$ e $p_2$, determinare se due punti $p$ e $q$ 
-stanno nello stesso semipiano definito dalla retta.
-
-\medskip
-\begin{Procedure}
-\caption[A]{\BOOLEAN\ \stessaparte(\Point $p_1$, \Point $p_2$, \Point $p$, \Point $q$)}
-\REAL\ $dx = p_2.x - p_1.x$\;
-\REAL\ $dy = p_2.y - p_1.y$\;
-\REAL\ $dx_1 = p.x - p_1.x$\;
-\REAL\ $dy_1 = p.y - p_1.y$\;
-\REAL\ $dx_2 = q.x - p_2.x$\;
-\REAL\ $dy_2 = q.y - p_2.y$\;
-\Return $((dx \cdot dy_1 - dy \cdot dx_1) \cdot (dx \cdot dy_2 - dy \cdot dx_2) \ge 0)$\;
-\end{Procedure}
+\BIL
+\item Si considera il punto $p_0$ più basso, che appartiene sicuramente all'inviluppo convesso
+\item Si seleziona il punto $p_{i+1}$ in modo tale che tutti gli altri punti siano a destra della retta passante per $p_i, p_{i+1}$
+\item Questo punto può essere trovato in tempo $O(n)$ confrontando gli angoli formati dalla retta passante per $p_i, p_{i+1}$ e la retta passante per
+$p_{i+1}, p_x$, per ogni punto $p_x$.
+\item Il processo continua finchè il punto $p_x$ individuato è uguale a $p_0$
+\EIL
+\IG{0.8}{jarvis.pdf}
 
 \end{frame}
+
+
+
+
 
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo di Graham}
 
-\BB{Fase 1}
+\vspace{-9pt}
+\begin{myboxtitle}[Fase 1]
 \BIL
 \item Il punto con ordinata minima fa parte dell’inviluppo convesso
 \item Si ordinano i punti in base all’angolo formato dalla retta passante per il punto con ordinata minima e la retta orizzontale
 \EIL
+\end{myboxtitle}
 
-\IG{0.6}{16-back-geometry3.pdf}
+\IG{0.55}{16-back-geometry3.pdf}
 
 \end{frame}
 
@@ -957,6 +1010,7 @@ stanno nello stesso semipiano definito dalla retta.
 $p[1] \leftrightarrow p[\Min]$\;
 \{ riordina $p[2, \mldots n]$ in base all'angolo formato rispetto all'asse orizzontale quando sono connessi con $p[1]$ \}\;
 \{ elimina eventuali punti “allineati” tranne i più lontani da $p_1$, aggiornando $n$ \}\;
+[...]\;
 \end{Procedure}
 
 
@@ -965,17 +1019,19 @@ $p[1] \leftrightarrow p[\Min]$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo di Graham}
 
-\BB{Fase 2}
+\vspace{-9pt}
+\begin{myboxtitle}[Fase 2]
 \BIL
 \item Inserisci $p_1,p_2$ nell'inviluppo corrente
 \item Per tutti i punti $p_i = 3, \ldots, n$:
-\BI
-\item siano $p_h$ e $p_j$, con $h < j = i-1$, gli ultimi due vertici dell'inviluppo corrente
-\item scandisci ``a ritroso'' i punti nell'inviluppo ``corrente'' ed elimina $p_j$ se $\stessaparte(p_j, p_{h}, p_1, p_i) = \FALSE$;
-\item termina tale scansione se $p_j$ non deve essere eliminato;
+\BIL
+\item Siano $p_{j-1}$ e $p_j$ il penultimo e ultimo vertice dell'inviluppo corrente
+\item Se $\textsf{sameSide}(p_{j-1}, p_{j}, p_1, p_i) = \FALSE$, ovvero $p_1$ e $p_i$ non si trovano dalla stessa parte rispetto alla retta passante per $p_{j-1}$ e $p_j$, allora elimina $p_j$ dall'inviluppo corrente 
+\item Termina tale "scansione" se $p_j$ non deve essere eliminato
 \item aggiungi $p_i$ all'inviluppo “corrente”
-\EI
 \EIL
+\EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -995,7 +1051,7 @@ $p[1] \leftrightarrow p[\Min]$\;
 $\Stack\ S = \stackconstructor()$\;
 $S.\stackpush(p_1); S.\stackpush(p_2)$\;
 \For{$i = 3$ \TO\ $n$}{
-  \While{\NOT\ $\stessaparte(S.\stacktop(), S.\stacktopdue(), p_1, p_i)$}{
+  \While{\NOT\ $\textsf{sameSide}(S.\stacktop(), S.\stacktopdue(), p_1, p_i)$}{
     $S.\stackpop()$\;
   }
   $S.\stackpush(p_i)$\;
@@ -1007,15 +1063,159 @@ $S.\stackpush(p_1); S.\stackpush(p_2)$\;
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Algoritmo di Graham}
+\begin{frame}{Conclusioni}
 
-\BB{Complessità}
+\vspace{-9pt}
+\begin{myboxtitle}[Complessità dell'Algoritmo di Graham]
+$O(n \log n)$, dominato dall'ordinamento
+\end{myboxtitle}
 
-\BIL
-\item $O(n \log n)$, dominato dall'ordinamento
-\EIL
+\medskip
+\begin{tabular}{|P{3cm}|P{5.8cm}|P{1.8cm}|}
+\hline
+\textbf{Algoritmo} & \textbf{Note} & \textbf{Compl.} \\\hline
+Gift packing & $h$ numero di punti nell'inviluppo convesso (1973)& $O(nh)$\\\hline
+Graham  & Backtracking iterativo (1972)& $O(n \log n)$\\\hline
+Monotone Chain  & Come Graham, ma senza angoli (1979) & $O(n \log n)$ \\\hline
+Preparata, Hong  & Divide et impera (1977) & $O(n \log n)$ \\\hline
+Chan  & Graham + Jarvis (1996) & $O(n \log h)$ \\\hline
+\end{tabular}
+
+
+
 
 \end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Conclusioni}
+
+
+\BB{
+“Convex hull is the favorite paradigm
+of computational geometers.
+Although the description of the problem is
+fairly simple, its solution takes into account
+all aspects of computational geometry.”
+}
+
+
+O. Devillers (1996)
+
+\end{frame}
+
+
+\begin{frame}{Quale tecnica applicare?}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Sottostruttura ottima]
+E' possibile spezzare ricorsivamente un problema in sottoproblemi più piccoli? Le decisioni prese per un problema rimangono valide quando esso diviene un sottoproblema di un problema più grande?
+\end{myboxtitle}
+
+
+\vspace{-9pt}
+\begin{columns}[T]
+\column{0.45\textwidth}
+\BB{Risposta: S\`I}
+\BIL
+\item Divide-et-impera
+\item Prog. dinamica
+\item Memoization
+\item Greedy
+\item Backtrack
+\EIL
+\column{0.45\textwidth}
+\BB{Risposta: NO}
+\BIL
+\item Backtrack
+\item Oppure, risoluzione ad-hoc
+\EIL
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Quale tecnica applicare?}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Spazio dei sottoproblemi]
+Lo spazio dei sottoproblemi ha dimensione superpolinomiale?
+\end{myboxtitle}
+
+\vspace{-9pt}
+\begin{columns}[T]
+
+\column{0.45\textwidth}
+\BB{Risposta: S\`I}
+\BIL
+\item Backtrack
+\EIL
+
+\column{0.45\textwidth}
+\BB{Risposta: NO}
+\BIL
+\item Divide-et-impera
+\item Prog. dinamica
+\item Memoization
+\item Greedy
+\EIL
+
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}{Quale tecnica applicare?}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Ripetizioni]
+Lo stesso sottoproblema può occorrere più volte come sottoproblema di un problema più grande?
+\end{myboxtitle}
+
+\vspace{-9pt}
+\begin{columns}[T]
+\column{0.45\textwidth}
+\BB{Risposta: S\`I}
+\BIL
+\item Prog. dinamica
+\item Memoization
+\item Greedy
+\EIL
+\column{0.45\textwidth}
+\BB{Risposta: NO}
+\BIL
+\item Divide-et-impera
+\item Greedy
+\EIL
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Quale tecnica applicare?}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Copertura dei sottoproblemi]
+\BIL
+\item Per risolvere il problema principale, è necessario risolvere tutti i sottoproblemi?
+\EIL
+\end{myboxtitle}
+
+\vspace{-9pt}
+\begin{columns}[T]
+\column{0.45\textwidth}
+\BB{Risposta: S\`I}
+\BIL
+\item Prog. dinamica
+\item Memoization
+\EIL
+\column{0.45\textwidth}
+\BB{Risposta: NO}
+\BIL
+\item Greedy
+\item Memoization
+\EIL
+\end{columns}
+
+\end{frame}
+
 
 \end{document}
 

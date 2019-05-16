@@ -61,6 +61,7 @@ Strutture dati speciali}
 
 \begin{frame}{Code con priorità}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione (\alert{Priority Queue})]
 Una \alert{coda con priorità} è una struttura dati astratta, simile ad 
 una coda, in cui ogni elemento inserito possiede una sua "\alert{priorità}"
@@ -110,7 +111,7 @@ una coda, in cui ogni elemento inserito possiede una sua "\alert{priorità}"
 \PriorityItem \heapinsert(\Item\ $x$, \INTEGER $p$)\;
 
 \BlankLine
-\textcolor{blue}{\% Diminuisce la priorità dell'oggetto identificato da $y$ portandola al valore $p$}\;
+\textcolor{blue}{\% Diminuisce la priorità dell'oggetto identificato da $y$ portandola a $p$}\;
 \heapdecrease(\PriorityItem $y$, \INTEGER $p$)\;
 
 \BlankLine
@@ -120,6 +121,7 @@ una coda, in cui ogni elemento inserito possiede una sua "\alert{priorità}"
 
 \begin{frame}{Applicazioni}
 
+\vspace{-9pt}
 \BB{Esempio di utilizzo: Simulatore event-driven}
 \BIL
 \item Ad ogni evento è associato un timestamp di esecuzione
@@ -167,7 +169,8 @@ Una struttura dati speciale che associa
 
 \begin{frame}{Heap}
     
-\begin{myboxtitle}[Storia ]
+\vspace{-9pt}
+\begin{myboxtitle}[Storia]
 \BIL
 \item Struttura dati inventata da J. Williams nel 1964
 \item Utilizzata per implementare un nuovo algoritmo di ordinamento: \alert{HeapSort}
@@ -187,6 +190,7 @@ Una struttura dati speciale che associa
 
 \begin{frame}{Alberi binari}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Albero binario perfetto]
 \BIL
 \item Tutte le foglie hanno la stessa profondità $h$
@@ -203,6 +207,7 @@ Una struttura dati speciale che associa
 
 \begin{frame}{Alberi binari}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Albero binario completo]
 \BIL
 \item Tutte le foglie hanno profondità $h$ o $h-1$
@@ -262,28 +267,29 @@ agli algoritmi per alberi min-heap
 
 \begin{frame}{Alberi binari heap}
 
-\vspace{-6pt}
+\vspace{-12pt}
 \small
 \begin{columns}[T]
 \column{0.55\textwidth}
-\BB{Vettore heap}
-Un albero binario heap può essere rappresentato tramite un \alert{vettore heap} 
+\begin{myboxtitle}[Vettore heap]
+Un albero heap può essere rappresentato tramite un \alert{vettore heap} 
+\end{myboxtitle}
 
-\BB{Memorizzazione ($A[1 \ldots n]$)}
-  \medskip
-  \begingroup
+\begin{myboxtitle}[Memorizzazione ($A \lbrack 1 \ldots n \rbrack$)]
   \renewcommand*{\arraystretch}{1.2}
   \begin{tabular}{ll}
     \alert{Radice} & $root() = 1$\\
     \alert{Padre nodo $i$} & $p(i) = \lfloor i/2 \rfloor$\\
-    \alert{Figlio sinistro nodo $i$} & $l(i) = 2i$\\
-    \alert{Figlio destro nodo $i$} & $r(i) = 2i+1$\\
+    \alert{Figlio sx nodo $i$} & $l(i) = 2i$\\
+    \alert{Figlio dx nodo $i$} & $r(i) = 2i+1$\\
   \end{tabular}
-  \endgroup
+\end{myboxtitle}
+
 \column{0.40\textwidth}
 \vspace{-12pt}
 \IG{1.0}{esempio-vettore1.pdf}
 \end{columns}
+
 
 \IG{0.7}{vettore1.pdf}
 
@@ -291,24 +297,23 @@ Un albero binario heap può essere rappresentato tramite un \alert{vettore heap}
 
 \begin{frame}{Alberi binari heap}
 
-\vspace{-6pt}
+\vspace{-12pt}
 \small
 \begin{columns}[T]
 \column{0.55\textwidth}
-\BB{Vettore heap}
-Un albero binario heap può essere rappresentato tramite un \alert{vettore heap} 
+\begin{myboxtitle}[Vettore heap]
+Un albero heap può essere rappresentato tramite un \alert{vettore heap} 
+\end{myboxtitle}
 
-\BB{Memorizzazione ($A[0 \ldots n-1]$)}
-  \medskip
-  \begingroup
+\begin{myboxtitle}[Memorizzazione ($A \lbrack 0 \ldots n-1 \rbrack$)]
   \renewcommand*{\arraystretch}{1.2}
   \begin{tabular}{ll}
     \alert{Radice} & $root() = 0$\\
     \alert{Padre nodo $i$} & $p(i) = \lfloor (i-1)/2 \rfloor$\\
-    \alert{Figlio sinistro nodo $i$} & $l(i) = 2i+1$\\
-    \alert{Figlio destro nodo $i$} & $r(i) = 2i+2$\\
+    \alert{Figlio sx nodo $i$} & $l(i) = 2i+1$\\
+    \alert{Figlio dx nodo $i$} & $r(i) = 2i+2$\\
   \end{tabular}
-  \endgroup
+\end{myboxtitle}
 \column{0.40\textwidth}
 \vspace{-12pt}
 \IG{1.0}{esempio-vettore0.pdf}
@@ -320,18 +325,19 @@ Un albero binario heap può essere rappresentato tramite un \alert{vettore heap}
 
 \begin{frame}{Alberi binari heap}
 
-\TwoColsCustom{0.49}{0.49}{
-\BB{Proprietà max-heap su vettore}
+\vspace{-9pt}
+\begin{myboxtitle}[Proprietà max-heap su vettore]
 \[
 A[i] \geq A[l(i)], A[i] \geq A[r(i)]
 \]
+\end{myboxtitle}
 
-}{
-\BB{Proprietà min-heap su vettore}
+\begin{myboxtitle}[Proprietà min-heap su vettore]
 \[
 A[i] \leq A[l(i)], A[i] \leq A[r(i)]
 \]
-}
+\end{myboxtitle}
+
 
 \end{frame}
 
@@ -339,23 +345,28 @@ A[i] \leq A[l(i)], A[i] \leq A[r(i)]
 
 \begin{frame}{HeapSort}
 
-\BB{HeapSort è composto da tre funzioni}
+
+
+
+\begin{myboxtitle}[Organizzazione \heapsort()]
+Ordina un max-heap "in-place", prima costruendo un max-heap nel vettore e poi spostando l'elemento max in ultima posizione, ripristinando la proprietà max-heap
 \BIL
-\item \alert{\maxheapify()}\\ Ripristina la proprietà max-heap
 \item \alert{\heapbuild()}\\ Costruisce un max-heap a partire da un vettore non ordinato 
-\item \alert{\heapsort()}\\ Ordina un max-heap "in-place"
+\item \alert{\maxheapify()}\\ Ripristina la proprietà max-heap
 \EIL
+\end{myboxtitle}
+
 
 \end{frame}
 
 \begin{frame}{maxHeapRestore()}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Input]
 Un vettore $A$ e un indice $i$, tale per cui gli alberi binari
 con radici\\ $l(i)$ e $r(i)$ sono max-heap
 \end{myboxtitle}
 
-\medskip
 \begin{myboxtitle}[Osservazione]
 \BI
 \item E' possibile che $A[i]$ sia minore di $A[l(i)]$ o $A[r(i)]$
@@ -364,7 +375,6 @@ un max-heap
 \EI
 \end{myboxtitle}
 
-\medskip
 \begin{myboxtitle}[Goal]
 Modificare in-place il vettore $A$ in modo tale che l'albero binario\\ con radice $i$
 sia un max-heap
@@ -455,6 +465,7 @@ sia un max-heap
 
 \begin{frame}{Dimostrazione correttezza (per induzione sull'altezza)}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Teorema]
 Al termine dell'esecuzione, l'albero radicato in $A[i]$
 rispetta la proprietà max-heap
@@ -474,7 +485,7 @@ L'algoritmo funziona correttamente su tutti gli alberi di altezza minore di $h$
 
 \begin{frame}{Dimostrazione correttezza (per induzione sull'altezza)}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{columns}[T]
 \column{0.50\textwidth}
 \BB{Induzione - Altezza $h$ - Caso 1}
@@ -681,9 +692,9 @@ $h$ & $\lfloor n/2^{h+1}\rfloor$ \\\hline
 \column{0.45\textwidth}
 \begin{align*}
 T(n) &\leq \sum_{h=1}^{\lfloor n \rfloor} \frac{n}{2^{h+1}}h \\
-     &= n\sum_{h=1}^{\lfloor n \rfloor} \frac{1}{2}^{h+1}h \\
-     &= n/2 \sum_{h=1}^{\lfloor n \rfloor} \frac{1}{2}^{h}h \\
-     &\leq n/2 \sum_{h=1}^{+\infty} \frac{1}{2}^{h}h 
+     &= n\sum_{h=1}^{\lfloor n \rfloor} \left(\frac{1}{2}\right)^{h+1}h \\
+     &= n/2 \sum_{h=1}^{\lfloor n \rfloor} \left(\frac{1}{2}\right)^{h}h \\
+     &\leq n/2 \sum_{h=1}^{+\infty} \left(\frac{1}{2}\right)^{h}h 
      & = n = O(n)\\
 \end{align*}
 \end{columns}
@@ -697,7 +708,7 @@ Formula: $\displaystyle \sum_{h=1}^{+\infty} hx^h = \frac{x}{(1-x)^2}, \textrm{p
 
 \vspace{-6pt}
 \begin{columns}[T]
-\column{0.55\textwidth}
+\column{0.51\textwidth}
 \vspace{-6pt}
 \BB{Principio di funzionamento}
 \small
@@ -709,7 +720,7 @@ Formula: $\displaystyle \sum_{h=1}^{+\infty} hx^h = \frac{x}{(1-x)^2}, \textrm{p
 \item La dimensione dello heap viene progressivamente ridotta 
 (indice $i$)
 \EIL
-\column{0.40\textwidth}
+\column{0.46\textwidth}
 \vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\textsc{heapSort}($\Item[\,]\ A$, \INTEGER $n$)}
@@ -727,7 +738,7 @@ $\heapbuild(A, n)$\;
 
 \vspace{-12pt}
 \begin{columns}[T]
-\column{0.55\textwidth}
+\column{0.51\textwidth}
 \begin{overprint}
 \onslide<1|handout:1>\includegraphics[width=\textwidth,page=1]{heapsort.pdf}
 \onslide<2|handout:0>\includegraphics[width=\textwidth,page=2]{heapsort.pdf}
@@ -751,7 +762,7 @@ $\heapbuild(A, n)$\;
 \onslide<20|handout:0>\includegraphics[width=\textwidth,page=20]{heapsort.pdf}
 \onslide<21|handout:2>\includegraphics[width=\textwidth,page=21]{heapsort.pdf}
 \end{overprint}
-\column{0.40\textwidth}
+\column{0.46\textwidth}
 \vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\textsc{heapSort}($\Item[\,]\ A$, \INTEGER $n$)}
@@ -767,7 +778,7 @@ $\heapbuild(A, n)$\;
 
 \begin{frame}{Complessità}
 
-\BB{Complessità}
+\begin{myboxtitle}[Complessità]
 \pause
 \BIL
 \item La chiamata \heapbuild() costa $\Theta(n)$
@@ -779,12 +790,14 @@ heap con $i$ elementi
 \[
 T(n) = \sum_{i=2}^n \log i + \Theta(n) = \Theta(n \log n)
 \]
+\end{myboxtitle}
 
 \end{frame}
 
 \begin{frame}{Correttezza}
     
-\BB{Invariante di ciclo}
+\vspace{-9pt}
+\begin{myboxtitle}[Invariante di ciclo]
 \smallskip
 Al passo $i$
 \BIL
@@ -792,10 +805,12 @@ Al passo $i$
 \item $A[1 \ldots i] \leq A[i+1 \ldots n]$ 
 \item $A[1]$ è la radice di un vettore heap di dimensione $i$.
 \EIL
+\end{myboxtitle}
 
-\BB{Dimostrazione}
+\begin{myboxtitle}[Dimostrazione]
 \smallskip
 Per esercizio
+\end{myboxtitle}
 
 \end{frame}
 
@@ -804,6 +819,7 @@ Per esercizio
 
 \begin{frame}{Implementazione code con priorità}
 
+\vspace{-9pt}
 \BB{Quale versione}
 Implementiamo una min-priority queue, in quanto negli esempi che vedremo
 in seguito daremo la precedenza a elementi con priorità minore
@@ -820,6 +836,7 @@ in seguito daremo la precedenza a elementi con priorità minore
 
 \begin{frame}{Memorizzazione}
 
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\PriorityItem}
 
@@ -842,6 +859,7 @@ $H[j].\heappos = j$\;
 
 \begin{frame}{Inizializzazione}
     
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\Heap}
 $\INTEGER\ \heapsize$\REMR{Numero massimo di elementi nella coda}
@@ -862,6 +880,7 @@ $\PriorityItem[\,]\ H$\REMR{Vettore \emph{heap}}
 
 \begin{frame}{Inserimento}
 
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\PriorityItem\ \heapinsert(\Item $x$, \INTEGER\ $p$)}
 \precondition{$\heapcount < \heapsize$}
@@ -885,6 +904,7 @@ $H[\heapcount].\heappos = \heapcount$\;
 
 \begin{frame}{minHeapRestore()}
     
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\minheapify($\PriorityItem[\,]\ A$, \INTEGER $i$, \INTEGER \heapcount)}
 
@@ -908,6 +928,7 @@ $H[\heapcount].\heappos = \heapcount$\;
 
 \begin{frame}{Cancellazione / lettura minimo}
 
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\Item\ \heapdeletemin()}
 \precondition{$\heapcount > 0$}
@@ -916,7 +937,7 @@ $H[\heapcount].\heappos = \heapcount$\;
 $\Swap(H, 1, \heapcount)$\;
 $\heapcount = \heapcount-1$\;
 $\minheapify(H, 1, \heapcount)$\;
-\Return $H[\heapcount+1]$\;
+\Return $H[\heapcount+1].\heapitem$\;
 \end{Procedure}
 
 \begin{Procedure}
@@ -930,6 +951,7 @@ $\minheapify(H, 1, \heapcount)$\;
 
 \begin{frame}{Decremento priorità}
 
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\heapdecrease(\PriorityItem\ $x$, \INTEGER\ $p$)}
 \precondition{$p < x.\heapprio$}
@@ -950,19 +972,24 @@ $\minheapify(H, 1, \heapcount)$\;
 
 \begin{frame}{Complessità}
 
-Tutte le operazioni che modificano gli heap sistemano la proprietà heap lungo
-un cammino radice-foglia (\heapdeletemin()) oppure nodo-radice (\heapinsert(), \heapdecrease())
-
-Poichè l'altezza è $\lfloor \log n \rfloor$, il costo di tali operazioni è $\Theta(\log n)$
-
+\BB{
+\BI
+\item Tutte le operazioni che modificano gli heap sistemano la proprietà heap
+\BI
+\item lungo un cammino radice-foglia (\heapdeletemin()) 
+\item oppure lungo un cammino nodo-radice (\heapinsert(), \heapdecrease())
+\EI
+\item Poichè l'altezza è $\lfloor \log n \rfloor$, il costo di tali operazioni è $O(\log n)$
+\EI
+}
 \bigskip
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Operazione} & \textbf{Costo} \\\hline
-\heapinsert() & $\Theta(\log n)$ \\\hline
-\heapdeletemin() & $\Theta(\log n)$ \\\hline
+\heapinsert() & $O(\log n)$ \\\hline
+\heapdeletemin() & $O(\log n)$ \\\hline
 \heapmin() & $\Theta(1)$ \\\hline
-\heapdecrease() & $\Theta(\log n)$ \\\hline
+\heapdecrease() & $O(\log n)$ \\\hline
 \end{tabular}
 \end{frame}
 
@@ -972,46 +999,53 @@ Poichè l'altezza è $\lfloor \log n \rfloor$, il costo di tali operazioni è $\
 
 \begin{frame}{Insiemi disgiunti -- Merge-Find Set}
 
-\BB{Motivazioni}
+\vspace{-9pt}
+\begin{myboxtitle}[Motivazioni]
 \BIL
 \item In alcune applicazioni siamo interessati a gestire una collezione 
 $S = \{ S_1, S_2, \ldots, S_k \}$ di \alert{insiemi dinamici disgiunti}
+  \smallskip
   \BI
   \item $\forall i,j: i \neq j \Rightarrow S_i \cap S_j = \emptyset$
   \item $\cup_{i=1}^k S_i = \cal S$, dove $n = |\cal S|$
   \EI
 \item Esempio: componenti di un grafo
 \EIL
+\end{myboxtitle}
 
-\BB{Operazioni fondamentali}
+\begin{myboxtitle}[Operazioni fondamentali]
 \BIL
 \item Creare $n$ insiemi disgiunti, ognuno composto da un unico elemento
-\item Unire più insiemi
-\item Identificare l'insieme a cui appartiene un elemento
+\item \textsf{merge}(): Unire più insiemi
+\item \textsf{find}(): Identificare l'insieme a cui appartiene un elemento
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
 
 \begin{frame}{Insiemi disgiunti}
 
-\BB{Rappresentante}
+\vspace{-9pt}
+\begin{myboxtitle}[Rappresentante]
 \BIL
 \item Ogni insieme è identificato da un \alert{rappresentante} univoco
 \item Il rappresentante  dell'insieme $S_i$  è un qualunque membro di $S_i$
 \item Operazioni di ricerca del rappresentante su uno stesso insieme devono restituire sempre lo stesso oggetto
 \item Solo in caso di unione con altro insieme il rappresentante può cambiare
 \EIL
+\end{myboxtitle}
 
-\BB{Memorizzazione}
-\smallskip
+\begin{myboxtitle}[Memorizzazione]
 Invece di memorizzare oggetti, utilizziamo gli interi $1 \ldots n$
 e assumiamo che l'associazione intero-oggetto sia memorizzata esternamente
+\end{myboxtitle}
 
 \end{frame}
 
 \begin{frame}{Specifica}
 
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\mfset}
 
@@ -1033,25 +1067,29 @@ $\mfmerge(\INTEGER\ x, \INTEGER\ y)$\;
 \end{frame}
 
 \begin{frame}{Esempio}
+\vspace{-9pt}
 \IG{1.0}{mfset-esempio.pdf}
 \end{frame}
 
 \begin{frame}{Applicazione: Componenti connesse dinamiche}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Problema]
 Trovare le componenti connesse di un grafo non orientato \alert{dinamico}
 \end{myboxtitle}
 
 \begin{columns}[T]
-\column{0.55\textwidth}
-\BB{Algoritmo}
+\column{0.53\textwidth}
+\vspace{-9pt}
+\begin{myboxtitle}[Algoritmo]
 \BIL
 \item Si inizia con componenti connesse costituite da un unico vertice
-\item Per ogni $(u,v) \in E$, si esegue $\textsf{merge}(\textsf{find}(u), \textsf{find}(v))$ 
-\item Gli insiemi disgiunti rappresentano
-le componenti connesse
+\item Per ogni $(u,v) \in E$, si esegue $\textsf{merge}(u, v)$ 
+\item Ogni insieme disgiunto rappresenta
+una componente connessa
 \EIL
-\column{0.40\textwidth}
+\end{myboxtitle}
+\column{0.45\textwidth}
 \vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\mfset\ \connectedcomponents($\Graph\ G$)}
@@ -1073,6 +1111,7 @@ le componenti connesse
 
 \begin{frame}{Applicazione: Componenti connesse dinamiche}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Complessità]
 \smallskip
 $O(n) + m$ operazioni $\textsf{merge}()$
@@ -1091,6 +1130,7 @@ Questo algoritmo è interessante per la capacità di gestire grafi dinamici
 
 \begin{frame}{Realizzazione basata su insiemi di liste}
 
+\vspace{-9pt}
 \BB{Ogni insieme viene rappresentato da una lista concatenata}
 \BIL
 \item Il primo oggetto di una lista è il rappresentante dell'insieme
@@ -1108,6 +1148,7 @@ Questo algoritmo è interessante per la capacità di gestire grafi dinamici
 
 \begin{frame}{Operazione $\textsf{find}(x)$}
 
+\vspace{-9pt}
 \BIL
 \item Si restituisce il rappresentante di $x$
 \item L'operazione $\textsf{find}(x)$ richiede tempo $O(1)$
@@ -1121,6 +1162,7 @@ Questo algoritmo è interessante per la capacità di gestire grafi dinamici
 
 \begin{frame}{Operazione $\textsf{merge}(x,y)$}
 
+\vspace{-9pt}
 \BIL
 \item Si "appende" la lista che contiene $y$ alla lista che contiene $x$, modificando
 i puntatori ai rappresentanti nella lista "appesa"
@@ -1136,6 +1178,7 @@ i puntatori ai rappresentanti nella lista "appesa"
 
 \begin{frame}{Realizzazione basata su insieme di alberi (foresta)}
 
+\vspace{-9pt}
 \BB{Ogni insieme viene rappresentato da un albero}
 
 \begin{columns}[T]
@@ -1159,6 +1202,7 @@ i puntatori ai rappresentanti nella lista "appesa"
 
 \begin{frame}{Operazione $\textsf{merge}(x,y)$}
 
+\vspace{-9pt}
 \BIL
 \item Si aggancia l'albero radicato in $y$ ad $x$
 \item Modificando il puntatore al padre di $y$
@@ -1177,6 +1221,7 @@ i puntatori ai rappresentanti nella lista "appesa"
 
 \begin{frame}{Operazione $\textsf{find}(x)$}
 
+\vspace{-9pt}
 \begin{columns}[T]
 \column{0.65\textwidth}
 \BIL
@@ -1195,7 +1240,7 @@ restituisce la radice come rappresentante
 
 \begin{frame}{Tecniche euristiche}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Algoritmo euristico]
 \EE un particolare tipo di algoritmo progettato per 
 \BI
@@ -1206,37 +1251,40 @@ falliscano nel trovare una soluzione esatta
 \EI
 \end{myboxtitle}
 
-\pause
-\medskip
-\BB{Euristiche applicate agli insiemi disgiunti}
+\begin{myboxtitle}[Euristiche applicate agli insiemi disgiunti]
 \BIL
-\item Euristica del peso (Liste)
-\item Euristica del rango (Alberi)
-\item Euristica della commpressione dei cammini (Alberi)
+\item Euristica del \alert{peso} (Liste)
+\item Euristica del \alert{rango} (Alberi)
+\item Euristica della \alert{commpressione dei cammini} (Alberi)
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
 \begin{frame}{Liste: Euristica sul peso}
 
-\BB{Strategia per diminuire il costo dell'operazione \textsf{merge}()}
+\vspace{-9pt}
+\begin{myboxtitle}[Strategia per diminuire il costo dell'operazione \textsf{merge}()]
 \BIL
 \item Memorizzare nelle liste l’informazione sulla loro lunghezza
 \item Agganciare la lista più corta a quella più lunga
 \item La lunghezza della lista può essere mantenuta in tempo $O(1)$
 \EIL 
+\end{myboxtitle}
 
-\BB{Complessità}
+\begin{myboxtitle}[Complessità]
 \BIL
 \item Tramite analisi ammortizzata, è possibile vedere che il costo
 di $n-1$ operazioni merge è $O(n \log n)$
 \item Quindi il costo ammortizzato delle singole operazioni è $O(\log n)$
 \EIL
+\end{myboxtitle}
 \end{frame}
 
 \begin{frame}{Alberi: Euristica sul rango}
 
-\BB{Strategia per diminuire il costo dell'operazione \textsf{find}()}
+\vspace{-9pt}
+\begin{myboxtitle}[Strategia per diminuire il costo dell'operazione \textsf{find}()]
 \BIL
 \item Ogni nodo mantiene informazioni sul proprio rango
 \item Il rango $\mathit{rank}[x]$ di un nodo $x$ è il numero di archi 
@@ -1244,13 +1292,15 @@ del cammino più lungo fra $x$ e una foglia sua discendente
 \item Rango $\equiv$ altezza del sottoalbero associato al nodo
 \item Obiettivo: mantenere bassa l'altezza degli alberi
 \EIL 
+\end{myboxtitle}
 
 \end{frame}
 
 \begin{frame}{Alberi: Euristica sul rango}
 
+\vspace{-15pt}
 \TwoCols{
-\BB{Alberi di altezza uguale}
+\BB{Alberi di rango uguale}
 \BIL
 \item Si aggancia un albero alla radice
 dell'altro (indifferente)
@@ -1261,10 +1311,9 @@ dell'altro (indifferente)
 \quad{\huge $\Rightarrow$}
 \includegraphics<1|handout:0>[width=0.37\textwidth,page=2,valign=t]{mfset-alberi.pdf}
 }{
-\BB{Alberi di altezza diversa}
+\BB{Alberi di rango diverso}
 \BIL
-\item Si aggancia un albero alla radice
-dell'altro (indifferente)
+\item Si aggancia l'albero con rango più basso all'albero con rango più alto
 \item L'altezza resta inalterata
 \EIL
 \bigskip
@@ -1278,6 +1327,7 @@ dell'altro (indifferente)
 
 \begin{frame}{Complessità}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Teorema]
 Un albero \mfset con radice $r$ ottenuto tramite euristica sul rango ha almeno
 $2^{\mfrank[r]}$ nodi.
@@ -1299,11 +1349,11 @@ L'operazione $\textsf{find}(x)$ ha costo $O(\log n)$
 
 \begin{frame}{Algoritmo}
 
-\vspace{-12pt}
+\vspace{-15pt}
 \begin{columns}[T]
-\column{0.40\textwidth}
+\column{0.43\textwidth}
 \begin{Procedure}
-\caption[T]{\mfset}	
+\caption[T]{\mfset \phantom{\mfmerge($\INTEGER\ x, \INTEGER\ y$)}}	
 
 $\INTEGER[\,]\ \mfparent$\;
 $\INTEGER[\,]\ \mfrank$\;
@@ -1353,16 +1403,17 @@ $\INTEGER[\,]\ \mfrank$\;
 
 \begin{frame}{Alberi: Euristica di compressione dei cammini}
 
-\vspace{-12pt}
+\vspace{-15pt}
 \begin{columns}[T]
-\column{0.50\textwidth}
-\BB{Durante le operazioni $\textsf{find}(x)$}
+\column{0.48\textwidth}
+\begin{myboxtitle}[Operazione $\textsf{find}(x)$]
 L'albero viene "appiattito" in modo che 
-ricerche successive di $x$ possano essere svolte in $O(1)$
+ricerche successive di $x$ siano svolte in $O(1)$
+\end{myboxtitle}
 
 \smallskip\centering
 \includegraphics[width=0.7\textwidth,page=1]{mfset-compressione.pdf}
-\column{0.45\textwidth}
+\column{0.48\textwidth}
 \begin{Procedure}
 \caption[A]{\INTEGER\ \mffind($\INTEGER\ x$)}
   \If{$\mfparent[x] \neq x$}{$\mfparent[x] = \mffind(\mfparent[x])$}
@@ -1375,23 +1426,26 @@ ricerche successive di $x$ possano essere svolte in $O(1)$
 
 \begin{frame}{Alberi: Euristica sul rango + compressione cammini}
 
-\BB{Quando si utilizzano entrambe le euristiche:}
+\vspace{-9pt}
+\begin{myboxtitle}[Applicando entrambe le euristiche]
 \BIL
 \item Il rango non è più l'altezza del nodo, ma il \alert{limite superiore} all'altezza del nodo
-\item Le operazioni di compressione dei cammini \alert{non} ricalcolano il rango
+\item \alert{Non} viene calcalato il rango corretto
 \BI
 \item Troppo difficile mantenere le informazioni di rango corretto
 \item In ogni caso, non è necessario
 \EI
 \EIL
+\end{myboxtitle}
 
-\BB{Complessità}
+\begin{myboxtitle}[Complessità]
 \BIL 
 \item Costo ammortizzato di $m$ operazioni merge-find in un insieme di $n$
 elementi è $O(m \cdot \alpha(n))$
-\item  La funzione inversa di Ackermann $\alpha(n)$ cresce mooolto lentamente
+\item  La \alert{funzione inversa di Ackermann $\alpha(n)$} crescente lentamente
 \item Esempi: per $n \leq 2^{65536}$, $\alpha(n) \leq 5$
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1401,15 +1455,16 @@ elementi è $O(m \cdot \alpha(n))$
 \hline
 \textbf{Algoritmo} & \textsf{find}() & \textsf{merge}() \\\hline
 Liste  & $O(1)$ & $O(n)$ \\\hline
-Alberi & $O(n)$ & $O(1)$ \\\hline
+Alberi & $O(n)$ & $O(1)^+$ \\\hline
 Liste + Euristica sul peso & $O(1)$ & $O(\log n)^*$ \\\hline
-Alberi + Euristica sul rango & $O(\log n)$ & $O(1)$ \\\hline
+Alberi + Euristica sul rango & $O(\log n)$ & $O(1)^+$ \\\hline
 Alberi + Euristica sul rango +
 Compressione cammini & $O(1)^*$ & $O(1)$ \\\hline
 \end{tabular}
 
 \bigskip
-$^*$ Complessità ammortizzata
+$^*$ Complessità ammortizzata\\
+$^+$ Si considera solo l'operazione di unione, non si considera l'identificazione dei rappresentanti tramite \textsf{find}()
 
 \end{frame}
 

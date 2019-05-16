@@ -52,7 +52,7 @@ Non si può avere tutto dalla vita; bisogna rinunciare a qualcosa:
 \BIL
 \item \B{Generalità}: 
   \BI
-  \item Algoritmi \alert{pseudo-polinomiali} che funzionino per
+  \item Algoritmi \alert{pseudo-polinomiali} che funzionano per
     solo alcuni casi particolari dell'input
   \EI
 \item \B{Ottimalità}: 
@@ -77,11 +77,11 @@ Non si può avere tutto dalla vita; bisogna rinunciare a qualcosa:
 \begin{frame}{Subset-Sum}
 
 \vspace{-9pt}
-\begin{block}{Somma di sottoinsieme (Subset sum)}
+\begin{myboxtitle}[Somma di sottoinsieme (Subset sum)]
 Dati un insieme $A = \{ a_1 , \mldots, a_n\}$ di interi positivi ed un intero
 positivo $k$, esiste un sottoinsieme $S$ di indici in $\{1, \mldots, n\}$ tale
 che $\sum_{i \in S} a_i = k$?
-\end{block}
+\end{myboxtitle}
 
 \IG{0.60}{subsetsum.png}
 
@@ -94,8 +94,9 @@ che $\sum_{i \in S} a_i = k$?
 %-------------------------------------------------------------------------
 \begin{frame}{Subset Sum}
 
-Definiamo una tabella booleana $DP[0 \ldots n][0 \ldots k]$. $DP[i][r]$ è uguale a \TRUE se e solo se è possibile ottenere $r$ dai primi $i$ valori memorizzati
-nel vettore di input.
+Definiamo una tabella booleana $DP[0 \ldots n][0 \ldots k]$. 
+
+$DP[i][r]$ è uguale a \TRUE se e solo se esiste un sottoinsieme dei primi $i$ valori memorizzati in $A$ la cui somma è pari a $r$.
 
 \[
 DP[i][r] = \begin{cases}
@@ -107,8 +108,11 @@ DP[i][r] = \begin{cases}
 \]
 
 \bigskip
-Essendo un problema decisionale, è possibile semplificare e utilizzare
-spazio $\Theta(k)$ invece che $\Theta(nk)$.
+Essendo un problema decisionale:
+\BIL 
+\item è possibile semplificare e utilizzare spazio $\Theta(k)$ invece che $\Theta(nk)$
+\item la complessità resta $\Theta(nk)$
+\EIL
 
 \end{frame}
 
@@ -118,7 +122,7 @@ spazio $\Theta(k)$ invece che $\Theta(nk)$.
 \begin{Procedure}
 \caption[A]{\BOOLEAN \subsetsum($\INTARRAY\ A,\ \INTEGER\ n,\ \INTEGER\ k$)}
 
-$\BOOLEAN[\,]\ DP = \NEW\ \BOOLEAN[0 \mldots k]$\;
+$\BOOLEAN[\,]\ DP = \NEW\ \BOOLEAN[0 \mldots n][0 \mldots k]$\;
 $DP[0][0] = \TRUE$\;
 \For{$r = 1$ \TO $k$}{
   $DP[0][r] = \FALSE$\;
@@ -146,21 +150,23 @@ Input: $A = [7, 11, 13], k=24$
 %-------------------------------------------------------------------------
 \begin{frame}{Complessità}
 
-\BB{Analisi complessità}
+\vspace{-9pt}
+\begin{myboxtitle}[Analisi complessità]
 \BIL
 \item Complessità: $O(nk)$
-\item Dimensione dei dati in ingresso: $O(n \log k)$, in quanto $\forall i: A[i] \leq k$ (valori pià grandi possono essere esclusi)
+\item Dimensione dei dati in ingresso: $O(n \log k)$, in quanto $\forall i: A[i] \leq k$ (valori più grandi possono essere esclusi)
 \item Se $k = O(n^c)$ con $c$ costante, allora $\subsetsum$ ha complessità
 polinomiale $O(n^{c+1})$
-\item Se $k = O(2^n)$, allora $\subsetsum$ ha complessità superpolionomiale
+\item Se $k = O(2^n)$, allora $\subsetsum$ ha complessità superpolinomiale
 $O(n2^n)$
 \EIL
+\end{myboxtitle}
 
-\begin{block}{Osservazione}
+\begin{myboxtitle}[Osservazione]
 La complessità di \subsetsum() non dipende soltanto dalla 
 cardinalità $n$ dell'insieme in ingresso, ma anche dai valori contenuti
 nell'insieme
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -168,13 +174,13 @@ nell'insieme
 \begin{frame}{Problemi fortemente \NP-completi}
 
 \vspace{-9pt}
-\begin{block}{Dimensioni del problema}
+\begin{myboxtitle}[Dimensioni del problema]
 Dato un problema decisionale $R$ e una sua istanza $I$:
 \BIL
 \item La \alert{dimensione $d$} di $I$ è la lunghezza della stringa che codifica $I$
 \item Il \alert{valore \#} è il più grande numero intero che appare in $I$
 \EIL
-\end{block}
+\end{myboxtitle}
 
 \bigskip
 \BB{Esempi}
@@ -195,14 +201,13 @@ $O(n^2 \log \#)$ \\\hline
 \begin{frame}{Problemi fortemente \NP-completi}
 
 \vspace{-9pt}
-\begin{block}{Definizione}
+\begin{myboxtitle}[Definizione]
 Sia $R_p$ il problema $R$ ristretto a quei dati d'ingresso per i quali \# è
 limitato superiormente da $p(d)$, con $p$ funzione polinomiale in $d$. $R$ è
 \alert{fortemente \NP-completo} se $R_p$ è \NP-completo
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempio -- \textsc{clique} è fortemente \NP-completo}
+\begin{myboxtitle}[Esempio -- \textsc{clique} è fortemente \NP-completo]
 \BIL
 \item $k \leq n$ (altrimenti la risposta è \FALSE)
 \item $\# = \max \{ n, m, k \} = \max \{ n, m \}$
@@ -210,6 +215,7 @@ limitato superiormente da $p(d)$, con $p$ funzione polinomiale in $d$. $R$ è
 \item Quindi $\# = \max \{ n, m \}$ è limitato superiormente da $O(n+m)$
 \item Il problema ristretto è identico a \textsc{clique}, che è \NP-completo
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -217,19 +223,19 @@ limitato superiormente da $p(d)$, con $p$ funzione polinomiale in $d$. $R$ è
 \begin{frame}{Problemi debolmente \NP-completi}
 
 \vspace{-9pt}
-\begin{block}{Definizione}
+\begin{myboxtitle}[Definizione]
 Se un problema \NP-completo non è fortemente \NP-completo, allora è \alert{debolmente \NP-completo}.    
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempio -- \textsc{subset-sum} è debolmente \NP-completo}
+\begin{myboxtitle}[Esempio -- \textsc{subset-sum} è debolmente \NP-completo]
 \BIL
 \item $\forall a_i \leq k$ (valori più grandi di $k$ vanno esclusi)
-\item Se $k=O(n^k)$, allora $\# = \max \{n, k, a_1, \ldots, a_n\} = O(n^k)$
+\item Se $k=O(n^c)$, allora $\# = \max \{n, k, a_1, \ldots, a_n\} = O(n^c)$
 \item La soluzione basata su programmazione dinamica ha complessità
-$O(nk) = O(n^{k+1})$, quindi in $\PTIME$.
+$O(nk) = O(n^{c+1})$, quindi in $\PTIME$.
 \item Quindi \textsc{subset-sum} non è fortemente \NP-completo
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -237,21 +243,20 @@ $O(nk) = O(n^{k+1})$, quindi in $\PTIME$.
 \begin{frame}{Algoritmi pseudo-polinomiale}
 
 \vspace{-9pt}
-\begin{block}{Definizione}
+\begin{myboxtitle}[Definizione]
 Un algoritmo che risolve un certo problema $R$, per qualsiasi
 dato $I$ d'ingresso, in tempo $p(\#, d)$, con $p$ funzione polinomiale in $\#$
 e $d$, ha complessità \alert{pseudo-polinomiale}.
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempio}
+\begin{myboxtitle}[Esempio]
 L'algoritmo che abbiamo visto per \textsc{subset-sum} è pseudo-polinomiale
+\end{myboxtitle}
 
-\bigskip
-\begin{teorema}
+\begin{myboxtitle}[Teorema]
 Nessun problema fortemente \NP-completo può essere risolto da un algoritmo
 pseudo-polinomiale, a meno che non sia $\PP = \NP$.
-\end{teorema}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -259,15 +264,13 @@ pseudo-polinomiale, a meno che non sia $\PP = \NP$.
 \begin{frame}{Problemi debolmente/fortemente \NP-completi}
 
 \vspace{-9pt}
-\begin{block}{Partizione (\textsc{partition})}
+\begin{myboxtitle}[Partizione (\textsc{partition})]
 Dato un insieme $A = \{ a_1, \mldots, a_n\}$ di interi positivi, esiste un
 sottoinsieme $S$ di \{1, \mldots, n\} tale che $\sum_{i\in S} a_i = \sum_{i
 \notin S}a_i$?
-\end{block}
+\end{myboxtitle}
 
-\medskip
-\BB{Esempio}
-\medskip
+\begin{myboxtitle}[Esempio]
 \begin{overprint}
 \onslide<1|handout:0>
 \begin{tabular}{|c|c|c|c|c|c|}
@@ -280,17 +283,18 @@ sottoinsieme $S$ di \{1, \mldots, n\} tale che $\sum_{i\in S} a_i = \sum_{i
 \R{14} & \R{6} & \B{12} & \B{3} & \B{7} & \R{2} \\\hline
 \end{tabular}
 \end{overprint}
+\end{myboxtitle}
 
-\medskip
-\BB{Domanda -- \textsc{partition} è debolmente \NP-completo?}
+\begin{myboxtitle}[Domanda -- \textsc{partition} è debolmente \NP-completo?]
 
-\onslide<2-|handout:1>
+\pause
 Sì, perchè è possibile ridurlo a \textsc{subset-sum} scegliendo come
 valore $k$ la metà di tutti i valori presenti:
 
 \[
   k = \frac{\sum_{i=1}^n a_i}{2} = \frac{44}{2} = 22
 \]
+\end{myboxtitle}
 
 \end{frame}
 
@@ -300,17 +304,16 @@ valore $k$ la metà di tutti i valori presenti:
 \begin{frame}{Problemi debolmente/fortemente \NP-completi}
 
 \vspace{-9pt}
-\begin{block}{3-Partizione (\textsc{3-partition})}
+\begin{myboxtitle}[3-Partizione (\textsc{3-partition})]
 Dati $3n$ interi $\{a_1, \mldots, a_{3n}\}$, esiste una partizione in $n$
 triple $T_1, \mldots, T_n$, tale che la somma dei tre elementi di ogni $T_j$ è
 la stessa, per $1 \le j \le n$?
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Domanda -- \textsc{3-partition} è debolmente \NP-completo?}
-
+\begin{myboxtitle}[Domanda -- \textsc{3-partition} è debolmente \NP-completo?]
 \pause
 No, non esiste un algoritmo psuedo-polinomiale per risolvere 3-partition.
+\end{myboxtitle}
 
 \end{frame}
 
@@ -320,22 +323,23 @@ No, non esiste un algoritmo psuedo-polinomiale per risolvere 3-partition.
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmi di approssimizzazione}
 
-\vspace{-3pt}
-\BB{Premessa}
+\vspace{-9pt}
+\begin{myboxtitle}[Premessa]
 \BIL
 \item I problemi più interessanti sono in forma di ottimizzazione
 \item Tali problemi sono "più difficili" dei corrispondenti problemi
 in forma di decisione
 \item Se il problema di decisione è \NP-completo, non sono noti 
-algoritmi polinomiali per il problema di ottimizzazione (\NP-hard)
+algoritmi polinomiali per il problema di ottimizzazione
 \item Esistono algoritmi polinomiali che trovano soluzioni ammissibili
 più o meno vicine a quella ottima
 \EIL
+\end{myboxtitle}
 
-\begin{block}{}
+\begin{myboxtitle}[Algoritmi di approssimazione]
 Se è possibile dimostrare un limite superiore/inferiore al rapporto fra la soluzione trovata e la soluzione ottima, allora tali algoritmi
 vengono detti \alert{algoritmi di approssimazione}.
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -343,16 +347,16 @@ vengono detti \alert{algoritmi di approssimazione}.
 \begin{frame}{Approssimazione}
 
 \vspace{-9pt}
-\begin{block}{Definizione}
+\begin{myboxtitle}[Definizione]
 Dato un problema di ottimizzazione con funzione costo non negativa $c$,
-un algoritmo si dice \alert{ di $\alpha(n)$-approssimazione} se fornisce una soluzione ammissibile $x$ il cui costo $c(x)$ non si discosta dal costo $c(x^*)$ della soluzione ottima $x^*$ per più di un fattore $\alpha(n)$,
+un algoritmo si dice di \alert{$\alpha(n)$-approssimazione} se fornisce una soluzione ammissibile $x$ il cui costo $c(x)$ non si discosta dal costo $c(x^*)$ della soluzione ottima $x^*$ per più di un fattore $\alpha(n)$,
 per qualunque input di dimensione $n$:
 
 \begin{align*}
 c(x^*) \leq c(x) & \leq \alpha(n) c(x^*)  && \alpha(n) > 1 \qquad (\textrm{Minimizzazione})\\
 \alpha(n) c(x^*) \leq c(x) & \leq c(x^*)  && \alpha(n) < 1 \qquad (\textrm{Massimizzazione})
 \end{align*}
-\end{block}
+\end{myboxtitle}
 
 \BIL
 \item $\alpha(n)$ può essere una costante, valida per tutti gli $n$
@@ -367,25 +371,28 @@ c(x^*) \leq c(x) & \leq \alpha(n) c(x^*)  && \alpha(n) > 1 \qquad (\textrm{Minim
 \begin{frame}{Esempio}
 
 \vspace{-9pt}
-\begin{block}{Bin packing}
-Dato un insieme $A = \{a_1, \mldots, a_n\}$ di interi positivi (i ``volumi''
-di $n$ ``oggetti'') ed un intero positivo $k$ (la ``capacità'' di una
-``scatola'', tale che $\forall i, a_i \leq k$), si vuole trovare una partizione di $\{1, \mldots, n\}$ nel minimo numero di sottoinsiemi disgiunti (``scatole'') tali che $\sum_{i\in S} a_i \le k$ per ogni insieme $S$ della partizione
-\end{block}
+\begin{myboxtitle}[Bin packing]
+Dati:
+\BI
+\item un vettore $A = [a_1, \mldots, a_n]$ di interi positivi (i \alert{volumi}
+di $n$ \alert{oggetti}) 
+\item un intero positivo $k$ (la \alert{capacità} di una \alert{scatola}, tale che $\forall i: a_i \leq k$), 
+\EI
+si vuole trovare una partizione di $\{1, \mldots, n\}$ nel minimo numero di sottoinsiemi disgiunti (``scatole'') tali che $\sum_{i\in S} a_i \le k$ per ogni insieme $S$ della partizione
+\end{myboxtitle}
 
-\bigskip
-\TwoCols{
-\BB{Esempio}
-\medskip
+\vspace{-9pt}
+\TwoColsCustom{0.45}{0.53}{
+\begin{myboxtitle}[Esempio]
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
 3 & 7 & 2 & 5 & 4 & 3 & 5 \\\hline
 \end{tabular}
-
+\end{myboxtitle}
 }{
-\BB{Domanda}
-\smallskip
+\begin{myboxtitle}[Domanda]
 Come risolvereste il problema?
+\end{myboxtitle}
 }
 
 \end{frame}
@@ -394,10 +401,10 @@ Come risolvereste il problema?
 \begin{frame}{First-fit}
 
 \vspace{-9pt}
-\begin{block}{Algoritmo \textsc{first-fit}}
+\begin{myboxtitle}[Algoritmo \textsc{first-fit}]
 Gli oggetti sono considerati in un ordine qualsiasi e ciascun oggetto è assegnato alla prima scatola che lo può contenere, tenuto conto di quanto
 spazio è stato occupato della stessa. (Algoritmo Greedy)
-\end{block}
+\end{myboxtitle}
 
 \bigskip
 \BB{Esempio}
@@ -476,7 +483,7 @@ $k=8$
 \item Il numero minimo di scatole $N^*$ è limitato da:
 \medskip
 \[
-  N^* \geq \frac{\sum_{i = 1}^{n} a_i}{k} = \frac{29}{8} = 3.625
+  N^* \geq \frac{\sum_{i = 1}^{n} a_i}{k} = \frac{29}{8}  =  3.625
 \]
 \item Non possono esserci due scatole riempite meno della metà:
 \medskip
@@ -486,9 +493,9 @@ $k=8$
 
 \item Abbiamo quindi:
 \[
-\alpha(n) \frac{\sum_{i = 1}^{n} a_i}{k} \leq \alpha(n) N^* < N \leq \frac{ \sum_{i = 1}^{n} a_i}{k/2} 
+ N < \frac{\sum_{i = 1}^{n} a_i}{k/2} = 2 \frac{\sum_{i = 1}^{n} a_i}{k/2} \leq 2 N^* = \alpha(n) N^*
 \]
-che implica $\alpha(n) < 2$
+che implica $\alpha(n) = 2$
 \EIL
 
 \end{frame}
@@ -517,13 +524,13 @@ $\alpha(n)$, per casi particolari l'approssimazione può essere migliore
 \begin{frame}{Commesso viaggiatore}
 
 \vspace{-9pt}
-\begin{block}{Commesso viaggiatore (\textsc{tsp})}
+\begin{myboxtitle}[Commesso viaggiatore (\textsc{tsp})]
 Siano date $n$ città e le distanze (positive) $d_{ij}$ tra esse
 trovare un percorso
 che, partendo da una qualsiasi città, attraversi ogni città esattamente una
 volta e ritorni alla città di partenza, in modo che la distanza complessiva
 percorsa sia minima.
-\end{block}
+\end{myboxtitle}
 
 \begin{center}
 \IG{0.50}{tsp.png}
@@ -540,10 +547,10 @@ percorsa sia minima.
 \begin{frame}{Somiglianze con circuito hamiltoniano}
 
 \vspace{-9pt}
-\begin{block}{Circuito hamiltoniano (\textsc{hamiltonian-circuit})}
+\begin{myboxtitle}[Circuito hamiltoniano (\textsc{hamiltonian-circuit})]
 Dato un grafo non orientato $G$, esiste un circuito che attraversi ogni nodo
 una e una sola volta?
-\end{block}
+\end{myboxtitle}
 
 \begin{center}
 \IG{0.4}{hamiltonian-path.pdf}
@@ -574,26 +581,26 @@ una e una sola volta?
 \begin{frame}{Commesso viaggiatore con disuguaglianze triangolari}
 
 \vspace{-9pt}
-\begin{block}{Commesso viaggiatore con disuguaglianze triangolari ($\Delta$-\textsc{tsp})}
+\begin{myboxtitle}[Commesso viaggiatore con dis. triangolari ($\Delta$-\textsc{tsp})]
 Siano date $n$ città e le distanze (positive) $d_{ij}$ tra esse, \alert{tali per cui vale
 la regola delle diseguaglianze triangolari:
-
+\smallskip
 \[
-d_{ij} \le d_{ik} + d_{kj} \quad \textrm{per} \quad 1 \le i, j, k \le n
+d_{ij} \le d_{ik} + d_{kj} \quad \forall i,j,k : \quad 1 \le i, j, k \le n
 \]}
-trovare un percorso
+Trovare un percorso
 che, partendo da una qualsiasi città, attraversi ogni città esattamente una
 volta e ritorni alla città di partenza, in modo che la distanza complessiva
 percorsa sia minima.
-\end{block}
+\end{myboxtitle}
 
 \TwoCols{
-Con disegualianza triangolare
+Con diseguaglianza triangolare
 \begin{center}
 \includegraphics[width=0.6\textwidth,page=1]{distriangolare.pdf}
 \end{center}
 }{
-Senza disegualianza triangolare
+Senza diseguaglianza triangolare
 \begin{center}
 \includegraphics[width=0.6\textwidth,page=2]{distriangolare.pdf}
 \end{center}
@@ -646,12 +653,12 @@ un circuito hamiltoniano di peso minimo su un grafo completo
 %-------------------------------------------------------------------------
 \begin{frame}{Lower bound per $\Delta$-\textsc{tsp}}
 
-\begin{block}{Teorema}
+\vspace{-9pt}
+\begin{myboxtitle}[Teorema]
 Qualunque circuito hamiltoniano $\pi$ ha costo $c(\pi)$ superiore al costo $\mathit{mst}$ di un albero di copertura di peso minimo, ovvero $\mathit{mst} < c(\pi)$
-\end{block}    
+\end{myboxtitle}    
 
-\smallskip
-\BB{Dimostrazione}
+\begin{myboxtitle}[Dimostrazione]
 Per assurdo
 \BIL 
 \item Supponiamo che esista un circuito hamiltoniano $\pi$ di costo $c(\pi) \leq \mathit{mst}$
@@ -659,6 +666,7 @@ Per assurdo
 $\mathit{mst}' < c(\pi) \leq \mathit{mst}$
 \item Contraddizione, visto che $\mathit{mst}$ è il costo minimo fra tutti gli alberi di copertura 
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -709,7 +717,8 @@ dove $c(\pi^*)$ è il costo del circuito hamiltoniano ottimo
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo per $\Delta$-\textsc{tsp}}
 
-\BB{Note}
+\vspace{-9pt}
+\begin{myboxtitle}[Note]
 \BIL
 \item La complessità dell'algoritmo è pari a $O(n^2 \log n)$:
   \BI
@@ -721,6 +730,7 @@ al valore $2$
 \item L'algoritmo di Christofides (1976) ha un fattore di approssimazione
 di $3/2$, il migliore risultato al momento
 \EIL
+\end{myboxtitle}
   
 \end{frame}
 
@@ -728,11 +738,10 @@ di $3/2$, il migliore risultato al momento
 \begin{frame}{Non approssimabilità di \textsc{tsp}}
 
 \vspace{-9pt}
-\begin{block}{Teorema}
-Non esiste alcun algoritmo di approssimazione assoluta per il
-\textsc{tsp} tale che 
-\probref{Commesso viaggiatore} tale che $c(x') \le sc(x^*)$, con $s \geq 2$ intero positivo, a meno che non sia $\PP = \NP$.
-\end{block}
+\begin{myboxtitle}[Teorema]
+Non esiste alcun algoritmo di approssimazione assoluta per 
+\textsc{tsp} tale che $c(x') \le sc(x^*)$, con $s \geq 2$ intero positivo, a meno che non sia $\PP = \NP$.
+\end{myboxtitle}
 
 \medskip
 \BB{Dimostrazione}
@@ -755,11 +764,11 @@ sn, &\textrm{se $[i, j] \notin E$}.
 \begin{frame}{Non approssimabilità di \textsc{tsp}}
 
 \vspace{-9pt}
-\begin{block}{Teorema}
+\begin{myboxtitle}[Teorema]
 Non esiste alcun algoritmo di approssimazione assoluta per il
 \textsc{tsp} tale che 
 \probref{Commesso viaggiatore} tale che $c(x') \le sc(x^*)$, con $s \geq 2$ intero positivo, a meno che non sia $\PP = \NP$.
-\end{block}
+\end{myboxtitle}
 
 \medskip
 \BB{Dimostrazione}
@@ -781,12 +790,12 @@ impossibile a meno che $\PP = \NP$
 
 \begin{frame}{Branch-\&-bound}
 
-\begin{block}{}
+\begin{myboxtitle}[Branch-\&-bound]
 Per risolvere un problema di ottimizzazione NP-arduo, si può modificare la
 procedura \enumerazione(), vista nella sezione su Backtrack, in modo da
 "potare" certe sequenze di scelte che si rivelino incapaci di
 generare la soluzione ottima
-\end{block}
+\end{myboxtitle}
 
 \bigskip
 \BB{Alcune assunzioni -- senza perdere (troppa) generalità}
@@ -849,11 +858,11 @@ nuove scelte abbiano costo $\geq \LB(S, i)$
 \begin{frame}{Branch-\&-bound}
 
 \vspace{-9pt}
-\begin{block}{}
+\begin{myboxtitle}[Potatura]
 Se $\LB(S, i)$ è maggiore o uguale a \Mincost, allora si può
 evitare di generare ed esplorare il sottoalbero delle scelte radicato in tal
 nodo
-\end{block}
+\end{myboxtitle}
 
 \IG{1.0}{albero10.pdf}
 \end{frame}
@@ -1019,12 +1028,11 @@ parte da un nodo fissato (es. $1$)
 %-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 
-\begin{block}{}
+\BB{
 In questo semplice esempio, è stato possibile "potare" 42 su 65 nodi
-\end{block}
+}
 
-\bigskip
-\BB{Possibili miglioramenti}
+\begin{myboxtitle}[Possibili miglioramenti]
 \BIL
 \item E' possibile variare l'ordine di visita dell'albero delle scelte
   \BI
@@ -1039,6 +1047,7 @@ In questo semplice esempio, è stato possibile "potare" 42 su 65 nodi
   \item Held, M., and Karp, R. M. (1971), "The Traveling Salesman Problem and Minimum Spanning Trees: part II", Mathematical Programming 1:6-25
   \EI
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1050,7 +1059,8 @@ In questo semplice esempio, è stato possibile "potare" 42 su 65 nodi
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmi euristici}
 
-\begin{block}{}
+\vspace{-9pt}
+\begin{myboxtitle}[Euristiche]
 Quando si è presi dalla disperazione a causa della enorme difficoltà di un
 problema di ottimizzazione NP-arduo, si può ricorrere ad algoritmi
 ``euristici'' che forniscono una soluzione ammissibile
@@ -1058,21 +1068,24 @@ problema di ottimizzazione NP-arduo, si può ricorrere ad algoritmi
 \item non necessariamente ottima 
 \item non necessariamente approssimata 
 \EI
-\end{block}
 
-\bigskip
-\BB{Tecniche possibili}
-\BIL
+Dal greco antico heurískō, "Trovo, scopro”
+\end{myboxtitle}
+
+\begin{myboxtitle}[Tecniche possibili]
+\BI
 \item Greedy
 \item Ricerca locale
-\EIL
+\EI
+\end{myboxtitle}
     
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{\textsc{tsp} -- Greedy (1)}
 
-\BB{Shortest edges first}
+\vspace{-9pt}
+\begin{myboxtitle}[Shortest edges first]
 \BIL
 \item Ordiniamo gli archi per pesi non decrescenti
 \item Aggiungiamo archi alla soluzioni seguendo questo ordine finché non 
@@ -1085,6 +1098,7 @@ problema di ottimizzazione NP-arduo, si può ricorrere ad algoritmi
 \item A questo punto, si è trovata una catena Hamiltoniana
 \item Si chiude il circuito aggiungendo l'arco tra i due nodi estremi della catena
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1144,24 +1158,12 @@ $S.\setinsert([u,v])$\;
 \end{frame}
 
 
-%-------------------------------------------------------------------------
-\begin{frame}{\textsc{tsp} -- Greedy (1)}
-
-\BIL
-\item Costo computazionale $O(n^2 \log n)$ (ordinamento archi)
-\item La soluzione così ottenuta si può utilizzare come:
-\BI
-\item base di partenza per un algoritmo branch-\&-bound
-\item può essere migliorata ancora tramite ricerca locale
-\EI
-\EIL
-
-\end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{\textsc{tsp} -- Greedy (2)}
 
-\BB{Nearest neighbor}
+\vspace{-9pt}
+\begin{myboxtitle}[Nearest neighbor]
 \BIL
 \item Si parte da una città
 \item Si seleziona come prossima città quella più vicina
@@ -1169,8 +1171,8 @@ $S.\setinsert([u,v])$\;
 \item Quando si sono visitate tutte le città, si torna alla città di
 partenza
 \item Si può lavorare direttamente sulla matrice
-\item Costo: $O(n^2)$
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1199,22 +1201,39 @@ partenza
 
 
 %-------------------------------------------------------------------------
+\begin{frame}{\textsc{tsp} -- Greedy}
+
+\BIL
+\item Costo computazionale:
+  \BI
+  \item Greedy 1: $O(n^2 \log n)$ (ordinamento archi)
+  \item Greedy 2: $O(n^2)$
+  \EI
+\item La soluzione così ottenuta si può utilizzare come:
+\BI
+\item base di partenza per un algoritmo branch-\&-bound
+\item può essere migliorata ancora tramite ricerca locale
+\EI
+\EIL
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
 \begin{frame}{\textsc{tsp} -- Approccio ricerca locale}
 
 \vspace{-9pt}
-\begin{block}{Ricerca locale}
+\begin{myboxtitle}[Ricerca locale]
 Sia $\pi$ un circuito Hamiltoniano del grafo completo derivante dal problema
-\textsc{tsp}. Un'euristica ragionevole di ricerca locale può essere progettata
-sulla base del seguente intorno:
+\textsc{tsp}. Si consideri il seguente intorno:
 \[
 I_2(\pi) = \parbox[t]{9cm}{\{$\pi'$: $\pi'$ è ottenuto da
 $\pi$ cancellando due archi non consecutivi del circuito e
 sostituendoli con due archi esterni al circuito\}}
 \]
-\end{block}
+\end{myboxtitle}
 
-\smallskip
-\BB{Note:}
+\begin{myboxtitle}[Note]
 \BIL
 \item $|I_2(\pi)| = n(n - 1)/2 - n$
   \BI
@@ -1224,6 +1243,7 @@ sostituendoli con due archi esterni al circuito\}}
   \EI
 \item Costo per esaminare $I_2(\pi)$: $O(n^2)$
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1255,21 +1275,18 @@ sostituendoli con due archi esterni al circuito\}}
 %-------------------------------------------------------------------------
 \begin{frame}{Spunti di lettura}
 
-\begin{block}{}
-Rego, César; Gamboa, Dorabela; Glover, Fred; Osterman, Colin (2011), "Traveling salesman problem heuristics: leading methods, implementations and latest advances", European Journal of Operational Research, 211 (3): 427–441.
+\begin{myboxtitle}[Bibliografia]
+\BIL
+\item Rego, César; Gamboa, Dorabela; Glover, Fred; Osterman, Colin (2011), "Traveling salesman problem heuristics: leading methods, implementations and latest advances", European Journal of Operational Research, 211 (3): 427–441.
 \url{https://www.sciencedirect.com/science/article/pii/S0377221710006065?via\%3Dihub}
 
-\end{block}
-
-\begin{block}{}
-David Williamson, David Shmoys (2010). The Design of Approximation Algorithms. Cambridge University Press.\\
+\item David Williamson, David Shmoys (2010). The Design of Approximation Algorithms. Cambridge University Press.\\
 \url{http://www.designofapproxalgs.com/book.pdf}
-\end{block}
 
-\begin{block}{}
-David Williamson, David Shmoys (2010). The Design of Approximation Algorithms. Cambridge University Press.\\
+\item David Williamson, David Shmoys (2010). The Design of Approximation Algorithms. Cambridge University Press.\\
 \url{http://www.designofapproxalgs.com/book.pdf}
-\end{block}
+\EIL
+\end{myboxtitle}
 
 
 \end{frame}

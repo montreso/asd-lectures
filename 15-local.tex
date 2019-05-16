@@ -250,9 +250,9 @@ tutti i flussi associabili alla rete.
 \begin{frame}{Metodo delle reti residue}
 
 \vspace{-9pt}
-\BB{Algoritmo, informale}
+\begin{myboxtitle}[Algoritmo, informale]
 \BIL
-\item Lavoriamo partendo da un flusso "corrente" $f$, inizialmente nullo
+\item Si memorizza un flusso "corrente" $f$, inizialmente nullo
 \item Si ripetono le operazioni seguenti:
   \BIL
   \item Si "sottrae" il flusso attuale dalla rete iniziale, ottenendo una
@@ -262,11 +262,12 @@ tutti i flussi associabili alla rete.
   \EIL
   fino a quando non è più possibile trovare un flusso positivo $g$
 \EIL
+\end{myboxtitle}
 
-\smallskip
-\BB{Output}
+\begin{myboxtitle}[Output]
 Se svolta correttamente, è possibile dimostrare che questo approccio restituisce
 un flusso massimo
+\end{myboxtitle}
 
 \end{frame}
 
@@ -461,6 +462,9 @@ flusso aggiuntivo?
 %%---------------------------------------------------------------------------
 \begin{frame}{Ford-Fulkerson, 1956}
 
+\vspace{-9pt}
+\begin{overprint}
+\onslide<1|handout:1>
 \BIL
 \item Si trova un cammino $C=v_0,v_1,\ldots,v_n$, con $s=v_0$ e $t=v_n$ 
   nella rete residua $G_f$; 
@@ -469,6 +473,9 @@ flusso aggiuntivo?
   \[
     c_f(C) = \min_{i=2 \ldots n} c_f(v_{i-1},v_i)
   \]
+\EIL
+\onslide<2|handout:2>
+\BIL
 \item si crea un flusso addizionale $g$ tale che 
   \BI
   \item $g(v_{i-1}, v_i) = c_f(C)$;
@@ -476,6 +483,21 @@ flusso aggiuntivo?
   \item $g(x,y)=0$ per tutte le altre coppie $(x,y)$
   \EI
 \EIL
+\end{overprint}
+
+\medskip
+\begin{overprint}
+\onslide<1|handout:1>
+\begin{center}
+\IG{0.7}{cammino-aumentante.pdf}
+\end{center}
+\onslide<2|handout:2>
+\begin{center}
+\IG{0.7}{flusso-aumentante.pdf}
+\end{center}
+\end{overprint}
+
+
 
 \end{frame}
 
@@ -490,14 +512,14 @@ $\INTARRAY[\,]\ g = \NEW\ \INTARRAY[\,]$\REMR{Flusso da cammino aumentante}
 $\INTARRAY[\,]\ r = \NEW\ \INTARRAY[\,]$\REMR{Rete residua}
 \BlankLine
 \ForEach{$u,v \in G.\VV()$}{
-  $f[u,v] = 0$\REMR{Inizializza un flusso nullo}
-  $r[u,v] = c[u,v]$\REMR{Copia c in r}
+  $f[u][v] = 0$\REMR{Inizializza un flusso nullo}
+  $r[u][v] = c[u][v]$\REMR{Copia c in r}
 }
 \Repeat{$g=f_0$}{
-  $g = \textrm{flusso associato ad un cammino aumentante in $r$; altrimenti, $f_0$}$\;
+  $g = \textrm{flusso associato ad un cammino aumentante in $r$, oppure $f_0$}$\;
   \ForEach{$u,v \in G.\VV()$}{
-    $f[u,v] = f[u,v] + g[u,v]$\REMR{$f = f + g$}
-    $r[u,v] = c[u,v] - f[u,v]$\REMR{Calcola $c_f$}
+    $f[u][v] = f[u][v] + g[u][v]$\REMR{$f = f + g$}
+    $r[u][v] = c[u][v] - f[u][v]$\REMR{Calcola $c_f$}
   }  
 }
 \Return $f$
@@ -704,21 +726,20 @@ private static int dfs(int[][] C, int[][] F, int i, int t, boolean[] visited, in
 %%---------------------------------------------------------------------------
 \begin{frame}{Complessità}
 
-\vspace{-9pt}
+\vspace{-3pt}
 \begin{myboxtitle}[Complessità, limite superiore -- Versione Ford-Fulkerson]
-Se le capacità della rete sono intere, l'algoritmo di Ford e Fulkerson
-ha complessità $O((V+E)|f^*|)$ o $O(V^2|f^*|)$ nel caso pessimo.
+Se le capacità sono intere, l'algoritmo di Ford-Fulkerson
+ha complessità \alert{$O((V+E)|f^*|)$} (liste) o \alert{$O(V^2|f^*|)$} (matrice).
 \end{myboxtitle}
 
 \BIL
 \item L'algoritmo parte dal flusso nullo e termina quando il valore totale
 del flusso raggiunge $|f^*|$
-\item Ogni incremento è positivo, nel senso che il valore del flusso viene 
-incrementato di almeno uno dal cammino aumentante
+\item Ogni incremento del flusso aumenta il flusso di almeno un'unità
 \item Ogni ricerca di un cammino richiede una visita del grafo, con
-costo $O(V+E)$ / $O(V^2)$; 
+costo $O(V+E)$ o $O(V^2)$; 
 \item La somma dei flussi e il calcolo della rete residua può essere 
-effettuato in tempo $O(V+E)$ / $O(V^2)$.
+effettuato in tempo $O(V+E)$ o $O(V^2)$.
 \EIL
 
 \end{frame}
@@ -726,10 +747,10 @@ effettuato in tempo $O(V+E)$ / $O(V^2)$.
 %%---------------------------------------------------------------------------
 \begin{frame}{Complessità}
 
-\vspace{-9pt}
+\vspace{-3pt}
 \begin{myboxtitle}[Complessità, limite superiore -- Edmonds e Karp]
 Se le capacità della rete sono intere, l'algoritmo di Edmonds e Karp
-ha complessità $O(VE^2)$ nel caso pessimo.
+ha complessità \alert{$O(VE^2)$} nel caso pessimo.
 \end{myboxtitle}
 
 \BB{Come si conciliano i due limiti superiori?}
@@ -756,10 +777,10 @@ una visita in ampiezza $O(V+E)$.
 \item $O(VE(V+E)) = O(VE^2)$
 \EIL
 
-\begin{myboxtitle}[Lemma - Aumenti di flusso]
-Il numero totale di aumenti di flusso eseguiti dall'algoritmo
-di Edmonds e Karp è $O(VE)$.
-\end{myboxtitle}
+% \begin{myboxtitle}[Lemma - Aumenti di flusso]
+% Il numero totale di aumenti di flusso eseguiti dall'algoritmo
+% di Edmonds e Karp è $O(VE)$.
+% \end{myboxtitle}
 
 \end{frame}
 
@@ -772,11 +793,26 @@ Sia $\delta_f(s,v)$ la distanza minima da $s$ a $v$ in una rete residua $G_f$.
 Sia $f' = f+g$ un flusso nella rete iniziale, con $g$ flusso non nullo derivante
 da un cammino aumentante. Allora $\delta_{f'}(s,v) \geq \delta_f(s,v)$.
 \end{myboxtitle}  
-\BIL
-  \item Quando viene aggiunto un cammino, alcuni archi si  ``spengono'': hanno una capacità residua di 0
+\BI
+  \item Quando viene aumentato il flusso, alcuni archi si  ``spengono'' (capacità residua 0)
   \item Questi archi erano utilizzati nei cammini minimi (BFS)
-  \item La sparizione di questi archi non può rendere più corto un cammino minimo
-\EIL
+  \item I cammini minimi non posso diventare più corti
+\EI
+
+\begin{overprint}
+\onslide<1|handout:1>
+\begin{center}
+\includegraphics[width=0.6\textwidth,page=1]{bfs.pdf}
+\end{center}
+\onslide<2|handout:2>
+\begin{center}
+\includegraphics[width=0.6\textwidth,page=2]{bfs.pdf}
+\end{center}
+\onslide<3|handout:3>
+\begin{center}
+\includegraphics[width=0.6\textwidth,page=3]{bfs.pdf}
+\end{center}
+\end{overprint}
 
 \end{frame}
 
@@ -818,8 +854,8 @@ diminuirà, ovvero se $(v,u)$ appare in un cammino aumentante
 \[
  \delta_{g}(s,u) = \delta_{g}(s,v)+1
 \]
-\item Per Lemma 1, abbiamo anche che $\delta_f(s,v)
-\leq \delta_{g}(s,v)$; quindi:
+\item Per Lemma (Monotonia), abbiamo anche che $\delta_g(s,v)
+\geq \delta_{f}(s,v)$; quindi:
 \begin{eqnarray*}
 \delta_{g}(s,u) &=& \delta_{g}(s,v)+1 \\
   & \geq & \delta_f(s,v) + 1 \\
@@ -848,7 +884,7 @@ abbiamo che il numero massimo di flussi aumentanti è $O(VE)$.
 \begin{frame}{Complessità -- Altre versioni}
 
 \small
-\begin{tabular}{|P{2.6cm}|P{4.5cm}|P{3.9cm}|}
+\begin{tabular}{|P{2.6cm}|P{3.5cm}|P{4.1cm}|}
 \hline
 \textbf{Nome} & \textbf{Complessità} & \textbf{Note} \\\hline
 Ford-Fulkerson & $O(E|f^*|)$ & Converge con valori razionali \\\hline
@@ -856,7 +892,9 @@ Edmonds-Karp & $O(VE^2)$ & Specializzazione basata su BFS \\\hline
 Dinic, blocking flow & $O(V^2E)$ & In alcune reti particolari, $O((V^{2/3},E^{1/2})E)$ \\\hline
 MPM & $O(V^3)$ & Solo su DAG \\\hline
 Dinic & $O(VE \log V)$ & Struttura dati Dynamic trees \\\hline
-Goldberg e Rao & \begingroup \footnotesize $O(\min(n^{2/3},m^{1/2})m \log (n^2/m+2) \log C)$ \endgroup & $C=\max_{(u,v) \in E} c(u,v)$ \\\hline
+Goldberg e Rao & \begingroup \footnotesize $O(\min(n^{2/3},m^{1/2})m \cdot {}$ \endgroup & $C=\max_{(u,v) \in E} c(u,v)$ \\
+& \begingroup \footnotesize  ${} \cdot \log (n^2/m+2) \log C)$ \endgroup & \\\hline
+
 Orlin + King,Rao,Tarjan & $O(VE)$ & Pubblicato nel 2013!\\\hline
 \end{tabular}
 
@@ -895,10 +933,10 @@ $T = \{ \mathtt{e}, \mathtt{f} \}$\\
 
 \vspace{-12pt}
 \begin{myboxtitle}[Capacità di un taglio]
-La \alert{capacità} $c(S,T)$ attraverso il taglio $(S,T)$ è pari a:
+La \alert{capacità} $C(S,T)$ attraverso il taglio $(S,T)$ è pari a:
 
 \[
-  c(S,T) = \sum_{u \in S, v \in T} c(u,v)
+  C(S,T) = \sum_{u \in S, v \in T} c(u,v)
 \]
 \end{myboxtitle}
 
@@ -919,10 +957,10 @@ $C(S,T) = 14$
 %%---------------------------------------------------------------------------
 \begin{frame}{Dimostrazione correttezza -- Definizioni}
 
-\vspace{-12pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Flusso di un taglio]
 Se $f$ è un flusso in $G$, il {\em flusso netto} $F(S,T)$ 
-attraverso $(S,T)$ è pari a:
+attraverso $(S,T)$ è:
 
 \[
   F(S,T) = \sum_{u \in S, v \in T} f(u,v)
@@ -948,53 +986,80 @@ $F(S,T) = 6$
 %%---------------------------------------------------------------------------
 \begin{frame}{Dimostrazione correttezza -- Lemma    }
     
-\vspace{-12pt}
-\begin{lemma}
+\vspace{-3pt}
+\begin{myboxtitle}[Lemma -- Valore del flusso di un taglio]
 Dato un flusso $f$ e un taglio $(S,T$), la quantità di flusso
 $F(S,T)$ che attraversa il taglio è uguale a $|f|$.
-\end{lemma}
+\end{myboxtitle}
 
+\medskip
+\begin{overprint}
+\onslide<1|handout:1>
+\IG{0.8}{taglio4.pdf}
+\onslide<2|handout:2>
 \begin{align*}
-F(S,T) &= \sum_{u \in S, v \in T} f(u,v) & T = V - \Sigma\\
-       &= \sum_{u \in S, v \in V} f(u,v) - \sum_{u \in S, v \in S} f(u,v) \\ 
-       &= \sum_{u \in S-\{s\}, v \in V} f(u,v) + \sum_{v \in V} f(s,v) - \sum_{u \in S, v \in S} f(u,v) \\ 
-       &= 0 + |f| + 0
+F(S,T) &= \sum_{u \in S, v \in T} f(u,v) \\
+       &= \sum_{u \in S, v \in V} f(u,v) - \sum_{u \in S, v \in S} f(u,v)& T = V - S\\ 
+       &= \sum_{u \in S, v \in V} f(u,v)& \textrm{Antisimmetria}\\
+       &= [...] 
 \end{align*}
-dove la prima uguaglianza a zero è vera per la conservazione del
-flusso, mentre la seconda è vera per antisimmetria.
+\onslide<3|handout:3>
+\begin{align*}
+F(S,T) &= \sum_{u \in S, v \in V} f(u,v)& \\ 
+       &= \sum_{u \in S-\{s\}, v \in V} f(u,v) + \sum_{v \in V} f(s,v) & s \in S\\ 
+       &= \sum_{v \in V} f(s,v) & \textrm{Conservazione flusso}\\ 
+       &= |f| & \textrm{Definizione valore flusso}
+\end{align*}
+\end{overprint}
         
 \end{frame}
 
-%%---------------------------------------------------------------------------
-\begin{frame}{Dimostrazione correttezza -- Rapporto fra flusso e taglio}
 
-Un taglio definisce un limite superiore al flusso massimo che può
-essere presente nella rete. 
+
+
+%%---------------------------------------------------------------------------
+\begin{frame}{Dimostrazione -- Flusso massimo, taglio minimo}
+
+\vspace{-3pt}
+\begin{myboxtitle}[Lemma -- Capacità taglio]
+Il \alert{flusso massimo} è limitato superiormente dalla capacità del \alert{taglio minimo}, ovvero il taglio la cui capacità è minore fra tutti i tagli.
+\end{myboxtitle}
+
+\begin{overprint}
+\onslide<1|handout:1>
+\IG{0.8}{minmax.pdf}
+\onslide<2|handout:2>
+
+\medskip
 \BIL
 \item Nessun flusso attraverso un taglio supera la capacità del taglio
-
+\smallskip
 \[
   F(S,T) \leq C(S,T) \qquad \forall S \subseteq V, T = V-S
 \]
-\item Il flusso che attraversa un taglio è uguale al valore del flusso
-
+Dimostrazione:
+\smallskip
 \[
-  F(S,T) = |f| \qquad \forall S \subseteq V, T = V-S
+  F(S,T) = \sum_{u \in S, v \in T} f(u,v) \leq \sum_{u \in S, v \in T} c(u,v) = C(S,T)
 \]
+\item Il flusso che attraversa un taglio è uguale al valore del flusso
+\smallskip
+\[
+  |f| = F(S,T) \qquad \forall S \subseteq V, T = V-S
+\]
+\EIL
+\onslide<3|handout:3>
+
+\medskip
+\BIL
 \item Quindi, il valore del flusso è limitato superiormente dalla capacità
 di tutti i possibili tagli. 
-
+\smallskip
 \[
 |f| \leq C(S,T) \qquad \forall S \subseteq V, T = V-S
 \]
 \EIL
-
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{Dimostrazione di correttezza}
-
-\IG{1.0}{template.pdf}
+\end{overprint}
 
 \end{frame}
 
@@ -1007,7 +1072,7 @@ Le seguenti tre affermazioni sono equivalenti:
 \begin{enumerate}
 \item $f$ è un \alert{flusso massimo}
 \item non esiste nessun cammino aumentante per $G$
-\item esiste un \alert{taglio minimo} $(S,T)$ tale che $c(S,T) = |f|$
+\item esiste un \alert{taglio minimo} $(S,T)$ tale che $C(S,T) = |f|$
 \end{enumerate}
 \end{myboxtitle}
 
@@ -1037,7 +1102,7 @@ Dimostreremo circolarmente:
 
 \vspace{-9pt}
 \BB{Non esiste nessun cammino aumentante per $G$ $\Rightarrow$\\
-esiste un taglio minimo $(S,T)$ tale che $c(S,T) = |f|$}
+esiste un taglio minimo $(S,T)$ tale che $C(S,T) = |f|$}
 
 
 \begin{center}
@@ -1060,7 +1125,7 @@ da $s$ a $t$ nella rete residua $G_f$
 
 \vspace{-9pt}
 \BB{Non esiste nessun cammino aumentante per $G$ $\Rightarrow$\\
-esiste un taglio minimo $(S,T)$ tale che $c(S,T) = |f|$}
+esiste un taglio minimo $(S,T)$ tale che $C(S,T) = |f|$}
 
 \begin{center}
 \IG{0.6}{dim2.pdf}
@@ -1079,10 +1144,10 @@ archi $(u,v)$ con $u \in S$ e $v \in T$ sono saturati;  ovvero, $f(u,v) = c(u,v)
 
 \vspace{-9pt}
 \BB{Non esiste nessun cammino aumentante per $G$ $\Rightarrow$\\
-esiste un taglio minimo $(S,T)$ tale che $c(S,T) = |f|$}
+esiste un taglio minimo $(S,T)$ tale che $C(S,T) = |f|$}
 
-\BI
-\item Per il lemma precedente,
+\BIL
+\item Per il Lemma -- Valore del flusso di un taglio,
 
 \[ 
   |f| = \sum_{u \in S, v \in T} f(u,v)
@@ -1092,7 +1157,10 @@ esiste un taglio minimo $(S,T)$ tale che $c(S,T) = |f|$}
 \[ 
   |f| = \sum_{u \in S, v \in T} f(u,v) = \sum_{u \in S, v \in t} c(u,v) = C(S,T)
 \]
-\EI
+
+\item $(S,T)$ è minimo perchè $|f|=C(S,T)$ e per ogni taglio $(S', T')$, abbiamo che $|f| >= C(S', T')$
+
+\EIL
 
 \end{frame}
 
@@ -1100,12 +1168,12 @@ esiste un taglio minimo $(S,T)$ tale che $c(S,T) = |f|$}
 \begin{frame}{Dimostrazione correttezza -- $(3) \Rightarrow (1)$}
 
 \vspace{-9pt}
-\BB{Esiste un taglio $(S,T)$ tale che $c(S,T) = |f|$ $\Rightarrow$\\
+\BB{Esiste un taglio $(S,T)$ tale che $C(S,T) = |f|$ $\Rightarrow$\\
 $f$ è un flusso massimo}
 
 \bigskip
-Poiché per un qualsiasi flusso $f$ e un qualsiasi taglio $(S,T)$ vale la relazione $|f| \leq c(S,T)$, 
-il flusso che soddisfa $|f| = c(S,T)$ deve essere massimo.
+Poiché per un qualsiasi flusso $f$ e un qualsiasi taglio $(S,T)$ vale la relazione $|f| \leq C(S,T)$, 
+il flusso che soddisfa $|f| = C(S,T)$ deve essere massimo.
 
 \end{frame}
 
@@ -1145,15 +1213,16 @@ il flusso che soddisfa $|f| = c(S,T)$ deve essere massimo.
 \begin{frame}{Abbinamento (matching) massimo nei grafi bipartiti}
 
 \vspace{-9pt}
-\BB{Problema - Job Assignment - Input}
+\begin{myboxtitle}[Problema - Job Assignment - Input]
 \BIL
 \item Un insieme $J$ contenente $n$ job
 \item Un insieme $W$ contenente $m$ worker
 \item Una relazione $R \subseteq J \times W$, tale per cui $(j,w) \in R$
 se e solo se il job $j$ può essere useguito dal worker $w$
 \EIL
+\end{myboxtitle}
 
-\BB{Problema - Job Assignment - Output}
+\begin{myboxtitle}[Problema - Job Assignment - Output]
 \BIL
 \item Il più grande sottoinsieme $O \subseteq R$, tale per cui:
   \BI
@@ -1161,13 +1230,23 @@ se e solo se il job $j$ può essere useguito dal worker $w$
   \item ad ogni worker venga assegnato al più un job
   \EI
 \EIL
+\end{myboxtitle}
 
 \end{frame}
   
 %-------------------------------------------------------------------------
 \begin{frame}{Esempio}
-  
-\IG{0.3}{bipartite.pdf}
+
+\begin{overprint}
+\onslide<1|handout:1>
+\begin{center}
+\includegraphics[height=7cm,page=1]{bipartite.pdf}
+\end{center}
+\onslide<2|handout:2>
+\begin{center}
+\includegraphics[height=7cm,page=2]{bipartite.pdf}
+\end{center}
+\end{overprint}
   
 \end{frame}
     

@@ -80,107 +80,6 @@
 \end{frame}
 
 
-% \begin{frame}{Quale tecnica applicare?}
-%
-% \BB{Sottostruttura ottima}
-% E' possibile spezzare ricorsivamente un problema in sottoproblemi più piccoli? Le decisioni prese per risolvere un problema rimangono valide quando esso diviene un sottoproblema di un problema più grande?
-%
-% \begin{columns}[T]
-% \column{0.45\textwidth}
-% \BB{Risposta: S\`I}
-% \BIL
-% \item Divide-et-impera
-% \item \alert{Programmazione dinamica}
-% \item \alert{Memoization}
-% \item Greedy
-% \item Backtrack
-% \EIL
-% \column{0.45\textwidth}
-% \BB{Risposta: NO}
-% \BIL
-% \item Backtrack
-% \item Oppure, risoluzione ad-hoc
-% \EIL
-% \end{columns}
-%
-% \end{frame}
-%
-% \begin{frame}{Quale tecnica applicare?}
-%
-% \BB{Spazio dei sottoproblemi}
-% Lo spazio dei sottoproblemi ha dimensione superpolinomiale?
-%
-% \bigskip
-% \begin{columns}[T]
-%
-% \column{0.45\textwidth}
-% \BB{Risposta: S\`I}
-% \BIL
-% \item Backtrack
-% \EIL
-%
-% \column{0.45\textwidth}
-% \BB{Risposta: NO}
-% \BIL
-% \item Divide-et-impera
-% \item \alert{Programmazione dinamica}
-% \item \alert{Memoization}
-% \item Greedy
-% \EIL
-%
-% \end{columns}
-%
-% \end{frame}
-%
-%
-% \begin{frame}{Quale tecnica applicare?}
-%
-% \BB{Ripetizioni}
-% Lo stesso sottoproblema può occorrere più volte come sottoproblema di un problema più grande?
-%
-% \bigskip
-% \begin{columns}[T]
-% \column{0.45\textwidth}
-% \BB{Risposta: S\`I}
-% \BIL
-% \item \alert{Programmazione dinamica}
-% \item \alert{Memoization}
-% \item Greedy
-% \EIL
-% \column{0.45\textwidth}
-% \BB{Risposta: NO}
-% \BIL
-% \item Divide-et-impera
-% \item Greedy
-% \EIL
-% \end{columns}
-%
-% \end{frame}
-%
-% \begin{frame}{Quale tecnica applicare?}
-%
-% \BB{Copertura dei sottoproblemi}
-% \BIL
-% \item Per risolvere il problema principale, è necessario risolvere tutti i sottoproblemi?
-% \EIL
-%
-% \bigskip
-% \begin{columns}[T]
-% \column{0.45\textwidth}
-% \BB{Risposta: S\`I}
-% \BIL
-% \item \alert{Programmazione dinamica}
-% \item \alert{Memoization}
-% \EIL
-% \column{0.45\textwidth}
-% \BB{Risposta: NO}
-% \BIL
-% \item Greedy
-% \item \alert{Memoization}
-% \EIL
-% \end{columns}
-%
-% \end{frame}
 
 
 \begin{frame}{Approccio generale}
@@ -221,10 +120,9 @@ Il gioco del domino è basato su tessere di dimensione $2 \times 1$. Scrivere
 un algoritmo efficiente che prenda in input un intero $n$ e restituisca il numero di possibili disposizioni di $n$ tessere in un rettangolo $2 \times n$.
 \end{myboxtitle}
 
-\bigskip
-\BB{Esempio}
-
+\begin{myboxtitle}[Esempio]
 I casi (a)-(e) della figura rappresentano le cinque disposizioni possibili con cui è possibile riempire un rettangolo $2 \times 4$. 
+\end{myboxtitle}
 
 \begin{center}
 \includegraphics[width=1.0\textwidth]{domino.pdf}
@@ -246,7 +144,7 @@ I casi (a)-(e) della figura rappresentano le cinque disposizioni possibili con c
 
 \vspace{-9pt}
 \begin{myboxtitle}[Definizione ricorrenza]
-Definiamo una formula ricorsiva $DP(n)$ che ci permetta di calcolare il numero di disposizioni possibili quando si hanno $n$ tessere.
+Definiamo una formula ricorsiva $\mathit{DP}[n]$ che ci permetta di calcolare il numero di disposizioni possibili quando si hanno $n$ tessere.
 \end{myboxtitle}
 
 \begin{overprint}
@@ -271,6 +169,7 @@ Definiamo una formula ricorsiva $DP(n)$ che ci permetta di calcolare il numero d
 di dimensione $n-1$
 \item Se metto una tessera in orizzontale, ne devo mettere due; risolverò
 il problema di dimensione $n-2$
+\item Queste due possibilità si sommano insieme (conteggio)
 \EIL
 \end{overprint}
 
@@ -278,23 +177,23 @@ il problema di dimensione $n-2$
 \begin{overprint}
 \onslide<1|handout:0>
 \[
-DP(n) = \begin{cases}
+\mathit{DP}[n] = \begin{cases}
   ? & n \leq 1 \\
   \makebox[3.5cm][l]{?} & n>1
 \end{cases}
 \]
 \onslide<2-3|handout:1>
 \[
-DP(n) = \begin{cases}
+\mathit{DP}[n] = \begin{cases}
   1 & n \leq 1 \\
   \makebox[3.5cm][l]{?} & n>1
 \end{cases}
 \]
 \onslide<4|handout:2>
 \[
-DP(n) = \begin{cases}
+\mathit{DP}[n] = \begin{cases}
   1 & n \leq 1 \\
-  DP(n-2)+DP(n-1) & n>1
+  \mathit{DP}[n-2]+\mathit{DP}[n-1] & n>1
 \end{cases}
 \]
 \end{overprint}
@@ -330,7 +229,7 @@ DP(n) = \begin{cases}
 \end{textblock*}
 
 \begin{myboxtitle}[Successione di Fibonacci]
-$DP(n)$ è pari al $n+1$-esimo numero della serie di Fibonacci, introdotta da Leonardo Pisano detto il Fi'Bonacci (1175--1235).
+$\mathit{DP}[n]$ è pari al $n+1$-esimo numero della serie di Fibonacci, introdotta da Leonardo Pisano detto il Fi'Bonacci (1175--1235).
 \end{myboxtitle}
 
 \BIL
@@ -400,7 +299,7 @@ Molti sotto-problemi ripetuti!
 \BB{Tabella DP}
 \BIL
 \item Quando risolviamo un problema, memorizziamo il risultato che otteniamo
-in una \alert{tabella $DP$} (vettore, matrice, dizionario, etc)
+in una \alert{tabella $\mathit{DP}$} (vettore, matrice, dizionario, etc)
 \item La tabella deve contenere un elemento per ogni sottoproblema che dobbiamo risolvere
 \EIL
 
@@ -431,12 +330,12 @@ casi base
 
 \begin{Procedure}
 \caption[A]{\INTEGER\ \textsf{domino2}(\INTEGER $n$)}
-  $DP = \NEW\ \INTEGER[0 \ldots n]$\;
-  $DP[0] = DP[1] = 1$\;
+  $\mathit{DP} = \NEW\ \INTEGER[0 \ldots n]$\;
+  $\mathit{DP}[0] = \mathit{DP}[1] = 1$\;
   \For{$i = 2$ \TO\ $n$}{
-    $DP[i] = DP[i-1] + DP[i-2]$\;
+    $\mathit{DP}[i] = \mathit{DP}[i-1] + \mathit{DP}[i-2]$\;
   }
-  \Return $DP[n]$\;
+  \Return $\mathit{DP}[n]$\;
 \end{Procedure}
 
 \begin{center}
@@ -452,12 +351,12 @@ casi base
 
 \begin{Procedure}
 \caption[A]{\INTEGER\  \textsf{domino2}(\INTEGER $n$)}
-  $DP = \NEW\ \INTEGER[0 \ldots n]$\;
-  $DP[0] = DP[1] = 1$\;
+  $\mathit{DP} = \NEW\ \INTEGER[0 \ldots n]$\;
+  $\mathit{DP}[0] = \mathit{DP}[1] = 1$\;
   \For{$i = 2$ \TO\ $n$}{
-    $DP[i] = DP[i-1] + DP[i-2]$\;
+    $\mathit{DP}[i] = \mathit{DP}[i-1] + \mathit{DP}[i-2]$\;
   }
-  \Return $DP[n]$\;
+  \Return $\mathit{DP}[n]$\;
 \end{Procedure}
 
 \begin{columns}[T]
@@ -505,7 +404,7 @@ casi base
     $\mathit{DP_1} = \mathit{DP_2}$\;
     $\mathit{DP_2} = \mathit{DP_0} + \mathit{DP_1}$\;
   }
-  \Return $DP_2$\;
+  \Return $\mathit{DP}_2$\;
 \end{Procedure}
 \column{0.62\textwidth}
 
@@ -553,7 +452,7 @@ casi base
 \begin{columns}[T]
 \column{0.75\textwidth}
 \[
-DP(n-1) = F(n) = \frac{\phi^n}{\sqrt{5}} - \frac{(1-\phi)^n}{\sqrt{5}} 
+\mathit{DP}[n-1] = F(n) = \frac{\phi^n}{\sqrt{5}} - \frac{(1-\phi)^n}{\sqrt{5}} 
 \]
 dove $\phi$ è la \alert{sezione aurea}:
 \begin{align*}
@@ -632,7 +531,8 @@ fondi a cui partecipano uno o entrambi i propri vicini.
 
 \begin{frame}{Hateville}
 
-Considerate i seguenti problemi:
+\vspace{-9pt}
+\begin{myboxtitle}[Problemi]
 \BIL
 \item Scrivere un algoritmo che restituisca la quantità massima di
 fondi che può essere raccolta
@@ -640,14 +540,15 @@ fondi che può essere raccolta
 $S \subseteq \{ 1, \ldots, n \}$ tale per cui la donazione totale
 $T = \sum_{i \in S} D[i]$ è massimale
 \EIL
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempio}
+\begin{myboxtitle}[Esempio]
 \BIL
 \item Vettore donazioni: \textsf{D = [4, 3, 6, 5]}
 \item Raccolta fondi massima: 10
 \item Insieme indici: $\{1, 3\}$
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -662,7 +563,8 @@ $T = \sum_{i \in S} D[i]$ è massimale
 %-------------------------------------------------------------------------
 \begin{frame}{Hateville}
 
-Considerate i seguenti problemi:
+\vspace{-9pt}
+\begin{myboxtitle}[Problemi]
 \BIL
 \item Scrivere un algoritmo che restituisca la quantità massima di
 fondi che può essere raccolta
@@ -670,15 +572,15 @@ fondi che può essere raccolta
 $S \subseteq \{ 1, \ldots, n \}$ tale per cui la donazione totale
 $T = \sum_{i \in S} D[i]$ è massimale
 \EIL
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempio}
+\begin{myboxtitle}[La vostra soluzione funziona con questo esempio?]
 \BIL
 \item Vettore donazioni: \textsf{D = [10, 5, 5, 10]}
 \item Raccolta fondi massima: 20
 \item Insieme indici: $\{1, 4\}$
 \EIL
-
+\end{myboxtitle}
 \end{frame}
 
 
@@ -726,6 +628,29 @@ HV(i) = \pause \mathit{highest}(HV(i-1), \{ i \} \cup HV(i-2)  )
 \]
 
 \end{frame}
+
+\begin{frame}{Sottostruttura ottima}
+
+\BB{Vi ho convinti?}
+\[
+HV(i) = \mathit{highest}(HV(i-1), \{ i \} \cup HV(i-2)  )
+\]
+
+\pause
+\begin{myboxtitle}[Sottostruttura ottima]
+\BIL
+\item Sia $HV_p(i)$ il problema dato dalle prime $i$ case
+\item Sia $HV_s(i)$ una soluzione ottima per il problema $HV_p(i)$
+\item Ne consegue:
+  \BI
+  \item Se $i \not\in HV_s(i)$, allora $HV_s(i)=HV_s(i-1)$
+  \item Se $i \in HV_s(i)$, allora $HV_s(i)=HV_s(i-2) \cup \{i\}$
+  \EI
+\EIL    
+\end{myboxtitle}
+
+\end{frame}
+
 
 \begin{frame}{Sottostruttura ottima -- Dimostrazione}
 
@@ -846,16 +771,16 @@ $HV$ & $\emptyset$ & $\{ 1 \}$ & $\{ 1 \}$ & $\{ 1,3 \}$ & $\{ 1,4 \}$ & $\{ 1, 
 \vspace{-9pt}
 \begin{myboxtitle}[Valore della soluzione ottima]
 \BIL
-\item Sia $DP(i)$ il \alert{valore} della massima quantità di donazioni che possiamo
+\item Sia $\mathit{DP}[i]$ il \alert{valore} della massima quantità di donazioni che possiamo
 ottenere dalle prime $i$ case di Hateville. 
-\item $DP(n)$ è il valore della soluzione ottima
+\item $\mathit{DP}[n]$ è il valore della soluzione ottima
 \EIL
 \end{myboxtitle}
 
 \begin{overprint}
 \onslide<1|handout:0>
 \[
-  DP(i) =
+  \mathit{DP}[i] =
   \begin{cases}
    \makebox[6cm][l]{?} & i = 0 \\
    \makebox[6cm][l]{?} & i = 1 \\
@@ -864,7 +789,7 @@ ottenere dalle prime $i$ case di Hateville.
 \]
 \onslide<2|handout:0>
 \[
-  DP(i) =
+  \mathit{DP}[i] =
   \begin{cases}
    0 & i = 0 \\
   \makebox[6cm][l]{?} & i = 1 \\
@@ -873,7 +798,7 @@ ottenere dalle prime $i$ case di Hateville.
 \]
 \onslide<3|handout:0>
 \[
-  DP(i) =
+  \mathit{DP}[i] =
   \begin{cases}
    0 & i = 0 \\
    D[1] & i = 1 \\
@@ -882,11 +807,11 @@ ottenere dalle prime $i$ case di Hateville.
 \]
 \onslide<4|handout:1>
 \[
-  DP(i) =
+  \mathit{DP}[i] =
   \begin{cases}
    0 & i = 0 \\
    D[1] & i = 1 \\
-   \max(DP(i-1), DP(i-2) + D[i]) & i \geq 2 
+   \max(\mathit{DP}[i-1], \mathit{DP}[i-2] + D[i]) & i \geq 2 
    \end{cases}
 \]
 \end{overprint}
@@ -902,18 +827,22 @@ ottenere dalle prime $i$ case di Hateville.
 \begin{Procedure}
 \caption[A]{\textsf{hateville}($\INTEGER[\,]\ D$, \INTEGER $n$)}
 $\INTEGER[\,]\ DP = \NEW\ \INTEGER[0 \ldots n]$\;
-$DP[0] = 0$\;
-$DP[1] = D[1]$\;
+$\mathit{DP}[0] = 0$\;
+$\mathit{DP}[1] = D[1]$\;
 \For{$i = 2$ \TO\ $n$}{
-  $DP[i] = \MAX(DP[i-1], DP[i-2]+D[i])$\;
+  $\mathit{DP}[i] = \MAX(\mathit{DP}[i-1], \mathit{DP}[i-2]+D[i])$\;
 }
-\Return $DP[n]$\;
+\Return $\mathit{DP}[n]$\;
 \end{Procedure}
 
 \end{frame}
 
-\begin{frame}[fragile]{Sulla risoluzione con "veri" linguaggi di programmazione}
+\begin{frame}[fragile,shrink]{Sulla risoluzione con "veri" linguaggi di programmazione}
 
+\small
+\vspace{-9pt}
+\begin{myboxtitle}[Java]
+\vspace{-8pt}
 \begin{lstlisting}[language=java]
 public int hateville(int[] D, int n) {
   int[] DP = new int[n+1];
@@ -925,7 +854,11 @@ public int hateville(int[] D, int n) {
   return DP[n];
 }
 \end{lstlisting}
+\vspace{-8pt}
+\end{myboxtitle}
 
+\begin{myboxtitle}[Python]
+\vspace{-8pt}
 \begin{lstlisting}[language=python]
 def hateville(D):
   DP = [ 0, <@\color{blue}{D[0]}@> ]
@@ -933,6 +866,8 @@ def hateville(D):
     DP.append( max(DP[-1], DP[-2] + D[i]) )
   return DP[-1]
 \end{lstlisting}
+\vspace{-8pt}
+\end{myboxtitle}
 
 
 \end{frame}
@@ -950,7 +885,7 @@ def hateville(D):
 \hline
 $i$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\\hline
 $D$ &   & 10 & 5 & 5 & 8 & 4 & 7 & 12 \\\hline
-$DP$ & 0 & 10 & 10 & 15 & 18 & 19 & 25 & 31 \\\hline
+$\mathit{DP}$ & 0 & 10 & 10 & 15 & 18 & 19 & 25 & 31 \\\hline
 \end{tabular}
 
 \medskip
@@ -959,7 +894,7 @@ $DP$ & 0 & 10 & 10 & 15 & 18 & 19 & 25 & 31 \\\hline
 \hline
 $i$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\\hline
 $D$ &   & 10 & 1 & 1 & 10 & 1 & 1 & 10 \\\hline
-$DP$ & 0 & 10 & 10 & 11 & 20 & 20 & 21 & 30 \\\hline
+$\mathit{DP}$ & 0 & 10 & 10 & 11 & 20 & 20 & 21 & 30 \\\hline
 \end{tabular}
 \end{center}
 \end{myboxtitle}
@@ -976,10 +911,10 @@ la soluzione!
 \vspace{-9pt}
 \BB{Approccio}
 \BIL
-\item Si guarda l'elemento $DP[i]$. Da cosa deriva il suo valore?
+\item Si guarda l'elemento $\mathit{DP}[i]$. Da cosa deriva il suo valore?
   \BI 
-  \item Se $DP[i] = DP[i-1]$, la casa $i$ non è stata selezionata
-  \item Se $DP[i] = DP[i-2]+D[i]$, la casa $i$ è stata selezionata
+  \item Se $\mathit{DP}[i] = \mathit{DP}[i-1]$, la casa $i$ non è stata selezionata
+  \item Se $\mathit{DP}[i] = \mathit{DP}[i-2]+D[i]$, la casa $i$ è stata selezionata
   \item Se entrambe le equazioni sono vere, una vale l'altra!
   \EI
 \item Utilizziamo questa informazione per ricostruire la soluzione in modo
@@ -1005,7 +940,7 @@ la soluzione!
 \uElseIf{$i \Eq 1$}{
   \Return $\{ 1 \}$
 }
-\uElseIf{$DP[i]  \Eq  DP[i-1]$}{
+\uElseIf{$\mathit{DP}[i]  \Eq  \mathit{DP}[i-1]$}{
   \Return $\textsf{solution}(DP, D, i-1)$\;
 }
 \Else{
@@ -1155,13 +1090,13 @@ $
 \vspace{-9pt}
 \begin{myboxtitle}[Valore della soluzione]
 Dato uno zaino di capacità $C$ e $n$ oggetti caratterizzati
-da peso $w$ e profitto $p$, definiamo $DP(i,c)$ come il
+da peso $w$ e profitto $p$, definiamo $\mathit{DP}[i][c]$ come il
 massimo profitto che può essere ottenuto dai primi $i \leq n$
 oggetti contenuti in uno zaino di capacità $c \leq C$.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Problema originale]
-Il massimo profitto ottenibile dal problema originale è rappresentato da $DP(n, C)$.
+Il massimo profitto ottenibile dal problema originale è rappresentato da $\mathit{DP}[n][C])$.
 \end{myboxtitle}
 
 \end{frame}
@@ -1176,16 +1111,16 @@ Il massimo profitto ottenibile dal problema originale è rappresentato da $DP(n,
 \begingroup
 \renewcommand*{\arraystretch}{1.2}
 \begin{tabular}{P{2.8cm}P{3.9cm}P{4.0cm}}
-Cosa succede se non lo prendete? & $DP(i,c) = \pause\newline DP(i-1,c)$ & La capacità non cambia, non c'è profitto \\
+Cosa succede se non lo prendete? & $\mathit{DP}[i][c] = \pause\newline \mathit{DP}[i-1][c]$ & La capacità non cambia, non c'è profitto \\
 ~\\
-Cosa succede se lo prendete? & $DP(i,c) = \pause DP(i-1,c-w[i]) + p[i]$ & Sottraete il peso dalla capacità e aggiungete il profitto relativo \\
+Cosa succede se lo prendete? & $\mathit{DP}[i][c] = \pause \mathit{DP}[i-1][c-w[i]] + p[i]$ & Sottraete il peso dalla capacità e aggiungete il profitto relativo \\
 \end{tabular}
 \endgroup
 
 \BB{Come scegliere la soluzione migliore?}
 
 \[
-DP(i,c) = \pause \max( DP(i-1,c-w[i]) + p[i], DP(i-1,c) )
+\mathit{DP}[i][c] = \pause \max( \mathit{DP}[i-1][c-w[i]] + p[i], \mathit{DP}[i-1][c] )
 \]
 
 \end{frame}
@@ -1205,7 +1140,7 @@ DP(i,c) = \pause \max( DP(i-1,c-w[i]) + p[i], DP(i-1,c) )
 
 \pause
 \[
-DP(i,c) = \begin{cases}
+\mathit{DP}[i][c] = \begin{cases}
   0 & i=0\ \OR\ c=0 \\
   -\infty & c < 0
 \end{cases}
@@ -1218,10 +1153,10 @@ DP(i,c) = \begin{cases}
 \begingroup
 \small
 \[
-DP(i,c) = \begin{cases}
+\mathit{DP}[i][c] = \begin{cases}
   0 & i=0\ \OR\ c=0 \\
   -\infty & c < 0 \\
-  \max( DP(i-1,c-w[i]) + p[i], DP(i-1,c) ) & \textrm{otherwise}
+  \max( \mathit{DP}[i-1][c-w[i]] + p[i], \mathit{DP}[i-1][c] ) & \textrm{otherwise}
 \end{cases}
 \]
 \endgroup
@@ -1237,25 +1172,25 @@ Come trasformare questa formula in un algoritmo?
 \begin{Procedure}
 \caption[A]{\INTEGER\ \textsf{knapsack}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $C$)}
 
-$DP = \NEW\ \INTEGER[0 \ldots n][0 \ldots C]$\;
+$\mathit{DP} = \NEW\ \INTEGER[0 \ldots n][0 \ldots C]$\;
 \For{$i = 0$ \TO\ $n$}{
-  $DP[i][0] = 0$\;
+  $\mathit{DP}[i][0] = 0$\;
 }
 \For{$c = 0$ \TO\ $C$}{
-  $DP[0][c] = 0$\;
+  $\mathit{DP}[0][c] = 0$\;
 }
 \For{$i = 1$ \TO\ $n$}{
   \For{$c = 1$ \TO\ $C$}{
     \eIf{$w[i] \leq c$}{
       \vspace{-12pt}
-      $DP[i][c] = \MAX(\overbrace{DP[i-1][c-w[i]]+p[i]}^{\textrm{Taken}},\overbrace{DP[i-1][c]}^{\textrm{Not taken}})$\;
+      $\mathit{DP}[i][c] = \MAX(\overbrace{\mathit{DP}[i-1][c-w[i]]+p[i]}^{\textrm{Taken}},\overbrace{\mathit{DP}[i-1][c]}^{\textrm{Not taken}})$\;
     }{
       \vspace{-12pt}
-      $DP[i][c] = \overbrace{DP[i-1][c]}^{\textrm{Not taken}}$\;
+      $\mathit{DP}[i][c] = \overbrace{\mathit{DP}[i-1][c]}^{\textrm{Not taken}}$\;
     }
   }
 }
-\Return{$DP[n][C]$}\;
+\Return{$\mathit{DP}[n][C]$}\;
 \end{Procedure}
 
 \end{frame}
@@ -1294,23 +1229,23 @@ $i$ & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5
 \begin{Procedure}
 \caption[A]{\INTEGER\ \textsf{knapsack}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $C$)}
 
-$DP = \NEW\ \INTEGER[0 \ldots n][0 \ldots C]$\;
+$\mathit{DP} = \NEW\ \INTEGER[0 \ldots n][0 \ldots C]$\;
 \For{$i = 0$ \TO\ $n$}{
-  $DP[i][0] = 0$\;
+  $\mathit{DP}[i][0] = 0$\;
 }
 \For{$c = 0$ \TO\ $C$}{
-  $DP[0][c] = 0$\;
+  $\mathit{DP}[0][c] = 0$\;
 }
 \For{$i = 1$ \TO\ $n$}{
   \For{$c = 1$ \TO\ $C$}{
     \eIf{$w[i] \leq c$}{
-      $DP[i][c] = \MAX(DP[i-1][c-w[i]]+p[i],DP[i-1][c])$\;
+      $\mathit{DP}[i][c] = \MAX(\mathit{DP}[i-1][c-w[i]]+p[i],\mathit{DP}[i-1][c])$\;
     }{
-      $DP[i][c] = DP[i-1][c]$\;
+      $\mathit{DP}[i][c] = \mathit{DP}[i-1][c]$\;
     }
   }
 }
-\Return{$DP[n][C]$}\;
+\Return{$\mathit{DP}[n][C]$}\;
 \end{Procedure}
 \endgroup
 \onslide<2|handout:0>
@@ -1381,13 +1316,13 @@ T(n) &= \begin{cases}
 
 \BB{E' un algoritmo polinomiale?}
 
-\medskip
+\smallskip
 Ovviamente no!
 
-\bigskip
+\medskip
 \BB{Possiamo fare meglio di così?}
 
-\medskip
+\smallskip
 No, secondo l'\alert{opinione} di quasi tutti gli informatici del mondo.
 
 \end{frame}
@@ -1429,7 +1364,7 @@ Tecnica che fonde l'approccio di memorizzazione della programmazione dinamica co
 \end{myboxtitle}
 
 \BIL
-\item Si crea una tabella $DP$, inizializzata con un \alert{valore speciale} ad 
+\item Si crea una tabella $\mathit{DP}$, inizializzata con un \alert{valore speciale} ad 
 indicare che un certo sottoproblema non è ancora stato risolto
 \item Ogni volta che si deve risolvere un sottoproblema, si controlla nella tabella se è già stato risolto precedentemente
 \BI
@@ -1446,10 +1381,10 @@ indicare che un certo sottoproblema non è ancora stato risolto
 \vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\textsf{knapsack}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $C$)}
-\alert{$DP = \NEW\ \INTEGER[1 \ldots n][1 \ldots C]$\;
+\alert{$\mathit{DP} = \NEW\ \INTEGER[1 \ldots n][1 \ldots C]$\;
 \For{$i = 1$ \TO $n$}{
   \For{$c = 1$ \TO $C$}{
-    $DP[i][c] = -1$\;
+    $\mathit{DP}[i][c] = -1$\;
   }
 }}
 \Return $\textsf{knapsackRec}(w, p, n, C, \alert{DP})$
@@ -1475,12 +1410,12 @@ indicare che un certo sottoproblema non è ancora stato risolto
   \Return 0\;
 }
 \Else{
-  \If{\alert{$DP[i][c] < 0$}}{
+  \If{\alert{$\mathit{DP}[i][c] < 0$}}{
     $\INTEGER\ \mathit{nottaken} = \textsf{knapsackRec}(w,p, i-1, c, \alert{DP})$\;
     $\INTEGER\ \mathit{taken} = \textsf{knapsackRec}(w,p,i-1,c-w[i], \alert{DP})+p[i]$\;
-    $\alert{DP[i][c]} = \MAX(nottaken, taken)$\;
+    $\alert{\mathit{DP}[i][c]} = \MAX(nottaken, taken)$\;
   }
-  \Return $\alert{DP[i][c]}$\;
+  \Return $\alert{\mathit{DP}[i][c]}$\;
 }
 \end{Procedure}
 
@@ -1566,15 +1501,15 @@ def knapsackRec(w, p, i, c, DP):
 	elif i == 0 or c == 0:
 		return 0
 	else:
-		if DP[i][c] < 0:
+		if <@\color{blue}{not (i,c) in DP}@>:
 			nottaken = knapsackRec(w, p, i-1, c, DP)
-			taken = knapsackRec(w, p, i-1, c-w[<@\color{blue}{i-1}@>], DP) + p[<@\color{blue}{i-1}@>]
-			DP[i][c] = max(nottaken, taken)
-		return DP[i][c]
+			taken = knapsackRec(w, p, i-1, c-w[i-1], DP) + p[i-1]
+			<@\color{blue}{DP[i,c]}@> = max(nottaken, taken)
+		return <@\color{blue}{DP[i,c]}@>
 
 def knapsack(w,p,C):
 	n = len(w)
-	DP = [[-1]*(C+1) for i in range(n+1)]
+	<@\color{blue}{DP = \{\}}@>
 	return knapsackRec(w,p,n,C,DP)
 \end{lstlisting}
 
@@ -1641,7 +1576,7 @@ def knapsack(w, p, C):
 \vspace{-9pt}
 \begin{myboxtitle}[Problema dello Zaino, senza limiti di scelta]
 Dato uno zaino di capacità $C$ e $n$ oggetti caratterizzati
-da peso $w$ e profitto $p$, definiamo $\mathit{DP}(i,c)$ come il
+da peso $w$ e profitto $p$, definiamo $\mathit{DP}[i][c]$ come il
 massimo profitto che può essere ottenuto dai primi $i \leq n$
 oggetti contenuti in uno zaino di capacità $c \leq C$, \alert{senza porre
 limiti al numero di volte che un oggetto può essere selezionato}.
@@ -1653,18 +1588,18 @@ limiti al numero di volte che un oggetto può essere selezionato}.
 \begin{overprint}
 \onslide<1|handout:0>
 \[
-DP(i,c) = \begin{cases}
+\mathit{DP}[i][c] = \begin{cases}
   0 & i=0\ \OR\ c=0 \\
   -\infty & c < 0 \\
-  \max( \mathit{DP}(i-1,c-w[i]) + p[i], \mathit{DP}(i-1,c) ) & \textrm{otherwise}
+  \max( \mathit{DP}[i-1][c-w[i]] + p[i], \mathit{DP}[i-1][c] ) & \textrm{otherwise}
 \end{cases}
 \]
 \onslide<2|handout:1>
 \[
-DP(i,c) = \begin{cases}
+\mathit{DP}[i][c] = \begin{cases}
   0 & i=0\ \OR\ c=0 \\
   -\infty & c < 0 \\
-  \max( \mathit{DP}(i\alert{\xout{-1}},c-w[i]) + p[i], \mathit{DP}(i-1,c) ) & \textrm{otherwise}
+  \max( \mathit{DP}[i\alert{\xout{-1}}][c-w[i]] + p[i], \mathit{DP}[i-1][c] ) & \textrm{otherwise}
 \end{cases}
 \]
 \end{overprint}
@@ -1681,7 +1616,7 @@ lo spazio occupato
 
 \begin{myboxtitle}[Valore della soluzione]
 Dato uno zaino senza limiti di scelta di capacità $C$ e $n$ oggetti caratterizzati
-da peso $w$ e profitto $p$, definiamo $\mathit{DP}(c)$ come il
+da peso $w$ e profitto $p$, definiamo $\mathit{DP}[c]$ come il
 massimo profitto che può essere ottenuto da tali oggetti
 in uno zaino di capacità $c \leq  C$.
 \end{myboxtitle}
@@ -1689,23 +1624,23 @@ in uno zaino di capacità $c \leq  C$.
 \begin{overprint}
 \onslide<1|handout:0>
 \[
-DP(c) = \begin{cases}
+\mathit{DP}[c] = \begin{cases}
   \makebox[5cm][l]{?} & c=0 \\
   \makebox[5cm][l]{?} & c>0
 \end{cases}
 \]
 \onslide<2|handout:0>
 \[
-DP(c) = \begin{cases}
+\mathit{DP}[c] = \begin{cases}
   0 & c=0 \\
   \makebox[5cm][l]{?} & c>0
 \end{cases}
 \]
 \onslide<3|handout:1>
 \[
-DP(c) = \begin{cases}
+\mathit{DP}[c] = \begin{cases}
   0 & c=0 \\
-  \max_{w[i] \leq c} \{ \mathit{DP}(c-w[i])+p[i] \} & c>0
+  \max_{w[i] \leq c} \{ \mathit{DP}[c-w[i]]+p[i] \} & c>0
 \end{cases}
 \]
 \end{overprint}
@@ -1731,20 +1666,17 @@ DP(c) = \begin{cases}
 \vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\textsf{knapsackRec}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $c$, $\INTEGER[\,]\ \mathit{DP}$)}
-\eIf{$c  \Eq 0$}{
+\If{$c  \Eq 0$}{
   \Return $0$\;
-}{
+}
 \If{$\mathit{DP}[c] < 0$}{
   $\mathit{DP}[c] = 0$\;
   \For{$i=1$ \TO\ $n$}{
     \If{$w[i] \leq c$}{
       \INTEGER $\mathit{val} = \textsf{knapsackRec}(w, p, n, c-w[i], \mathit{DP}) + p[i])$\;
-      \If{$\mathit{val} \geq \mathit{DP}[c]$}{
-        $\mathit{DP}[c] = val$\;
-      }
+      $\mathit{DP}[c] = \MAX(\mathit{DP}[c], val)$\;
     }
   }
-}
 }
 \Return $\mathit{DP}[c]$\;
 \end{Procedure}
@@ -1757,30 +1689,25 @@ DP(c) = \begin{cases}
 
 \begin{overprint}
 \onslide<1|handout:0>
-\begingroup
-\footnotesize
 \begin{Procedure}
 \caption[A]{\textsf{knapsackRec}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $c$, $\INTEGER[\,]\ \mathit{DP}$)}
-\eIf{$c  \Eq 0$}{
+\If{$c  \Eq 0$}{
   \Return $0$\;
-}{
+}
 \If{$\mathit{DP}[c] < 0$}{
   $\mathit{DP}[c] = 0$\;
   \For{$i=1$ \TO\ $n$}{
     \If{$w[i] \leq c$}{
       \INTEGER $\mathit{val} = \textsf{knapsackRec}(w, p, n, c-w[i], \mathit{DP}) + p[i])$\;
-      \If{$\mathit{val} \geq \mathit{DP}[c]$}{
-        $\mathit{DP}[c] = val$\;
-      }
+      $\mathit{DP}[c] = \MAX(\mathit{DP}[c], val)$\;
     }
   }
 }
-}
 \Return $\mathit{DP}[c]$\;
 \end{Procedure}
-\endgroup
 \onslide<2|handout:0>
 
+\bigskip
 \[ 
   T(n) = O(nC)
 \]
@@ -1790,11 +1717,6 @@ DP(c) = \begin{cases}
 \item Riempire un elemento costa $O(n)$
 \EIL
 
-\BB{Vantaggi}
-\BIL
-\item Non è detto che tutti gli elementi debbano essere riempiti
-\item La complessità in spazio è pari a $\Theta(C)$
-\EIL
 \end{overprint}
 
 \end{frame}
@@ -1803,13 +1725,21 @@ DP(c) = \begin{cases}
 \begin{frame}{Ricostruire la soluzione}
 
 \vspace{-9pt}
-\BB{Svantaggi}
+\begin{myboxtitle}[Vantaggi]
+\BIL
+\item Non è detto che tutti gli elementi debbano essere riempiti
+\item La complessità in spazio è pari a $\Theta(C)$
+\EIL
+\end{myboxtitle}
+
+\begin{myboxtitle}[Svantaggi]
 Questo approccio rende più difficile ricostruire la soluzione. 
 \BIL
 \item Possiamo ispezionare tutti gli elementi per capire da dove 
 deriva il massimo
 \item Conviene tuttavia memorizzare l'indice da cui deriva il massimo
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1949,7 +1879,7 @@ La sequenza vuota $\emptyset$ è sottosequenza di ogni altra sequenza
 
 \vspace{-9pt}
 \begin{myboxtitle}[Definizione: sottosequenza comune]
-Una sequenza $X$ è una \alert{sottosequenza comune} (\alert{common subsequence}) di due sequenze $T$ e $U$, se $X$ è sottosequenza sia di $T$ che di $U$
+Una sequenza $X$ è una \alert{sottosequenza comune} (\alert{common subsequence}) di due sequenze $T$, $U$, se è sottosequenza sia di $T$ che di $U$
 
 \BIL
 \item Scriviamo $X \in {\cal CS}(T,U)$
@@ -1957,7 +1887,7 @@ Una sequenza $X$ è una \alert{sottosequenza comune} (\alert{common subsequence}
 \end{myboxtitle}
 
 \begin{myboxtitle}[Definizione: sottosequenza comune massimale ]
-Una sequenza $X \in {\cal CS}(T,U)$ è una \alert{sottosequenza comune massimale} (\alert{longest common subsequence}) di due sequenze $T$ e $U$, se non esiste altra sottosequenza comune $Y \in {\cal CS}(T,U)$ tale che $Y$ sia più lunga di $X$ ($|Y|>|X|$).
+Una sequenza $X \in {\cal CS}(T,U)$ è una \alert{sottosequenza comune massimale} (\alert{longest common subsequence}) di due sequenze $T$, $U$, se non esiste altra sottosequenza comune $Y \in {\cal CS}(T,U)$ tale che $Y$ sia più lunga di $X$ ($|Y|>|X|$).
 
 \BIL
 \item Scriviamo $X \in {\cal LCS}(T,U)$
@@ -2047,10 +1977,11 @@ il \alert{prefisso} di $T$ dato dai primi $i$ caratteri, i.e.:
 \begin{frame}{Descrizione matematica della soluzione ottima}
 
 \vspace{-9pt}
-\BB{Goal}
+\begin{myboxtitle}[Goal]
 Date due sequenze $T$ e $U$ di lunghezza $n$ e $m$, scriviamo
 una formula ricorsiva $LCS(T(i), U(j))$ che restituisca la LCS 
 dei prefissi $T(i)$ e $U(j)$.
+\end{myboxtitle}
 
 \[
   LCS(T(i), U(j)) = \begin{cases}
@@ -2238,16 +2169,17 @@ $Z = (x_1, \ldots, x_k)$ una LCS di $T$ e $U$. Sono dati tre casi:
 \begin{frame}{Ricorrenza per il \alert{valore} della soluzione ottimale}
 
 \vspace{-9pt}
-\BB{Goal}
+\begin{myboxtitle}[Lunghezza della LCS]
 Due due sequenze $T$ e $U$ di lunghezza $n$ e $m$, scrivere una formula
-ricorsiva $\mathit{DP}(i, j)$ che restituisca la \alert{lunghezza} della LCS dei prefissi $U(i)$ e $U(j)$.
+ricorsiva $\mathit{DP}[i][j]$ che restituisca la \alert{lunghezza} della LCS dei prefissi $U(i)$ e $U(j)$.
+\end{myboxtitle}
 
 \begingroup
 \small
 \begin{overprint}
 \onslide<1|handout:0>
 \[
-  \mathit{DP}(i,j) = \begin{cases}
+  \mathit{DP}[i][j] = \begin{cases}
    \makebox[4cm][l]{?} & i=0\ \OR\ i=0 \\
    \makebox[4cm][l]{?} & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
    \makebox[4cm][l]{?} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
@@ -2255,7 +2187,7 @@ ricorsiva $\mathit{DP}(i, j)$ che restituisca la \alert{lunghezza} della LCS dei
 \]
 \onslide<2|handout:0>
 \[
-  \mathit{DP}(i,j) = \begin{cases}
+  \mathit{DP}[i][j] = \begin{cases}
    0 & i=0\ \OR\ i=0 \\
    \makebox[4cm][l]{?} & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
    \makebox[4cm][l]{?} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
@@ -2263,18 +2195,18 @@ ricorsiva $\mathit{DP}(i, j)$ che restituisca la \alert{lunghezza} della LCS dei
 \]
 \onslide<3|handout:0>
 \[
-  \mathit{DP}(i,j) = \begin{cases}
+  \mathit{DP}[i][j] = \begin{cases}
    0 & i=0\ \OR\ i=0 \\
-   \mathit{DP}(i-1,j-1)+1 & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
+   \mathit{DP}[i-1][j-1]+1 & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
    \makebox[4cm][l]{?} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
   \end{cases}
 \]
 \onslide<4-6|handout:1>
 \[
-  \mathit{DP}(i,j) = \begin{cases}
+  \mathit{DP}[i][j] = \begin{cases}
    0 & i=0\ \OR\ i=0 \\
-   \mathit{DP}(i-1,j-1)+1 & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
-   \max \{ \mathit{DP}(i-1,j), \mathit{DP}(i,j-1) \} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
+   \mathit{DP}[i-1][j-1]+1 & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
+   \max \{ \mathit{DP}[i-1][j], \mathit{DP}[i][j-1] \} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
   \end{cases}
 \]
 \end{overprint}
@@ -2282,11 +2214,11 @@ ricorsiva $\mathit{DP}(i, j)$ che restituisca la \alert{lunghezza} della LCS dei
 
 \bigskip
 \onslide<5-6|handout:1>
-\BB{Dove viene memorizzata l'informazione relativa al problema originale?}
+\BB{Dove si trova l'informazione relativa al problema originale?}
 
 \onslide<6|handout:1>
 \smallskip
-$\mathit{DP}(n,m)$ contiene la lunghezza della LCS del problema originale.
+$\mathit{DP}[n][m]$ contiene la lunghezza della LCS del problema originale.
 
 \end{frame}
 
@@ -2306,7 +2238,7 @@ $\INTARRAY[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots n][0 \ldots m] $\;
   \eIf{$T[i]  \Eq  U[j]$}{
     $\mathit{DP}[i][j] = \mathit{DP}[i-1][j-1]+1$\;
   }{
-    $\mathit{DP}[i][j] = \MAX(DP[i-1][j], \mathit{DP}[i][j-1])$\;
+    $\mathit{DP}[i][j] = \MAX(\mathit{DP}[i-1][j], \mathit{DP}[i][j-1])$\;
   }
   }
 }
@@ -2326,10 +2258,10 @@ $\INTARRAY[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots n][0 \ldots m] $\;
 
 \tiny
 \[
-  \mathit{DP}(i,j) = \begin{cases}
+  \mathit{DP}[i][j] = \begin{cases}
    0 & i=0\ \OR\ j=0 \\
-   \mathit{DP}(i-1,j-1)+1 & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
-   \max \{ \mathit{DP}(i-1,j), \mathit{DP}(i,j-1) \} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
+   \mathit{DP}[i-1][j-1]+1 & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
+   \max \{ \mathit{DP}[i-1][j], \mathit{DP}[i][j-1] \} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
   \end{cases}
 \]
 

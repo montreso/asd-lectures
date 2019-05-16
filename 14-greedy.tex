@@ -74,6 +74,7 @@ much.}{\textit{Gordon Gekko, Wall Street}}
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Problemi di ottimizzazione]
 \BI
 \item Gli algoritmi per problemi di ottimizzazione eseguono una sequenza di decisioni
@@ -100,18 +101,22 @@ much.}{\textit{Gordon Gekko, Wall Street}}
 %-------------------------------------------------------------------------
 \begin{frame}{Quando applicare la tecnica greedy?}
 
-\BB{Quando è possibile dimostrare che esiste una scelta ingorda}
+\vspace{-9pt}
+\begin{myboxtitle}[Se è possibile dimostrare che esiste una scelta ingorda]
 "\emph{Fra le molte scelte possibili, ne può essere facilmente individuata una che porta sicuramente alla soluzione ottima.}"
+\end{myboxtitle}
 
-\bigskip
-\BB{Quando il problema ha sottostruttura ottima}
+\begin{myboxtitle}[Se il problema ha sottostruttura ottima]
 "\emph{Fatta tale scelta, resta un sottoproblema con la stessa struttura del problema principale.}"
+\end{myboxtitle}
 
-\BB{Note}
+\begin{myboxtitle}[Note]
 \BI
 \item Non tutti i problemi hanno una scelta ingorda
 \item In alcuni casi, soluzioni non ottime possono essere comunque interessanti
 \EI
+\end{myboxtitle}
+
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -119,7 +124,7 @@ much.}{\textit{Gordon Gekko, Wall Street}}
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{Insieme indipendente di intervalli}
+\begin{frame}{Insieme indipendente massimale di intervalli}
 \TwoColsCustom{0.7}{0.25}{
 \vspace{-18pt}
 \begin{myboxtitle}[Input]
@@ -133,7 +138,7 @@ a destra.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Definizione del problema]
-Trovare un \alert{insieme indipendente massimale} è un sottoinsieme di massima
+Un \alert{insieme indipendente massimale} è un sottoinsieme di massima
 cardinalità formato da intervalli tutti disgiunti tra loro.
 \end{myboxtitle}
 
@@ -156,7 +161,7 @@ cardinalità formato da intervalli tutti disgiunti tra loro.
 \end{tabular}
 }
 
-\BB{\centering Confronta con "Insieme indipendente di intervalli pesati"}
+\BB{\centering Confronta con \alert{Insieme indipendente di intervalli pesati}}
 \end{frame}
 
 %-------------------------------------------------------------------------
@@ -170,19 +175,22 @@ cardinalità formato da intervalli tutti disgiunti tra loro.
 %-------------------------------------------------------------------------
 \begin{frame}{Come affrontare il problema}
 
-\BB{Iniziamo con programmazione dinamica}
+\vspace{-9pt}
+\begin{myboxtitle}[Iniziamo con programmazione dinamica]
 \BI
 \item Individuiamo una sottostruttura ottima
 \item Scriviamo una definizione ricorsiva per la dimensione della soluzione ottima
 \item Scriviamo una versione iterativa bottom-up dell'algoritmo
 \EI
+\end{myboxtitle}
 
-\BB{Passiamo poi alla tecnica greedy}
+\begin{myboxtitle}[Passiamo poi alla tecnica greedy]
 \BI
 \item Cerchiamo una possibile scelta ingorda
 \item Dimostriamo che la scelta ingorda porta alla soluzione ottima
 \item Scriviamo un algoritmo ricorsivo o iterativo che effettua sempre la scelta ingorda
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
@@ -190,7 +198,7 @@ cardinalità formato da intervalli tutti disgiunti tra loro.
 \begin{frame}{Sottostruttura ottima}
 
 \BIL
-\item Si assuma che gli intervalli siano ordinate per tempo di fine:\\[-9pt]
+\item Si assuma che gli intervalli siano ordinati per tempo di fine:\\[-9pt]
 \[
 	b_1 \leq b_2 \leq \ldots \leq b_n
 \]
@@ -216,7 +224,8 @@ $S[0,n+1]$
 %-------------------------------------------------------------------------
 \begin{frame}{Sottostruttura ottima}
 
-\BB{Teorema}
+\vspace{-9pt}
+\begin{myboxtitle}[Teorema]
 Supponiamo che $A[i,j]$ sia una soluzione ottimale di $S[i,j]$ e sia $k$
 un intervallo che appartiene a $A[i,j]$; allora
 
@@ -232,90 +241,105 @@ un intervallo che appartiene a $A[i,j]$; allora
 	\item $A[i,j] \cap S[k,j]$ è la soluzione ottimale di $S[k,j]$
 	\EI
 \EIL
+\end{myboxtitle}
 
-\BB{Dimostrazione}
+\begin{myboxtitle}[Dimostrazione]
 Utilizzando il metodo cut-and-paste
+\end{myboxtitle}
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Definizione ricorsiva del costo della soluzione}
 
-\BB{Definizione ricorsiva della soluzione}
+\vspace{-9pt}
+\begin{myboxtitle}[Definizione ricorsiva della soluzione]
 \[
 	A[i,j] = A[i,k] \cup \{ k \} \cup A[k, j]
 \]
+\end{myboxtitle}
 
-\BB{Definizione ricorsiva del suo costo}
+\begin{myboxtitle}[Definizione ricorsiva del suo costo]
 \BIL
 \item Come determinare $k$? Analizzando tutte le possibilità
-\item Sia $DP[i, j]$ la dimensione del
+\item Sia $DP[i][j]$ la dimensione del
 più grande sottoinsieme $A[i,j] \subseteq S[i,j]$ di intervalli indipendenti
 
+\small
 \[
-DP[i,j] = \begin{cases}
+DP[i][j] = \begin{cases}
    0 & S[i,j] = \emptyset \\
-	 \max_{k \in S[i,j]} \{ DP[i,k] + DP[k,j] + 1 \} & \textrm{altrimenti}
+	 \max_{k \in S[i,j]} \{ DP[i][k] + DP[k][j] + 1 \} & \textrm{altrimenti}
 \end{cases}
 \]
 \EIL
+\end{myboxtitle}
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Verso una soluzione ingorda}
 
-\BB{Programmazione dinamica}
+\vspace{-9pt}
+\begin{myboxtitle}[Programmazione dinamica]
 \BI
 \item La definizione precedente ci permette di scrivere un algoritmo basato su
 programmazione dinamica o su memoization
 \item Complessità $O(n^3)$: bisogna risolvere tutti i problemi con $i<j$, con
 costo $O(n)$ per sottoproblema nel caso peggiore
 \EI
-\BB{Possiamo fare di meglio?}
+\end{myboxtitle}
+
+\begin{myboxtitle}[Possiamo fare di meglio?]
 \BI
 \item Abbiamo visto una soluzione $O(n \log n)$ nel caso di intervalli pesati
 \item E' possibile utilizzare quella soluzione con pesi pari a $1$
 \item Questa soluzione è peggiore, ma...
 \item Siamo sicuri che sia necessario analizzare tutti i possibili valori $k$? 
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Scelta ingorda (Greedy Choice)}
 
-\BB{Teorema}
+\vspace{-9pt}
+\begin{myboxtitle}[Teorema]
 Sia $S[i,j]$ un sottoproblema non vuoto, e $m$ l'intervallo di $S[i,j]$ con il \alert{minor tempo di fine}, allora:
 \begin{enumerate}
 \item il sottoproblema $S[i,m]$ è vuoto
 \item $m$ è compreso in qualche soluzione ottima di $S[i,j]$
 \end{enumerate}
+\end{myboxtitle}
 
-\smallskip
+\vspace{-6pt}
 \begin{overprint}
 \onslide<1|handout:1>
-\BB{Dimostrazione \circled{1}}
+\begin{myboxtitle}[Dimostrazione \circled{1}]
 
 \smallskip
-\makebox[3cm][l]{Sappiamo che:} \alert{$a_m<b_m$} \hfill (Definizione di intervallo)
+\makebox[2.8cm][l]{Sappiamo che:} \alert{$a_m<b_m$} \hfill (Definizione di intervallo)
 
 \smallskip
-\makebox[3cm][l]{Sappiamo che:} \alert{$\forall k \in S[i,j]: b_m \leq b_k$} \hfill ($m$ ha minor tempo di fine)
+\makebox[2.8cm][l]{Sappiamo che:} \alert{$\forall k \in S[i,j]: b_m \leq b_k$} \hfill ($m$ ha minor tempo di fine)
 
 \smallskip
-\makebox[3cm][l]{Ne consegue che:} \alert{$\forall k \in S[i,j]: a_m < b_k$} \hfill (Transitività)
+\makebox[2.8cm][l]{Ne consegue che:} \alert{$\forall k \in S[i,j]: a_m < b_k$} \hfill (Transitività)
 
 \bigskip
 Se nessun intervallo in $S[i,j]$ termina prima di $a_m$, allora $S[i,m] = \emptyset$
+\end{myboxtitle}
+
 \onslide<2|handout:2>
-\BB{Dimostrazione \circled{2}}
+\begin{myboxtitle}[Dimostrazione \circled{2}]
 \BI
 \item Sia \alert{$A'[i,j]$} una soluzione ottima di $S[i,j]$
 \item Sia \alert{$m' \in A'[i,j]$} l'intervallo con minor tempo di fine in $A'[i,j]$
 \item Sia \alert{$A[i,j] = A'[i,j] - \{ m' \} \cup \{ m \}$} una nuova soluzione
 ottenuta togliendo $m'$ e aggiungendo $m$ ad $A'[i,j]$
-\item \alert{$A'[i,j]$ è una soluzione ottima che contiene $m$}, in quanto ha la 
-stessa dimensione di $A'[i,j]$ e tutti gli intervalli sono indipendenti.
+\item \alert{$A[i,j]$ è una soluzione ottima che contiene $m$}, in quanto ha la 
+stessa dimensione di $A'[i,j]$ e gli intervalli sono indipendenti.
 \EI
+\end{myboxtitle}
 \end{overprint}
 
 \end{frame}
@@ -332,11 +356,11 @@ stessa dimensione di $A'[i,j]$ e tutti gli intervalli sono indipendenti.
 \begin{frame}{Conseguenze}
 
 \BIL
-\item Non è più necessario analizzare tutti i possibili valori di $k$
+\item \alert{Non è più necessario analizzare tutti i possibili valori di $k$}:
 \BI
 \item Faccio una scelta "ingorda", ma sicura: seleziono l'attività $m$ con il minor tempo di fine
 \EI
-\item Non è più necessario analizzare due sottoproblemi:
+\item \alert{Non è più necessario analizzare due sottoproblemi}:
 \BI
 \item Elimino tutte le attività che non sono compatibili con la scelta ingorda
 \item Mi resta solo un sottoproblema da risolvere: $S[m,j]$
@@ -412,7 +436,7 @@ $\INTEGER\ \Ultimo = 1$\REMR{Ultimo intervallo inserito}
 %-------------------------------------------------------------------------
 \begin{frame}{Problema del resto}
 
-\vspace{-12pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Input]
 \BI
 \item Un insieme di "tagli" di monete, memorizzati in un vettore di interi positivi $t[1 \ldots n]$.
@@ -425,19 +449,22 @@ $\INTEGER\ \Ultimo = 1$\REMR{Ultimo intervallo inserito}
 Trovare il più piccolo numero intero di pezzi necessari per dare un resto di $R$ 
 centesimi utilizzando i tagli di cui sopra, assumendo di avere un numero illimitato di
 monete per ogni taglio.
-\end{myboxtitle}
-
-Matematicamente: trovare un vettore $x$ di interi non negativi tale che:
+Formalmente, trovare un vettore $x$ di interi non negativi tale che:\\
 $\displaystyle
 	R = \sum_{i=1}^n x[i] \cdot t[i]
 $ \qquad
 e \qquad $m = \sum_{i=1}^n x[i]$ ha valore minimo
+
+
+\end{myboxtitle}
+
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Soluzione basata su programmazione dinamica}
 
-\BB{Sottostruttura ottima}
+\vspace{-9pt}
+\begin{myboxtitle}[Sottostruttura ottima]
 \BI
 \item Sia $S(i)$ il problema di dare un resto pari ad $i$
 \item Sia $A(i)$ una soluzione ottima del problema $S(i)$, rappresentata da un 
@@ -445,11 +472,12 @@ multi-insieme; sia $j \in A(i)$
 \item Allora, $S(i-t[j])$ è un sottoproblema di
 $S(i)$, la cui soluzione ottima è data da $A(i)-\{ j \}$.
 \EI
+\end{myboxtitle}
 
-\BB{Definizione ricorsiva}
+\begin{myboxtitle}[Definizione ricorsiva]
 \BI
-\item Sia $DP[0 \ldots R]$ la tabella utilizzata per memorizzare le soluzioni
-\item $DP[i]$: minimo numero di monete per risolvere il problema $S[i]$
+\item Tabella di programmazione dinamica: $DP[0 \ldots R]$
+\item $DP[i]$: \alert{minimo n. di monete per risolvere il problema $S[i]$}
 \EI
 \[
 DP[i] = \left\{ 
@@ -459,6 +487,7 @@ DP[i] = \left\{
   \end{array} 
 \right.
 \]
+\end{myboxtitle}
 
 
 \end{frame}
@@ -466,12 +495,9 @@ DP[i] = \left\{
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo}
 
-\vspace{-6pt}
-\begin{columns}[T]
-\column{0.76\textwidth}
-\vspace{-9pt}
+\vspace{-12pt}
 \begin{Procedure}
-\caption[A]{\textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
+\caption[A]{$\INTARRAY$\ \textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
 $DP = \NEW\ \INTEGER[0 \ldots R]$\;
 $S = \NEW\ \INTEGER[0 \ldots R]$\;
 $DP[0] = 0$\;
@@ -484,38 +510,60 @@ $DP[0] = 0$\;
     }
   }
 }
+[...]
+\end{Procedure}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Algoritmo}
+
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{$\INTARRAY$\ \textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
+[...]\;
+$\INTARRAY\ x = \NEW\ \INTEGER[1 \ldots n]$\;
+\For{$i = 1$ \TO\ $n$}{
+  $x[i] = 0$\;
+}
 \While{$R>0$}{
-  \PRINT $t[S[R]]$\;
+  $x[S[r]] = x[S[r]]+1$\;
   $R = R - t[S[R]]$\;
 }
+\Return $x$\;
 \end{Procedure}
-\column{0.20\textwidth}
-\BB{Complessità}
-\pause
-\[O(nR)\]
-\end{columns}
+
+\BB{Complessità?}
+\pause \alert{$O(nR)$}
+
 \end{frame}
+
+
 
 
 %-------------------------------------------------------------------------
 \begin{frame}{Scelta greedy}
 
-\BB{Domanda}
+\vspace{-6pt}
+\begin{myboxtitle}[Domanda]
 E' possibile pensare ad una soluzione greedy?
+\end{myboxtitle}
 
-\pause
-\BB{Risposta}
+\begin{myboxtitle}[Risposta]
 Selezionare la moneta $j$ più grande tale per cui $t[j] \leq R$, e poi risolvere 
 il problema $S(R-t[j])$.
+\end{myboxtitle}
 
 \pause
-\BB{Esempi}
+\begin{myboxtitle}[Esempi]
 \BIL
 \item Tagli: $200, 100, 50, 20, 10, 5, 2, 1$
 \item Tagli: $50, 10, 5, 1$
 \item Tagli: $10, 8, 1$
 \item Tagli: $c^k, c^{k-1}, \ldots, c, 1 \quad (c \in \mathbb{Z^+})$
 \EIL
+\end{myboxtitle}
 
 
 \end{frame}
@@ -523,13 +571,16 @@ il problema $S(R-t[j])$.
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo}
 	
+\vspace{-12pt}
 \begin{Procedure}
-\caption[A]{\textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$, $\INTARRAY\ x$)}
+\caption[A]{$\INTARRAY$\ \textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
+$\INTARRAY\ x = \NEW\ \INTEGER[1 \ldots n]$\;
 \{ Ordina le monete in modo decrescente \}\;
 \For{$i = 1$ \TO\ $n$} {
   $x[i] = \lfloor R/t[i] \rfloor$\;
   $R = R - x[i] \cdot t[i]$\;
 }
+\Return $x$\;
 \end{Procedure}
 	
 \makebox[2.5cm][l]{\alert{Complessità}:} $O(n \log n)$ se input non è ordinato\\
@@ -565,6 +616,37 @@ m_1 &= 10 \cdot x[2] + m_2 && \leq 40 + m_2 < 40 + 10 = 50 = t[1] \\
 
 \end{frame}
 
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{Fun facts}
+
+\vspace{-18pt}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\BB{US Treasury, 1865-1873}
+\vspace{-3pt}
+\IG{0.9}{3cents.jpg}
+\column{0.48\textwidth}
+\BB{US Treasury, 1875-1878}
+\begin{center}
+\vspace{-3pt}
+\IG{0.45}{20cents.jpg}
+\end{center}
+\end{columns}    
+\smallskip
+\BB{\url{http://moneyart.biz/}}
+\begin{center}
+\IG{0.5}{52dollars.jpg}
+\end{center}
+
+\end{OnlySlides}
+
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{Fun facts}
+\vspace{-12pt}
+\IG{0.9}{18cents.pdf}
+\end{OnlySlides}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Scheduling}
 
@@ -595,40 +677,12 @@ m_1 &= 10 \cdot x[2] + m_2 && \leq 40 + m_2 < 40 + 10 = 50 = t[1] \\
 \EIL
 \end{frame}
 
-%-------------------------------------------------------------------------
-\begin{OnlySlides}{Fun facts}
-
-\vspace{-12pt}
-\begin{columns}[T]
-\column{0.48\textwidth}
-\BB{US Treasury, 1865-1873}
-\vspace{-3pt}
-\IG{0.9}{3cents.jpg}
-\column{0.48\textwidth}
-\BB{US Treasury, 1875-1878}
-\begin{center}
-\vspace{-3pt}
-\IG{0.45}{20cents.jpg}
-\end{center}
-\end{columns}    
-\smallskip
-\BB{\url{http://moneyart.biz/}}
-\begin{center}
-\IG{0.5}{52dollars.jpg}
-\end{center}
-
-\end{OnlySlides}
-
-%-------------------------------------------------------------------------
-\begin{frame}<1|handout:0>[noframenumbering]{Fun facts}
-\vspace{-12pt}
-\IG{0.9}{18cents.pdf}
-\end{frame}
 
 
 %-------------------------------------------------------------------------
 \begin{frame}{Scheduling}
 
+\vspace{-6pt}
 \begin{myboxtitle}[Input]
 	
 Supponiamo di avere un processore e $n$ job da eseguire su di esso,
@@ -639,19 +693,23 @@ ognuno caratterizzato da un tempo di esecuzione $t[i]$ noto a priori.
 Trovare una sequenza di esecuzione (permutazione) che minimizzi il \alert{tempo di completamento medio}.
 \end{myboxtitle}
 
-\bigskip
+\begin{myboxtitle}[Tempo di completamento]
+
 Dato un vettore $A[1 \ldots n]$ contenente una	permutazione di $\{ 1, \ldots n \}$,
 il \alert{tempo di completamento} dell'$h$-esimo job nella permutazione è:
 \[
   T_A(h) = \sum_{i=1}^h t[A[i]]
 \] 
+\end{myboxtitle}
+
 \end{frame}	
 
 %-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 
-\BB{Esempio}
-\bigskip
+\vspace{-9pt}
+\begin{myboxtitle}[Esempio]
+\medskip
 \begin{tikzpicture}[
 	thick,
 	font=\ttfamily\bfseries
@@ -670,12 +728,13 @@ il \alert{tempo di completamento} dell'$h$-esimo job nella permutazione è:
 \node[] at (7,-0.50){14};
 \end{tikzpicture}
 
-Tempo di completamento medio: $(4+5+11+14)/4 = 34/4 = 8.5$
+Tempo di completamento medio:\\ $(4+5+11+14)/4 = 34/4 = 8.5$
+\end{myboxtitle}
+
 
 \pause
-\BB{\alert{Shortest job first}}
-
-\bigskip
+\begin{myboxtitle}[Shortest job first]
+\medskip
 \begin{tikzpicture}[
 	thick,
 	font=\ttfamily\bfseries
@@ -694,46 +753,81 @@ Tempo di completamento medio: $(4+5+11+14)/4 = 34/4 = 8.5$
 \node[] at (7,-0.50){14};
 \end{tikzpicture}
 
-Tempo di completamento medio: $(1+4+8+14)/4 = 27/4 = 6.75$
+Tempo di completamento medio:\\ $(1+4+8+14)/4 = 27/4 = 6.75$
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Dimostrazione di correttezza}
 
-\BB{Teorema - Scelta greedy}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Teorema - Scelta greedy]
 Esiste una soluzione ottima $A$ in cui il job con minor tempo di fine $m$ si
 trova in prima posizione ($A[1] = m)$.
+\end{myboxtitle}
 
-\BB{Teorema -- Sottostruttura ottima}
+\begin{myboxtitle}[Teorema -- Sottostruttura ottima]
 Sia $A$ una soluzione ottima di un problema con $n$ job, in cui il job
 con minor tempo di fine $m$ si trova in prima posizione. La permutazione dei
 seguenti $n-1$ job in $A$ è una soluzione ottima al sottoproblema in cui il
 job $m$ non viene considerato.
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Dimostrazione di correttezza}
 
-\BB{Dimostrazione - Scelta greedy}
+\vspace{-9pt}
+\begin{myboxtitle}[Dimostrazione - Scelta greedy]
 \BIL
-\item Si consideri una permutazione ottima \alert{$B = [~B[1],B[2], \ldots, B[n]~]$}
-\item Sia $k$ la posizione in cui si trova in $B$ il job con minor tempo di fine
-\item Si consideri una permutazione in cui i job in posizione $1$, $k$ vengono
-scambiati: \alert{$A = [~B[k], B[2], \ldots, B[k-1], B[1], B[k+1], \ldots, B[n]~]$}
+\item Si consideri una permutazione ottima:
+
+\[
+\alert{B = [~B[1],B[2], \ldots, B[m-1], B[m], B[m+1], \ldots B[n]~]}
+\]
+
+\item Sia \alert{$m$} la posizione in cui si trova in $B$ il job con \alert{minor tempo di fine}
+\item Si consideri una permutazione in cui i job in posizione $1$, $m$ vengono
+scambiati: 
+
+\[
+\alert{A = [~B[m], B[2], \ldots, B[m-1], B[1], B[m+1], \ldots, B[n]~]}
+\]
+
+\item Il tempo di completamento medio di $A$ è minore o uguale al tempo
+di completamento medio di $B$
+\EIL
+\end{myboxtitle}
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Dimostrazione di correttezza}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Dimostrazione - Scelta greedy]
+\BIL
+\item Si consideri una permutazione in cui i job in posizione $1$, $m$ vengono
+scambiati: 
+
+\[
+\alert{A = [~B[m], B[2], \ldots, B[m-1], B[1], B[m+1], \ldots, B[n]~]}
+\]
+
 \item Il tempo di completamento medio di $A$ è minore o uguale al tempo
 di completamento medio di $B$
   \BI
 	\item Job in posizione $1, \ldots, k-1$ in $A$ hanno tempo di completamento 
 	$\leq$ dei job in posizione $1, \ldots, k-1$ in $B$
 	\item Job in posizione $k, \ldots, n$ in $A$ hanno tempo di completamento 
-	$\leq$ dei job in posizione $k, \ldots, n$ in $B$
+	$=$ dei job in posizione $k, \ldots, n$ in $B$
   \EI
 \item Poichè $B$ è ottima, $A$ non può avere tempo di completamento medio minore
 e quindi anche $A$ è ottima.
 \EIL
-
+\end{myboxtitle}
 \end{frame}
 
 
@@ -902,13 +996,15 @@ $i$ & $p_i$ & $w_i$ & $p_i/w_i$ \\
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo}
 \begin{Procedure}
-\caption[A]{\zaino($\REAL[\,]\ p,\ \REAL[\,]\ v,\REAL\ C,\ \INTEGER\ n,\ \REAL[\,]\ x$)}
+\caption[A]{$\REAL[\,]$\ \zaino($\REAL[\,]\ p,\ \REAL[\,]\ v,\REAL\ C,\ \INTEGER\ n$)}
+$\REAL[\,]\ x = \NEW\ \REAL[1 \ldots n]$\;
 \{ ordina $p$ e $v$ in modo che $p[1]/w[1] \ge p[2]/w[2] \ge \cdots \ge p[n]/w[n]$\}\;
 \For{$i=1$ \TO\ $n$}
 {
   $x[i] = \MIN(C/w[i], 1)$\;
   $C = C - x[i] \cdot w[i]$\;
 }
+\Return $x$
 \end{Procedure}
 
 \makebox[2.5cm][l]{\alert{Complessità}:} $O(n \log n)$ se input non è ordinato\\
@@ -964,12 +1060,14 @@ che il profitto specifico dell'oggetto $1$ è massimo
 %-------------------------------------------------------------------------
 \begin{frame}{Possibili codifiche}
 
-\BB{Esempio}
+\vspace{-9pt}
+\begin{myboxtitle}[Esempio]
 \BI
 \item Supponiamo di avere un file di $n$ caratteri
 \item Composto da caratteri nell'alfabeto \texttt{abcdef}
 \item Di cui conosciamo la frequenza relativa
 \EI
+\end{myboxtitle}
 
 \bigskip
 \begin{overprint}
@@ -1003,21 +1101,24 @@ che il profitto specifico dell'oggetto $1$ è massimo
 %-------------------------------------------------------------------------
 \begin{frame}{Codifica a prefissi}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Codice a prefisso]
 In un codice a prefisso (meglio sarebbe "senza prefissi"), \alert{nessun codice è
 prefisso di un altro codice} (condizione necessaria per la decodifica).
 \end{myboxtitle}
 
-\BB{Esempio 1}
+\begin{myboxtitle}[Esempio 1]
 \BI
 \item "\texttt{babaca}": $\texttt{100} \cdot \texttt{0} \cdot \texttt{100} \cdot \texttt{0} \cdot \texttt{101} \cdot \texttt{0}$
 \EI
+\end{myboxtitle}
 
-\BB{Esempio 2}
+\begin{myboxtitle}[Esempio 2]
 \BI
 \item Codice: "\texttt{a}" $\rightarrow$ \texttt{0}, "\texttt{b}" $\rightarrow$ \texttt{1}, "\texttt{c}" $\rightarrow$ \texttt{11}
 \item \texttt{111111}?
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1025,22 +1126,23 @@ prefisso di un altro codice} (condizione necessaria per la decodifica).
 %-------------------------------------------------------------------------
 \begin{frame}{Rappresentazione ad albero per la codifica}
 
-\BB{Alcune domande}
+\vspace{-9pt}
+\begin{myboxtitle}[Alcune domande]
 \BIL
 \item E' possibile che il testo codificato sia più lungo della rappresentazione con 3 bit?
-\item Esistono testi "difficili" per una rappresentazione di questo tipo?
+\item Esistono testi "difficili" per questa codifica?
 \item Come organizzare un algoritmo per la decodifica?
 \EIL
+\end{myboxtitle}
 
-\medskip
-\BB{Cenni storici}
+\begin{myboxtitle}[Cenni storici]
 \BIL
 \item David Huffman, 1952
 \item Algoritmo ottimo per costruire codici prefissi
-\item Oggi utilizzato come complemento di altri metodi di compressione\\
-(Ad esempio in PKZIP, ZIP, WINRAR)
-
+\item Oggi utilizzato come complemento di altri metodi di compressione
+(e.g. in \texttt{pkzip}, \texttt{zip}, \texttt{winrar})
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1049,6 +1151,7 @@ prefisso di un altro codice} (condizione necessaria per la decodifica).
 
 \vspace{-12pt}
 \TwoColsCustom{0.55}{0.40}{
+\vspace{-6pt}
 \begin{myboxtitle}[Alberi binari di decodifica]
 \BI
 \item Figlio sinistro/destro: $0$ / $1$
@@ -1062,7 +1165,8 @@ prefisso di un altro codice} (condizione necessaria per la decodifica).
   level 2/.style={sibling distance=2.2cm},
   level 3/.style={sibling distance=1.2cm},
 	thick,
-	font=\ttfamily\bfseries
+	font=\ttfamily\bfseries,
+    scale = 0.9
 ]
 \tikzset{
     treenode/.style = {circle, draw=black, align=center,fill=yellow!40,minimum width=0.75cm},
@@ -1128,6 +1232,7 @@ parti dalla radice\;
 
 \vspace{-12pt}
 \TwoColsCustom{0.55}{0.40}{
+\vspace{-6pt}
 \begin{myboxtitle}[Alberi binari di decodifica]
 \BI
 \item Figlio sinistro/destro: $0$ / $1$
@@ -1141,7 +1246,8 @@ parti dalla radice\;
   level 2/.style={sibling distance=2.2cm},
   level 3/.style={sibling distance=1.2 cm},
 	thick,
-	font=\ttfamily\bfseries
+	font=\ttfamily\bfseries,
+    scale = 0.9
 ]
 \tikzset{
     treenode/.style = {circle, draw=black, align=center,fill=yellow!40,minimum width=0.75cm},
@@ -1209,6 +1315,7 @@ parti dalla radice\;
 
 \vspace{-12pt}
 \TwoColsCustom{0.55}{0.40}{
+\vspace{-6pt}
 \begin{myboxtitle}[Alberi binari di decodifica]
 \BI
 \item Figlio sinistro/destro: $0$ / $1$
@@ -1222,7 +1329,7 @@ parti dalla radice\;
   level 2/.style={sibling distance=2.2cm},
   level 3/.style={sibling distance=1.2cm},
 	thick,
-	font=\ttfamily\bfseries
+	font=\ttfamily\bfseries, scale=0.9
 ]
 \tikzset{
     treenode/.style = {circle, draw=black, align=center,fill=yellow!40,minimum width=0.75cm},
@@ -1283,13 +1390,14 @@ parti dalla radice\;
 %-------------------------------------------------------------------------
 \begin{frame}{Definizione formale del problema}
 
-\BB{Input}
+\vspace{-9pt}
+\begin{myboxtitle}[Input]
 \BI
 \item un file $F$ composto da caratteri nell'alfabeto $\Sigma$
 \EI
+\end{myboxtitle}
 
-\medskip
-\BB{Quanti bit sono richiesti per codificare il file?}
+\begin{myboxtitle}[Quanti bit sono richiesti per codificare il file?]
 \BI
 \item Sia $T$ un albero che rappresenta la codifica
 \item Per ogni $c \in \Sigma$, sia $d_T(c)$ la profondità della foglia che rappresenta c
@@ -1299,26 +1407,32 @@ parti dalla radice\;
   C[F,T] = \sum_{c \in \Sigma} f[c] \cdot d_T(c)
 \]
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo di Huffman}
-\BB{Principio del codice di Huffman}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Principio del codice di Huffman]
 \BIL
 \item Minimizzare la lunghezza dei caratteri che compaiono più frequentemente
 \item Assegnare ai caratteri con la frequenza minore i codici corrispondenti ai percorsi più lunghi all'interno dell'albero
 \EIL
+\end{myboxtitle}
 
-\medskip
-\BB{Un codice è progettato per un file specifico}
+\begin{myboxtitle}[Ogni codice è progettato per un file specifico]
 \BIL
 \item Si ottiene la frequenza di tutti i caratteri
 \item Si costruisce il codice
 \item Si rappresenta il file tramite il codice
 \item Si aggiunge al file una rappresentazione del codice, per la decodifica
 \EIL
+\end{myboxtitle}
+
 \end{frame}
+
 
 %-------------------------------------------------------------------------
 \begin{frame}[fragile]{Funzionamento algoritmo}
@@ -1625,7 +1739,7 @@ f & \B{1}\B{1}\R{0}\B{1} \\\hline
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo}
 
-\TwoColsCustom{0.53}{0.45}{
+\TwoColsCustom{0.58}{0.41}{
 \vspace{-18pt}
 \begingroup
 \small
@@ -1649,13 +1763,14 @@ f & \B{1}\B{1}\R{0}\B{1} \\\hline
 \endgroup
 }{
 
-\vspace{-6pt}
-\BB{Input}
+\vspace{-12pt}
+\begin{myboxtitle}[Input]
 \BI
-\item $n$: dimensione dell'alfabeto
-\item $c[1 \ldots n]$: caratteri alfabeto
-\item $f[1 \ldots n]$: frequenze
+\item[$n$]: numero caratteri
+\item[$c \lbrack\,\rbrack$]: caratteri alfabeto
+\item[$f \lbrack\,\rbrack$]: frequenze
 \EI
+\end{myboxtitle}
 
 \begin{Procedure}
 \caption[A]{\Tree}
@@ -1673,45 +1788,47 @@ f & \B{1}\B{1}\R{0}\B{1} \\\hline
 %-------------------------------------------------------------------------
 \begin{frame}{Correttezza}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Teorema]
 	L'output dell'algoritmo Huffman per un dato file è un codice a prefisso ottimo
 \end{myboxtitle}
 
-\BB{Schema della dimostrazione}
-\BIL
-\item \alert{Proprietà della scelta greedy}
-\BI
-\item Scegliere i due elementi con la frequenza più bassa conduce sempre ad una soluzione ottimale
-\EI
-\item \alert{Sottostruttura ottima}
-\BI
-\item  Dato un problema sull'alfabeto $\Sigma$, è possibile costruire un sottoproblema con un alfabeto più piccolo
-\EI
-\EIL
+\begin{myboxtitle}[Proprietà della scelta greedy]
+Scegliere i due elementi con la frequenza più bassa conduce sempre ad una soluzione ottimale
+\end{myboxtitle}
+
+\begin{myboxtitle}[Sottostruttura ottima]
+Dato un problema sull'alfabeto $\Sigma$, è possibile costruire un sottoproblema con un alfabeto più piccolo
+\end{myboxtitle}
+
 \end{frame}
 
 
 %-------------------------------------------------------------------------
 \begin{frame}{Scelta greedy}
 
-\BB{Ipotesi}
+\vspace{-9pt}
+\begin{myboxtitle}[Ipotesi]
 \BI
-\item $\Sigma$ un alfabeto
-\item $f$ un vettore di frequenze
-\item $x, y$ i due caratteri che hanno frequenza più bassa
+\item Siano $\Sigma$ un alfabeto, $f$ un vettore di frequenze
+\item Siano $x, y$ i \alert{due caratteri con frequenza più bassa}
 \EI
+\end{myboxtitle}
 
-\BB{Tesi}
+\begin{myboxtitle}[Tesi]
 \BI
 \item Esiste un codice prefisso ottimo per $\Sigma$ in cui $x,y$ hanno la stessa 
 profondità massima e i loro codici differiscono solo per l'ultimo bit (sono foglie sorelle)
 \EI
+\end{myboxtitle}
 
-\BB{Dimostrazione}
+\begin{myboxtitle}[Dimostrazione]
 \BI
 \item Al solito, basata sulla trasformazione di una soluzione ottima
 \item Supponiamo che esista un codice ottimo $T$ in cui due caratteri $a,b$ con profondità massima e questi siano diversi da $x,y$
 \EI
+\end{myboxtitle}
+
 \end{frame}
 
 %-------------------------------------------------------------------------
@@ -1766,17 +1883,19 @@ Nelle pubblicità:
 \IG{0.4}{huffman-david.jpg}
 \vspace{-18pt}
 \begin{center}
-Foto: Don Harris
+\tiny
+\url{https://www.cise.ufl.edu/~manuel/huffman/press.release.html}
 \end{center}
 }
 
 \end{OnlySlides}
 
-\section{Alberi di copertura minimi}
+\section{Alberi di copertura di peso minimo}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Albero di copertura di peso minimo}
-\vspace{-6pt}
+
+\vspace{-9pt}
 \begin{myboxtitle}[Problema]
 Dato un grafo pesato, determinare come interconnettere tutti i suoi nodi
 minimizzando il costo del peso associato ai suoi archi.
@@ -1787,15 +1906,17 @@ minimizzando il costo del peso associato ai suoi archi.
 \EI
 \end{myboxtitle}
 
-\BB{Esempio di applicazione}
+\begin{myboxtitle}[Esempio di applicazione]
 Una compagnia di telecomunicazioni deve stendere una nuova rete
 in un quartiere; deve seguire le connessioni esistenti (la rete stradale)
 e ogni arco ha un costo associato distinto (costi di scavo, etc.)
+\end{myboxtitle}
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Definizione del problema}
-\vspace{-6pt}
+
+\vspace{-9pt}
 \begin{myboxtitle}[Input]
 \BIL
 \item \alert{$G=(V,E)$}: un grafo non orientato e connesso 
@@ -1855,7 +1976,7 @@ e ogni arco ha un costo associato distinto (costi di scavo, etc.)
 %-------------------------------------------------------------------------
 \begin{frame}{Definizione del problema}
 
-
+\vspace{-9pt}
 \begin{myboxtitle}[Albero di copertura (Spanning tree)]
 Dato un grafo $G=(V,E)$ non orientato e connesso, un albero di copertura di $G$ è un sottografo $T=(V, E_T)$ 
 tale che 
@@ -2008,30 +2129,106 @@ Non è detto che l'albero di copertura minimo sia univoco
 \end{frame}
 
 
+\begin{frame}{Cammini minimi / alberi di copertura di peso minimo}
+
+\vspace{-9pt}
+\BB{Questi due alberi di copertura sono identici?}
+\BI
+\item un \alert<2>{albero dei cammini minimi} da singola sorgente $A$
+\item un \alert<3>{albero di copertura di peso minimo}
+\EI
+
+\bigskip
+\centering
+\begin{tikzpicture}[
+    thick,
+    font=\ttfamily\bfseries\small
+]
+\tikzset{
+    mynode/.style = {circle, draw=black, align=center,fill=yellow!40},
+    mynoder/.style = {circle, draw=black, align=center,fill=red!40},
+    edgen/.style = {-},
+    edger/.style = {-,ultra thick,red}
+}
+\node[mynode] at (0.0,0.0) (d) {D};
+\node[mynoder] at (0.0,2.0) (a) {A};
+\node[mynode] at (2.0,2.0) (b) {B};
+\node[mynode] at (2.0,0.0) (c) {C};
+\draw[edgen] (a) edge node[above] {3} (b);
+\draw[edgen] (b) edge node[right] {1} (c);
+\draw[edgen] (c) edge node[below] {2} (d);
+\draw[edgen] (a) edge node[left] {3} (d);
+\end{tikzpicture}
+\qquad\pause
+\begin{tikzpicture}[
+    thick,
+    font=\ttfamily\bfseries\small
+]
+\tikzset{
+    mynode/.style = {circle, draw=black, align=center,fill=yellow!40},
+    mynoder/.style = {circle, draw=black, align=center,fill=red!40},
+    edgen/.style = {-},
+    edger/.style = {->,ultra thick,red}
+}
+\node[mynode] at (0.0,0.0) (d) {D};
+\node[mynoder] at (0.0,2.0) (a) {A};
+\node[mynode] at (2.0,2.0) (b) {B};
+\node[mynode] at (2.0,0.0) (c) {C};
+\draw[edger] (a) edge node[above] {3} (b);
+\draw[edger] (b) edge node[right] {1} (c);
+\draw[edgen] (c) edge node[below] {2} (d);
+\draw[edger] (a) edge node[left] {3} (d);
+\end{tikzpicture}
+\qquad\pause
+\begin{tikzpicture}[
+    thick,
+    font=\ttfamily\bfseries\small
+]
+\tikzset{
+    mynode/.style = {circle, draw=black, align=center,fill=yellow!40},
+    mynoder/.style = {circle, draw=black, align=center,fill=red!40},
+    edgen/.style = {-},
+    edger/.style = {-,ultra thick,red}
+}
+\node[mynode] at (0.0,0.0) (d) {D};
+\node[mynoder] at (0.0,2.0) (a) {A};
+\node[mynode] at (2.0,2.0) (b) {B};
+\node[mynode] at (2.0,0.0) (c) {C};
+\draw[edger] (a) edge node[above] {3} (b);
+\draw[edger] (b) edge node[right] {1} (c);
+\draw[edger] (c) edge node[below] {2} (d);
+\draw[edgen] (d) edge node[left] {3} (a);
+\end{tikzpicture}
+
+\end{frame}
+
 
 
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo generico}
 
-\BB{Schema della lezione}
+\vspace{-9pt}
+\begin{myboxtitle}[Schema della lezione]
 \BI
 \item Progettiamo un algoritmo di tipo "goloso" generico
 \item Mostriamo due "istanze" di questo algoritmo: \alert{Kruskal} e \alert{Prim}
 \EI
+\end{myboxtitle}
 
-\medskip
-\BB{Approccio}
+\begin{myboxtitle}[Approccio]
 L'idea è di accrescere un sottoinsieme $A$ di archi in modo tale che venga sempre
 rispettata la seguente invariante:
 \BI
 \item $A$ è un sottoinsieme di qualche albero di connessione minimo
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo generico}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Arco sicuro]
 Un arco $[u,v]$ è detto \alert{sicuro per $A$} se $A \cup \{[u,v]\}$ è ancora un sottoinsieme di qualche albero di connessione minimo.
 \end{myboxtitle}
@@ -2052,9 +2249,10 @@ Un arco $[u,v]$ è detto \alert{sicuro per $A$} se $A \cup \{[u,v]\}$ è ancora 
 
 \end{frame}
 
+
 %-------------------------------------------------------------------------
 \begin{frame}{Definizioni}
-% Per caratterizzare gli archi sicuri dobbiamo introdurre alcune definizioni:
+
 \BI
 \item Un \alert{taglio} $(S,V-S)$ di un grafo non orientato $G=(V,E)$ è una
 partizione di $V$ in due sottoinsiemi disgiunti
@@ -2118,12 +2316,13 @@ peso è minimo fra i pesi degli archi che attraversano un taglio
 \draw[ultra thick,blue] (8.00,0.0) -- (9.5,0.0);
 \end{tikzpicture}
 
-
 \end{frame}
+
 
 %-------------------------------------------------------------------------
 \begin{frame}{Arco sicuro}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Teorema]
 \BIL
 \item Sia $G=(V,E)$ un grafo non orientato e connesso 
@@ -2132,6 +2331,7 @@ peso è minimo fra i pesi degli archi che attraversano un taglio
 \item Sia $(S,V-S)$ un qualunque taglio che rispetta $A$
 \item Sia $[u,v]$ un arco leggero che attraversa il taglio
 \EIL
+
 Allora  l'arco $[u,v]$ è sicuro per $A$	
 \end{myboxtitle}
 \end{frame}
@@ -2345,21 +2545,23 @@ Arco blu non sicuro
 
 \end{frame}
 
+
 %-------------------------------------------------------------------------
 \begin{frame}{Dimostrazione}
 
-\BB{
+\vspace{-9pt}
+\begin{myboxtitle}[Dimostrazione]
 Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi:
   \BI
 	\item $(u,v) \in T$: allora $(u,v)$ è sicuro per $A$
 	\item $(u,v) \not\in T$: trasformiamo $T$ in un albero $T'$ contenente
 	  $(u,v)$ e dimostriamo che $T'$ è un albero di copertura minimo
 	\EI
-}
+\end{myboxtitle}
 
 \TwoColsCustom{0.75}{0.21}{
 \BIL
-\item $u,v$ sono connessi da un cammino $C \subseteq T$\\ (per definizione di albero)
+\item $u,v$ sono connessi da un \alert{cammino} $C \subseteq T$\\ (per definizione di albero)
 \item $u,v$ stanno in lati opposti del taglio\\ ($(u,v)$ attraversa il taglio)
 \item $\exists (x,y) \in C$ che attraversa il taglio
 \EIL
@@ -2400,6 +2602,7 @@ Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi:
 \end{tikzpicture}
 }
 \end{frame}
+
 
 %-------------------------------------------------------------------------
 \begin{frame}{Dimostrazione}
@@ -2464,6 +2667,7 @@ Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi
 %-------------------------------------------------------------------------
 \begin{frame}{Archi sicuri}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Corollario]
 \BIL
 \item Sia $G=(V,E)$ un grafo non orientato e connesso 
@@ -2472,6 +2676,7 @@ Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi
 \item Sia $C$ una componente connessa (un albero) nella foresta $G_A=(V,A)$
 \item Sia $[u,v]$ un arco leggero che connette $C$ a qualche altra componente in $G_A$
 \EIL
+
 Allora l'arco $[u,v]$ è sicuro per $A$
 \end{myboxtitle}
 
@@ -2480,7 +2685,8 @@ Allora l'arco $[u,v]$ è sicuro per $A$
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo di Kruskal}
 
-\BB{Idea}
+\vspace{-9pt}
+\begin{myboxtitle}[Idea]
 \BIL
 \item Ingrandire sottoinsiemi disgiunti di un albero di copertura minimo
 connettendoli fra di loro fino ad avere l’albero complessivo
@@ -2490,12 +2696,13 @@ foresta
 \item L’algoritmo è greedy perché ad ogni passo si aggiunge alla foresta un
 arco con il peso minore
 \EIL
+\end{myboxtitle}
 
-\medskip
-\BB{Implementazione}
+\begin{myboxtitle}[Implementazione]
 \BIL
 \item Si utilizza una struttura dati Merge-Find Set
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -2517,15 +2724,16 @@ $\mfset\ M = \mfconstructor(n)$\;
 %     $i = i+1$\;
 %   }
 % }
-\{ ordina $A[1, \mldots, m]$ in modo che $A[1].\peso \le \cdots \le A[m].\peso$ \}\;
-$\INTEGER\ c = 0$\;
+\{ ordina $A[1, \mldots, m]$ in modo che $A[1].\mathit{weight} \le \cdots \le A[m].\mathit{weight}$ \}\;
+$\INTEGER\ \mathit{count} = 0$\;
 $\INTEGER\ i = 1$\;
-\While(\REMF{Termina quando l'albero è costruito}){$c < n-1$ \AND $i \leq m$}{
+\textcolor{blue}{\% Termina quando l'albero ha $n-1$ archi o non ci sono più archi}\;
+\While{$\mathit{count} < n-1$ \AND $i \leq m$}{
   \If{$M.\mffind(A[i].u) \neq M.\mffind(A[i].v)$}
   {
     $M.\mfmerge(A[i].u, A[i].v)$\;
     $T.\setinsert(A[i])$\;
-    $c = c+1$\;
+    $\mathit{count} = \mathit{count}+1$\;
   }
   $i = i+1$\;	
 }
@@ -3081,54 +3289,65 @@ $\INTEGER\ i = 1$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Analisi della complessità algoritmo di Kruskal}
 
-\BB{Analisi della complessità}
 \BIL
 \item Il tempo di esecuzione per l’algoritmo di Kruskal dipende dalla realizzazione della struttura dati per Merge-Find Set
-\item Utilizziamo la versione con \alert{euristica sul rango + compressione}
-\BI
-\item L’inizializzazione richiede $O(n)$
-\item L'ordinamento richiede $O(m \log m) = O(m \log n^2) = O(m \log n)$
-\item Vengono eseguite $O(m)$ operazioni sulla foresta di insiemi disgiunti, con tempo ammortizzato $O(1)$
-\EI
-\item Totale:  $O(n + m \log n + m) = O(m \log n)$
+\item Utilizziamo la versione con \alert{euristica sul rango + compressione},\\ (*) le cui operazioni hanno costo ammortizzato costante 
+
+\medskip
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Fase} & \textbf{Volte} & \textbf{Costo} \\\hline
+Inizializzazione & 1 & $O(n)$ \\\hline
+Ordinamento & 1 & $O(m \log m)$ \\\hline
+Operazioni \textsf{find}(),\textsf{merge}() & $O(m)$ & $O(1)^{(*)}$ \\\hline
+\end{tabular}
+\item Totale:  $O(n + m \log m + m) = O(m \log m) = O(m \log n^2) = O(m \log n)$
 \EIL
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo di Prim}
 
-\BB{Idea}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Idea]
 \BIL
 \item L’algoritmo di Prim procede mantenendo in A un singolo albero 
 \item L’albero parte da un vertice arbitrario $r$ (la radice) e cresce fino a quando non ricopre tutti i vertici
 \item Ad ogni passo viene aggiunto un arco leggero che collega un vertice in $V_A$ con un vertice in $V-V_A$,
 dove $V_A$ è l'insieme di nodi raggiunti da archi in $A$
 \EIL
+\end{myboxtitle}
 
-\BB{Correttezza}
+\begin{myboxtitle}[Correttezza]
 \BIL
 \item $(V_A,V-V_A)$ è un taglio che rispetta $A$ (per definizione)
 \item Per il corollario, gli archi leggeri che attraversano il taglio sono sicuri
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Implementazione}
-	
-\BB{Una struttura dati per i nodi non ancora nell'albero}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Struttura dati per i nodi non ancora nell'albero]
 \BI
 \item Durante l'esecuzione, i vertici non ancora nell'albero si trovano in una 
 coda con min-priorità $Q$ ordinata in base alla seguente definizione di priorità
 \item "La priorità del nodo $v$ è il peso minimo di un arco che collega $v$ ad
 un vertice nell'albero, o $+\infty$ se tale arco non esiste""
 \EI
+\end{myboxtitle}
 
-\BB{Albero registrato come \alert{vettore dei padri}}
+\begin{myboxtitle}[Albero registrato come \alert{vettore dei padri}]
 \BI
 \item Ogni nodo $v$ mantiene un puntatore al padre $p[v]$
 \item $A$ è mantenuto implicitamente: $A = \{ [v, p[v]] ~|~ v \in V - Q - \{ r \} \}$
 \EI
+\end{myboxtitle}
+
 \end{frame}
 
 
@@ -3590,21 +3809,18 @@ L’efficienza dell’algoritmo di Prim dipende dalla coda con priorità
 
 \BIL
 \item Se si utilizza uno \alert{heap binario}:
-\BIL
-\item Inizializzazione: $O(n \log n)$
-\item Il ciclo principale viene eseguito $\alert{O(n)}$ volte 
-  \BI
-	\item Ogni operazione $\textsf{extractMin}()$ costa $\alert{O(\log n)}$
-	\EI
-\item Il ciclo interno viene eseguito $\alert{O(m)}$ volte
-  \BI
-	\item Ogni operazione $\textsf{decreaseKey}()$ costa $\alert{O(\log n)}$
-	\EI
-\item  Tempo totale: \alert{$O(n+n \log n + m \log n)=O(m \log n)$}
-	\BI
-	\item Asintoticamente uguale a quello di Kruskal
-	\EI
-\EIL
+
+\bigskip
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Fase} & \textbf{Volte} & \textbf{Costo} \\\hline
+Inizializzazione & 1 & $O(n \log n)$ \\\hline
+$\textsf{deleteMin}()$ & $O(n)$ & $O(\log n)$ \\\hline
+$\textsf{decreasePriority}()$ & $O(m)$ & $O(\log n)$ \\\hline
+\end{tabular}
+
+\bigskip
+Tempo totale: \alert{$O(n+n \log n + m \log n)=O(m \log n)$}, asintoticamente uguale a quello di Kruskal.
 \item Cosa succede se la coda con priorità è implementata tramite \alert{vettore non ordinato}?
 \EIL
 \end{frame}
@@ -3612,41 +3828,47 @@ L’efficienza dell’algoritmo di Prim dipende dalla coda con priorità
 %-------------------------------------------------------------------------
 \begin{frame}{Discussione}
 
-\BB{Vero o falso}
+\vspace{-9pt}
+\begin{myboxtitle}[Vero o falso]
 \BI
 \item L’arco con peso minimo è sicuro
 \item L’arco con il secondo peso minimo è sicuro
 \item L’arco con il terzo peso minimo è sicuro
 \EI
+\end{myboxtitle}
 
-\BB{Albero di copertura minima in un piano}
+\begin{myboxtitle}[Albero di copertura minima in un piano]
 \BI
 \item Input: $n$ punti nel piano 
 \item Il peso di una coppia di punti è dato dalla distanza euclidea fra di essi
 \item Trovare un insieme di connessioni di peso minimo
 \item Da non confendere con gli \alert{Steiner tree}
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Applicazioni}
 
-\BB{Applicazioni dirette nella progettazione di}
+\vspace{-9pt}
+\begin{myboxtitle}[Applicazioni dirette per la progettazione]
 \BI
 \item Reti di telecomunicazione
 \item Reti idriche
 \item Reti di trasporto
 \item Reti elettriche
 \EI
+\end{myboxtitle}
 
-\BB{Alcuni utilizzi particolari}
+\begin{myboxtitle}[Alcuni utilizzi particolari]
 \BI
 \item Segmentazione di immagini
 \item Riconoscimento scrittura manuale
 \item Disegno di circuiti elettronici
 \item Progettazione tassonomie
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
@@ -3682,18 +3904,22 @@ L’efficienza dell’algoritmo di Prim dipende dalla coda con priorità
 
 %-------------------------------------------------------------------------
 \begin{frame}{Conclusioni}
-\BB{Vantaggi}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Vantaggi]
 \BIL
 \item Semplici da programmare
 \item Molto efficienti
 \item Quando è possibile dimostrare la proprietà di scelta ingorda, danno la soluzione ottima
 \item La soluzione sub-ottima può essere accettabile
 \EIL
+\end{myboxtitle}
 
-\BB{Svantaggi}
+\begin{myboxtitle}[Svantaggi]
 \BIL
 \item Non sempre applicabili se si vuole la soluzione ottima
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 

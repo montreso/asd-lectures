@@ -35,13 +35,14 @@
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
+\vspace{-9pt}
 \BB{Con l'eccezione della sezione su backtrack, finora abbiamo considerato solo 
 problemi con soluzioni in tempo polinomoniale}
 \BIL
 \item  Il tempo di esecuzione è $O(n^k)$ per qualche $k$; 
 \EIL
 
-\bigskip
+\medskip
 \BB{Sono gli unici problemi interessanti?}
 \BIL
 \item Esistono problemi che per essere risolti hanno
@@ -61,23 +62,25 @@ problemi con soluzioni in tempo polinomoniale}
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
-\BB{Obiettivo della lezione}
+\vspace{-9pt}
+\begin{myboxtitle}[Obiettivo della lezione]
 \BIL
 \item Discuteremo di un classe di problemi per cui non è chiaro se esiste
 un algoritmo polinomiale oppure no
-\item Vedremo che questi problemi sono tutti sulla stessa barca:\\
+\item Questi problemi sono tutti sulla stessa barca: 
   possono essere tutti risolti in tempo polinomiale, oppure nessuno
-\item Questa classe contiene un numero enorme di problemi interessanti!
+\item Questa classe contiene tantissimi problemi interessanti!
 \EIL
+\end{myboxtitle}
 
-\bigskip
-\BB{Millenium Prize Problems, Clay Institute}
+\begin{myboxtitle}[Millenium Prize Problems, Clay Institute]
 \BI
 \item Premio istituito nel 2000
 \item Sette problemi matematici aperti
 \item 1M\euro\ per chi li risolve
 \item Ad oggi, un solo problema risolto (Congettura di Poincarè)
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
@@ -86,20 +89,20 @@ un algoritmo polinomiale oppure no
 \begin{frame}{Alcune definizioni}
 
 \vspace{-9pt}
-\begin{block}{Problema astratto}
+\begin{myboxtitle}[Problema astratto]
 Una \alert{problema astratto} è una relazione binaria $R \subseteq I \times S$
 tra un insieme $I$ di istanze del problema e un insieme $S$ di
 soluzioni
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempio}
+\begin{myboxtitle}[Esempio]
 Per il problema \textsc{shortest-path}:
 \BIL
 \item Un'istanza è una quadrupla $(V,E,u,v)$
 \item Una soluzione è una sequenza ordinata di vertici
 \item Nota: possono esistere più soluzioni associate alla stessa istanza
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -108,35 +111,34 @@ Per il problema \textsc{shortest-path}:
 \begin{frame}{Tipologia di problemi}
 
 \small
-\vspace{-9pt}
+\vspace{-15pt}
 \begin{columns}[T]
-\column{0.48\textwidth}
-\BB{Problemi di \alert{ottimizzazione}}
-\vspace{-6pt}
-\BIL
+\column{0.49\textwidth}
+\begin{myboxtitle}[Problemi di \alert{ottimizzazione}]
+\BI
 \item Data un'istanza, trovare la "migliore" soluzione secondo criteri specifici
 \item \alert{\textsc{shortest-path} (Opt.)}:
 Dati un grafo $G$ e due nodi $u, v$,
 trovare il cammino più breve fra essi
-\EIL
-\column{0.48\textwidth}
-\BB{Problemi di \alert{ricerca}}
-\vspace{-6pt}
-\BIL
+\EI
+\end{myboxtitle}
+\column{0.49\textwidth}
+\begin{myboxtitle}[Problemi di \alert{ricerca}]
+\BI
 \item Data un'istanza, trovare una possibile soluzione fra quelle esistenti
 \item \alert{\textsc{path}}: Dati un grafo $G$ e due nodi $u, v$, trovare un
 cammino fra essi
-\EIL
+\EI
+\end{myboxtitle}
 \end{columns}
 
-\bigskip
-\BB{Problemi di \alert{decisione}}
-\vspace{-6pt}
-\BIL
+\begin{myboxtitle}[Problemi di \alert{decisione}]
+\BI
 \item Data un'istanza, verificare se soddisfa o meno una data proprietà\\
 La relazione $R$ è una funzione $R: I \rightarrow \{ 0, 1 \}$ 
 \item \alert{\textsc{shortest-path} (Dec.)}: Dati un grafo $G$, due nodi $u,v$  e un valore $k$, esiste un cammino tra $u$ e $v$ di lunghezza maggiore o uguale a $k$?
-\EIL
+\EI
+\end{myboxtitle}
 
 
 \end{frame}
@@ -144,7 +146,7 @@ La relazione $R$ è una funzione $R: I \rightarrow \{ 0, 1 \}$
 %-------------------------------------------------------------------------
 \begin{frame}{Equivalenza problemi di ottimizzazione / decisione}
 
-\BB{I concetti che vedremo sono discussi in termini di problemi di decisione}
+\BB{Ragioneremo in termini di problemi di decisione}
 \BIL
 \item La versione decisionale è più semplice da trattare matematicamente
 \item Se posso risolvere efficientemente la versione di ottimizzazione
@@ -153,12 +155,12 @@ $\Rightarrow$ \\ posso risolvere efficientemente la versione di decisione
 $\Rightarrow$ \\ \emph{non} posso risolvere efficientemente la versione di ottimizzazione}
 \EIL
 
-\bigskip
-\BB{Esempio -- Shortest path}
+\begin{myboxtitle}[Esempio -- Shortest path]
 \BIL
 \item Se conosco il cammino più breve, posso rispondere alla domanda decisionale
 per qualunque valore di $k$
 \EIL
+\end{myboxtitle}
 
 
 \end{frame}
@@ -169,7 +171,7 @@ per qualunque valore di $k$
 \begin{frame}{Riduzione polinomiale}
 
 \vspace{-9pt}
-\begin{block}{Riduzione polinomiale}
+\begin{myboxtitle}[Riduzione polinomiale]
 Dati due problemi decisionali $R_1 \subseteq I_1 \times \{ 0,1 \}$ e
 $R_2 \subseteq I_2 \times \{ 0,1 \}$, $R_1$ è \alert{riducibile polinomialmente} a $R_2$ (\alert{$R_1 \leq_p R_2$}) se esiste una funzione
 $f: I_1 \rightarrow I_2$ con le seguenti proprietà:
@@ -177,9 +179,9 @@ $f: I_1 \rightarrow I_2$ con le seguenti proprietà:
 \item $f$ è calcolabile in tempo polinomiale;
 \item per ogni istanza $x$ del problema $R_1$ e
   ogni soluzione $s \in \{ 0,1 \}$, 
-  $(x,s) \in R_1$ se e solo se $(f(x),s) \in R_2$.
+  $(x,s) \in R_1$ $\Leftrightarrow$ $(f(x),s) \in R_2$.
 \EI
-\end{block}
+\end{myboxtitle}
 
 \IG{0.9}{riduzione.pdf}
 
@@ -189,14 +191,13 @@ $f: I_1 \rightarrow I_2$ con le seguenti proprietà:
 \begin{frame}{Colorazione di grafi}
 
 \vspace{-9pt}
-\begin{block}{Colorazione di grafi (\textsc{graph-coloring})}
-Dato un grafo non orientato $G=(V,E)$ e un insieme di colori $C$
-di dimensione $k$, una \alert{colorazione} dei vertici è un assegnamento  $f: V \rightarrow C$
+\begin{myboxtitle}[Colorazione di grafi (\textsc{graph-coloring})]
+Dati un grafo non orientato $G=(V,E)$ e un insieme di colori $C$, una \alert{colorazione} dei vertici è un assegnamento  $f: V \rightarrow C$
 \BI
 \item che ``colora'' ogni nodo con uno dei valori in $C$, 
 \item tale per cui nessuna coppia di nodi adiacenti ha lo stesso colore.
 \EI
-\end{block}
+\end{myboxtitle}
 
 \vspace{-12pt}
 \TwoCols{
@@ -205,7 +206,7 @@ di dimensione $k$, una \alert{colorazione} dei vertici è un assegnamento  $f: V
 \end{center}
 }{
 \begin{center}
-\IG{0.5}{4colors.pdf}
+\IG{0.45}{4colors.pdf}
 \end{center}
 }
 \end{frame}
@@ -214,14 +215,14 @@ di dimensione $k$, una \alert{colorazione} dei vertici è un assegnamento  $f: V
 \begin{frame}{Colorazione di grafi}
 
 \vspace{-9pt}
-\begin{block}{Colorazione, ottimizzazione}
+\begin{myboxtitle}[Colorazione, ottimizzazione]
 Dato un grafo non orientato $G=(V,E)$, restituire la colorazione che necessita del numero minimo di colori
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Colorazione, decisionale}
+\begin{myboxtitle}[Colorazione, decisionale]
 Dato un grafo non orientato $G=(V,E)$ e un valore $k$, determinare se esiste
 una colorazione di $G$ con $k$ colori
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -229,18 +230,17 @@ una colorazione di $G$ con $k$ colori
 \begin{frame}{Sudoku}
 
 \vspace{-9pt}
-\begin{block}{\textsc{sudoku}}
+\begin{myboxtitle}[\textsc{sudoku}]
 Il problema generale del \alert{Sudoku} richiede di inserire dei numeri
 fra $1$ e $n^2$ in una matrice di $n^2 \times n^2$ elementi 
 suddivisa in $n \times n$ sottomatrici di dimensione $n \times n$, 
 in modo tale che nessun  numero compaia più di una volta in ogni 
 riga, colonna e sottomatrice
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\begin{block}{\textsc{sudoku}, decisionale}
+\begin{myboxtitle}[\textsc{sudoku}, decisionale]
 Data una matrice $n^2 \times n^2$ elementi, determinare se esiste un modo per assegnare i numeri in modo da rispettare le regole del Sudoku
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -248,20 +248,24 @@ Data una matrice $n^2 \times n^2$ elementi, determinare se esiste un modo per as
 %-------------------------------------------------------------------------
 \begin{frame}{Riduzione da problema particolare a problema generale}
 
-\vspace{-12pt}
+\small
+\vspace{-17pt}
 \begin{columns}[T]
 \column{0.59\textwidth}
-\BB{Riduzione in tempo polinomiale}
-\BIL
-\item $V=\{ (x,y) : 1 \leq x \leq n^2, 1 \leq y \leq n^2 \}$
-\item $[(x,y), (x',y')] \in E$ se e solo se:
+\begin{myboxtitle}[Riduzione in tempo polinomiale]
+\noindent
+$V=\{ (x,y) : 1 \leq x \leq n^2, 1 \leq y \leq n^2 \}$
+
+\smallskip\noindent
+$[(x,y), (x',y')] \in E \Leftrightarrow {}$
 \BI
 \item $x=x'$; oppure,
 \item $y=y'$; oppure,
 \item $(\lceil x/n \rceil = \lceil x'/n \rceil) \wedge (\lceil y/n \rceil = \lceil y'/n \rceil)$
 \EI
-\item L'insieme di colori è $\{1, \ldots, n \}$.
-\EIL
+\smallskip\noindent
+$C = \{1, \ldots, n \}$.
+\end{myboxtitle}
 
 \vspace{-9pt}
 \begin{center}
@@ -269,15 +273,21 @@ Data una matrice $n^2 \times n^2$ elementi, determinare se esiste un modo per as
 \end{center}
 
 \column{0.39\textwidth}
-\BB{\small \textsc{sudoku} $\leq_p$ \textsc{graph-coloring}}
-Se abbiamo una soluzione per la colorazione, allora abbiamo una soluzione algoritmica per il Sudoku
+\begin{myboxtitle}[Riduzione]
+$\textsc{sudoku} \leq_p {}$\\
+$\textsc{graph-coloring}$
 
-\bigskip
-\BB{Applicazioni}
-\BIL
-\item Assegnamento radio frequenze in un insieme di torri cellulari
-\item Allocazione degli esami universitari
-\EIL
+\smallskip
+Se abbiamo una soluzione per la colorazione, allora abbiamo una soluzione algoritmica per il Sudoku
+\end{myboxtitle}
+
+\begin{myboxtitle}[Applicazioni]
+\noindent
+Assegnamento radio frequenze in un insieme di torri cellulari
+
+\medskip\noindent
+Allocazione degli esami universitari
+\end{myboxtitle}
 
 \end{columns}
 
@@ -288,15 +298,15 @@ Se abbiamo una soluzione per la colorazione, allora abbiamo una soluzione algori
 \begin{frame}{Insieme indipendente}
 
 \vspace{-9pt}
-\begin{block}{Insieme Indipendente (\textsc{independent-set})}
+\begin{myboxtitle}[Insieme Indipendente (\textsc{independent-set})]
 Sia dato un grafo non orientato $G=(V,E)$; un insieme
-$S \subseteq V$ è un \alert{insieme indipendente} se solo se nessun arco unisce due nodi in $S$
+$S \subseteq V$ è un \alert{insieme indipendente} $\Leftrightarrow$ nessun arco unisce due nodi in $S$
 
 \vspace{-3pt}
 \[
 \forall (x,y) \in E: x \not \in S \vee y \not \in S
 \]
-\end{block}
+\end{myboxtitle}
 
 \bigskip
 \begin{overprint}
@@ -317,18 +327,19 @@ $S \subseteq V$ è un \alert{insieme indipendente} se solo se nessun arco unisce
 \begin{frame}{Insieme indipendente}
 
 \vspace{-9pt}
-\begin{block}{\textsc{independent-set}, ottimizzazione}
+\begin{myboxtitle}[\textsc{independent-set}, ottimizzazione]
 Dato un grafo non orientato $G=(V,E)$, restituire il più grande insieme indipendente presente nel grafo
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{\textsc{independent-set}, decisionale}
+\begin{myboxtitle}[\textsc{independent-set}, decisionale]
 Dato un grafo non orientato $G=(V,E)$ e un valore $k$, determinare se esiste un insieme indipendente di dimensione almeno $k$
-\end{block}
+\end{myboxtitle}
 
-\bigskip
+\begin{myboxtitle}[Packing problem]
 Questo è un esempio di \alert{packing problem}, un problema in cui si cerca
 di selezionare il maggior numero di oggetti, la cui scelta è però soggetta
 a vincoli di esclusione
+\end{myboxtitle}
 
 \end{frame}
 
@@ -338,15 +349,15 @@ a vincoli di esclusione
 
 
 \vspace{-9pt}
-\begin{block}{Copertura di vertici (\textsc{vertex-cover})}
+\begin{myboxtitle}[Copertura di vertici (\textsc{vertex-cover})]
 Dato un grafo non orientato $G=(V,E)$, un insieme
-$S \subseteq V$ è un \alert{copertura di vertici} se e solo se ogni arco ha almeno un  estremo in $S$
+$S \subseteq V$ è una \alert{copertura di vertici} $\Leftrightarrow$ ogni arco ha almeno un  estremo in $S$
 
 \vspace{-3pt}
 \[
   \forall (x,y) \in E: x \in S \vee y \in S
 \]
-\end{block}
+\end{myboxtitle}
 
 \bigskip
 \begin{overprint}
@@ -366,20 +377,21 @@ $S \subseteq V$ è un \alert{copertura di vertici} se e solo se ogni arco ha alm
 \begin{frame}{Copertura di vertici}
 
 \vspace{-9pt}
-\begin{block}{\textsc{vertex-cover}, ottimizzazione}
+\begin{myboxtitle}[\textsc{vertex-cover}, ottimizzazione]
 Dato un grafo non orientato $G=(V,E)$, restituire la copertura dei vertici
 di dimensione minima.
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{\textsc{vertex-cover}, decisionale}
+\begin{myboxtitle}[\textsc{vertex-cover}, decisionale]
 Dato un grafo non orientato $G=(V,E)$ e un valore $k$, determinare se
 esiste una copertura di vertici di dimensione al massimo $k$
-\end{block}
+\end{myboxtitle}
 
-\bigskip
+\begin{myboxtitle}[Covering problem]
 Questo è un esempio di \alert{covering problem}, un problema in cui si cerca
 di ottenere il più piccolo insieme in grado di coprire un insieme 
 arbitrario di oggetti con il più piccolo sottoinsieme di questi oggetti.
+\end{myboxtitle}
 
 \end{frame}
 
@@ -427,20 +439,20 @@ Abbiamo quindi dimostrato che i due problemi sono equivalenti.
 \begin{frame}{SAT}
 
 \vspace{-9pt}
-\begin{block}{Formule booleane in forma normale congiuntiva}
+\begin{myboxtitle}[Formule booleane in forma normale congiuntiva]
 Dato un insieme $V$ contenente $n$ \alert{variabili}
 \BIL
 \item un \alert{letterale} è una variabile $v$ oppure la sua negazione $\overline{v}$
 \item una \alert{clausola} è una disgiunzione di letterali (letterali separati da \textbf{or})
 \item una \alert{formula in forma normale congiuntiva} è una congiunzione di clausole (clausole separate da \textbf{and})
 \EIL
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempio}
+\begin{myboxtitle}[Esempio]
 \[
   (x \vee \overline{y} \vee z) \wedge (\overline{x} \vee w) \wedge y
 \]
+\end{myboxtitle}
 
 \end{frame}
 
@@ -448,15 +460,14 @@ Dato un insieme $V$ contenente $n$ \alert{variabili}
 \begin{frame}{SAT}
 
 \vspace{-9pt}
-\begin{block}{Soddisfattibilità di formule booleane ((\textsc{SATisfiability}))}
+\begin{myboxtitle}[Soddisfattibilità di formule booleane ((\textsc{SATisfiability}))]
 Data un'espressione in forma normale congiuntiva, il problema
 della \alert{soddisfacibilità} consiste nel decidere se esiste una
 assegnazione di valori di verità alle variabili che rende
 l'espressione vera. 
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempio}
+\begin{myboxtitle}[Esempio]
 \[
   (x \vee \overline{y} \vee z) \wedge (\overline{x} \vee w) \wedge y
 \]
@@ -467,6 +478,7 @@ x = \TRUE, y = \TRUE, w = \TRUE, z = \TRUE \}
 \[
   (\TRUE \vee \FALSE \vee \TRUE) \wedge (\FALSE \vee \TRUE) \wedge \TRUE
 \]
+\end{myboxtitle}
 
 \end{frame}
 
@@ -474,16 +486,13 @@ x = \TRUE, y = \TRUE, w = \TRUE, z = \TRUE \}
 \begin{frame}{3-SAT}
 
 \vspace{-9pt}
-\begin{block}{\textsc{3-sat}}
+\begin{myboxtitle}[\textsc{3-sat}]
 Data una espressione in forma normale congiuntiva in cui le
 clausole \alert{hanno esattamente 3 letterali}, il problema della soddisfacibilità  consiste nel decidere se esiste una assegnazione di valori di verità alle variabili che rende l'espressione vera. 
-\end{block}
+\end{myboxtitle}
 
 \bigskip
-\BB{Vogliamo dimostrare che:}
-\[
-  \textsc{3-sat} \leq_p \textsc{independent-set}
-\]
+\BB{Vogliamo dimostrare che: $\textsc{3-sat} \leq_p \textsc{independent-set}$}
 
 \end{frame}
 
@@ -567,15 +576,14 @@ proprietà transitiva
 \begin{frame}{Classi \PTIME, \PSPACE}
 
 \vspace{-9pt}
-\begin{block}{Algoritmo}
+\begin{myboxtitle}[Algoritmo]
 Dati un problema di decisione $R$ e un algoritmo $A$ (scritto in un modello di calcolo Turing-equivalente)
 che lavora in tempo $f_t(n)$ e spazio $f_s(n)$, diciamo che $A$ 
 risolve $R$ se $A$ restituisce $s$ su un'istanza $x$ 
 se e solo se $(x,s) \in R$.
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\begin{block}{Classi di complessità}
+\begin{myboxtitle}[Classi di complessità]
 Data una qualunque funzione $f(n)$, chiamiamo:
 \BIL
 \item \alert{$\TIME(f(n))$} l'insieme dei problemi decisionali
@@ -583,39 +591,32 @@ Data una qualunque funzione $f(n)$, chiamiamo:
 \item \alert{$\SPACE(f(n))$} gli insiemi dei problemi 
 decisionali risolvibili da un algoritmo che lavora  in spazio $O(f(n))$.
 \EIL
-\end{block}
-%
-% \smallskip
-% \BB{Esempio}
-% Il problema di cercare un elemento in un dizionario di $n$ elementi organizzato come un albero RB è $\TIME(\log n)$ e $\SPACE(n)$.
+\end{myboxtitle}
 
 \end{frame}
 
 \begin{frame}{Classi \PTIME, \PSPACE}
 
 \vspace{-9pt}
-\begin{block}{Classe \PTIME}
+\begin{myboxtitle}[Classe \PTIME]
 La \alert{classe $\PTIME$} è la classe dei problemi decisionali risolvibili
 in tempo polinomiale nella dimensione $n$ dell'istanza di ingresso:
 \[
   \PTIME = \cup_{c=0}^{\infty} \TIME(n^c)
 \]
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Classe $\PSPACE$}
+\begin{myboxtitle}[Classe $\PSPACE$]
 La \alert{classe $\PSPACE$} è la classe dei problemi decisionali risolvibili
 in spazio polinomiale nella dimensione $n$ dell'istanza di ingresso:
 \[
   \PSPACE = \cup_{c=0}^{\infty} \SPACE(n^c)
 \]
-\end{block}
+\end{myboxtitle}
 
-\medskip
-\BB{Note}
-\BI
-\item $\PTIME \subseteq \PSPACE$
-% \item Risolvibile in tempo polinomiale tramite \alert{una macchina di Turing deterministica}
-\EI
+\begin{myboxtitle}[Note]
+$\PTIME \subseteq \PSPACE$
+\end{myboxtitle}
 
 \end{frame}
 
@@ -624,13 +625,12 @@ in spazio polinomiale nella dimensione $n$ dell'istanza di ingresso:
 \begin{frame}{Classe \NP}
 
 \vspace{-9pt}
-\begin{block}{Certificato}
+\begin{myboxtitle}[Certificato]
 Dato un problema decisionale $R$ e un'istanza di input $x$ tale
 che $(x, \mathbf{true}) \in R$, un \alert{certificato} è un insieme di informazioni che permette di provare che $(x, \mathbf{true}) \in R$
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempi:}
+\begin{myboxtitle}[Esempi]
 \BIL
 \item \textsc{sat}: un assegnamento di verità alle variabili 
   della formula
@@ -639,6 +639,7 @@ che $(x, \mathbf{true}) \in R$, un \alert{certificato} è un insieme di informaz
 \EIL
 
 Tutti questi ``certificati'' hanno dimensione polinomiale nella dimensione dell'input.
+\end{myboxtitle}
 
 \end{frame}
 
@@ -649,16 +650,15 @@ I certificati suddetti possono essere verificati in tempo polinomiale:
 \BIL
 \item \textsc{sat}: si calcola il valore di verità della formula a partire dall'assegnamento di verità delle variabili in tempo $O(n)$
 \item \textsc{graph-coloring}: si verifica che nodi adiacenti non abbiano lo stesso
-colore in $O(m+n)$
+colore in tempo $O(m+n)$
 \item \textsc{independent-set}: si verifica che nodi in $V$ non abbiano nodi
 adiacenti in $V$ in tempo $O(m+n)$
 \EIL
 
-\bigskip
-\begin{block}{Classe \NP}
+\begin{myboxtitle}[Classe \NP]
 L'insieme di tutti i problemi che ammettono un certificato verificabile
 in tempo polinomiale.    
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -668,24 +668,24 @@ in tempo polinomiale.
 \begin{frame}{Certificati non polinomiali}
 
 \vspace{-9pt}
-\begin{block}{Quantified Boolean Formula (QBF)}
+\begin{myboxtitle}[Quantified Boolean Formula (QBF)]
 Il problema QBF è una generalizzazione del problema SAT nel quale ad ogni variabile possono essere applicati quantificatori universali e esistenziali
-\end{block}
+\end{myboxtitle}
 
+\vspace{-3pt}
 \TwoCols{
-\BB{Esempio}
+\begin{myboxtitle}[Esempio]
 \[
   \forall x\  \exists y\  \exists z\  ((x  \lor z) \land y)
 \]    
+\end{myboxtitle}
 }{
-\BB{Esercizio...}
-\smallskip
+\begin{myboxtitle}[Esercizio...]
 Progettate un certificato per QCB che possa essere verificato
 in tempo polinomiale
-
+\end{myboxtitle}
 \pause
-\bigskip
-Si ritiene che un certificato del genere non esista
+\BB{Si ritiene che un certificato del genere non esista}
 }
 \end{frame}
 
@@ -693,10 +693,10 @@ Si ritiene che un certificato del genere non esista
 \begin{frame}{Classe \NP\ -- Definizione basata su non determinismo}
 
 \vspace{-9pt}
-\begin{block}{Classe \NP}
+\begin{myboxtitle}[Classe \NP]
 \NP\ è l'insieme di problemi decisionali che possono essere risolti da
 una Macchina di Turing non deterministica in tempo polinomiale
-\end{block}
+\end{myboxtitle}
 
 \bigskip
 \BB{In maniera mooolto informale...}
@@ -715,11 +715,12 @@ può andare in un insieme \underline{finito} di altri stati
 %-------------------------------------------------------------------------
 \begin{frame}{Classe \NP\ -- Definizione basata su non determinismo}
 
-\BB{Esempio}
+\vspace{-9pt}
+\begin{myboxtitle}[Esempio]
 \textsc{sat} con quattro variabili
 
-\bigskip
 \IG{1.0}{albero10.pdf}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -729,48 +730,46 @@ può andare in un insieme \underline{finito} di altri stati
 \begin{frame}{Relazioni fra problemi}
 
 \vspace{-9pt}
-\begin{lemma}
+\begin{myboxtitle}[Lemma]
 Se $R_1 \leq_p R_2$ e $R_2 \in \PTIME$, allora anche
 $R_1$ è contenuto in $\PTIME$.
-\end{lemma}
+\end{myboxtitle}
 
-\BB{Dimostrazione}
+\begin{myboxtitle}[Dimostrazione]
 \BI
-\item Sia $T_f(n)=O(n^{k_f})$ il tempo necessario per trasformare un input di $R_1$ in input di $R_2$
+\item Sia $T_f(n)=O(n^{k_f})$ il tempo necessario per trasformare un input di $R_1$ in input di $R_2$ tramite una funzione $f$
 \item Sia $T_2(n)=O(n^{k_2})$ il tempo necessario per risolvere $R_2$
 \item Qual è la complessità per risolvere $R_1$? 
 \EI
 \pause\smallskip
 \BI
-\item La funzione di trasformazione può prendere un input di dimensione
+\item La funzione $f$ può prendere un input di dimensione
 $n$ e trasformarlo in un input di dimensione $O(n^{k_f})$ per $R_2$
 \item Il tempo per risolvere $R_1$ sarà quindi $T_1(n) = O(n^{k_f k_2})$
 \item $T_1(n)$ è polinomiale
 \EI
-
+\end{myboxtitle}
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Definizioni}
     
 \vspace{-9pt}
-\begin{block}{Problema \NP-arduo (\NP-hard)}
+\begin{myboxtitle}[Problema \NP-arduo (\NP-hard)]
 Un problema decisionale $R$ si dice \alert{\NP-arduo} se
 ogni problema $Q \in \NP$ è riducibile
 polinomialmente a $R$ ($Q \leq_p R$)
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\begin{block}{Problema \NP-completo (\NP-complete)}
+\begin{myboxtitle}[Problema \NP-completo (\NP-complete)]
 Un problema decisionale $R$ si dice \alert{\NP-completo} se appartiene alla
 classe \NP\ ed è \NP-hard.
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\begin{block}{\PTIME=\NP?}
+\begin{myboxtitle}[\PTIME=\NP?]
 Se un qualunque problema decisionale \NP-completo appartenesse
 a \PTIME, allora risulterebbe $\PTIME=\NP$.
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -806,21 +805,21 @@ Fra i problemi visti oggi, quale potrebbe essere un buon candidato?
 \begin{frame}{Teorema di Cook-Levin}
 
 \vspace{-9pt}
-\begin{block}{}
+\begin{myboxtitle}[Bibliografia]
 Stephen Cook (1971). "The Complexity of Theorem Proving Procedures". Proceedings of the third annual ACM Symposium on Theory of computing (STOC). pp. 151–158. ACM.
-\end{block}
+\end{myboxtitle}
 
+\vspace{-6pt}
 \TwoColsCustom{0.65}{0.30}{
-\begin{block}{Teorema di Cook-Levin}
+\begin{myboxtitle}[Teorema di Cook-Levin]
 \textsc{sat} è \NP-completo
-\end{block}
+\end{myboxtitle}
 
 \BIL
 \item Dimostrazione complessa, basata sugli stati della macchina di Turing
 \item Dimostrato nel 1973 da Leonid Levin (URSS) in maniera indipendente
 \EIL
 }{
-\vspace{-6pt}
 \IG{1.0}{cook.jpg}
 }
 
@@ -851,9 +850,9 @@ sono \NP-completi.
 \begin{frame}{I 21 problemi \NP-completi di Karp}
 
 \vspace{-9pt}
-\begin{block}{}
+\begin{myboxtitle}[Bibliografia]
 Richard Karp (1972). "Reducibility Among Combinatorial Problems". In R.  Miller and J. Thatcher (eds). Proc. of Complexity of Computer Computations, pp. 85–103 (Plenum).
-\end{block}
+\end{myboxtitle}
 
 \IG{0.8}{karp-problems.pdf}
 
@@ -878,21 +877,22 @@ Richard Karp (1972). "Reducibility Among Combinatorial Problems". In R.  Miller 
 \begin{frame}{Problemi NP-Completi "Classici"}
 
 \vspace{-9pt}
-\begin{block}{Cricca (Clique)}
+\begin{myboxtitle}[Cricca (Clique)]
 Dati un grafo non orientato ed un intero $k$, esiste un sottoinsieme di almeno
 $k$ nodi tutti mutuamente adiacenti?
-\end{block}
+\end{myboxtitle}
 
 \TwoCols{
 \vspace{-12pt}
 \IG{0.9}{clique.pdf}
 }{
-\BB{Applicazioni}
+\begin{myboxtitle}[Applicazioni]
 \BIL
 \item Bioinformatica
 \item Ingegneria elettronica
 \item Chimica
 \EIL
+\end{myboxtitle}
 }
 
 \vfill
@@ -905,11 +905,11 @@ $k$ nodi tutti mutuamente adiacenti?
 \begin{frame}{Problemi NP-Completi "Classici"}
 	
 \vspace{-9pt}
-\begin{block}{Commesso viaggiatore (Traveling salesperson - TSP)}
+\begin{myboxtitle}[Commesso viaggiatore (Traveling salesperson - TSP)]
 Date $n$ città, le distanze tra esse, ed un intero $k$, è possibile partire da
 una città, attraversare ogni città esattamente una volta tornando alla città
-di partenza, percorrendo una distanza totale non superiore a $k$?
-\end{block}
+di partenza, percorrendo una distanza non superiore a $k$?
+\end{myboxtitle}
 
 \begin{center}
 \IG{0.5}{tsp.png}
@@ -926,19 +926,19 @@ di partenza, percorrendo una distanza totale non superiore a $k$?
 \begin{frame}{Problemi NP-Completi "Classici"}
 	
 \vspace{-9pt}
-\begin{block}{Programmazione lineare $0$/$1$}
+\begin{myboxtitle}[Programmazione lineare $0$/$1$]
 Data una matrice $A$ di elementi interi e di dimensione $m \times n$, ed un
 vettore $b$ di $m$ elementi interi, esiste un vettore $x$ di $n$ elementi $0$/$1$ tale che $Ax \le b$?
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\BB{Esempio}
+\begin{myboxtitle}[Esempio]
 \begin{alignat*}{4}
 x_1 &+ x_2 &&+ x_3 &&+ x_4 &&\ge 2\\
 x_1 &- x_2 &&- x_3 &&+ x_4 &&\ge 0\\
 x_1 &&&+ x_3 &&+ x_4 &&\le 1
 \end{alignat*}
 Il sistema è verificato per $x_1 = x_2 = 1$ ed $x_3 = x_4 = 0$.
+\end{myboxtitle}
 
 \end{frame}
 
@@ -946,10 +946,10 @@ Il sistema è verificato per $x_1 = x_2 = 1$ ed $x_3 = x_4 = 0$.
 \begin{frame}{Problemi NP-Completi "Classici"}
 	
 \vspace{-9pt}
-\begin{block}{Copertura esatta di insiemi (Exact cover)}
-Dato un insieme $X$ e una collezione di suoi sottoinsiemi ${\cal Y} = \{Y_1, \mldots,
-Y_n\}$, esiste una sottocollezione $\cal Z$ di ${\cal Y}$ che partizioni $X$?
-\end{block}
+\begin{myboxtitle}[Copertura esatta di insiemi (Exact cover)]
+Dato un insieme $X$ e una collezione ${\cal Y} = \{Y_1, \mldots,
+Y_n\}$ di sottoinsiemi di $X$, esiste una sottocollezione ${\cal Z} \subseteq {\cal Y}$ che partizioni $X$?
+\end{myboxtitle}
 
 \begin{overprint}
 \onslide<1|handout:0>
@@ -988,22 +988,23 @@ ${\cal Z} = \{ B,D,F \}$
 %-------------------------------------------------------------------------
 \begin{frame}{Problemi NP-Completi "Classici"}
 
+\small
 \vspace{-9pt}
-\begin{block}{Partizione (\textsc{partition})}
+\begin{myboxtitle}[Partizione (\textsc{partition})]
 Dato un insieme $A = \{ a_1, \mldots, a_n\}$ di interi positivi, esiste un
 sottoinsieme $S$ di \{1, \mldots, n\} tale che $\sum_{i\in S} a_i = \sum_{i
 \notin S}a_i$?
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Somma di sottoinsieme (\textsc{subset-sum})}
+\begin{myboxtitle}[Somma di sottoinsieme (\textsc{subset-sum})]
 Dati un insieme $A = \{ a_1 , \mldots, a_n\}$ di interi positivi ed un intero
 positivo $k$, esiste un sottoinsieme $S$ di indici in $\{1, \mldots, n\}$ tale
 che $\sum_{i \in S} a_i = k$?
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Zaino (\textsc{knapsack})}
+\begin{myboxtitle}[Zaino (\textsc{knapsack})]
 Dati un intero positivo $C$ (la capacità dello zaino) e un insieme di $n$ oggetti, tali che l'oggetto $i$ è caratterizzato da un ``profitto'' $p_i \in \mathbf{Z}^+$ e da un peso $w_i \in \mathbf{Z}^+$, esiste un sottoinsieme $S \subseteq \{ 1, \mldots, n \}$ tale che il peso totale $w(S) = \sum_{i \in S} w_i \le C$ e il profitto totale $p(S) = \sum_{i \in S} p_i$ è maggiore o uguale a $k$?
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1011,10 +1012,10 @@ Dati un intero positivo $C$ (la capacità dello zaino) e un insieme di $n$ ogget
 \begin{frame}{Problemi NP-Completi "Classici"}
 
 \vspace{-9pt}
-\begin{block}{Circuito hamiltoniano (\textsc{hamiltonian-circuit})}
+\begin{myboxtitle}[Circuito hamiltoniano (\textsc{hamiltonian-circuit})]
 Dato un grafo non orientato $G$, esiste un circuito che attraversi ogni nodo
 una e una sola volta?
-\end{block}
+\end{myboxtitle}
 
 \begin{center}
 \IG{0.4}{hamiltonian-path.pdf}
@@ -1028,71 +1029,71 @@ una e una sola volta?
 
 \begin{frame}{La complessità si nasconde dove non te l'aspetti...}
 
-\vspace{-12pt}
+\vspace{-15pt}
 \TwoCols{
-\begin{block}{Circuito hamiltoniano}
+\begin{myboxtitle}[Circuito hamiltoniano]
 Dato un grafo non orientato $G$, esiste un circuito che attraversi ogni \alert{nodo} una e una sola volta? 
 
 \smallskip
 \B{\NP-completo}
-\end{block}
+\end{myboxtitle}
 }{
-\begin{block}{Circuito euleriano}
+\begin{myboxtitle}[Circuito euleriano]
 Dato un grafo non orientato $G$, esiste un circuito che attraversi ogni \alert{arco} una e una sola volta? 
 
 \smallskip
-\B{Risolvibile in tempo polinomiale}
-\end{block}
+\B{In \PTIME}
+\end{myboxtitle}
 }
-\bigskip
 \TwoCols{
-\begin{block}{Cammini massimi}
+\begin{myboxtitle}[Cammini massimi]
 Dato un grafo $G=(V,E)$ e una funzione di peso $w$
 sugli archi, trovare il cammino con peso \alert{massimo}
 
 \smallskip
 \B{\NP-completo}
-\end{block}
+\end{myboxtitle}
 }{
-\begin{block}{Cammini minimi}
+\begin{myboxtitle}[Cammini minimi]
 Dato un grafo $G=(V,E)$ e una funzione di peso $w$
 sugli archi, trovare il cammino con peso \alert{minimo}
 
 \smallskip
-\B{Risolvibile in tempo polinomiale}
-\end{block}
+\B{In \PTIME}
+\end{myboxtitle}
 }
 
 \end{frame}
 
-\begin{frame}{Problemi aperti}
+\begin{frame}{Problemi aperti (più o meno)}
 
 \vspace{-9pt}
-\begin{block}{Isomorfismo fra grafi}
+\begin{myboxtitle}[Isomorfismo fra grafi]
 Il problema dell'isomorfismo fra grafi richiede di determine se due
 grafi finiti sono isomorfi.
 \BI
 \item \B{Non sappiamo ancora.... \NP-completo? \PTIME?}
 \item Dibattito ancora in corso (Ottobre 2017)
 \EI
-\end{block}
+\end{myboxtitle}
 
+\vspace{-3pt}
 \TwoCols{
-\begin{block}{Primalità}
+\begin{myboxtitle}[Primalità]
 Dato un numero $n$, determinare se $n$ è primo.
 \BI
 \item \B{Incluso in \PTIME}
 \item AKS primality test (2002-2005): $\tilde{O}(\log^{6} n)$
 \EI
-\end{block}
+\end{myboxtitle}
 }{
-\begin{block}{Fattorizzazione}
+\begin{myboxtitle}[Fattorizzazione]
 Dato un numero $n$, individuare i fattori primi che lo compongono.
 \BI
 \item \B{Sicuramente in \NP, si presume nè in \PTIME,
 nè \NP-completo}
 \EI
-\end{block}
+\end{myboxtitle}
 }
 \end{frame}
 
@@ -1101,14 +1102,14 @@ nè \NP-completo}
 \begin{frame}{Spunti di lettura}
 
 \vspace{-9pt}
-\begin{block}{}
-Sanjeev Arora, Boaz Barak. Computational complexity: a modern approach.
+\begin{myboxtitle}[Bibliografia]
+\BI
+\item Sanjeev Arora, Boaz Barak. Computational complexity: a modern approach.
 Cambridge University Press, 2009\\
 \url{http://theory.cs.princeton.edu/complexity/}
-\end{block}
-\begin{block}{}
-Lance Fortnow. The Golden Ticket. P, NP, and the Search for the Impossible. Princeton University Press, 2013.
-\end{block}
+\item  Lance Fortnow. The Golden Ticket. P, NP, and the Search for the Impossible. Princeton University Press, 2013.
+\EI
+\end{myboxtitle}
 
 \IG{0.6}{tsp-xkcd.png}
 

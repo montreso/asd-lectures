@@ -13,7 +13,8 @@
 
 \begin{frame}{Introduzione}
 
-\begin{block}{Sommario - Algoritmi di ordinamento}
+\vspace{-9pt}
+\begin{myboxtitle}[Sommario - Algoritmi di ordinamento]
 \begin{columns}
 \begin{column}{0.48\textwidth}
 \BI
@@ -30,11 +31,10 @@
 \EI
 \end{column}
 \end{columns}
-\end{block}
+\end{myboxtitle}
 
 
-\bigskip
-\begin{block}{Sommario - Problema dell'ordinamento}
+\begin{myboxtitle}[Sommario - Problema dell'ordinamento]
 \BI
 \item \alert{Tutti questi algoritmi sono basati su confronti}
 \BI
@@ -45,25 +45,26 @@
 \item InsertionSort e ShellSort sono più veloci solo in casi speciali
 \EI
 \EI
-\end{block}
+\end{myboxtitle}
 
 \end{frame}
 
 
 \begin{frame}{Introduzione}
 
-\begin{block}{Problema dell'ordinamento - Limite inferiore}
+\vspace{-9pt}
+\begin{myboxtitle}[Problema dell'ordinamento - Limite inferiore]
 E' possibile dimostrare che qualunque algoritmo di ordinamento \alert{basato su confronti} ha una complessità 
 $\Omega(n \log n)$.
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Assunzioni}
+\begin{myboxtitle}[Assunzioni]
 \BI
 \item Consideriamo un qualunque algoritmo $A$ basato su confronti
 \item Assumiamo che tutti i valori siano distinti (no perdita di generalità)
 \item L'algoritmo $A$  può essere rappresentato tramite un \alert{albero di decisione}, un albero binario che rappresenta i confronti fra gli elementi
 \EI
-\end{block}
+\end{myboxtitle}
 
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -75,12 +76,13 @@ $\Omega(n \log n)$.
 
 \begin{frame}{Albero di decisione}
 	
-\begin{block}{Proprietà}
+\vspace{-9pt}
+\begin{myboxtitle}[Proprietà]
 \BI
 \item \alert{Cammino radice-foglia in un albero di decisione}: sequenza di confronti eseguiti dall'algoritmo corrispondente
 \item \alert{Altezza dell'albero di decisione}: numero confronti eseguiti dall'algoritmo corrispondente nel caso pessimo
 \EI
-\end{block}
+\end{myboxtitle}
 
 \bigskip
 Si considerino tutti gli alberi di decisioni ottenibili da algoritmi di ordinamento basati su confronti
@@ -89,25 +91,27 @@ Si considerino tutti gli alberi di decisioni ottenibili da algoritmi di ordiname
 
 \begin{frame}{Limite inferiore per l'ordinamenento}
 
-\begin{block}{Lemma 1}
+\vspace{-9pt}
+\begin{myboxtitle}[Lemma 1]
 Un albero di decisione per l'ordinamento di $n$ elementi contiene almeno $n!$ foglie
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Lemma 2}
+\begin{myboxtitle}[Lemma 2]
 Sia $T$ un albero binario in cui ogni nodo interno ha esattamente $2$ figli e sia $k$ il numero delle sue foglie. 
 L'altezza dell'albero è almeno $\log k$ - ovvero $\Omega(\log k)$.
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Teorema}
+\begin{myboxtitle}[Teorema]
 Il numero di confronti necessari per ordinare n elementi nel caso peggiore è $\Omega(n \log n)$
-\end{block}
+\end{myboxtitle}
 
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{frame}{Spaghetti Sort}
 
-\begin{block}{Algoritmo Spaghetti Sort -- $O(n)$}
+\vspace{-9pt}
+\begin{myboxtitle}[Algoritmo Spaghetti Sort -- $O(n)$]
 \begin{enumerate}
 \item Prendi $n$ spaghetti
 \item Taglia lo spaghetto $i$-esimo in modo proporzionale all'$i$-esimo valore da ordinare
@@ -115,33 +119,39 @@ Il numero di confronti necessari per ordinare n elementi nel caso peggiore è $\
 \item Prendi il più lungo, misuralo e metti il valore corrispondente in fondo al vettore da ordinare
 \item Ripeti (4) fino a quando non hai terminato gli spaghetti
 \end{enumerate}
-\end{block}
+\end{myboxtitle}
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Counting Sort}
-Assunzione:
+
+\vspace{-9pt}
+\begin{myboxtitle}[Assunzione]
 \BI
 \item I numeri da ordinare sono compresi in un intervallo $[1 \ldots k]$
 \EI
+\end{myboxtitle}
 
-\bigskip
-Come funziona:
+\begin{myboxtitle}[Come funziona]
 \BI
 \item  Costruisce un array $B[1 \ldots k]$ che conta il numero di volte che un valore compreso in $[1 \ldots k]$ compare in $A$
 \item Ricolloca i valori così ottenuti nel vettore da ordinare  $A$	
 \EI
+\end{myboxtitle}
 
-\bigskip
-Miglioramenti:
+\begin{myboxtitle}[Miglioramenti]
 \BI
 \item L'intervallo non deve necessariamente iniziare in $1$ e finire in $k$; qualunque intervallo di cui conosciamo gli estremi può essere utilizzato
 nel Counting Sort.
 \EI
+\end{myboxtitle}
+
+
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 \begin{frame}{Counting Sort}
 
+\vspace{-12pt}
 \begin{Procedure}
 \caption[A]{\countingsort($\INTEGER[\,]\ A,\ \INTEGER\ n,\ \INTEGER\ k$)}
 $\INTEGER[\,]\ B = \NEW\ \INTEGER[1 \mldots k]$\;
@@ -167,54 +177,57 @@ $j = 1$\;
 
 \begin{frame}{Counting Sort}
 	
-\begin{block}{Complessità di Counting Sort}
+\vspace{-9pt}
+\begin{myboxtitle}[Complessità di Counting Sort]
 \BI
 \item $O(n+k)$
 \item Se $k$ è $O(n)$, allora la complessità di Counting Sort è $O(n)$
 \EI
-\end{block}
+\end{myboxtitle}
 
-\bigskip
-\begin{block}{Counting Sort e limiti inferiore per l'ordinamento}
+\begin{myboxtitle}[Counting Sort e limiti inferiore per l'ordinamento]
 \BI
 \item Counting Sort non è basato su confronti
 \item Abbiamo cambiato le condizioni di base 
 \item Se $k$ è $O(n^3)$, questo algoritmo è peggiore di tutti quelli visti finora	
 \EI
-\end{block}
+\end{myboxtitle}
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Pigeonhole Sort}
 
-\begin{block}{Casellario}
+\vspace{-9pt}
+\begin{myboxtitle}[Casellario]
 \BI
 \item Cosa succede se i valori non sono numeri interi, ma record associati ad una chiave da ordinare?
 \item Non possiamo usare counting
 \item Ma possiamo usare liste concatenate!
 \EI
-\end{block}
+\end{myboxtitle}
 
 \bigskip
 \includegraphics[width=\textwidth]{pigeonhole.pdf}	
+
 
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}[shrink]{Bucket Sort}
 
-\begin{block}{Ipotesi sull'input}
+\vspace{-9pt}
+\begin{myboxtitle}[Ipotesi sull'input]
 \BI
 \item Valori reali uniformemente distribuiti nell'intervallo $[0, 1)$
 \item Qualunque insieme di valori distribuiti uniformemente può essere normalizzato nell'intervallo $[0, 1)$ in tempo lineare
 \EI
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Idea}
+\begin{myboxtitle}[Idea]
 \BI
 \item Dividere l'intervallo in $n$ sottointervalli di dimensione $1/n$, detti \alert{bucket}, e poi distribuire gli $n$ numeri nei bucket
 \item Per l'ipotesi di uniformità, il numero atteso di valori nei bucket è $1$
 \item Possono essere ordinati con Insertion Sort
 \EI
-\end{block}
+\end{myboxtitle}
 
 \bigskip
 \includegraphics[width=\textwidth]{bucket.pdf}	
@@ -223,65 +236,79 @@ $j = 1$\;
 
 
 \begin{frame}{Proprietà degli algoritmi di ordinamento}
-\begin{block}{Stabilità}
-Un algoritmo di ordinamento è \alert{stabile} se preserva l'ordine iniziale tra due elementi con la stessa chiave
-\end{block}
 
-\bigskip
-\begin{block}{Domande}
+\vspace{-9pt}
+\begin{myboxtitle}[Stabilità]
+Un algoritmo di ordinamento è \alert{stabile} se preserva l'ordine iniziale tra due elementi con la stessa chiave
+\end{myboxtitle}
+
+\begin{myboxtitle}[Domande]
 \BI
 \item Quali dei seguenti algoritmi sono stabili? Insertion Sort, Merge Sort, Heap Sort, Quick Sort, Pigeonhole Sort
 \item Come si può rendere un qualunque algoritmo stabile?
 \EI
-\end{block}
+\end{myboxtitle}
 
 \pause
-\bigskip
-\begin{block}{Risposte}
+\begin{myboxtitle}[Risposte]
 \BI
 \item Stabili: Insertion Sort, Merge Sort, Pigeonhole Sort
 \item  Basta usare come chiave di ordinamento la coppia\\ (chiave, posizione iniziale) 
 \EI
-\end{block}
+\end{myboxtitle}
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Riassunto ordinamento}
-\begin{block}{Insertion Sort}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Insertion Sort]
 $\Omega(n)$, $O(n^2)$, stabile, sul posto, iterativo. Adatto per piccoli valori, sequenze quasi ordinate.
-\end{block}
-\begin{block}{Merge Sort} 
+\end{myboxtitle}
+\begin{myboxtitle}[Merge Sort]
 $\Theta(n\log n)$, stabile, richiede $O(n)$ spazio aggiuntivo, ricorsivo (richiede $O(\log n)$ spazio nello stack). Buona performance in cache, buona parallelizzazione.
-\end{block}
-\begin{block}{Heap Sort}
+\end{myboxtitle}
+\begin{myboxtitle}[Heap Sort]
 $\Theta(n\log n)$, non stabile, sul posto, iterativo. Cattiva performance in cache, cattiva parallelizzazione. Preferito in sistemi embedded.
-\end{block}
+\end{myboxtitle}
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Riassunto ordinamento}
-\begin{block}{Quick Sort}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Quick Sort]
 $O(n\log n)$ in media, $O(n^2)$ nel caso peggiore, non stabile, ricorsivo (richiede $O(\log n)$ spazio nello stack). Buona performance in cache, buona parallelizzazione, buoni fattori moltiplicativi.
-\end{block}
-\begin{block}{Counting Sort}
+\end{myboxtitle}
+\begin{myboxtitle}[Counting Sort]
 $\Theta(n+k)$, richiede $O(k)$ memoria aggiuntiva, iterativo. Molto veloce quando $k=O(n)$
-\end{block}
-\begin{block}{Pigeonhole Sort}
+\end{myboxtitle}
+\begin{myboxtitle}[Pigeonhole Sort]
 $\Theta(n+k)$, stabile, richiede $O(n+k)$ memoria aggiuntiva, iterativo. Molto veloce quando $k=O(n)$
-\end{block}
+\end{myboxtitle}
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Riassunto ordinamento}
-\begin{block}{Bucket Sort}
+    
+\vspace{-9pt}
+\begin{myboxtitle}[Bucket Sort]
 $O(n)$ nel caso i valori siano distribuiti uniformemente, stabile, richiede $O(n)$ spazio aggiuntivo
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Shell Sort}
+\begin{myboxtitle}[Shell Sort]
 $O(n \sqrt{n})$, stabile, adatto per piccoli valori, sequenze quasi ordinate.
-\end{block}
+\end{myboxtitle}
+
+\bigskip
+\begin{myboxtitle}[Algoritmi di ordinamento: un'esperienza psichedelica]
+\url{https://www.youtube.com/watch?v=kPRA0W1kECg}
+\end{myboxtitle}
+
 
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Reality check}
-\begin{block}{Tim Sort}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Tim Sort]
 \BI
 \item Algoritmo ibrido, basato su Merge Sort e Insertion Sort
 \item Cerca sequenze consecutive (run) già ordinate 
@@ -291,15 +318,15 @@ $O(n \sqrt{n})$, stabile, adatto per piccoli valori, sequenze quasi ordinate.
 \item $O(n \log n)$ nel caso pessimo
 \EI
 \EI
-\end{block}
+\end{myboxtitle}
 
-\begin{block}{Utilizzazione}
+\begin{myboxtitle}[Utilizzazione]
 \BI
 \item Python
 \item Java 7
 \item Gnu Octave
 \EI
-\end{block}
+\end{myboxtitle}
 
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

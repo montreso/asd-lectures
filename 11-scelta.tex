@@ -10,6 +10,7 @@
 \usetikzlibrary{graphs}
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
 \usepackage{xmpmulti}
 \usepackage{listings}
 
@@ -250,11 +251,72 @@ Si noti che due cammini minimi possono avere un tratto in comune $A \leadsto B$ 
 \end{tikzpicture}
 }
 
+
+
 \begin{myboxtitle}[Albero dei cammini minimi]
 L'\alert{albero dei cammini minimi} è un albero di copertura radicato in $s$ avente un cammino da $s$ a tutti i nodi raggiungibili da $s$.
 \end{myboxtitle}
 
 \end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Albero di copertura}
+
+\begin{myboxtitle}[Albero di copertura (Spanning tree)]
+Dato un grafo $G=(V,E)$ non orientato e connesso, un albero di copertura di $G$ è un sottografo $T=(V, E_T)$ 
+tale che 
+\BI
+\item $T$ è un albero
+\item $E_T \subseteq E$
+\item $T$ contiene tutti i vertici di $G$
+\EI
+\end{myboxtitle}
+
+\bigskip	
+\centering
+\begin{tikzpicture}[
+	scale=0.85, 
+	transform shape,
+	thick,
+	font=\ttfamily\bfseries\small
+]
+\tikzset{
+    mynode/.style = {circle, draw=black, align=center,fill=yellow!40},
+    edgen/.style = {-},
+    edger/.style = {-,ultra thick,red}
+}
+\node[mynode] at (0.0,1.2) (a) {A};
+\node[mynode] at (1.2,2.4) (b) {B};
+\node[mynode] at (6.0,2.4) (d) {D};
+\node[mynode] at (3.6,2.4) (c) {C};
+\node[mynode] at (1.2,0.0) (h) {H};
+\node[mynode] at (3.6,0.0) (g) {G};
+\node[mynode] at (6.0,0.0) (f) {F};
+\node[mynode] at (2.4,1.2) (i) {I};
+\node[mynode] at (7.2,1.2) (e) {E};
+%
+\draw[edgen] (a) edge node[above] {} (b);
+\draw[edger] (b) edge node[above] {} (c);
+\draw[edger] (c) edge node[above] {} (d);
+\draw[edgen] (d) edge node[above,right] {} (e);
+%
+\draw[edger] (a) edge node[below] {} (h);
+\draw[edgen] (h) edge node[below] {} (g);
+\draw[edgen] (g) edge node[below] {} (f);
+\draw[edger] (f) edge node[below,right] {} (e);
+%
+\draw[edger] (h) edge node[below] {} (i);
+\draw[edger] (i) edge node[below] {} (g);
+\draw[edgen] (i) edge node[below] {} (c);
+%
+\draw[edger] (b) edge node[right] {} (h);
+\draw[edger] (d) edge node[right] {} (f);
+\draw[edgen] (c) edge node[below] {} (f);
+\end{tikzpicture}
+
+\end{frame}
+
+
 
 %-------------------------------------------------------------------------
 \begin{frame}{Soluzione ammissibile}
@@ -314,78 +376,6 @@ i cui valori $d[u]$ rappresentano il costo del cammino da $s$ a $u$ in $T$.
 
 \end{frame}
 
-\begin{frame}{Cammini minimi / alberi di copertura di peso minimo}
-
-\vspace{-9pt}
-\BB{Questi due alberi di copertura sono identici?}
-\BI
-\item un \alert<2>{albero dei cammini minimi} da singola sorgente $A$
-\item un \alert<3>{albero di copertura di peso minimo}
-\EI
-
-\bigskip
-\centering
-\begin{tikzpicture}[
-    thick,
-    font=\ttfamily\bfseries\small
-]
-\tikzset{
-    mynode/.style = {circle, draw=black, align=center,fill=yellow!40},
-    mynoder/.style = {circle, draw=black, align=center,fill=red!40},
-    edgen/.style = {-},
-    edger/.style = {-,ultra thick,red}
-}
-\node[mynode] at (0.0,0.0) (d) {D};
-\node[mynoder] at (0.0,2.0) (a) {A};
-\node[mynode] at (2.0,2.0) (b) {B};
-\node[mynode] at (2.0,0.0) (c) {C};
-\draw[edgen] (a) edge node[above] {3} (b);
-\draw[edgen] (b) edge node[right] {1} (c);
-\draw[edgen] (c) edge node[below] {2} (d);
-\draw[edgen] (a) edge node[left] {3} (d);
-\end{tikzpicture}
-\qquad\pause
-\begin{tikzpicture}[
-    thick,
-    font=\ttfamily\bfseries\small
-]
-\tikzset{
-    mynode/.style = {circle, draw=black, align=center,fill=yellow!40},
-    mynoder/.style = {circle, draw=black, align=center,fill=red!40},
-    edgen/.style = {-},
-    edger/.style = {->,ultra thick,red}
-}
-\node[mynode] at (0.0,0.0) (d) {D};
-\node[mynoder] at (0.0,2.0) (a) {A};
-\node[mynode] at (2.0,2.0) (b) {B};
-\node[mynode] at (2.0,0.0) (c) {C};
-\draw[edger] (a) edge node[above] {3} (b);
-\draw[edger] (b) edge node[right] {1} (c);
-\draw[edgen] (c) edge node[below] {2} (d);
-\draw[edger] (a) edge node[left] {3} (d);
-\end{tikzpicture}
-\qquad\pause
-\begin{tikzpicture}[
-    thick,
-    font=\ttfamily\bfseries\small
-]
-\tikzset{
-    mynode/.style = {circle, draw=black, align=center,fill=yellow!40},
-    mynoder/.style = {circle, draw=black, align=center,fill=red!40},
-    edgen/.style = {-},
-    edger/.style = {-,ultra thick,red}
-}
-\node[mynode] at (0.0,0.0) (d) {D};
-\node[mynoder] at (0.0,2.0) (a) {A};
-\node[mynode] at (2.0,2.0) (b) {B};
-\node[mynode] at (2.0,0.0) (c) {C};
-\draw[edger] (a) edge node[above] {3} (b);
-\draw[edger] (b) edge node[right] {1} (c);
-\draw[edger] (c) edge node[below] {2} (d);
-\draw[edgen] (d) edge node[left] {3} (a);
-\end{tikzpicture}
-
-\end{frame}
 
 \begin{frame}{Rappresentazione albero}
 
@@ -532,25 +522,58 @@ d[v] \leq d[u] + w(u,v) && \textrm{per ogni arco $(u,v) \in E$}
 allora $T$ è una soluzione ottima.
 \end{myboxtitle}
 
+\small
+\vspace{-4pt}
 \begin{overprint}
 \onslide<1|handout:1>
 \BI
 \item Supponiamo per assurdo che il cammino da $s$ a $u$ in $T$ non sia ottimo
-\item Allora esiste un cammino da $s$ a $u$ con distanza $d'[u]<d[u]$
-\item Sia $d'[v]$ la distanza da $s$ ad un generico nodo $v$ che appare in
-tale cammino
-\item Poichè $d'[s] = d[s] = 0$, ma $d'[u]<d[u]$, esiste un arco $(h,k)$ 
-per cui $d'[h] \geq d'[h]$ e $d'[k]< d[k]$
+\item Allora esiste un albero $T'$, in cui il cammino
+da $s$ a $u$ ha distanza $d'[u]<d[u]$
+\item Sia $d'[\,]$ il vettore delle distanze associato a $T'$
 \EI
+
+
 \onslide<2|handout:2>
 \BI
-\item Per costruzione $d_h' + w(h,k) = d_k'$
-\item Per ipotesi $d_h + w(h,k) \ge d_k$
+\item Poichè $d'[s] = d[s] = 0$, ma $d'[u]<d[u]$, esiste un arco $(h,k)$  per cui 
+\BI
+\item $d'[h] \geq d[h]$ e 
+\item $d'[k]< d[k]$
+\EI
+\EI
+
+\begin{center}
+\begin{tikzpicture}[
+    thick,
+    font=\ttfamily\bfseries\small
+]
+\tikzset{
+    mynode/.style = {circle, draw=black, align=center,fill=yellow!40},
+    mynoder/.style = {circle, draw=black, align=center,fill=red!40},
+    edgen/.style = {-},
+    edger/.style = {->,ultra thick,red}
+}
+\node[mynode, label={below:{$d'[s]=d[s]$}}] at (0.0,0.0) (a) {$s$};
+\node[mynode, label={below:{$d'[h] \geq d[h]$}}] at (3.0,0.0) (b) {$h$};
+\node[mynode, label={below:{$d'[k] < d[k]$}}] at (5.0,0.0) (c) {$k$};
+\node[mynode, label={below:{$d'[u] < d[u]$}}] at (8.0,0.0) (d) {$u$};
+\draw[edgen,dashed] (a) edge node {} (b);
+\draw[edgen] (b) edge node {} (c);
+\draw[edgen,dashed] (c) edge node {} (d);
+\end{tikzpicture}
+\end{center}
+
+\onslide<3|handout:3>
+\BI
+\item \makebox[2.5cm][l]{Per costruzione:} $d'[h] \geq d[h]$
+\item \makebox[2.5cm][l]{Per costruzione:} \textcolor{blue}{$d'[k] = d'[h] + w(h,k)$}
+\item \makebox[2.5cm][l]{Per ipotesi:} \textcolor{red}{$d[k] \le d[h] + w(h,k)$}
 \item Combinando queste due relazioni, si ottiene: 
 \[
-  d_k' = d_h' + w(h,k) \ge d_h + w(h,k) \ge d_k
+  \textcolor{blue}{d'[k] = d'[h] + w(h,k)} \ge \textcolor{red}{d[h] + w(h,k) \ge d[k]}
 \]
-che contraddice l'ipotesi
+Quindi $d'[k] \ge d[k]$, il che contraddice $d'[k] < d[k]$
 \EI
 \end{overprint}
 
@@ -563,16 +586,17 @@ che contraddice l'ipotesi
 \begin{Procedure}
 \caption[A]{$(\INTARRAY, \INTARRAY)$ \shortestprototype($\Graph\ G,\ \Node\ s$)}
 
-\% Inizializza $T$ ad una foresta di copertura composta da nodi isolati\;
-\% Inizializza $d$ con una sovrastima della distanza ($d[s]=0$, $d[x] = +\infty$)\;
+\textcolor{blue}{\% Inizializza $T$ ad una foresta di copertura composta da nodi isolati}\;
+\textcolor{blue}{\% Inizializza $d$ con sovrastima della distanza ($d[s]=0$, $d[x] = +\infty$)}\;
 \While{$\exists (u,v): d[u] + G.w(u,v) < d[v]$}
 {
   $d[v] = d[u] + w(u,v)$\;
-  \% Sostituisci il padre di $v$ in $T$ con $u$\;
+  \textcolor{blue}{\% Sostituisci il padre di $v$ in $T$ con $u$}\;
 }
 \Return $(T,d)$
 \end{Procedure}
 
+\vspace{-6pt}
 \begin{myboxtitle}[Note]
 \BI
 \item Se al termine dell'esecuzione qualche nodo mantiene una distanza infinita, esso non è raggiungibile
@@ -630,7 +654,7 @@ $b[s] = \TRUE$\;
                 $b[v] = \TRUE$\;
       }
       {
-        \lnlset{line:shortest-update}{(4)}\alert{\% Azione da intraprendere nel caso $v$ sia già presente in $S$}
+        \lnlset{line:shortest-update}{(4)}\alert{\% Azione da svolgere nel caso $v$ sia già presente in $S$}
       }
       $T[v] = u$\;
       $d[v] = d[u] + G.w(u,v)$\;
@@ -686,6 +710,7 @@ $b[s] = \TRUE$\;
 \EI
 \end{myboxtitle}
 
+\small
 \vspace{-18pt}
 \begin{columns}
 \column{0.0001\textwidth}
@@ -693,10 +718,10 @@ $b[s] = \TRUE$\;
 \small
 \begin{Procedure}
 \caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
-\lnlset{line:shortest-init}{(1)}\alert{$\Heap\ S = \heapconstructor(); S.\heapinsert(s, 0)$}\;
-\While{\NOT\ $S.\setempty()$}
+\lnlset{line:shortest-init}{(1)}\alert{$\Heap\ Q = \heapconstructor(); Q.\heapinsert(s, 0)$}\;
+\While{\NOT\ $Q.\setempty()$}
 {
-  \lnlset{line:shortest-remove}{(2)}$\INTEGER\ u = S.\textsf{extract}()$\;
+  \lnlset{line:shortest-remove}{(2)}$\INTEGER\ u = Q.\heapdeletemin()$\;
   $b[u] = \FALSE$\;
   \ForEach{$v \in G.\adj(u)$}
   {
@@ -735,10 +760,10 @@ $b[s] = \TRUE$\;
 \small
 \begin{Procedure}
 \caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
-\lnlset{line:shortest-init}{(1)}$\Heap\ S = \heapconstructor(); S.\heapinsert(s, 0)$\;
-\While{\NOT\ $S.\setempty()$}
+\lnlset{line:shortest-init}{(1)}$\Heap\ Q = \heapconstructor(); Q.\heapinsert(s, 0)$\;
+\While{\NOT\ $Q.\setempty()$}
 {
-  \lnlset{line:shortest-remove}{(2)}\alert{$u = S.\heapdeletemin()$}\;
+  \lnlset{line:shortest-remove}{(2)}\alert{$u = Q.\heapdeletemin()$}\;
   $b[u] = \FALSE$\;
   \ForEach{$v \in G.\adj(u)$}
   {
@@ -777,11 +802,11 @@ $b[s] = \TRUE$\;
     {
       \eIf{\NOT\ $b[v]$}
       {
-        \lnlset{line:shortest-add}{(3)}\alert{$S.\heapinsert(v, d[u]+G.w(u,v))$}\;
+        \lnlset{line:shortest-add}{(3)}\alert{$Q.\heapinsert(v, d[u]+G.w(u,v))$}\;
         $b[v] = \TRUE$\;
       }
       {
-        \lnlset{line:shortest-update}{(4)}\% Azione da intraprendere nel caso $v$ sia già presente in $S$
+        \lnlset{line:shortest-update}{(4)}\% Azione da svolgere nel caso $v$ sia già presente in $S$
       }
       $T[v] = u$\;
       $d[v] = d[u] + G.w(u,v)$\;
@@ -815,11 +840,11 @@ $b[s] = \TRUE$\;
     {
       \eIf{\NOT\ $b[v]$}
       {
-        \lnlset{line:shortest-add}{(3)}$S.\heapinsert(v, d[u]+G.w(u,v))$\;
+        \lnlset{line:shortest-add}{(3)}$Q.\heapinsert(v, d[u]+G.w(u,v))$\;
         $b[v] = \TRUE$\;
       }
       {
-        \lnlset{line:shortest-update}{(4)}\alert{$S.\heapdecrease(v, d[u]+G.w(u,v))$}
+        \lnlset{line:shortest-update}{(4)}\alert{$Q.\heapdecrease(v, d[u]+G.w(u,v))$}
       }
       $T[v] = u$\;
       $d[v] = d[u] + G.w(u,v)$\;
@@ -879,7 +904,7 @@ $b[s] = \TRUE$\;
 \smallskip
 \BB{Spiegazione}
 \BIL
-\item Ogni colonna contiene lo stato del vettore $d$ all'inizio di ogni ripetizione del ciclo $\mathbf{while}\ \mathbf{not}\ S.\textsf{isEmpty}()$
+\item Ogni colonna contiene lo stato del vettore $d$ all'inizio di ogni ripetizione del ciclo $\mathbf{while}\ \mathbf{not}\ Q.\textsf{isEmpty}()$
 \item Ogni riga $v$ rappresenta l'evoluzione dello stato dell'elemento $d[v]$
 \item La legenda delle colonne rappresenta il nodo che viene estratto
 \EIL
@@ -902,7 +927,7 @@ $b[s] = \TRUE$\;
 \item Passo induttivo: quando viene estratto il $k$-esimo nodo $u$:
   \BI
   \item La sua distanza $d[u]$ dipende dai $k-1$ nodi già estratti
-  \item Non può dipendere dai nodi ancora da estrarre, che ha distanza $\geq d[u]$
+  \item Non può dipendere dai nodi ancora da estrarre, che hanno distanza $\geq d[u]$
   \item Quindi $d[u]$ è minimo e $u$ non verrà più re-inserito, perchè non ci sono distanze negative
 \EI
 \EIL
@@ -935,10 +960,10 @@ Costo totale: \alert{$O(n^2)$}
 \tiny
 \begin{Procedure}
 \caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
-\lnlset{line:shortest-init}{(1)}\alert{$\Heap\ S = \textsf{PriorityQueue}(); S.\textsf{insert}(s, 0)$}\;
-\While{\NOT\ $S.\textsf{isEmpty}()$}
+\lnlset{line:shortest-init}{(1)}\alert{$\Heap\ Q = \textsf{PriorityQueue}(); Q.\textsf{insert}(s, 0)$}\;
+\While{\NOT\ $Q.\textsf{isEmpty}()$}
 {
-  \lnlset{line:shortest-remove}{(2)}\alert{$u = S.\textsf{deleteMin}()$}\;
+  \lnlset{line:shortest-remove}{(2)}\alert{$u = Q.\textsf{deleteMin}()$}\;
   $b[u] = \FALSE$\;
   \ForEach{$v \in G.\textsf{adj}(u)$}
   {
@@ -946,11 +971,11 @@ Costo totale: \alert{$O(n^2)$}
     {
       \eIf{\NOT\ $b[v]$}
       {
-        \lnlset{line:shortest-add}{(3)}\alert{$S.\textsf{insert}(v, d[u]+G.w(u,v))$}\;
+        \lnlset{line:shortest-add}{(3)}\alert{$Q.\textsf{insert}(v, d[u]+G.w(u,v))$}\;
         $b[v] = \TRUE$\;
       }
       {
-        \lnlset{line:shortest-update}{(4)}\alert{$S.\textsf{decrease}(v, d[u]+G.w(u,v))$}
+        \lnlset{line:shortest-update}{(4)}\alert{$Q.\textsf{decrease}(v, d[u]+G.w(u,v))$}
       }
       $T[v] = u$\;
       $d[v] = d[u] + G.w(u,v)$\;
@@ -999,10 +1024,10 @@ Heap binario introdotto nel 1964
 \tiny
 \begin{Procedure}
 \caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
-\lnlset{line:shortest-init}{(1)}\alert{$\Heap\ S = \textsf{PriorityQueue}(); S.\textsf{insert}(s, 0)$}\;
-\While{\NOT\ $S.\textsf{isEmpty}()$}
+\lnlset{line:shortest-init}{(1)}\alert{$\Heap\ Q = \textsf{PriorityQueue}(); Q.\textsf{insert}(s, 0)$}\;
+\While{\NOT\ $Q.\textsf{isEmpty}()$}
 {
-  \lnlset{line:shortest-remove}{(2)}\alert{$u = S.\textsf{deleteMin}()$}\;
+  \lnlset{line:shortest-remove}{(2)}\alert{$u = Q.\textsf{deleteMin}()$}\;
   $b[u] = \FALSE$\;
   \ForEach{$v \in G.\textsf{adj}(u)$}
   {
@@ -1010,11 +1035,11 @@ Heap binario introdotto nel 1964
     {
       \eIf{\NOT\ $b[v]$}
       {
-        \lnlset{line:shortest-add}{(3)}\alert{$S.\textsf{insert}(v, d[u]+G.w(u,v))$}\;
+        \lnlset{line:shortest-add}{(3)}\alert{$Q.\textsf{insert}(v, d[u]+G.w(u,v))$}\;
         $b[v] = \TRUE$\;
       }
       {
-        \lnlset{line:shortest-update}{(4)}\alert{$S.\textsf{decrease}(v, d[u]+G.w(u,v))$}
+        \lnlset{line:shortest-update}{(4)}\alert{$Q.\textsf{decrease}(v, d[u]+G.w(u,v))$}
       }
       $T[v] = u$\;
       $d[v] = d[u] + G.w(u,v)$\;
@@ -1064,10 +1089,10 @@ Costo: \alert{$O(m + n \log n)$}
 \tiny
 \begin{Procedure}
 \caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
-\lnlset{line:shortest-init}{(1)}\alert{$\Heap\ S = \textsf{PriorityQueue}(); S.\textsf{insert}(s, 0)$}\;
-\While{\NOT\ $S.\textsf{isEmpty}()$}
+\lnlset{line:shortest-init}{(1)}\alert{$\Heap\ Q = \textsf{PriorityQueue}(); Q.\textsf{insert}(s, 0)$}\;
+\While{\NOT\ $Q.\textsf{isEmpty}()$}
 {
-  \lnlset{line:shortest-remove}{(2)}\alert{$u = S.\textsf{deleteMin}()$}\;
+  \lnlset{line:shortest-remove}{(2)}\alert{$u = Q.\textsf{deleteMin}()$}\;
   $b[u] = \FALSE$\;
   \ForEach{$v \in G.\textsf{adj}(u)$}
   {
@@ -1075,11 +1100,11 @@ Costo: \alert{$O(m + n \log n)$}
     {
       \eIf{\NOT\ $b[v]$}
       {
-        \lnlset{line:shortest-add}{(3)}\alert{$S.\textsf{insert}(v, d[u]+G.w(u,v))$}\;
+        \lnlset{line:shortest-add}{(3)}\alert{$Q.\textsf{insert}(v, d[u]+G.w(u,v))$}\;
         $b[v] = \TRUE$\;
       }
       {
-        \lnlset{line:shortest-update}{(4)}\alert{$S.\textsf{decrease}(v, d[u]+G.w(u,v))$}
+        \lnlset{line:shortest-update}{(4)}\alert{$Q.\textsf{decrease}(v, d[u]+G.w(u,v))$}
       }
       $T[v] = u$\;
       $d[v] = d[u] + G.w(u,v)$\;
@@ -1136,10 +1161,10 @@ Costo: \alert{$O(m + n \log n)$}
 \small
 \begin{Procedure}
 \caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
-\lnlset{line:shortest-init}{(1)}\alert{$\Queue\ S = \queueconstructor(); S.\textsf{enqueue}(s)$}\;
-\While{\NOT\ $S.\setempty()$}
+\lnlset{line:shortest-init}{(1)}\alert{$\Queue\ Q = \queueconstructor(); Q.\textsf{enqueue}(s)$}\;
+\While{\NOT\ $Q.\setempty()$}
 {
-  \lnlset{line:shortest-remove}{(2)}$\INTEGER\ u = S.\textsf{extract}()$\;
+  \lnlset{line:shortest-remove}{(2)}$\INTEGER\ u = Q.\textsf{extract}()$\;
   $b[u] = \FALSE$\;
   \ForEach{$v \in G.\adj(u)$}
   {
@@ -1174,10 +1199,10 @@ Costo: \alert{$O(m + n \log n)$}
 \small
 \begin{Procedure}
 \caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
-\lnlset{line:shortest-init}{(1)}$\Queue\ S = \queueconstructor(); S.\textsf{enqueue}(s)$\;
-\While{\NOT\ $S.\setempty()$}
+\lnlset{line:shortest-init}{(1)}$\Queue\ Q = \queueconstructor(); Q.\textsf{enqueue}(s)$\;
+\While{\NOT\ $Q.\setempty()$}
 {
-  \lnlset{line:shortest-remove}{(2)}\alert{$u = S.\textsf{dequeue}()$}\;
+  \lnlset{line:shortest-remove}{(2)}\alert{$u = Q.\textsf{dequeue}()$}\;
   $b[u] = \FALSE$\;
   \ForEach{$v \in G.\adj(u)$}
   {
@@ -1216,11 +1241,11 @@ Costo: \alert{$O(m + n \log n)$}
     {
       \eIf{\NOT\ $b[v]$}
       {
-        \lnlset{line:shortest-add}{(3)}\alert{$S.\textsf{enqueue}(v)$}\;
+        \lnlset{line:shortest-add}{(3)}\alert{$Q.\textsf{enqueue}(v)$}\;
         $b[v] = \TRUE$\;
       }
       {
-        \lnlset{line:shortest-update}{(4)}\% Azione da intraprendere nel caso $v$ sia già presente in $S$
+        \lnlset{line:shortest-update}{(4)}\% Azione da svolgere nel caso $v$ sia già presente in $S$
       }
       $T[v] = u$\;
       $d[v] = d[u] + G.w(u,v)$\;
@@ -1253,7 +1278,7 @@ Costo: \alert{$O(m + n \log n)$}
     {
       \If{\NOT\ $b[v]$}
       {
-        \lnlset{line:shortest-add}{(3)}$S.\textsf{enqueue}(v)$\;
+        \lnlset{line:shortest-add}{(3)}$Q.\textsf{enqueue}(v)$\;
         $b[v] = \TRUE$\;
       }
       $T[v] = u$\;
@@ -1373,10 +1398,10 @@ Ogni nodo può essere inserito ed estratto al massimo $n-1$ volte
 \footnotesize
 \begin{Procedure}
 \caption[A]{\footnotesize $(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
-\lnlset{line:shortest-init}{(1)}\alert{$\Queue\ S = \textsf{Queue}(); S.\textsf{enqueue}(s)$}\;
-\While{\NOT\ $S.\textsf{isEmpty}()$}
+\lnlset{line:shortest-init}{(1)}\alert{$\Queue\ Q = \textsf{Queue}(); Q.\textsf{enqueue}(s)$}\;
+\While{\NOT\ $Q.\textsf{isEmpty}()$}
 {
-  \lnlset{line:shortest-remove}{(2)}\alert{$u = S.\textsf{dequeue}()$}\;
+  \lnlset{line:shortest-remove}{(2)}\alert{$u = Q.\textsf{dequeue}()$}\;
   $b[u] = \FALSE$\;
   \ForEach{$v \in G.\textsf{adj}(u)$}
   {
@@ -1384,7 +1409,7 @@ Ogni nodo può essere inserito ed estratto al massimo $n-1$ volte
     {
       \If{\NOT\ $b[v]$}
       {
-        \lnlset{line:shortest-add}{(3)}\alert{$S.\textsf{enqueue}(v)$}\;
+        \lnlset{line:shortest-add}{(3)}\alert{$Q.\textsf{enqueue}(v)$}\;
         $b[v] = \TRUE$\;
       }
       $T[v] = u$\;
