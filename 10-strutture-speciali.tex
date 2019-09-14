@@ -1333,8 +1333,44 @@ Un albero \mfset con radice $r$ ottenuto tramite euristica sul rango ha almeno
 $2^{\mfrank[r]}$ nodi.
 \end{myboxtitle}
 
+\begin{myboxtitle}[Dimostrazione (informale)]
+\begin{overprint}
+\onslide<1|handout:1>
+\BIL
+\item \textbf{Caso base}: All'inizio tutti gli alberi sono costituiti da un nodo singolo, con rank 0: quindi ogni albero ha almeno $2^0=1$ nodi, corretto.
+\EIL
+\onslide<2|handout:2>
+\BIL
+\item \textbf{Caso 1}:
+Facendo merge di due alberi con radice $x$, $y$ con rango 
+$\mathit{rank}[x] > \mathit{rank}[y]$, il rango finale è pari a $\mathit{rank}[x]$, mentre il numero di nodi è sicuramente maggiore
+di $2^\mathit{rank}[x]$.
+\EIL
+\onslide<3|handout:3>
+\BIL
+\item \textbf{Caso 2} :Facendo merge di due alberi con radice $x$, $y$ con rango $\mathit{rank}[x] = \mathit{rank}[y]$, il rango finale è pari a $\mathit{rank}[x]+1$ e ha almeno 
+\[
+  2^{\mathit{rank}[x]}+2^{\mathit{rank}[y]} = 2^\mathit{rank}[x] + 2^{\mathit{rank}[x]} = 2^{\mathit{rank}[x]+1}
+\]
+come volevasi dimostrare
+\EIL
+\end{overprint}
+\end{myboxtitle}
+
+
+
+\end{frame}
+
+\begin{frame}{Complessità}
+
+
+\vspace{-9pt}
 \begin{myboxtitle}[Corollario]
 Un albero \mfset con radice $r$ ed $n$ nodi ha altezza inferiore a $\log n$.
+
+\end{myboxtitle}
+
+\begin{myboxtitle}[Dimostrazione]
 \[
   n \geq 2^{\mfrank[r]} \Leftrightarrow \mfrank[r] \leq \log n
 \]

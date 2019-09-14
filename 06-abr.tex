@@ -62,7 +62,7 @@ Alberi binari di ricerca}
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Dizionario]
 E' un insieme dinamico che implementa le seguenti funzionalità:
 \BIL
@@ -93,6 +93,7 @@ Lista non ordinata &  $O(n)$ & $O(1)^*$ & $O(1)^*$ \\\hline
 \begin{frame}{Alberi binari di ricerca (ABR)}
 
 
+\vspace{-9pt}
 \begin{myboxtitle}[Idea ispiratrice]
 Portare l'idea di ricerca binaria negli alberi
 \end{myboxtitle}
@@ -124,6 +125,7 @@ $\Item\ \mathit{value}$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Alberi binari di ricerca (ABR)}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Proprietà]
 \BEL
 \item Le chiavi contenute nei nodi del \alert{sottoalbero sinistro} di $u$ sono \alert{minori} di $u.\mathit{key}$
@@ -211,6 +213,7 @@ $\Tree\ \mathit{tree}$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Ricerca -- \textsf{lookupNode}()}
 
+\vspace{-9pt}
 \begin{myboxtitle}[$\Item\ \lookupnode(\Tree\ T, \Item\ k)$]
 \BIL
 \item Restituisce il nodo dell'albero $T$ che contiene la chiave $k$, se presente
@@ -261,6 +264,7 @@ $\Tree\ t = \lookupnode(\mathit{tree}, k)$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Ricerca -- Implementazione}
     
+\vspace{-9pt}
 \begin{myboxtitle}[Iterativa]
 
 \begin{Procedure}
@@ -322,6 +326,7 @@ $\Tree\ u = T$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Ricerca -- Implementazione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Ricorsiva]
 \vspace{-11pt}
 \begin{Procedure}
@@ -405,6 +410,7 @@ $\Tree\ u = T$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Successore-predecessore -- Esempio 1}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione]
 Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$ 
 \end{myboxtitle}
@@ -423,6 +429,7 @@ Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$
 %-------------------------------------------------------------------------
 \begin{frame}{Successore-predecessore -- Esempio 2}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione]
 Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$ 
 \end{myboxtitle}
@@ -443,6 +450,7 @@ Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$
 %-------------------------------------------------------------------------
 \begin{frame}{Successore-predecessore --  Caso 1}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione]
 Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$ 
 \end{myboxtitle}
@@ -467,6 +475,7 @@ Il successore $v$ è il \alert{minimo del sottoalbero destro} di $u$
 %-------------------------------------------------------------------------
 \begin{frame}{Successore-predecessore -- Esempio 3}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione]
 Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$ 
 \end{myboxtitle}
@@ -488,6 +497,7 @@ Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$
 %-------------------------------------------------------------------------
 \begin{frame}{Successore-predecessore -- Esempio 4}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione]
 Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$ 
 \end{myboxtitle}
@@ -507,6 +517,7 @@ Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$
 %-------------------------------------------------------------------------
 \begin{frame}{Successore-predecessore -- Caso 2}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione]
 Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$ 
 \end{myboxtitle}
@@ -534,7 +545,7 @@ Risalendo attraverso i padri, il successore è il \alert{primo avo} $v$ tale per
 \begin{frame}{Successore-predecessore -- Implementazione}
 
 \vspace{-12pt}
-\TwoColsCustom{0.45}{0.53}{
+\TwoColsCustom{0.42}{0.56}{
 \vspace{12pt}
 \includegraphics[width=\textwidth,page=6]{minmax.pdf}
 }{
@@ -566,7 +577,7 @@ $\Tree\ p = t.\Parentvar$\;
 
 \vspace{-15pt}
 \footnotesize
-\TwoCols{
+\TwoColsCustom{0.49}{0.49}{
 \begin{Procedure}
 \caption[A]{\Tree\ \alert{\prednode}($\Tree\ t$)}
 
@@ -604,7 +615,7 @@ $\Tree\ p = t.\Parentvar$\;
 \end{Procedure}
 }
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Per passare da successore a predecessore]
 \BIL
 \item \Rightvar diventa \Leftvar
@@ -620,6 +631,7 @@ $\Tree\ p = t.\Parentvar$\;
 
 \begin{frame}{Inserimento -- \insertnode() }
 
+\vspace{-9pt}
 \begin{myboxtitle}[$\Tree\ \insertnode(\Tree\ T, \Item\ k, \Item\ v)$]
 \BIL
 \item Inserisce un'associazione chiave-valore $(k,v)$ nell'albero $T$
@@ -722,6 +734,7 @@ $\Tree\ u = T$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Cancellazione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[$\Tree\ \removenode(\Tree\ T, \Item\ k)$]
 \BIL
 \item Rimuove il nodo contenente la chiave $k$ dall'albero $T$
@@ -945,6 +958,7 @@ $\Tree\ u = \lookupnode(T, k)$\;
 
 \begin{frame}{Cancellazione -- Dimostrazione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Caso 1 - nessun figlio]
 \BI
 \item Eliminare foglie non cambia l'ordine dei nodi rimanenti
@@ -961,6 +975,7 @@ $\Tree\ u = \lookupnode(T, k)$\;
 
 \begin{frame}{Cancellazione -- Dimostrazione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Caso 3 - due figli]
 \BI
 \item Il successore $s$ 
@@ -1101,6 +1116,7 @@ Alberi binari di ricerca bilanciati}
 %-------------------------------------------------------------------------
 \begin{frame}{ABR bilanciati}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Fattore di bilanciamento]
 Il \alert{fattore di bilanciamento} $\beta(v)$ di un nodo $v$ è la massima differenza di altezza fra i sottoalberi di $v$
 \end{myboxtitle}
@@ -1149,7 +1165,7 @@ Il \alert{fattore di bilanciamento} $\beta(v)$ di un nodo $v$ è la massima diff
 \item La radice è nera
 \item Tutte le foglie sono nere
 \item Entrambi i figli di un nodo rosso sono neri
-\item Ogni cammino semplice da un nodo $u$ ad una delle foglie contenute nel sottoalbero radicato in $u$ hanno lo stesso numero di nodi neri
+\item Tutti i cammini semplici da un nodo $u$ ad una delle foglie contenute nel sottoalbero radicato in $u$ hanno lo stesso numero di nodi neri
 \EEL
 
 
@@ -1183,6 +1199,7 @@ $\Item\ \mathit{value}$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Altezza nera}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Altezza nera di un nodo $v$]
 L'\alert{altezza nera $b(v)$ di un nodo $v$} è il numero di nodi neri lungo ogni percorso da $v$ (escluso) ad ogni foglia (inclusa) del suo sottoalbero.
 \end{myboxtitle}
@@ -1324,7 +1341,7 @@ il vincolo 1 (La radice deve essere nera)
 %-------------------------------------------------------------------------
 \begin{frame}{Inserimento in alberi Red-Black}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Inserimento]
 \BIL
 \item Si cerca la posizione usando la stessa procedura usata per gli alberi binari di ricerca
@@ -1378,6 +1395,7 @@ $\Tree\ u = T$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Inserimento in alberi Red-Black}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Principi generali]
 \BIL
 \item Ci spostiamo verso l’alto lungo il percorso di inserimento 
@@ -1571,6 +1589,7 @@ Le operazioni di ripristino sono necessarie solo quando due nodi consecutivi son
 %-------------------------------------------------------------------------
 \begin{frame}{Inserimento -- Complessità}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Complessità totale: $O(\log n)$]
 \BIL
 \item $O(\log n)$ per scendere fino al punto di inserimento

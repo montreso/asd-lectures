@@ -16,6 +16,7 @@
 
 \begin{frame}{Notazioni $O$, $\Omega$, $\Theta$}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione -- Notazione $O$]
 Sia $g(n)$ una funzione di costo; indichiamo con $O(g(n))$ l'insieme
 delle funzioni $f(n)$ tali per cui:\\[-6pt]
@@ -36,6 +37,7 @@ delle funzioni $f(n)$ tali per cui:\\[-6pt]
 
 \begin{frame}{Notazioni $O$, $\Omega$, $\Theta$}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione -- Notazione $\Omega$]
 Sia $g(n)$ una funzione di costo; indichiamo con $\Omega(g(n))$ l'insieme
 delle funzioni $f(n)$ tali per cui:\\[-6pt]
@@ -55,6 +57,7 @@ delle funzioni $f(n)$ tali per cui:\\[-6pt]
 
 \begin{frame}{Notazioni $O$, $\Omega$, $\Theta$}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione -- Notazione $\Theta$]
 Sia $g(n)$ una funzione di costo; indichiamo con $\Theta(g(n))$ l'insieme
 delle funzioni $f(n)$ tali per cui:\\[-6pt]
@@ -70,30 +73,6 @@ delle funzioni $f(n)$ tali per cui:\\[-6pt]
 \item $f(n)$ cresce esattamente come $g(n)$
 \item $f(n) = \Theta(g(n))$ se e solo se $f(n) = O(g(n))$ e $f(n) = \Omega(g(n))$
 \end{itemize}
-
-\end{frame}
-
-\begin{frame}{Algoritmi vs problemi}
-
-\BB{Complessità in tempo di un \alert{algoritmo}} 
-{\em La più grande quantità di tempo richiesta per un input di dimensione $n$}
-\BI
-\item \alert{$O(f(n))$}: Per tutti gli input, l'algoritmo costa al più $f(n)$ 
-\item \alert{$\Omega(f(n))$}: Per tutti gli input, l'algoritmo costa almeno $f(n)$ 
-\item \alert{$\Theta(f(n))$}: L'algoritmo richiede $\Theta(f(n))$ per tutti gli input
-\EI
-
-\bigskip
-\BB{Complessità in tempo di un \alert{problema computazionale}}
-{\em La complessità in tempo relative a tutte le possibili soluzioni}
-\BI
-\item \alert{$O(f(n))$}: Complessità del miglior algoritmo che risolve il 
-problema
-\item \alert{$\Omega(f(n))$}: Dimostrare che nessun algoritmo può risolvere il problema in tempo inferiore a $\Omega(f(n))$
-\item \alert{$\Theta(f(n))$}: Algoritmo ottimo
-\EI
-
-
 
 \end{frame}
 

@@ -66,7 +66,7 @@ Eh?  \\(NOOB)
 \TwoColsCustom{0.5}{0.45}{
 \includegraphics[width=0.8\textwidth]{stackoverflow.jpg}
 }{
-Posso guardare su StackOverflow?\\(CODE MONKEY)
+Cerco qualcosa su StackOverflow\\(CODE MONKEY)
 }
 
 %-------------------------------------------------------------------------
@@ -86,7 +86,7 @@ Posso sviluppare un algoritmo efficiente per lei! \\(COMPUTER SCIENTIST)
 %-------------------------------------------------------------------------
 \begin{frame}[fragile]{Colloquio di lavoro}
 	
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Problema: Sottovettore di somma massimale]
 \BI
 \item \textbf{Input}: un vettore di interi $A[1 \ldots n]$
@@ -152,7 +152,7 @@ Usiamo una funzione che dato un vettore $A$ e due indici $i$, $j$ contenuti in $
 
 \small
 \begin{myboxtitle}[Java]
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{lstlisting}{language=java}
 int sum(int[] A, int i, int j) {
   int sumSoFar = 0;
@@ -167,6 +167,7 @@ int sum(int[] A, int i, int j) {
 \begin{multicols}{2}
 \vspace{-6pt}
 \begin{myboxtitle}[Python]
+\vspace{-9pt}
 \begin{lstlisting}{language=python}
 sum(A[i:j+1])
 \end{lstlisting}
@@ -174,6 +175,7 @@ sum(A[i:j+1])
 \end{myboxtitle}
 \vspace{-6pt}
 \begin{myboxtitle}[C++]
+\vspace{-9pt}
 \begin{lstlisting}{language=C++}
 accumulate(A+i, A+(j+1), 0)
 \end{lstlisting}
@@ -229,6 +231,7 @@ Cicla su tutte le coppie $(i,j)$ tali che $i \leq j$:
 \endgroup
 \end{mdframed}
 
+\vspace{-9pt}
 \begin{lstlisting}[language=java]
 int maxsum1(int[] A, int n) {
   int maxSoFar = 0;              // Maximum found so far
@@ -252,6 +255,7 @@ int maxsum1(int[] A, int n) {
 Versione con il terzo ciclo esplicitato.
 \end{mdframed}
 
+\vspace{-9pt}
 \begin{lstlisting}[language=java]
 int maxsum1(int[] A, int n) {
   int maxSoFar = 0;              // Maximum found so far
@@ -274,7 +278,7 @@ int maxsum1(int[] A, int n) {
 
 \begin{frame}[fragile]{Versione 2 -- Java -- $O(n^2)$}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Ottimizzazione]
 Se ho calcolato la somma $s$ dei valori in $A[i \ldots j]$, la somma
 dei valori in $A[i \ldots j+1]$ è pari a $s+A[j+1]$. 
@@ -292,6 +296,7 @@ dei valori in $A[i \ldots j+1]$ è pari a $s+A[j+1]$.
 % \end{lstlisting}
 
 
+\vspace{-9pt}
 \begin{lstlisting}[language=java]
 int maxsum2(int[] A, int n) {
   int maxSoFar = 0;                 // Maximum found so far
@@ -312,12 +317,13 @@ int maxsum2(int[] A, int n) {
 
 \begin{frame}[fragile]{Versione 2 -- Python -- $O(n^2)$}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Ottimizzazione]
 Se ho calcolato la somma $s$ dei valori in $A[i \ldots j]$, la somma
 dei valori in $A[i \ldots j+1]$ è pari a $s+A[j+1]$. 
 \end{myboxtitle}
 
+\vspace{-9pt}
 \begin{lstlisting}[language=python]
 def maxsum2(A):
   maxSoFar = 0                   # Maximum found so far
@@ -337,7 +343,7 @@ def maxsum2(A):
 
 \begin{frame}[fragile]{Versione 2 -- Python con librerie -- $O(n^2)$}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Uso di funzioni native]
 La funzione \texttt{accumulate()} del modulo \texttt{itertools} prende un vettore (lista) $I$ come input e ritorna un vettore $O$ tale che $O[k] = \sum_{i=0}^k I[i]$. 
 
@@ -345,6 +351,7 @@ La funzione \texttt{accumulate()} del modulo \texttt{itertools} prende un vettor
 Può sostituire l'accumulatore nel codice precedente; normalmente è più veloce perchè l'implementazione sottostante è basata sul C
 \end{myboxtitle}
 
+\vspace{-9pt}
 \begin{lstlisting}[language=python]
 from itertools import accumulate
 
@@ -364,7 +371,7 @@ def maxsum2(A):
 %-------------------------------------------------------------------------
 \begin{frame}[fragile]{Versione 3 -- $O(n \log n)$}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Divide-et-impera]
 \BIL
 \item Dividiamo il vettore a metà (sinistra, destra), in due parti più o meno uguali
@@ -393,7 +400,7 @@ def maxsum2(A):
 %-------------------------------------------------------------------------
 \begin{frame}[fragile]{Versione 3 -- $O(n \log n)$}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Divide-et-impera]
 \BIL
 \item Dividiamo il vettore a metà (sinistra, destra), in due parti più o meno uguali
@@ -422,7 +429,7 @@ def maxsum2(A):
 \begin{frame}[fragile]{Versione 3 -- Python -- $O(n \log n)$}
 
 \footnotesize
-\vspace{-12pt}
+\vspace{-21pt}
 \begin{lstlisting}[language=python]
 def maxsum_rec(A,i,j):
   if (i==j):
@@ -481,21 +488,29 @@ def maxsum3(A):
 %-------------------------------------------------------------------------
 \begin{frame}[fragile]{Versione 4  -- $O(n)$}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Programmazione dinamica]
 Sia \alert{$\mathit{maxHere}[i]$} il valore del sottovettore di somma massima che termina in posizione $A[i]$
-\begingroup
-\small
+
 \[
 \mathit{maxHere}[i] = \begin{cases}
   0 & i<0 \\
   \max(\mathit{maxHere}[i-1]+A[i], 0) & i \geq 0
 \end{cases}
 \]
-\endgroup
-\vspace{-12pt}
+
+
 \end{myboxtitle}
 
+\BB{Il valore massimo contenuto in $\mathit{maxHere}$ rappresenta il valore del sottovettore di somma massima che termina in una qualunque posizione del vettore, quindi la nostra risposta.
+}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}[fragile]{Versione 4  -- $O(n)$}
+
+\vspace{-18pt}
 \begin{lstlisting}[language=c++]
 int maxsum4(int A[], int n) {
   int maxSoFar = 0;
@@ -508,10 +523,6 @@ int maxsum4(int A[], int n) {
 }
 \end{lstlisting}  
   
-\end{frame}  
-
-%-------------------------------------------------------------------------
-\begin{frame}[fragile]{Versione 4  -- $O(n)$}
 
 \begingroup
 \small
@@ -540,6 +551,7 @@ Stessa tecnica, ma in questo caso ritorniamo una coppia di indici.
 \end{mdframed}
 
 \small
+\vspace{-9pt}
 \begin{lstlisting}[language=python]
 def maxsum4_slice(A):
   maxSoFar = 0      # Maximum found so far
@@ -574,8 +586,8 @@ def maxsum4_slice(A):
 \end{tabular}
 
 
-\begin{lstlisting}
-\end{lstlisting}
+% \begin{lstlisting}
+% \end{lstlisting}
 
 \begingroup
 \bigskip
@@ -595,15 +607,21 @@ delle variabili dopo l'esecuzione del ciclo per quell'elemento.
 \begin{frame}{Un po' di storia}
 
 \vspace{-9pt}
-\BB{Sottovettore di somma massimale}
+\begin{myboxtitle}[Sottovettore di somma massimale]
 \BIL
-\item Dal punto di vista educativo, \alert{best problem ever}!
-\item 1977: Il problema è stato posto per la prima volta da Ulf Grenander (Brown), come versione semplificata di un problema più generale in immagini 2D (maximum likelihood in image processing)
+\item Dal punto di vista didattico, \alert{best problem ever}!
+\item 1977: Ulf Grenander (Brown) introduce il problema, come versione semplificata di un problema più generale in immagini 2D (\emph{maximum likelihood in image processing})
 \item 1984: Algoritmo lineare proposto da Jay Kadane (Carnegie Mellon)
-\item Jon Bentley. \alert{Programming pearls: algorithm design techniques}. Commun. ACM 27(9):865-873. September, 1984. [\href{http://cricca.disi.unitn.it/montresor/wp-content/uploads/2018/09/programmingpearls.pdf}{PDF}]
-\item Jon Bentley \alert{Programming Pearls, 2nd ed.}. Addison-Wesley, 2000.
-[Una copia in BUC]
 \EIL
+\end{myboxtitle}
+
+\bigskip\small
+Jon Bentley. \alert{Programming pearls: algorithm design techniques}. Commun. ACM 27(9):865-873. September, 1984. [\href{http://cricca.disi.unitn.it/montresor/wp-content/uploads/2018/09/programmingpearls.pdf}{PDF}]
+
+
+\bigskip\small
+Jon Bentley. \alert{Programming Pearls, 2nd ed.} Addison-Wesley, 2000.\newline
+[Una copia in BUC]
 
 \end{frame}
 
@@ -628,7 +646,7 @@ Chao, Kun-Mao. \alert{Genomic sequence analysis: A case study in constrained hea
 \vspace{-9pt}
 \begin{myboxtitle}[Studenti Informatica]
 \BI
-\item Un corso \alert{annuale} da 12 crediti (da settembre 2017 a maggio 2018), suddiviso in due moduli ma con un unico esame orale finale
+\item Un corso \alert{annuale} da 12 crediti (da 09/2019 a 05/2020), suddiviso in due moduli ma con un unico esame orale finale
 \EI
 \end{myboxtitle}
 
@@ -707,24 +725,30 @@ Chao, Kun-Mao. \alert{Genomic sequence analysis: A case study in constrained hea
 
 
 \begin{frame}{Scopo del corso}
+
+\vspace{-9pt}
 \begin{myboxtitle}[Conoscenze e competenze fondamentali]
 \BI
-\item \alert{Contenuto}: una panoramica aggiornata sui problemi fondamentali e le loro soluzioni
-\item	\alert{Metodo}: i principi e le tecniche per risolvere i problemi che capitano nella vita di un programmatore
+\item \alert{Conoscenze}: panoramica aggiornata sui problemi fondamentali e le loro soluzioni algoritmiche
+\item	\alert{Competenze}: tecniche standard per risolvere un'ampia gamma di problemi complessi
 \EI
 \end{myboxtitle}
-\TwoColsCustom{0.50}{0.47}{
-\BB{Contenuto: elenco di algoritmi}
+\TwoColsCustom{0.49}{0.49}{
+\begin{myboxtitle}[Algoritmi]
 \BI
 \item Analizzate il loro codice
 \item Convincetevi che funzionano
-\item Provate a implementarli
+\item Implementateli!
 \EI
+\end{myboxtitle}
 }{
-\BB{Metodo: pensiero astratto}
+\begin{myboxtitle}[Tecniche di soluzione\phantom{g}]
 \BI
-\item Come sviluppare nuovi algoritmi per ogni problema che si presenta
+\item Risolvete (tanti) problemi
+\item Analizzate le vostre soluzione
+\item Implementatele!
 \EI
+\end{myboxtitle}
 }
 \end{frame}
 
@@ -877,9 +901,16 @@ Laurentius da Voltolina -- Bologna, seconda metà del XIV secolo
 \includegraphics[width=1.0\textwidth]{attention.png}
 \end{center}
 
-\pause
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Sull'uso di portatili e cellulari durante la lezione}
+
 \footnotesize
-\BI
+\BIL
+\item C. May. \alert{Students are Better Off without a Laptop in the Classroom}. Scientific American, 2017.\\
+\url{https://www.scientificamerican.com/article/students-are-better-off-without-a-laptop-in-the-classroom/}
+
 \item C. Stothart, A. Mitchum, C. Yehnert. \alert{The attentional cost of receiving a cell phone notification}. J Exp Psychol Hum Percept Perform. 41(4):893-7 (Aug. 2015).
 \url{https://www.ncbi.nlm.nih.gov/pubmed/26121498}
 
@@ -888,7 +919,7 @@ Laurentius da Voltolina -- Bologna, seconda metà del XIV secolo
 Journal of the Association for Consumer Research, 2(2):140-154 (April 2017) \\
 \url{https://www.journals.uchicago.edu/doi/10.1086/691462}
 
-\EI
+\EIL
 
 \end{frame}
 
@@ -897,25 +928,25 @@ Journal of the Association for Consumer Research, 2(2):140-154 (April 2017) \\
 
 \begin{columns}[T]
 
-\column{0.3\textwidth}
-\BB{Mette il cellulare in modalità aereo}
+\column{0.35\textwidth}
+\BB{Mettete il cellulare in modalità aereo}
 
 \begin{center}
 \IG{0.9}{airplane.png}
 \end{center}
 
-\column{0.3\textwidth}
+\column{0.35\textwidth}
 \BB{Mettete il cellulare nello zaino}
 
 \begin{center}
-\IG{0.8}{backpack.jpg}
+\IG{0.9}{backpack.jpg}
 \end{center}
 
 \column{0.3\textwidth}
 \BB{Spegnete il WiFi del portatile}
 
 \begin{center}
-\IG{0.7}{wifioff.jpg}
+\IG{0.8}{wifioff.jpg}
 \end{center}
 
 \end{columns}
@@ -964,10 +995,10 @@ Journal of the Association for Consumer Research, 2(2):140-154 (April 2017) \\
 \item Titolare: lezioni teoriche, esercitazioni
 \item \underline{alberto.montresor [AT] unitn.it}
 \EI
-\item Dott. Cristian Consonni,  Dott. Lorenzo Ghiro
+\item Dott. Cristian Consonni,  Dott. Marta Fornasier
 \BI
 \item Esercitazioni, esercitazioni in laboratorio, correzioni progetti
-\item \underline{cristian.consonni [AT] unitn.it} , \underline{lorenzo.ghiro [AT] unitn.it}
+% \item \underline{cristian.consonni [AT] unitn.it} , \underline{marta.fornasier [AT] unitn.it}
 \EI
 \EIL
 \end{frame}
@@ -976,6 +1007,7 @@ Journal of the Association for Consumer Research, 2(2):140-154 (April 2017) \\
 \begin{frame}{Testi}
 
 
+\vspace{-9pt}
 \begin{myboxtitle}[Libro adottato]
 \BI
 \item Bertossi, Montresor\\
@@ -987,8 +1019,8 @@ Tecniche nuove, $3^a$ ed. (2014)\\
 
 \begin{myboxtitle}[Approfondimenti]
 \BI
-\item Cormen, Leiserson, Rivest, Stein. \alert{\emph{Introduction to Algorithms}}. \\The MIT Press; $3^{\textrm{rd}}$ ed. (2009) (\euro 48.35)
-\item Jon Kleinberg, Eva Tardos. \alert{\emph{Algorithm Design}}. \\Addison Wesley, $1^{\textrm{st}}$ Int. ed. (2013) (\euro 73.02)
+\item Cormen, Leiserson, Rivest, Stein. \alert{\emph{Introduction to Algorithms}}. \\The MIT Press; $3^{\textrm{rd}}$ ed. (2009) (\euro 44.55)
+\item Jon Kleinberg, Eva Tardos. \alert{\emph{Algorithm Design}}. \\Addison Wesley, $1^{\textrm{st}}$ Int. ed. (2013) (\euro 66.53)
 \EI
 \end{myboxtitle}
 
@@ -1080,23 +1112,24 @@ Giovedì & 10.30 -- 12.30 & Lezione/Esercitazione & B107 \\\hline
 \end{frame}
 %-------------------------------------------------------------------------
 \begin{frame}{Esame scritto}
-\vspace{-18pt}
+\vspace{-15pt}
 \IG{0.85}{grading.png}
 \end{frame}
 %-------------------------------------------------------------------------
 \begin{frame}{Laboratorio}
 	
 \vspace{-9pt}
-\BB{Esercitazioni di laboratorio}
+\begin{myboxtitle}[Esercitazioni di laboratorio]
 \BI
 \item Corrette tramite software: Contest Management System (CMS), valutate in maniera competitiva
 \item Ricevete un bonus compreso fra 0 e 6 punti
 \BI
-\item Esercitazione 1: 13/12/2018 [0-3] punti
-\item Esercitazione 2: 05/2019, [0-3] punti
+\item Esercitazione 1: Dicembre 2019 [0-3] punti
+\item Esercitazione 2: Maggio 2020, [0-3] punti
 \EI
 \item E' obbligatorio consegnarne almeno una per poter accedere all'orale 
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1144,31 +1177,31 @@ Per accedere all'orale, è necessario:
 
 \vspace{-9pt}
 \TwoCols{
-\begin{myboxtitle}[Studenti 2018-19]
+\begin{myboxtitle}[Studenti 2019-20]
 \begin{tabular}{|l|l|}
 \hline
-Parziale 1 & Parziale 2 \\\hline
-01/2019 & \\\hline
-02/2019 &  \\\hline
-        & {06/2019} \\\hline
-06/2019 & {06/2019} \\\hline
-07/2019 & {07/2019} \\\hline
-09/2019 & {09/2019} \\\hline
-01/2020 & {01/2020} \\\hline
-02/2020 & {02/2020} \\\hline
+\textbf{Parte 1} & \textbf{Parte 2} \\\hline
+01/2020 & \\\hline
+02/2020 &  \\\hline
+        & {06/2020} \\\hline
+06/2020 & {06/2020} \\\hline
+07/2020 & {07/2020} \\\hline
+09/2020 & {09/2020} \\\hline
+  & {01/2021} \\\hline
+ & {02/2021} \\\hline
 \end{tabular}
 \end{myboxtitle}
 }{
 \begin{myboxtitle}[Studenti precedenti]
 \begin{tabular}{|l|l|}
 \hline
-Parziale 1 & Parziale 2 \\\hline
-01/2019 & 01/2019\\\hline
-02/2019 & 02/2019 \\\hline
+\textbf{Parte 1 }& \textbf{Parte 2} \\\hline
+01/2020 & 01/2020\\\hline
+02/2020 & 02/2020 \\\hline
         &    \\\hline
-06/2019 & {06/2019} \\\hline
-07/2019 & {07/2019} \\\hline
-09/2019 & {09/2019} \\\hline
+06/2020 & {06/2020} \\\hline
+07/2020 & {07/2020} \\\hline
+09/2020 & {09/2020} \\\hline
 \end{tabular}
 \end{myboxtitle}
 }
@@ -1215,7 +1248,7 @@ l'intento sia conseguito.”
 %-------------------------------------------------------------------------
 \begin{frame}{Varie ed eventuali}
     
-\vspace{-9pt}
+\vspace{-15pt}
 \TwoColsCustom{0.47}{0.51}{
 \begin{myboxtitle}[Opportunità]
 \BIL
@@ -1242,6 +1275,7 @@ l'intento sia conseguito.”
 \item Lodovico Giarretta (2016)
 \item Giovanni De Toni (2017)
 \item Francesco Gazzetta (2018)
+\item Simone Degiacomi (2019)
 \EI
 \end{myboxtitle}
 }
@@ -1254,9 +1288,12 @@ l'intento sia conseguito.”
 
 \BIL
 \item Canale Telegram (annunci lezione):\\
-\url{https://t.me/asd2018_19}
-\item Mailing list (annunci vari, anche per ex-studenti):\\
-{\small \url{https://groups.google.com/a/disi.unitn.it/forum/\#!forum/asd}}
+\url{https://t.me/asd19_20}
+\item "Iscrizione" corso:
+\url{https://forms.gle/VGCfryoQYGTpQJtc7}
+
+% \item Mailing list (annunci vari, anche per ex-studenti):\\
+% {\small \url{https://groups.google.com/a/disi.unitn.it/forum/\#!forum/asd}}
 \item Questionario valutazione didattica:\\
 \url{https://goo.gl/forms/cpRZKmmJelfUomfG3}
 \EIL

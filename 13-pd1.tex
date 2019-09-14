@@ -2204,7 +2204,7 @@ ricorsiva $\mathit{DP}[i][j]$ che restituisca la \alert{lunghezza} della LCS dei
 \onslide<4-6|handout:1>
 \[
   \mathit{DP}[i][j] = \begin{cases}
-   0 & i=0\ \OR\ i=0 \\
+   0 & i=0\ \OR\ j=0 \\
    \mathit{DP}[i-1][j-1]+1 & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
    \max \{ \mathit{DP}[i-1][j], \mathit{DP}[i][j-1] \} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
   \end{cases}

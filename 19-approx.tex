@@ -937,7 +937,7 @@ C[i] = \begin{cases}
 \item Lower bound della distanza per tornare a $S[1]$ ($O(n)$)
 \medskip
 \alert{\[
-A = \min_{h \notin S} \{ d[S[h][1] \}
+A = \min_{h \notin S} \{ d[h][S[1]] \}
 \]
 }\EIL
 }{
@@ -945,7 +945,7 @@ A = \min_{h \notin S} \{ d[S[h][1] \}
 \item Lower bound della distanza per andarsene da $S[i]$ ($O(n)$)
 \medskip
 \alert{\[
-B = \min_{h \notin S}\{d[S[i], h] \}
+B = \min_{h \notin S}\{d[S[i][\eta] \}
 \]
 }\EIL
 }

@@ -35,6 +35,8 @@
 \newcommand{\R}[1]{\textcolor{red}{#1}}
 \newcommand{\B}[1]{\textcolor{blue}{#1}}
 
+\newcommand\mydots{\hbox to 1em{\,...}\xspace}
+
 \graphicspath{{figs/14/}}
 
 \begin{document}
@@ -128,7 +130,7 @@ much.}{\textit{Gordon Gekko, Wall Street}}
 \TwoColsCustom{0.7}{0.25}{
 \vspace{-18pt}
 \begin{myboxtitle}[Input]
-Sia $S=\{ 1, 2, \ldots, n \}$ un insieme di intervalli della retta reale.
+Sia $S=\{ 1, 2, \mydots, n \}$ un insieme di intervalli della retta reale.
 Ogni intervallo $[a_i, b_i[$, con $i \in S$, è chiuso a sinistra e aperto
 a destra.
 \BI
@@ -200,13 +202,13 @@ cardinalità formato da intervalli tutti disgiunti tra loro.
 \BIL
 \item Si assuma che gli intervalli siano ordinati per tempo di fine:\\[-9pt]
 \[
-	b_1 \leq b_2 \leq \ldots \leq b_n
+	b_1 \leq b_2 \leq \mydots \leq b_n
 \]
-\item Definiamo il \alert{sottoproblema $S[i,j]$} come l'insieme
+\item Definiamo il \alert{sottoproblema $S[i \mydots j]$} come l'insieme
 di intervalli che iniziano dopo la fine di $i$  e finiscono
 prima dell'inizio di $j$:\\[-9pt]
 \[
-S[i,j] = \{ k |  b_i \leq a_k < b_k \leq a_j \}
+S[i \mydots j] = \{ k |  b_i \leq a_k < b_k \leq a_j \}
 \]
 \item Aggiungiamo due intervalli fittizi:
 \BI
@@ -226,19 +228,19 @@ $S[0,n+1]$
 
 \vspace{-9pt}
 \begin{myboxtitle}[Teorema]
-Supponiamo che $A[i,j]$ sia una soluzione ottimale di $S[i,j]$ e sia $k$
-un intervallo che appartiene a $A[i,j]$; allora
+Supponiamo che $A[i \mydots j]$ sia una soluzione ottimale di $S[i \mydots j]$ e sia $k$
+un intervallo che appartiene a $A[i \mydots j]$; allora
 
 \BIL
-\item \alert{Il problema $S[i,j]$ viene suddiviso in due sottoproblemi}
+\item \alert{Il problema $S[i \mydots j]$ viene suddiviso in due sottoproblemi}
 	\BI
-	\item $S[i,k]$:  gli intervalli di $S[i,j]$ che finiscono prima di $k$
-	\item $S[k,j]$:  gli intervalli di $S[i,j]$ che iniziano dopo di $k$
+	\item $S[i \mydots k]$:  gli intervalli di $S[i \mydots j]$ che finiscono prima di $k$
+	\item $S[k \mydots j]$:  gli intervalli di $S[i \mydots j]$ che iniziano dopo di $k$
 	\EI
-\item \alert{$A[i,j]$ contiene le soluzioni ottimali di $S[i,k]$ e $S[k,j]$}
+\item \alert{$A[i \mydots j]$ contiene le soluzioni ottimali di $S[i \mydots k]$ e $S[k \mydots j]$}
 	\BI
-	\item $A[i,j] \cap S[i,k]$ è la soluzione ottimale di $S[i,k]$
-	\item $A[i,j] \cap S[k,j]$ è la soluzione ottimale di $S[k,j]$
+	\item $A[i \mydots j] \cap S[i \mydots k]$ è la soluzione ottimale di $S[i \mydots k]$
+	\item $A[i \mydots j] \cap S[k \mydots j]$ è la soluzione ottimale di $S[k \mydots j]$
 	\EI
 \EIL
 \end{myboxtitle}
@@ -254,7 +256,7 @@ Utilizzando il metodo cut-and-paste
 \vspace{-9pt}
 \begin{myboxtitle}[Definizione ricorsiva della soluzione]
 \[
-	A[i,j] = A[i,k] \cup \{ k \} \cup A[k, j]
+	A[i \mydots j] = A[i \mydots k] \cup \{ k \} \cup A[k \mydots j]
 \]
 \end{myboxtitle}
 
@@ -262,13 +264,13 @@ Utilizzando il metodo cut-and-paste
 \BIL
 \item Come determinare $k$? Analizzando tutte le possibilità
 \item Sia $DP[i][j]$ la dimensione del
-più grande sottoinsieme $A[i,j] \subseteq S[i,j]$ di intervalli indipendenti
+più grande sottoinsieme $A[i \mydots j] \subseteq S[i \mydots j]$ di intervalli indipendenti
 
 \small
 \[
 DP[i][j] = \begin{cases}
-   0 & S[i,j] = \emptyset \\
-	 \max_{k \in S[i,j]} \{ DP[i][k] + DP[k][j] + 1 \} & \textrm{altrimenti}
+   0 & S[i \mydots j] = \emptyset \\
+	 \max_{k \in S[i \mydots j]} \{ DP[i][k] + DP[k][j] + 1 \} & \textrm{altrimenti}
 \end{cases}
 \]
 \EIL
@@ -304,10 +306,10 @@ costo $O(n)$ per sottoproblema nel caso peggiore
 
 \vspace{-9pt}
 \begin{myboxtitle}[Teorema]
-Sia $S[i,j]$ un sottoproblema non vuoto, e $m$ l'intervallo di $S[i,j]$ con il \alert{minor tempo di fine}, allora:
+Sia $S[i \mydots j]$ un sottoproblema non vuoto, e $m$ l'intervallo di $S[i \mydots j]$ con il \alert{minor tempo di fine}, allora:
 \begin{enumerate}
-\item il sottoproblema $S[i,m]$ è vuoto
-\item $m$ è compreso in qualche soluzione ottima di $S[i,j]$
+\item il sottoproblema $S[i \mydots m]$ è vuoto
+\item $m$ è compreso in qualche soluzione ottima di $S[i \mydots j]$
 \end{enumerate}
 \end{myboxtitle}
 
@@ -317,27 +319,27 @@ Sia $S[i,j]$ un sottoproblema non vuoto, e $m$ l'intervallo di $S[i,j]$ con il \
 \begin{myboxtitle}[Dimostrazione \circled{1}]
 
 \smallskip
-\makebox[2.8cm][l]{Sappiamo che:} \alert{$a_m<b_m$} \hfill (Definizione di intervallo)
+\makebox[2.6cm][l]{Sappiamo che:} \alert{$a_m<b_m$} \hfill (Definizione di intervallo)
 
 \smallskip
-\makebox[2.8cm][l]{Sappiamo che:} \alert{$\forall k \in S[i,j]: b_m \leq b_k$} \hfill ($m$ ha minor tempo di fine)
+\makebox[2.6cm][l]{Sappiamo che:} \alert{$\forall k \in S[i \mydots j]: b_m \leq b_k$} \hfill ($m$ ha minor tempo di fine)
 
 \smallskip
-\makebox[2.8cm][l]{Ne consegue che:} \alert{$\forall k \in S[i,j]: a_m < b_k$} \hfill (Transitività)
+\makebox[2.6cm][l]{Ne consegue:} \alert{$\forall k \in S[i \mydots j]: a_m < b_k$} \hfill (Transitività)
 
 \bigskip
-Se nessun intervallo in $S[i,j]$ termina prima di $a_m$, allora $S[i,m] = \emptyset$
+Se nessun intervallo in $S[i \mydots j]$ termina prima di $a_m$, allora $S[i \mydots m] = \emptyset$
 \end{myboxtitle}
 
 \onslide<2|handout:2>
 \begin{myboxtitle}[Dimostrazione \circled{2}]
 \BI
-\item Sia \alert{$A'[i,j]$} una soluzione ottima di $S[i,j]$
-\item Sia \alert{$m' \in A'[i,j]$} l'intervallo con minor tempo di fine in $A'[i,j]$
-\item Sia \alert{$A[i,j] = A'[i,j] - \{ m' \} \cup \{ m \}$} una nuova soluzione
-ottenuta togliendo $m'$ e aggiungendo $m$ ad $A'[i,j]$
-\item \alert{$A[i,j]$ è una soluzione ottima che contiene $m$}, in quanto ha la 
-stessa dimensione di $A'[i,j]$ e gli intervalli sono indipendenti.
+\item Sia \alert{$A'[i \mydots j]$} una soluzione ottima di $S[i \mydots j]$
+\item Sia \alert{$m'$} l'intervallo con minor tempo di fine in $A'[i \mydots j]$
+\item Sia \alert{$A[i \mydots j] = A'[i \mydots j] - \{ m' \} \cup \{ m \}$} una nuova soluzione
+ottenuta togliendo $m'$ e aggiungendo $m$ ad $A'[i \mydots j]$
+\item \alert{$A[i \mydots j]$ è una soluzione ottima che contiene $m$}, in quanto ha la 
+stessa dimensione di $A'[i \mydots j]$ e gli intervalli sono indipendenti.
 \EI
 \end{myboxtitle}
 \end{overprint}
@@ -439,7 +441,7 @@ $\INTEGER\ \Ultimo = 1$\REMR{Ultimo intervallo inserito}
 \vspace{-9pt}
 \begin{myboxtitle}[Input]
 \BI
-\item Un insieme di "tagli" di monete, memorizzati in un vettore di interi positivi $t[1 \ldots n]$.
+\item Un insieme di "tagli" di monete, memorizzati in un vettore di interi positivi $t[1 \mydots n]$.
 \item Un intero $R$ rappresentante il resto che dobbiamo restituire.
 \EI
 \end{myboxtitle}
@@ -476,7 +478,7 @@ $S(i)$, la cui soluzione ottima è data da $A(i)-\{ j \}$.
 
 \begin{myboxtitle}[Definizione ricorsiva]
 \BI
-\item Tabella di programmazione dinamica: $DP[0 \ldots R]$
+\item Tabella di programmazione dinamica: $DP[0 \mydots R]$
 \item $DP[i]$: \alert{minimo n. di monete per risolvere il problema $S[i]$}
 \EI
 \[
@@ -498,8 +500,8 @@ DP[i] = \left\{
 \vspace{-12pt}
 \begin{Procedure}
 \caption[A]{$\INTARRAY$\ \textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
-$DP = \NEW\ \INTEGER[0 \ldots R]$\;
-$S = \NEW\ \INTEGER[0 \ldots R]$\;
+$DP = \NEW\ \INTEGER[0 \mydots R]$\;
+$S = \NEW\ \INTEGER[0 \mydots R]$\;
 $DP[0] = 0$\;
 \For{$i = 1$ \TO\ $R$} {
   $DP[i] = +\infty$\;
@@ -523,7 +525,7 @@ $DP[0] = 0$\;
 \begin{Procedure}
 \caption[A]{$\INTARRAY$\ \textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
 [...]\;
-$\INTARRAY\ x = \NEW\ \INTEGER[1 \ldots n]$\;
+$\INTARRAY\ x = \NEW\ \INTEGER[1 \mydots n]$\;
 \For{$i = 1$ \TO\ $n$}{
   $x[i] = 0$\;
 }
@@ -561,7 +563,7 @@ il problema $S(R-t[j])$.
 \item Tagli: $200, 100, 50, 20, 10, 5, 2, 1$
 \item Tagli: $50, 10, 5, 1$
 \item Tagli: $10, 8, 1$
-\item Tagli: $c^k, c^{k-1}, \ldots, c, 1 \quad (c \in \mathbb{Z^+})$
+\item Tagli: $c^k, c^{k-1}, \mydots, c, 1 \quad (c \in \mathbb{Z^+})$
 \EIL
 \end{myboxtitle}
 
@@ -574,7 +576,7 @@ il problema $S(R-t[j])$.
 \vspace{-12pt}
 \begin{Procedure}
 \caption[A]{$\INTARRAY$\ \textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
-$\INTARRAY\ x = \NEW\ \INTEGER[1 \ldots n]$\;
+$\INTARRAY\ x = \NEW\ \INTEGER[1 \mydots n]$\;
 \{ Ordina le monete in modo decrescente \}\;
 \For{$i = 1$ \TO\ $n$} {
   $x[i] = \lfloor R/t[i] \rfloor$\;
@@ -695,7 +697,7 @@ Trovare una sequenza di esecuzione (permutazione) che minimizzi il \alert{tempo 
 
 \begin{myboxtitle}[Tempo di completamento]
 
-Dato un vettore $A[1 \ldots n]$ contenente una	permutazione di $\{ 1, \ldots n \}$,
+Dato un vettore $A[1 \mydots n]$ contenente una	permutazione di $\{ 1, \mydots n \}$,
 il \alert{tempo di completamento} dell'$h$-esimo job nella permutazione è:
 \[
   T_A(h) = \sum_{i=1}^h t[A[i]]
@@ -786,7 +788,7 @@ job $m$ non viene considerato.
 \item Si consideri una permutazione ottima:
 
 \[
-\alert{B = [~B[1],B[2], \ldots, B[m-1], B[m], B[m+1], \ldots B[n]~]}
+\alert{B = [~B[1],B[2], \mydots, B[m-1], B[m], B[m+1], \mydots B[n]~]}
 \]
 
 \item Sia \alert{$m$} la posizione in cui si trova in $B$ il job con \alert{minor tempo di fine}
@@ -794,7 +796,7 @@ job $m$ non viene considerato.
 scambiati: 
 
 \[
-\alert{A = [~B[m], B[2], \ldots, B[m-1], B[1], B[m+1], \ldots, B[n]~]}
+\alert{A = [~B[m], B[2], \mydots, B[m-1], B[1], B[m+1], \mydots, B[n]~]}
 \]
 
 \item Il tempo di completamento medio di $A$ è minore o uguale al tempo
@@ -813,16 +815,16 @@ di completamento medio di $B$
 scambiati: 
 
 \[
-\alert{A = [~B[m], B[2], \ldots, B[m-1], B[1], B[m+1], \ldots, B[n]~]}
+\alert{A = [~B[m], B[2], \mydots, B[m-1], B[1], B[m+1], \mydots, B[n]~]}
 \]
 
 \item Il tempo di completamento medio di $A$ è minore o uguale al tempo
 di completamento medio di $B$
   \BI
-	\item Job in posizione $1, \ldots, k-1$ in $A$ hanno tempo di completamento 
-	$\leq$ dei job in posizione $1, \ldots, k-1$ in $B$
-	\item Job in posizione $k, \ldots, n$ in $A$ hanno tempo di completamento 
-	$=$ dei job in posizione $k, \ldots, n$ in $B$
+	\item Job in posizione $1, \mydots, k-1$ in $A$ hanno tempo di completamento 
+	$\leq$ dei job in posizione $1, \mydots, k-1$ in $B$
+	\item Job in posizione $k, \mydots, n$ in $A$ hanno tempo di completamento 
+	$=$ dei job in posizione $k, \mydots, n$ in $B$
   \EI
 \item Poichè $B$ è ottima, $A$ non può avere tempo di completamento medio minore
 e quindi anche $A$ è ottima.
@@ -852,7 +854,7 @@ e quindi anche $A$ è ottima.
 
 	
 \begin{myboxtitle}[Zaino 0/1]
-Trovare un sottoinsieme $S$ di $\{1, \ldots , n\}$ di oggetti tale che il loro
+Trovare un sottoinsieme $S$ di $\{1, \mydots , n\}$ di oggetti tale che il loro
 peso totale non superi la capacità massima e il loro profitto totale sia
 massimo.
 \end{myboxtitle}
@@ -997,7 +999,7 @@ $i$ & $p_i$ & $w_i$ & $p_i/w_i$ \\
 \begin{frame}{Algoritmo}
 \begin{Procedure}
 \caption[A]{$\REAL[\,]$\ \zaino($\REAL[\,]\ p,\ \REAL[\,]\ v,\REAL\ C,\ \INTEGER\ n$)}
-$\REAL[\,]\ x = \NEW\ \REAL[1 \ldots n]$\;
+$\REAL[\,]\ x = \NEW\ \REAL[1 \mydots n]$\;
 \{ ordina $p$ e $v$ in modo che $p[1]/w[1] \ge p[2]/w[2] \ge \cdots \ge p[n]/w[n]$\}\;
 \For{$i=1$ \TO\ $n$}
 {

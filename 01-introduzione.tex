@@ -19,7 +19,7 @@
 %\begin{frame}[shrink=5]{Introduzione}
 \begin{frame}{Introduzione}
 
-\vspace{-12pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Problema computazionale]
 Dati un dominio di input e un dominio di output, un \emph{\alert{problema computazionale}} 
 è rappresentato dalla \alert{relazione matematica} che associa un elemento del dominio di output ad ogni elemento del dominio di input.
@@ -143,7 +143,6 @@ in un sistema \alert{formale} di calcolo, che risolve il problema in tempo \aler
 \vspace{-9pt}
 \begin{myboxtitle}[Esempio: Minimo]
 Il minimo di un insieme $S$ è l'elemento di $S$ che è minore o uguale ad ogni elemento di $S$.
-
 \[
   \Min(S) = a \Leftrightarrow \exists a \in S: \forall b \in S : a \leq b
 \]
@@ -153,7 +152,6 @@ Il minimo di un insieme $S$ è l'elemento di $S$ che è minore o uguale ad ogni 
 Sia $S=s_1, s_2, \ldots, s_n$ una sequenza di dati ordinati e distinti, i.e.  $s_1 < s_2 < \ldots < s_n$. 
 Eseguire una ricerca della posizione di un dato $v$ in $S$ consiste nel restituire un indice $i$ tale che 
 $1 \leq i \leq n$, se $v$ è presente nella posizione $i$, oppure $0$, se $v$ non è presente.
-
 \[
  \mathit{lookup}(S, v) = \begin{cases}
   i & \exists i \in \{1, \mldots, n\}: S_i = v \\
@@ -351,20 +349,22 @@ Le descrizioni precedenti presentano diversi problemi:
 %-------------------------------------------------------------------------
 \begin{frame}{Come valutare l'algoritmo}
 
-\BB{Risolve il problema in modo \alert{efficiente}?}
+\vspace{-9pt}
+\begin{myboxtitle}[Risolve il problema in modo \alert{efficiente}?]
 \BIL
 \item Dobbiamo stabilire come valutare se un programma è efficiente
 \item Alcuni problemi non possono essere risolti in modo efficiente
 \item Esistono soluzioni “ottime”: non è possibile essere più efficienti
 \EIL
+\end{myboxtitle}
 
-\bigskip
-\BB{Risolve il problema in modo \alert{corretto}?}
+\begin{myboxtitle}[Risolve il problema in modo \alert{corretto}?]
 \BIL
 \item  Dimostrazione matematica, descrizione “informale”
 \item Nota: Alcuni problemi non possono essere risolti
 \item Nota: Alcuni problemi vengono risolti in modo approssimato
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -372,6 +372,8 @@ Le descrizioni precedenti presentano diversi problemi:
 
 %-------------------------------------------------------------------------
 \begin{frame}[shrink=10]{Charles Babbage}
+
+\vspace{-9pt}
 \begin{myboxtitle}[Passages from the Life of a Philosopher, Charles Babbage, 1864]
 As soon as an Analytical Engine exists, it will necessarily guide the future
 course of the science. Whenever any result is sought by its aid, the question
@@ -394,13 +396,12 @@ by the machine in the shortest time?}
 \end{center}
 }
 
-
-
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Valutazione algoritmi -- Efficienza}
 	
+\vspace{-9pt}
 \begin{myboxtitle}[Complessità di un algoritmo]
 Analisi delle \alert{risorse} impiegate da un algoritmo per risolvere un problema, in
 funzione della \alert{dimensione} e dalla \alert{tipologia} dell'input
@@ -427,6 +428,7 @@ funzione della \alert{dimensione} e dalla \alert{tipologia} dell'input
 %-------------------------------------------------------------------------
 \begin{frame}{Definizione di tempo}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Tempo $\equiv$ wall-clock time]
 Il tempo effettivamente impiegato per eseguire un algoritmo
 \end{myboxtitle}
@@ -452,6 +454,7 @@ Dipende da troppi parametri:
 %-------------------------------------------------------------------------
 \begin{frame}{Definizione di tempo -- A grandi linee}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Tempo $\equiv$ n. operazioni rilevanti]
 Numero di operazioni "rilevanti", ovvero il numero di operazioni che caratterizzano lo scopo dell'algoritmo.
 \end{myboxtitle}
@@ -474,6 +477,7 @@ Numero di operazioni "rilevanti", ovvero il numero di operazioni che caratterizz
 %-------------------------------------------------------------------------
 \begin{frame}[shrink=10]{Valutazione algoritmi -- Minimo}
 
+\vspace{-9pt}
 \begin{mybox}
 Contiamo il numero di confronti per il problema del \alert{minimo}
 \end{mybox}
@@ -508,6 +512,7 @@ Si può fare meglio di così?
 
 \begin{frame}[t]{Valutazione algoritmi -- Un algoritmo migliore}
 
+\vspace{-9pt}
 \begin{mybox}
 Contiamo il numero di confronti per il problema del \alert{minimo}
 \end{mybox}
@@ -540,6 +545,7 @@ Algoritmo efficiente: \alert{$n-1$}
 
 \begin{frame}[shrink=10]{Valutazione algoritmi -- Ricerca}
 
+\vspace{-9pt}
 \begin{mybox}
 Contiamo il numero di confronti per il problema della \alert{ricerca}
 \end{mybox}
@@ -567,6 +573,7 @@ Si può fare meglio di così?
 
 \begin{frame}{Valutazione algoritmi -- Un algoritmo migliore}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Una soluzione più efficiente]
 Analizzo l'elemento centrale (indice $m$) del sottovettore considerato:
 
@@ -594,6 +601,7 @@ Analizzo l'elemento centrale (indice $m$) del sottovettore considerato:
 
 \begin{frame}[shrink=10]{Valutazione algoritmi -- Un algoritmo migliore}
 
+\vspace{-9pt}
 \begin{mybox}
 Contiamo il numero di confronti per il problema della \alert{ricerca}
 \end{mybox}
@@ -603,10 +611,9 @@ Contiamo il numero di confronti per il problema della \alert{ricerca}
 \begin{Procedure}
 \caption[A]{\INTEGER\ \binarysearch($\INTEGER[\,]\ S$, $\INTEGER\ v$, \INTEGER $i$, \INTEGER $j$)}
 
-\If{$i>j$}{
+\eIf{$i>j$}{
   \Return $0$\;
 }
-\Else
 {
   \INTEGER $m = \lfloor (i+j)/2 \rfloor$\;
   \uIf{$S[m] \Eq v$}{ 
@@ -626,7 +633,7 @@ Contiamo il numero di confronti per il problema della \alert{ricerca}
 Algoritmo “naïf”: \alert{$n$} 
 \end{mybox}
 \begin{mybox}
-Algoritmo efficiente: \alert{$\lceil \log n \rceil$} 
+Algoritmo efficiente:\newline \alert{$\lceil \log n \rceil$} 
 \end{mybox}
 }
 
@@ -638,6 +645,7 @@ Algoritmo efficiente: \alert{$\lceil \log n \rceil$}
 
 \begin{frame}{Valutazione algoritmi -- Correttezza}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Invariante]
 Condizione sempre vera in un certo punto del programma
 \end{myboxtitle}
@@ -659,6 +667,7 @@ Condizione sempre vera in un certo punto del programma
 
 \begin{frame}{Valutazione algoritmi -- Correttezza}
 
+\vspace{-9pt}
 \begin{mybox}
 Il concetto di \alert{invariante di ciclo} ci aiuta a dimostrare la correttezza di un \alert{algoritmo iterativo}.
 \end{mybox}
@@ -714,6 +723,7 @@ Conclusione
 
 \begin{frame}[shrink=7]{Valutazione algoritmi -- Correttezza}
 
+\vspace{-9pt}
 \begin{mybox}
 La dimostrazione per induzione è utile anche con gli algoritmi ricorsivi
 \end{mybox}
@@ -755,6 +765,7 @@ dimensione $n$ dell'input
 
 \end{frame}
 
+
 \section{Conclusioni}
 
 \begin{frame}{Altre proprietà}
@@ -779,6 +790,11 @@ Progettare algoritmi efficienti è un prerequisito per poter pagare questo costo
 	
 \end{frame}
 
+\begin{OnlySlides}{Binary search, in pillole}
+\begin{center}
+    \IG{1.0}{binary-search.png}
+\end{center}
+\end{OnlySlides}
 
 
 \end{document}

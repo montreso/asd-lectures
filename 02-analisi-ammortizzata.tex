@@ -727,7 +727,7 @@ public static void print(int dim)
 
 \end{frame}
 
-\begin{frame}{Non soddisfatti ancora? String vs StringBuffer}
+\begin{frame}{Non ancora soddisfatti? String vs StringBuffer}
 
 \begin{center}
 \begin{tabular}{|r|r|r|}
@@ -749,8 +749,34 @@ public static void print(int dim)
 \end{tabular}
 \end{center}
 
+\end{frame}
+
+\begin{frame}[fragile]{Non ancora soddisfatti? Somme stringhe in Python}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Esempio]
+\vspace{-9pt}
+\begin{lstlisting}[language=python]
+s = ""
+for i in range(10000):
+    s = s + "1"
+\end{lstlisting}
+\vspace{-9pt}
+\end{myboxtitle}
+
+\bigskip
+\BIL
+\item In CPython, questo codice viene ottimizzato utilizando \texttt{realloc} invece di \texttt{malloc} e ha costo lineare - fino ad un certo punto
+\item Oltre una certa dimensione, il costo torno ad essere quadratico
+\item Altre implementazioni di Python non seguono questo approccio
+\EIL
 
 
+\BB{
+\tiny
+\url{https://stackoverflow.com/questions/4435169/how-do-i-append-one-string-to-another-in-python}\\
+Credits: Michele Baldo
+}
 \end{frame}
 
 

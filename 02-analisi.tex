@@ -2,7 +2,7 @@
 
 \usepackage{epigraph}
 
-\title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e Strutture Dati}\\[24pt]Analisi di algoritmi\\Introduzione}
+\title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e Strutture Dati}\\[12pt]Analisi di algoritmi\\Introduzione}
 
 \graphicspath{{figs/02/}}
 
@@ -20,21 +20,24 @@
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
-\BB{Obiettivo: \alert{stimare la complessità in tempo degli algoritmi}}
+\vspace{-9pt}
+\begin{myboxtitle}[Obiettivo: \alert{stimare la complessità in tempo}]
 \BIL
 \item Definizioni
 \item Modelli di calcolo
 \item Esempi di valutazioni
 \item Notazione
 \EIL
+\end{myboxtitle}
 
-\BB{Perché?}
+\begin{myboxtitle}[Perché?]
 \BI
 \item Per stimare il tempo impiegato per un dato input
 \item Per stimare il più grande input gestibile in tempi ragionevoli
 \item Per confrontare l'efficienza di algoritmi diversi
 \item Per ottimizzare le parti più importanti
 \EI
+\end{myboxtitle}
 \end{frame}
 
 
@@ -44,6 +47,7 @@
 %-------------------------------------------------------------------------
 \begin{frame}{Complessità}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Complessità: "\alert{Dimensione dell'input}" $\rightarrow$ "\alert{Tempo}"]
 \BI
 \item Come definire la dimensione dell'input?
@@ -57,6 +61,7 @@
 %-------------------------------------------------------------------------
 \begin{frame}[shrink=5]{Dimensione dell'input}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Criterio di \alert{costo logaritmico}]
 \BI
 \item \emph{La taglia dell'input è il numero di bit necessari per rappresentarlo}
@@ -83,6 +88,7 @@
 %-------------------------------------------------------------------------
 \begin{frame}{Definizione di tempo}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Tempo $\equiv$ n. istruzioni elementari]
 Un'istruzione si considera elementare se può essere eseguita in tempo "costante"
 dal processore.
@@ -103,6 +109,8 @@ dal processore.
 
 %-------------------------------------------------------------------------
 \begin{frame}{Modelli di calcolo}
+
+\vspace{-9pt}
 \begin{myboxtitle}[Modello di calcolo]
 Rappresentazione astratta di un calcolatore
 \BI
@@ -124,6 +132,7 @@ Rappresentazione astratta di un calcolatore
 %-------------------------------------------------------------------------
 \begin{frame}{Modelli di calcolo}
 	
+\vspace{-9pt}
 \begin{myboxtitle}[Macchina di Turing]
 Una macchina ideale che manipola i dati contenuti su un nastro di lunghezza
 infinita, secondo un insieme prefissato di regole.
@@ -153,6 +162,8 @@ Ad ogni passo, la Macchina di Turing:
 
 %-------------------------------------------------------------------------
 \begin{frame}{Modelli di calcolo}
+    
+\vspace{-9pt}
 \begin{myboxtitle}[Random Access Machine (RAM)]
 \BI
 \item \alert{Memoria}:
@@ -211,6 +222,7 @@ T(n) 	&= c_1+c_2n+c_3(n-1)+c_4(n-1)+c_5\\
 %-------------------------------------------------------------------------
 \begin{frame}[shrink=5]{Tempo di calcolo \textsf{binarySearch}()}
 
+\vspace{-9pt}
 \begin{columns}
 \begin{column}{0.55\textwidth}
 Il vettore viene suddiviso in due parti: 
@@ -373,7 +385,7 @@ Windows XP e renderlo esponenziale:
 
 \input analisi/funzioni-1.tex
 
-\title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e strutture dati}\\[24pt]Analisi di algoritmi\\Complessità algoritmi vs Complessità problemi}
+\title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e strutture dati}\\[12pt]Analisi di algoritmi\\Complessità algoritmi vs Complessità problemi}
 
 %-------------------------------------------------------------------------
 \FrameTitle{}
@@ -384,19 +396,22 @@ Windows XP e renderlo esponenziale:
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
-\BB{Obiettivo: \emph{riflettere sulla complessità dei problemi e degli algoritmi}}
+\vspace{-9pt}
+\begin{myboxtitle}[Obiettivo: \alert{riflettere su complessità di problemi/algoritmi}]
+
 \BI
 \item In alcuni casi, si può migliorare quanto si ritiene "normale"
 \item In altri casi, è impossibile fare di meglio
 \item Qual è il rapporto fra un problema computazionale e l'algoritmo?
 \EI
+\end{myboxtitle}
 
-\bigskip
-\BB{Back to basics!}
+\begin{myboxtitle}[Back to basics!]
 \BI
 \item Somme 
 \item Moltiplicazioni
 \EI
+\end{myboxtitle}
 
 
 \end{frame}
@@ -407,6 +422,7 @@ Windows XP e renderlo esponenziale:
 %-------------------------------------------------------------------------
 \begin{frame}{Moltiplicare numeri complessi}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Moltiplicazione numeri complessi]
 \BI
 \item $(a + bi)(c + di) = [ac-bd] + [ad + bc] i$
@@ -429,18 +445,20 @@ Considerate un modello di calcolo dove la moltiplicazione costa $1$, le addizion
 %-------------------------------------------------------------------------
 \begin{frame}{Moltiplicare numeri complessi}
 
-\BB{Questioni aperte}
+\vspace{-9pt}
+\begin{myboxtitle}[Questioni aperte]
 \BI
 \item Si può fare ancora meglio? 
 \item Oppure, è possibile dimostrare che non si può fare meglio di così?
 \EI
+\end{myboxtitle}
 
-\medskip
-\BB{Alcune riflessioni}
+\begin{myboxtitle}[Alcune riflessioni]
 \BI
 \item In questo modello, effettuare 3 moltiplicazioni invece di 4 risparmia il 25\% del costo
 \item Esistono contesti in cui effettuare 3 moltiplicazioni invece di 4 può produrre un risparmio maggiore
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
@@ -449,6 +467,7 @@ Considerate un modello di calcolo dove la moltiplicazione costa $1$, le addizion
 %-------------------------------------------------------------------------
 \begin{frame}{Sommare numeri binari}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Algoritmo elementare della somma -- \textsf{sum}()]
 \BI
 \item richiede di esaminare tutti gli $n$ bit
@@ -470,6 +489,7 @@ Esiste un metodo più efficiente?
 %-------------------------------------------------------------------------
 \begin{frame}{Limite superiore alla complessità di un problema}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Notazione $O(f(n))$ -- Limite superiore]
 Un problema ha complessità $O(f(n))$ se esiste almeno un algoritmo
 che ha complessità $O(f(n))$
@@ -488,6 +508,7 @@ Il problema della somma di numeri binari ha complessità $O(n)$.
 %-------------------------------------------------------------------------
 \begin{frame}{Limite inferiore alla complessità di un problema}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Notazione $\Omega(f(n))$ -- Limite inferiore]
 Un problema ha complessità $\Omega(f(n))$ se tutti i possibili algoritmi che lo risolvono hanno complessità $\Omega(f(n))$.
 \end{myboxtitle}
@@ -508,6 +529,7 @@ Riuscite a dimostrarlo?
 %-------------------------------------------------------------------------
 \begin{frame}{Moltiplicare numeri binari}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Algoritmo elementare del prodotto -- \textsf{prod}()]
 \BI
 \item moltiplicazione di ogni bit con ogni altro bit
@@ -525,6 +547,7 @@ Riuscite a dimostrarlo?
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmi aritmetici}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Confronto della complessità computazionale]
 \BI
 \item \makebox[1.6cm][l]{Somma}: $T_{sum}(n) = O(n)$
@@ -544,6 +567,7 @@ Si potrebbe concludere che...
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmi aritmetici}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Confronto fra problemi]
 Per provare che il problema del prodotto è più costoso del problema della somma, dobbiamo provare che \alert{non esiste} una soluzione in tempo lineare per il prodotto
 \end{myboxtitle}
@@ -561,6 +585,7 @@ Abbiamo confrontato gli algoritmi, non i problemi!
 %-------------------------------------------------------------------------
 \begin{frame}{Moltiplicare numeri binari}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Divide-et-impera]
 \BI
 \item \alert{Divide}: dividi il problema in sottoproblemi di dimensioni inferiori
@@ -591,6 +616,8 @@ XY &= ac \cdot 2^n + (ad+bc) \cdot 2^{n/2} + bd
 
 %-------------------------------------------------------------------------
 \begin{frame}{Moltiplicare numeri binari tramite Divide-et-impera}
+    
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\BOOLEAN[\,] \textsf{pdi}($\BOOLEAN[\,]\ X$, $\BOOLEAN[\,]\ Y$, \INTEGER $n$)}
 \eIf{$n \Eq 1$}{
@@ -630,6 +657,7 @@ T(n) = \left\{
 %-------------------------------------------------------------------------
 \begin{frame}{Moltiplicare numeri binari}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Confronto della complessità computazionale]
 \BI
 \item \makebox[1.6cm][l]{Prodotto}: $T_{prod}(n) = O(n^2)$
@@ -692,6 +720,8 @@ A_2 &= m\alert{-}A_1\alert{-}A_3=ad+bc
 
 %-------------------------------------------------------------------------
 \begin{frame}{Moltiplicare numeri binari}
+    
+\vspace{-9pt}
 \begin{myboxtitle}[Confronto della complessità computazionale]
 \BIL
 \item \makebox[1.6cm][l]{Prodotto}: \makebox[4cm][l]{$T_{prod}(n) = O(n^2)$} Es. $T_{prod}(10^6) = 10^{12}$
@@ -712,7 +742,8 @@ A_2 &= m\alert{-}A_1\alert{-}A_3=ad+bc
 %-------------------------------------------------------------------------
 \begin{frame}{Non finisce qui \ldots}
 
-\TwoColsCustom{0.63}{0.35}{
+\vspace{-15pt}
+\TwoColsCustom{0.60}{0.35}{
 \BI
 \item \alert{Toom-Cook} (1963)
   \BI
@@ -720,16 +751,11 @@ A_2 &= m\alert{-}A_1\alert{-}A_3=ad+bc
   \item Karatsuba $\equiv$ Toom2
   \item Moltiplicazione normale $\equiv$ Toom1
   \EI
-\item \alert{Schönhage–Strassen} (1971)
+\item \alert{Schönhage--Strassen} (1971)
   \BI
   \item Complessità $O(n \cdot \log n \cdot \log \log n)$
   \item Basato su Fast Fourier Transforms
   \EI
-\item \alert{Martin Fürer} (2007)
-  \BI
-  \item Complessità $O(n \cdot \log n \cdot 2^{O(\log^* n)})$
-  \EI
-\item Limite inferiore: $\Omega(n \log n)$ (congettura)
 \EI
 }{
 \alert{Crescita funzioni}
@@ -746,6 +772,22 @@ $2^{16}$ & 4 & 4  \\\hline
 $2^{2^{16}}$ & 5 & 16 \\\hline
 \end{tabular}
 }
+\BI
+\item \alert{Fürer} (2007)
+  \BI
+  \item Complessità $O(n \cdot \log n \cdot K^{O(\log^* n)})$, per qualche $K>1$
+  \EI
+\item \alert{Harvey--van der Hoeven--Lecerf} (2014)
+  \BI
+  \item Complessità $O(n \cdot \log n \cdot 8^{O(\log^* n)})$
+  \EI
+\item \alert{Harvey--van der Hoeven} (2019)
+  \BI
+  \item Complessità $O(n \cdot \log n)$
+  \EI
+\item Limite inferiore: $\Omega(n \log n)$ (congettura)
+\EI
+
 \end{frame}
 
 %-------------------------------------------------------------------------
@@ -776,8 +818,35 @@ mano a mano che $n$ cresce.
 
 \end{frame}
 
+\begin{frame}{Algoritmi vs problemi}
 
-\title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e strutture dati}\\[24pt]Analisi di algoritmi\\Algoritmi di ordinamento}
+\vspace{-9pt}
+\begin{myboxtitle}[Complessità in tempo di un \alert{algoritmo}]
+{\em La quantità di tempo richiesta per input di dimensione $n$}
+\BI
+\item \alert{$O(f(n))$}: Per tutti gli input, l'algoritmo costa al più $f(n)$ 
+\item \alert{$\Omega(f(n))$}: Per tutti gli input, l'algoritmo costa almeno $f(n)$ 
+\item \alert{$\Theta(f(n))$}: L'algoritmo richiede $\Theta(f(n))$ per tutti gli input
+\EI
+\end{myboxtitle}
+
+\begin{myboxtitle}[Complessità in tempo di un \alert{problema computazionale}]
+{\em La complessità in tempo relative a tutte le possibili soluzioni}
+\BI
+\item \alert{$O(f(n))$}: Complessità del miglior algoritmo che risolve il 
+problema
+\item \alert{$\Omega(f(n))$}: Dimostrare che nessun algoritmo può risolvere il problema in tempo inferiore a $\Omega(f(n))$
+\item \alert{$\Theta(f(n))$}: Algoritmo ottimo
+\EI
+\end{myboxtitle}
+
+
+
+\end{frame}
+
+
+
+\title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e strutture dati}\\[12pt]Analisi di algoritmi\\Algoritmi di ordinamento}
 
 \FrameTitle
 
@@ -786,20 +855,21 @@ mano a mano che $n$ cresce.
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
-\BB{Obiettivo: \alert{valutare gli algoritmi in base alla tipologia dell'input}}
+\begin{myboxtitle}[Obiettivo: \alert{valutare gli algoritmi in base all'input}]
 \BI
 \item In alcuni casi, gli algoritmi si comportano diversamente a seconda delle caratteristiche dell'input
 \item Conoscere in anticipo tali caratteristiche permette di scegliere il miglior algoritmo in quella situazione
 \item Il problema dell'ordinamento è una buona palestra dove mostrare questi concetti
 \EI
+\end{myboxtitle}
 
-\medskip
-\BB{Algoritmi d'ordinamento}
+\begin{myboxtitle}[Algoritmi d'ordinamento]
 \BI
 \item Selection Sort
 \item Insertion Sort
 \item Merge Sort
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
@@ -836,6 +906,8 @@ Es.: ricerca di dati non presenti in un database
 
 %-------------------------------------------------------------------------
 \begin{frame}{Ordinamento}
+
+\vspace{-9pt}
 \begin{myboxtitle}[Problema dell'ordinamento]
 \BI
 \item \textbf{Input}: Una sequenza $A= a_1, a_2, \ldots, a_n$ di $n$ valori
@@ -893,8 +965,8 @@ Approccio "naif":
 %-------------------------------------------------------------------------
 \begin{frame}{Selection Sort}
 
-\vspace{-6pt}
-\TwoColsCustom{0.43}{0.56}{
+\vspace{-15pt}
+\TwoColsCustom{0.48}{0.5}{
 {\scriptsize
 \begin{Procedure}
 \caption[A]{\textsf{SelectionSort}($\Item[\,]\ A$, \INTEGER $n$)}
@@ -932,8 +1004,8 @@ Approccio "naif":
 %-------------------------------------------------------------------------
 \begin{frame}{Selection Sort}
 
-\vspace{-6pt}
-\TwoCols{
+\vspace{-15pt}
+\TwoColsCustom{0.48}{0.50}{
 \begin{Procedure}
 \caption[A]{\textsf{SelectionSort}($\Item[\,]\ A$, \INTEGER $n$)}
 \For{$i = 1$ \TO $n-1$}{
@@ -979,7 +1051,7 @@ Complessità nel caso medio, pessimo, ottimo? \pause
 	
 \begin{Procedure}
 \caption[A]{\insertionsort($\Item[\,]\ A,\ \INTEGER\ n$)}
-  \For{\ $i = 2$ \TO\ $n$}{
+  \For{$i = 2$ \TO\ $n$}{
     $\Item\ \Temp = A[i]$\;
     $\INTEGER\ j = i$\;
     \While{$j > 1$ \AND\ $A[j-1]>\Temp$}
@@ -1008,6 +1080,7 @@ Complessità nel caso medio, pessimo, ottimo? \pause
 %-------------------------------------------------------------------------
 \begin{frame}{Correttezza e complessità}
 
+\vspace{-9pt}
 \begin{myboxtitle}[In questo algoritmo]
 \BI
 \item Il costo di esecuzione non dipende solo dalla dimensione...
@@ -1031,6 +1104,7 @@ Complessità nel caso medio, pessimo, ottimo? \pause
 %-------------------------------------------------------------------------
 \begin{frame}{Merge Sort}
 	
+\vspace{-9pt}
 \begin{myboxtitle}[Divide et impera]
 Merge Sort è basato sulla tecnica \alert{divide-et-impera} vista in precedenza	
 \BI
@@ -1132,6 +1206,7 @@ $1 \leq \Primo \leq \Mezzo < \Ultimo \leq n$
 %-------------------------------------------------------------------------
 \begin{frame}{Costo computazionale}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Domanda]
 	Qual è il costo computazionale di \Merge()? \pause $\Rightarrow \alert{O(n)}$
 \end{myboxtitle}
@@ -1139,7 +1214,7 @@ $1 \leq \Primo \leq \Mezzo < \Ultimo \leq n$
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Merge Sort}
+\begin{frame}{MergeSort}
 Programma completo:
 \BI
 \item Chiama ricorsivamente se stesso e usa \Merge() per unire i risultati
@@ -1281,6 +1356,13 @@ Hollerith Machine
 }
 
 \end{frame}
+
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{MergeSort, in pillole}
+\begin{center}
+    \IG{1.0}{merge-sort.png}
+\end{center}
+\end{OnlySlides}
 
 
 %-------------------------------------------------------------------------
