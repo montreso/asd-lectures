@@ -107,11 +107,11 @@ Dimostrazione:
 \small
 \begin{align*}
   f_1(n) = O(g_1(n)), f_2(n) = O(g_2(n)) &\Rightarrow f_1(n)+f_2(n) = O(\max(g_1(n), g_2(n))) \\
-  f_1(n) = \Omega(g_1(n)), f_2(n) = \Omega(g_2(n)) &\Rightarrow f_1(n)+f_2(n) = \Omega(\min(g_1(n), g_2(n))) 
+  f_1(n) = \Omega(g_1(n)), f_2(n) = \Omega(g_2(n)) &\Rightarrow f_1(n)+f_2(n) = \Omega(\max(g_1(n), g_2(n))) 
 \end{align*}
 \end{myboxtitle}
 
-\begin{myboxtitle}[Dimostrazione]
+\begin{myboxtitle}[Dimostrazione (Lato $O$)]
 \begin{eqnarray*}
   f_1(n) = O(g_1(n)) \wedge f_2(n) = O(g_2(n)) &\Rightarrow& \\
     f_1(n) \leq c_1g_1(n) \wedge f_2(n) \leq c_2g_2(n) &\Rightarrow& \\

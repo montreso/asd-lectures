@@ -578,9 +578,9 @@ Si può fare meglio di così?
 Analizzo l'elemento centrale (indice $m$) del sottovettore considerato:
 
 \BIL
-  \item Se $A[m]=v$, ho trovato il valore cercato
-  \item Se $v<A[m]$, cerco nella “metà di sinistra”
-  \item Se $A[m]<v$, cerco nella “metà di destra”
+  \item Se $S[m]=v$, ho trovato il valore cercato
+  \item Se $v<S[m]$, cerco nella “metà di sinistra”
+  \item Se $S[m]<v$, cerco nella “metà di destra”
 \EIL
 \end{myboxtitle}
 
@@ -725,28 +725,27 @@ Conclusione
 
 \vspace{-9pt}
 \begin{mybox}
-La dimostrazione per induzione è utile anche con gli algoritmi ricorsivi
+La dimostrazione per induzione è utile anche per gli algoritmi ricorsivi
 \end{mybox}
 
 \vspace{-12pt}
 \TwoColsCustom{0.59}{0.38}{
 \begin{Procedure}
-\caption[A]{\INTEGER\ \binarysearch($\INTEGER[\,]\ A$, \INTEGER $v$, \INTEGER $i$, \INTEGER $j$)}
+\caption[A]{\INTEGER\ \binarysearch($\INTEGER[\,]\ S$, \INTEGER $v$, \INTEGER $i$, \INTEGER $j$)}
 
-\uIf{$i>j$}{
+\eIf{$i>j$}{
   \Return $0$\;
 }
-\Else
 {
   \INTEGER $m = \lfloor (i+j)/2 \rfloor$\;
-  \uIf{$A[m] \Eq v$}{ 
+  \uIf{$S[m] \Eq v$}{ 
     \Return $m$\; 
   }
-  \uElseIf{$A[m] < v$}{
-    \Return $\binarysearch(A, v, m+1, j)$\;
+  \uElseIf{$S[m] < v$}{
+    \Return $\binarysearch(S, v, m+1, j)$\;
   }
   \Else {
-    \Return $\binarysearch(A, v, i, m-1)$\;  
+    \Return $\binarysearch(S, v, i, m-1)$\;  
   }
 }
 \end{Procedure}
@@ -783,9 +782,9 @@ Alcune proprietà hanno un costo aggiuntivo in termini di prestazioni
 \item \makebox[3cm][l]{Codice modulare} $\rightarrow$ costo gestione chiamate
 \item \makebox[3cm][l]{Java bytecode} $\rightarrow$ costo interpretazione
 \end{itemize}
-\begin{quote}
-Progettare algoritmi efficienti è un prerequisito per poter pagare questo costo
-\end{quote}
+
+\bigskip
+\emph{Progettare algoritmi efficienti è un prerequisito per poter pagare questo costo}
 \end{myboxtitle}	
 	
 \end{frame}
