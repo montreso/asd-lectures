@@ -100,17 +100,17 @@ $\INTEGER\ \setsize$\;
 $\INTEGER\ \setcap$\;
 \BlankLine
 
-\PROCEDURE{\Set \setconstructor(\INTEGER $m$)}
+\alert{\Set}\ \PROCEDURE{\alert{\setconstructor(\INTEGER $m$)}}
 {
   $\Set\ t = \NEW\ \Set$\;
   $t.\setsize = 0$\;
   $t.\setcap = m$\;
-	$t.V = [ \FALSE] * m$\;
+	$t.V = \NEW\ \INTEGER[1 \ldots m] = \{ \FALSE \}$\;
   \Return $t$\;
 }
 \BlankLine
 
-\BOOLEAN\ \PROCEDURE{\setcontains(\INTEGER $x$)}
+\alert{\BOOLEAN}\ \PROCEDURE{\alert{\setcontains(\INTEGER $x$)}}
 {
 	\eIf{$1 \leq x \leq \setcap$}{
   	\Return\ $V[x]$\;
@@ -120,13 +120,13 @@ $\INTEGER\ \setcap$\;
 }
 \BlankLine
 
-\INTEGER\ \PROCEDURE{size()}
+\alert{\INTEGER}\ \PROCEDURE{\alert{\textsf{size}()}}
 {
   \Return\ $\setsize$\;
 }
 \BlankLine
 
-\PROCEDURE{\setinsert(\INTEGER $x$)}
+\PROCEDURE{\alert{\setinsert(\INTEGER $x$)}}
 {
 	\If{$1 \leq x \leq \setcap$}{
   	\If{\NOT $V[x]$}{
@@ -137,7 +137,7 @@ $\INTEGER\ \setcap$\;
 }
 \BlankLine
 
-\PROCEDURE{\setremove(\INTEGER $x$)}
+\PROCEDURE{\alert{\setremove(\INTEGER $x$)}}
 {
 	\If{$1 \leq x \leq \setcap$}{
   	\If{$V[x]$}{
@@ -159,13 +159,10 @@ $\INTEGER\ \setcap$\;
 \begin{Procedure}
 \caption[A]{\Set (vettore booleano)}
 
-\bigskip
-\TwoColsCustom{0.46}{0.54}{
-
-%\begin{multicols}{2}
-\Set\ \PROCEDURE{\setunion(\Set $A$, \Set $B$)}
+\alert{\Set}\ \PROCEDURE{\alert{\setunion(\Set $A$, \Set $B$)}}
 {
-  $\Set\ C = \setconstructor(\MAX(A.\setcap, B.\setcap))$\;
+  $\INTEGER\ \mathit{newsize} = \MAX(A.\setcap, B.\setcap)$\;
+  $\Set\ C = \setconstructor(\mathit{newsize})$\;
   \For{$i = 1$ \TO\ $A.\setcap$}
   {
     \If{$A.\setcontains(i)$}{$C.\setinsert(i)$}
@@ -174,28 +171,37 @@ $\INTEGER\ \setcap$\;
   {
     \If{$B.\setcontains(i)$}{$C.\setinsert(i)$}
   }
+  \Return $C$\;
 }
-}{
-\Set\ \PROCEDURE{\setdifference(\Set $A$, \Set $B$)}
+\end{Procedure}
+
+\end{frame}
+
+\begin{frame}[shrink=12]{Insiemi realizzati con vettori booleani}
+
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{\Set (vettore booleano)}
+\alert{\Set}\ \PROCEDURE{\alert{\setdifference(\Set $A$, \Set $B$)}}
 {
   $\Set\ C = \setconstructor(A.\setcap)$\;
   \For{$i = 1$ \TO\ $A.\setcap$}
   {
     \If{$A.\setcontains(i)\ \AND\ \NOT\ B.\setcontains(i)$}{$C.\setinsert(i)$}
   }
+  \Return $C$\;
 }
-}
-\Set\ \PROCEDURE{\setintersection(\Set $A$, \Set $B$)}
+\BlankLine
+\alert{\Set}\ \PROCEDURE{\alert{\setintersection(\Set $A$, \Set $B$)}}
 {
-  $\Set\ C = \setconstructor(\MIN(A.\setcap, B.\setcap))$\;
+  $\INTEGER\ \mathit{newsize} = \MIN(A.\setcap, B.\setcap)$\;
+  $\Set\ C = \setconstructor(\mathit{newsize})$\;
   \For{$i = 1$ \TO\ $\MIN.\setcap, B.\setcap)$}
   {
     \If{$A.\setcontains(i)\ \AND\ B.\setcontains(i)$}{$C.\setinsert(i)$}
   }
+  \Return $C$\;
 }
-%\end{multicols}
-\BlankLine
-\BlankLine
 \end{Procedure}
 
 \end{frame}
@@ -250,7 +256,7 @@ Specializzazione di \texttt{std::vector} per ottimizzare la memorizzazione, dime
 
 
 \begin{Procedure}
-\caption[A]{\Set\ \setdifference($\Set\ A, \Set\ B$)}
+\caption[A]{\alert{\Set\ \setdifference($\Set\ A, \Set\ B$)}}
 
   $\Set\ C = \setconstructor()$\;
   \ForEach{$s \in A$}
@@ -269,32 +275,31 @@ Specializzazione di \texttt{std::vector} per ottimizzare la memorizzazione, dime
 
 
 \begin{frame}[shrink=5]{Insiemi realizzati con liste / vettori ordinati}
-
-\vspace{-6pt}
-
-\TwoColsCustom{0.52}{0.46}{
+	
+\vspace{-12pt}
+\TwoColsCustom{0.62}{0.36}{
 \vspace{-12pt}
 \begin{Procedure}
-\caption[A]{\List\ \setintersection(\List\ $A$, \List\ $B$)}
+\caption[A]{\alert{\List\ \setintersection(\List\ $A$, \List\ $B$)}}
 
   $\List\ C = \setconstructor()$\;
-  $\Postype\ p = A.\listhead()$\;
-  $\Postype\ q = B.\listhead()$\;
-  \While{\NOT $A.\listend(p)\ \AND\ \newline \makebox[1.15cm]{} \NOT\ B.\listend(q)$}
+  $\Postype\ \Pos_a = A.\listhead()$\;
+  $\Postype\ \Pos_b = B.\listhead()$\;
+  \While{\NOT $A.\listend(\Pos_a)\ \AND\ \newline \makebox[1.15cm]{} \NOT\ B.\listend(\Pos_b)$}
   {
-    \uIf{$A.\listread(p) \Eq B.\listread(q)$}
+    \uIf{$A.\listread(\Pos_a) \Eq B.\listread(\Pos_b)$}
     {
-       $C.\listinsert(C.\listtail(), A.\listread(p))$\;
-       $p = A.\listsucc(p)$\;
-       $q = B.\listsucc(q)$\;
+       $C.\listinsert(C.\listtail(), A.\listread(\Pos_a))$\;
+       $\Pos_a = A.\listsucc(\Pos_a)$\;
+       $\Pos_b = B.\listsucc(\Pos_b)$\;
     }
-    \uElseIf{$A.\listread(p) < B.\listread(q)$}
+    \uElseIf{$A.\listread(\Pos_a) < B.\listread(\Pos_b)$}
     {
-       $p = A.\listsucc(p)$\;
+       $\Pos_a = A.\listsucc(\Pos_a)$\;
     }
     \Else
     {
-       $q = B.\listsucc(q)$\;
+       $\Pos_b = B.\listsucc(\Pos_b)$\;
     }
   }
   \Return\ $C$\;
@@ -307,7 +312,7 @@ Specializzazione di \texttt{std::vector} per ottimizzare la memorizzazione, dime
 \item $O(n)$ (liste) 
 \item $O(\log n)$ (vettori)
 \EI
-\item Inserimento/cancellazione
+\item Inserimento e cancellazione
 \BI
 \item $O(n)$
 \EI
@@ -322,7 +327,8 @@ Specializzazione di \texttt{std::vector} per ottimizzare la memorizzazione, dime
 %-------------------------------------------------------------------------
 \begin{frame}{Insiemi -- Strutture dati complesse}
 	
-\TwoCols{
+\vspace{-12pt}
+\TwoColsCustom{0.46}{0.54}{
 \begin{myboxtitle}[Alberi bilanciati]
 \BIL
 \item Ricerca, inserimento, cancellazione: \alert{$O(\log n)$}
@@ -440,218 +446,6 @@ $n=\mathtt{len(L)}$
 $n=\mathtt{len(S)}, m = \mathtt{len(T)}$
 \end{center}
 \end{frame}
-
-
-
-
-\begin{frame}{BitSet + Tabelle Hash = Bloom Filters}
-
-\vspace{-12pt}
-\begin{columns}[c]
-\begin{column}{0.48\textwidth}
-\begin{myboxtitle}[BitSet]
-\alert{Vantaggi}
-\BI
-\item 1 bit/oggetto
-\EI
-\medskip
-\alert{Svantaggi}
-\BI
-\item Elenco prefissato di oggetti
-\EI
-\end{myboxtitle}
-
-\end{column}
-\hfill
-\begin{column}{0.48\textwidth}
-\begin{myboxtitle}[Tabelle Hash]
-\alert{Vantaggi}
-\BI
-\item Struttura dati dinamica
-\EI
-\medskip
-\alert{Svantaggi}
-\BI
-\item Alta occupazione di memoria
-\EI
-\end{myboxtitle}
-
-\end{column}
-\end{columns}
-
-\medskip
-\begin{myboxtitle}[Bloom filters]
-\medskip
-\TwoCols{
-\alert{Vantaggi}
-\BI
-\item Struttura dati dinamica
-\item Bassa occupazione di memoria
-(10 bit/oggetto)
-\EI
-}
-{
-\alert{Svantaggi}
-\BI
-\item Niente cancellazioni
-\item Risposta probabilistica
-\item No memorizzazione
-\EI
-}
-\end{myboxtitle}
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{Bloom filter}
-
-\vspace{-6pt}
-\begin{myboxtitle}[Specifica]
-\BI
-\item $\textsf{insert}(k)$: Inserisce l'elemento $x$ nel bloom filter
-\item $\BOOLEAN\ \textsf{contains}(k)$\\
-\BI
-\item Se restituisce \FALSE, l'elemento $x$ è sicuramente non presente
-nell'insieme
-\item Se restituisce \TRUE, l'elemento $x$ può essere presente oppure no \\
-(\alert{falsi positivi})
-\EI
-\EI
-\end{myboxtitle}
-
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{Bloom filter}
-
-\vspace{-6pt}
-\BB{Trade-off fra occupazione di memoria e probabilità di falso positivo}
-\TwoColsCustom{0.7}{0.26}{
-\BI
-\item Sia $\epsilon$ la probabilità di falso positivo
-\item I bloom filter richiedono $1.44\log_2(1/\epsilon)$ bit per elemento
-inserito
-\EI
-}{
-\begin{tabular}{|c|r|}
-\hline
-$\epsilon$ & Bit \\
-\hline
-$10^{-1}$ & 4.78 \\
-\hline
-$10^{-2}$ & 9.57 \\
-\hline
-$10^{-3}$ & 14.35 \\
-\hline
-$10^{-4}$ & 19.13 \\
-\hline
-\end{tabular}
-}
-\end{frame}
-
-
-\begin{frame}{Applicazioni dei Bloom Filter}
-	
-\BB{Chrome Safe Browsing}
-\BIL
-\item Chrome contiene un database delle URL associate a siti con malware, costantemente aggiornato
-\item Fino al 2012, memorizzato con un Bloom Filter
-\item Chrome verifica l'appartenenza di ogni URL al database
-\BI
-\item Se la risposta è \FALSE, non appartiene
-\item Se la risposta è \TRUE, potrebbe appartenere e viene fatta una verifica
-tramite un servizio centralizzato di Google
-\EI
-\EIL
-
-\BB{Qualche dato (da prendere cum grano salis)}
-\BI
-\item Nel 2011, 650k URL memorizzati in 1.94MB
-\item 25 bit per URL, $\epsilon \approx 10^{-5}$
-\EI
-
-\end{frame}
-
-\begin{frame}{Applicazioni dei Bloom Filter}
-
-\BB{Ogni qual volta una verifica locale permette di evitare un'operazione
-più costosa, quali operazioni di I/O e comunicazioni di rete}
-
-\begin{myboxtitle}[They say...]
-\BI
-\item \alert{Facebook} uses bloom filters for typeahead search, to fetch friends and friends of friends to a user typed query.
-\item \alert{Apache HBase} uses bloom filter to boost read speed by filtering out unnecessary disk reads of HFile blocks which do not contain a particular row or column.
-\item \alert{Transactional Memory} (TM) has recently applied Bloom filters to detect memory access conflicts among threads.
-\item When you log into \alert{Yahoo} mail, the browser page requests a bloom filter representing your contact list
-\EI
-\end{myboxtitle}
-	
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{Implementazione}
-
-\vspace{-6pt}
-\begin{overprint}
-\onslide<1|handout:1>
-\BI
-\item Un vettore booleano $A$ di $m$ bit, inizializzato a \FALSE 
-\item $k$ funzioni hash $h_1, h_2, \ldots, h_k: U \rightarrow [0, m-1]$
-\EI
-\onslide<2-4|handout:2>
-\vspace{-12pt}
-\begin{Procedure}
-\caption[A]{$\textsf{insert}(k)$}
-\For{$i = 1$ \TO\ $k$}{
-  $A[h_i(k)] = \TRUE$\;
-}
-\end{Procedure}
-\onslide<5|handout:3>
-\vspace{-12pt}
-\begin{Procedure}
-\caption[A]{$\BOOLEAN\ \textsf{contains}(k)$}
-\For{$i = 1$ \TO\ $k$}{
-  \lIf{$A[h_i(k)] \Eq \FALSE$}{
-		\Return \FALSE
-	}
-}
-\Return \TRUE\;
-\end{Procedure}
-\end{overprint}
-
-\vspace{-6pt}
-\begin{overprint}
-\includegraphics<1|handout:1>[width=1.0\textwidth,page=1]{bloom-crop.pdf}
-\includegraphics<2|handout:0>[width=1.0\textwidth,page=2]{bloom-crop.pdf}
-\includegraphics<3|handout:0>[width=1.0\textwidth,page=3]{bloom-crop.pdf}
-\includegraphics<4|handout:2>[width=1.0\textwidth,page=4]{bloom-crop.pdf}
-\includegraphics<5|handout:3>[width=1.0\textwidth,page=5]{bloom-crop.pdf}
-\end{overprint}
-
-\end{frame}
-
-\begin{frame}{Qualche formula (senza dimostrazione)}
-\BI
-\item Dati $n$ oggetti, $m$ bit, $k$ funzioni hash, la probabilità di un falso
-positivo è pari a:
-
-\[
- \epsilon = \left( 1 - e^{-kn/m} \right)^k
-\]
-\item Dati $n$ oggetti e $m$ bit, il valore ottimale per $k$ è pari a
-
-\[
-  k = \frac{m}{n}\ln 2
-\]
-\item Dati $n$ oggetti e una probabilità di falsi positivi $\epsilon$, il numero
-di bit $m$ richiesti è pari a:
-
-\[
- m = -\frac{n \ln \epsilon}{(\ln 2)^2}
-\]
-\EI
-
-\end{frame}
-
 
 \end{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

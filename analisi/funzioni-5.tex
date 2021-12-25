@@ -253,7 +253,7 @@ Sono dati tre casi:
 (2) & $f(n) = \Theta(n^{\log_b a})$ & $\Rightarrow$ & $T(n) = \Theta(f(n) \log n)$ \\
 \hline
 ~\newline(3) & $\exists \epsilon>0: f(n) = \Omega(n^{\log_b a + \epsilon}) \wedge {}$\newline
-$\exists c: 0 < c < 1, \exists m>0:$  \newline
+$\exists c: 0 < c < 1, \exists m \geq 0:$  \newline
 $af(n/b) \leq cf(n), \forall n \geq m$
 & ~\newline $\Rightarrow$ 
 & ~\newline $T(n) = \Theta(f(n))$\\
@@ -265,6 +265,190 @@ $af(n/b) \leq cf(n), \forall n \geq m$
 \end{myboxtitle}
 
 \end{frame}
+
+
+\begin{frame}{Alcuni esempi}
+
+\bgroup
+\def\arraystretch{1.1}
+
+\begin{overprint}
+\onslide<1|handout:0>
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = 9T(n/3)+n \log n$ &  &  &  &  &  \\
+\hline
+\end{tabular}
+\onslide<2|handout:1>
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = 9T(n/3)+n \log n$ & 9 & 3 & 2 & (1) & $T(n) = \Theta(n^2)$ \\
+\hline
+\end{tabular}
+\end{overprint}
+\egroup
+
+\onslide<2|handout:1>
+\begin{mybox}
+$f(n) = n \log n = O(n^{\log_b a - \epsilon}) = O(n^{2-\epsilon})$, con $\epsilon < 1$
+\end{mybox}
+
+\end{frame}
+
+\begin{frame}{Alcuni esempi}
+
+\bgroup
+\def\arraystretch{1.1}
+\begin{overprint}
+
+\onslide<1|handout:0>
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = T(2n/3)+1$ & &  & &  &  \\
+\hline
+\end{tabular}
+
+\onslide<2|handout:1>
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = T(2n/3)+1$ & 1 & $\frac{3}{2}$ & 0 & (2) & $T(n) = \Theta(\log n)$ \\
+\hline
+\end{tabular}
+
+\end{overprint}
+\egroup
+
+\onslide<2|handout:1>
+\begin{mybox}
+$f(n) = n^0 = \Theta(n^{\log_b a}) = \Theta(n^0)$ 
+\end{mybox}
+
+\end{frame}
+
+\begin{frame}{Alcuni esempi}
+
+\bgroup
+\def\arraystretch{1.1}
+\begin{overprint}
+
+\onslide<1|handout:0>
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = 3T(n/4)+n \log n$ &  &  &  & &  \\
+\hline
+\end{tabular}
+
+\onslide<2|handout:1>
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = 3T(n/4)+n \log n$ & 3 & 4 & $\approx 0.79$ & (3) & $T(n) = \Theta(n \log n)$ \\
+\hline
+\end{tabular}
+
+\end{overprint}
+
+\egroup
+
+\onslide<2|handout:1>
+\begin{mybox}
+ $f(n) = n \log n = \Omega(n^{\log_4 3 + \epsilon})$, con $\epsilon < 1-\log_4 3 \approx 0.208$ \\[3pt]
+  
+Dobbiamo dimostrare che: 
+
+$\exists c\leq 1, \exists m \geq 0: af(n/b) \leq cf(n), \forall n \geq m$
+
+\begin{align*}
+af(n/b) &= 3 (n/4 \log n/4) \\
+&= 3/4 n (\log n - \log 4) \\
+&\leq 3/4 n \log n \\
+&\stackrel{?}{\leq} c n \log n
+\end{align*}
+
+L'ultima disequazione è soddisfatta da $c=3/4$ e qualsiasi $m$.
+
+\end{mybox}
+
+\end{frame}
+
+
+
+\begin{frame}[shrink=6]{Alcuni esempi}
+
+\bgroup
+\def\arraystretch{1.1}
+
+\begin{overprint}
+
+\onslide<1|handout:0>
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = 2T(n/2)+n \log n$ &  &  &  &  &  \\
+\hline
+\end{tabular}
+
+\onslide<2|handout:1>
+
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+\hline
+$T(n) = 2T(n/2)+n \log n$ & 2 & 2 & 1 & -- & Non applicabile \\
+\hline
+\end{tabular}
+
+\end{overprint}
+
+\egroup
+
+\onslide<2|handout:1>
+\begin{mybox}
+$f(n) = n \log n \neq O(n^{1-\epsilon})$, con $\epsilon>0$\\[3pt]
+$f(n) = n \log n \neq \Theta(n)$\\[3pt]
+$f(n) = n \log n \neq \Omega(n^{1+\epsilon})$, con $\epsilon>0$\\[3pt]
+   
+Nessuno dei tre casi è applicabile e bisogna utilizzare altri metodi.
+\end{mybox}
+
+\end{frame}
+
+\begin{frame}{Interi inferiori/superiori}
+
+\BIL
+\item I teoremi appena visti non considerano equazioni di ricorrenza con interi inferiori/superiori
+
+\[
+T(n) = 2T(n/2) + n
+\]
+
+\item In realtà, le equazioni di ricorrenza dovrebbero sempre essere espresse tramite interi inferiori/superiori, perché operano su dimensioni dell'input
+
+\[
+T(n) = T(\lfloor n/2 \rfloor) + T(\lceil n/2 \rceil) + n
+\]
+
+\item I risultati dei teoremi valgono anche quando le funzioni sono espresse tramite interi inferiori/superiori
+
+\EIL
+	
+\end{frame}
+
 
 \begin{frame}{Ricorrenze lineari di ordine costante}
 
@@ -291,109 +475,27 @@ Posto $a = \displaystyle\sum_{1 \le i \le h}a_i$, allora:
 \end{frame}
 
 
-\begin{frame}{Alcuni esempi}
-
-\bgroup
-\def\arraystretch{1.1}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
-\hline
-$T(n) = 9T(n/3)+n$ & 9 & 3 & 2 & (1) & $T(n) = \Theta(n^2)$ \\
-\hline
-\end{tabular}
-\egroup
-
-\begin{mybox}
-$f(n) = n = O(n^{\log_b a - \epsilon}) = O(n^{2-\epsilon})$, con $\epsilon < 1$
-\end{mybox}
-
-\end{frame}
-
-\begin{frame}{Alcuni esempi}
-
-\bgroup
-\def\arraystretch{1.1}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
-\hline
-$T(n) = T(2n/3)+1$ & 1 & $\frac{3}{2}$ & 0 & (2) & $T(n) = \Theta(\log n)$ \\
-\hline
-
-\end{tabular}
-\egroup
-
-\begin{mybox}
-$f(n) = n^0 = \Theta(n^{\log_b a}) = \Theta(n^0)$ 
-\end{mybox}
-
-\end{frame}
-
-\begin{frame}{Alcuni esempi}
-
-\bgroup
-\def\arraystretch{1.1}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
-\hline
-$T(n) = 3T(n/4)+n \log n$ & 3 & 4 & $\approx 0.79$ & (3) & $T(n) = \Theta(n \log n)$ \\
-\hline
-
-\end{tabular}
-\egroup
-
-\begin{mybox}
- $f(n) = n \log n = \Omega(n^{\log_4 3 + \epsilon})$, con $\epsilon < 1-\log_4 3 \approx 0.208$ \\[3pt]
-  
-Dobbiamo dimostrare che: 
-
-$\exists c\leq 1, m \geq: af(n/b) \leq cf(n), \forall n \geq m$
-
-\begin{align*}
-af(n/b) &= 3 n/4 \log n/4 \\
-&= 3/4 n \log n - 3/4n \log 2 \\
-&\leq 3/4 n \log n \\
-&\stackrel{?}{\leq} c n \log n
-\end{align*}
-
-L'ultima è diseguazione è soddisfatta da $c=3/4$ e $m=1$.
-
-\end{mybox}
-
-\end{frame}
-
-
-
 \begin{frame}[shrink=6]{Alcuni esempi}
 
 \bgroup
 \def\arraystretch{1.1}
-\begin{tabular}{|c|c|c|c|c|c|}
+
+\begin{overprint}
+
+\onslide<1|handout:0>
+
+\begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{b}$ & $\mathbf{\textbf{log}_b a}$ & \textbf{Caso} & \textbf{Funzione} \\
+&\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{\beta}$ & \textbf{Caso} & \textbf{Funzione} \\
 \hline
-$T(n) = 2T(n/2)+n \log n$ & 2 & 2 & 1 & -- & Non applicabile \\
+(A) & $T(n) = T(n-10)+n^2$ &  &  &  &  \\
+\hline
+(B) & $T(n) = T(n-2)+T(n-1)+1$ &  &  & &  \\
 \hline
 \end{tabular}
-\egroup
 
-\begin{mybox}
-$f(n) = n \log n \neq O(n^{1-\epsilon})$, con $\epsilon>0$\\[3pt]
-$f(n) = n \log n \neq \Theta(n)$\\[3pt]
-$f(n) = n \log n \neq \Omega(n^{1+\epsilon})$, con $\epsilon>0$\\[3pt]
-   
-Nessuno dei tre casi è applicabile e bisogna utilizzare altri metodi.
-\end{mybox}
+\onslide<2|handout:1>
 
-\end{frame}
-
-
-\begin{frame}[shrink=6]{Alcuni esempi}
-
-\bgroup
-\def\arraystretch{1.1}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
 &\textbf{Ricorrenza} & $\mathbf{a}$ & $\mathbf{\beta}$ & \textbf{Caso} & \textbf{Funzione} \\
@@ -403,8 +505,12 @@ Nessuno dei tre casi è applicabile e bisogna utilizzare altri metodi.
 (B) & $T(n) = T(n-2)+T(n-1)+1$ & 2 & 0 & (2) & $T(n) = 2^n$ \\
 \hline
 \end{tabular}
+
+\end{overprint}
+
 \egroup
 
+\onslide<2|handout:1>
 \begin{mybox}
 \BIL
 \item[(A)] Poiché $a=1$, il costo è polinomiale.
@@ -413,3 +519,46 @@ Nessuno dei tre casi è applicabile e bisogna utilizzare altri metodi.
 \end{mybox}
 
 \end{frame}
+
+\begin{frame}{Esercizio}
+	
+Siano
+\BI
+\item $T(n) = 7T(n/2) + n^2$ una funzione di costo di un algoritmo $A$, e
+\item $T'(n) = aT'(n/4) + n^2$ una funzione di costo di un algoritmo $A'$.
+\EI
+Qual è il massimo valore intero di $a$ che rende $A'$ asintoticamente più veloce
+di $A$?
+	
+\end{frame}
+
+\begin{frame}{Esercizio -- Soluzione}
+	
+\BB{
+Poichè $\log_2 7$ è $\approx 2.81$, il Master Theorem dice che
+$T(n) = \Theta(n^{\log_2 7})$.
+}
+
+\BB{
+Utilizzando alcune trasformazioni algebriche, si ottiene che:
+\begin{align*}
+\log_2 7 &= \frac{\log_4 7}{\log_4 2} 
+         = \frac{\log_4 7}{1/2} \\
+         &= 2\log_4 7
+         = \log_4 49 
+\end{align*}
+}
+
+\BB{
+\BI
+\item $a<16 \Rightarrow \alpha = \log_4 a < 2 \Rightarrow T'(n) = \Theta(n^2) = O(T(n))$
+\item $a=16 \Rightarrow \alpha = \log_4 a = 2 \Rightarrow T'(n) = \Theta(n^2 \log n) = O(T(n))$
+\item $16<a \leq 49 \Rightarrow \alpha = \log_4 a > 2 \Rightarrow T'(n) = \Theta(n^\alpha) = O(T(n))$
+\item $a < 49 \Rightarrow \alpha = \log_4 a > 2 \Rightarrow T'(n) = \Theta(n^\alpha) = \Omega(T(n))$
+\EI
+}
+	
+\end{frame}
+
+
+

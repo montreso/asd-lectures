@@ -16,14 +16,18 @@
 \node[mynode, label={above right:$t$}] at (7.0, 1.5) (f) {f};
 %
 \draw[edger] (a) edge[above left] node[rounded corners=2pt,fill=red!10] {\R{2}/\B{2}} (b);
+\draw[edger] (b) edge[below,dashed,bend left=25] node[rounded corners=2pt,fill=red!10] {\R{-2}/\B{0}} (a);
 \draw[edgen] (b) edge[right] node {\B{2}} (c);
 \draw[edgen] (a) edge[below left] node {\B{8}} (c);
 \draw[edgen] (b) edge[above] node {\B{7}} (d);
 \draw[edger] (b) edge[above right] node {\R{2}/\B{3}} (e);
+\draw[edger] (e) edge[below,dashed,bend left=25] node[rounded corners=2pt,fill=red!10] {\R{-2}/\B{0}} (b);
+
 \draw[edgen] (c) edge[below] node {\B{6}} (e);
 \draw[edgen] (d) edge[above] node {\B{3}} (f);
-\draw[edgen] (d) edge[right] node {\B{2}} (e);
+\draw[edgen] (d) edge[above right] node {\B{2}} (e);
 \draw[edger] (e) edge[below right] node {\R{2}/\B{4}} (f);
+\draw[edger] (f) edge[above,dashed,bend right=25] node[rounded corners=2pt,fill=red!10] {\R{-2}/\B{0}} (e);
 \end{tikzpicture}
 
 \end{document}

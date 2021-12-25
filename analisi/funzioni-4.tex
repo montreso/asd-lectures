@@ -79,9 +79,9 @@ T(n) = \begin{cases}
 \end{figure}
 \onslide<9|handout:2>
 \[
-  T(n) =    {n \sum_{i=0}^{ \log n } (1/2)^i}
-       \leq {n \sum_{i=0}^{\infty} (1/2)^i}
-       \leq {n \frac{1}{1-\frac{1}{2}} = 2n}
+  T(n) =    {n \cdot \sum_{i=0}^{ \log n } (1/2)^i}
+       ~\textcolor{red}{\leq}~ {n \cdot \sum_{i=0}^{\infty} (1/2)^i}
+       = {n \cdot \frac{1}{1-\frac{1}{2}} = 2n}
 \]
 
 \begin{myboxtitle}[Serie geometrica decrescente infinita]
@@ -216,16 +216,16 @@ $\exists d > 0, \exists m \geq 0:T(n) \geq dn, \forall n \geq m$
 		\item \makebox[3.5cm][l]{Nel caso base:} $d \leq 1$
 		\item \makebox[3.5cm][l]{Nel passo induttivo:} $d \leq 2-\frac{2}{n}$
 		\item Un valore $d$ che rispetta entrambe le disequazioni, per ogni valore
-		di $n \geq 1$,  è $d=1$
+		di $n \geq 2$,  è $d=1$
 	\EI
-	\item Questo vale per $n=1$, e per tutti i valori di $n$ seguenti
+	\item Questo vale per $n=2$, e per tutti i valori di $n$ seguenti
 	\BI
-		\item Quindi $m=1$
+		\item Quindi $m=2$
 	\EI
 \EIL
 \TwoCols{
 \begin{mybox}
-	Abbiamo quindi provato che $T(n)=O(n)$
+	Abbiamo quindi provato che $T(n)=\Omega(n)$
 \end{mybox}
 }{
 \begin{mybox}
@@ -271,13 +271,13 @@ T(n) = \begin{cases}
 \end{mybox}
 
 \begin{overprint}
-\onslide<1|handout:1>
+\onslide<2|handout:1>
 \begin{figure}
 	\includegraphics[width=0.7\textwidth]{ennemenouno.pdf}
 \end{figure}
-\onslide<2|handout:2>
+\onslide<3|handout:2>
 \[
-T(n) = \sum_{i=1}^n i = \frac{n (n+1)}{2} = O(n^2)
+T(n) = \sum_{i=1}^n i = \frac{n (n+1)}{2} = \Theta(n^2)
 \]
 \end{overprint}
 
@@ -348,7 +348,7 @@ T(n) = \begin{cases}
 \end{figure}
 \onslide<3|handout:3>
 \[
-T(n) = \sum_{i=0}^{\log n} 2^i = n + n/2 + n/4 + \ldots + 1 = O(n)
+T(n) = \sum_{i=0}^{\log n} 2^i = 1 + 2 + \ldots + n/4 + n/2 + n = O(n)
 \]
 \end{overprint}
 
@@ -629,7 +629,7 @@ $T(n) \leq cn \log n, \forall n \geq m$
 
 \end{frame}
 
-\begin{frame}{All together now!}
+\begin{frame}{together now!}
 	
 \vspace{-6pt}
 \begin{mybox}
@@ -645,7 +645,7 @@ T(n) = \begin{cases}
 \begin{column}{0.51\textwidth}
 \begingroup\small
 \alert{Tentativo: $T(n) = O(n^2)$}\\[2pt]
-$\exists c > 0, \exists m \geq 0: T(n) \leq n^2, \forall n \geq m$
+$\exists c > 0, \exists m \geq 0: T(n) \leq cn^2, \forall n \geq m$
 \endgroup
 \end{column}
 \end{columns}
@@ -702,7 +702,7 @@ stato dimostrato
 \item Parametri:
 \BI
 \item $c \geq \max \left\{ \frac{1}{2}, \frac{11}{2}, \frac{12}{6}, \frac{13}{12}, \frac{14}{20} \right\}$	
-\item $m=1$
+\item $m=2$
 \EI
 \item Notare che l'esempio combina le due difficoltà insieme, ma è artificiale:
 \BI

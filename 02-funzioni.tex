@@ -17,7 +17,90 @@
 
 \begin{document}
 
-\input analisi/funzioni-1.tex
+\title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e Strutture Dati}\\[18pt]Analisi di algoritmi\\Funzioni di costo, notazione asintotica}
+
+
+%-------------------------------------------------------------------------
+\FrameTitle{}
+
+
+\section{Notazione asintotica}
+
+\subsection{Definizioni}
+
+\begin{frame}{Notazioni $O$, $\Omega$, $\Theta$}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Definizione -- Notazione $O$]
+Sia $g(n)$ una funzione di costo; indichiamo con $O(g(n))$ l'insieme
+delle funzioni $f(n)$ tali per cui:\\[-6pt]
+\[
+  \exists c>0, \exists m \geq 0: \alert{f(n) \leq cg(n)}, \forall n \geq m
+\]
+\end{myboxtitle}
+
+\medskip
+\begin{itemize}
+\item Come si legge: $f(n)$ è “\alert{O grande}” (big-O) di $g(n)$
+\item Come si scrive: $f(n) = O(g(n))$
+\item $g(n)$ è un \alert{limite asintotico superiore} per $f(n)$
+\item $f(n)$ cresce al più come $g(n)$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Notazioni $O$, $\Omega$, $\Theta$}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Definizione -- Notazione $\Omega$]
+Sia $g(n)$ una funzione di costo; indichiamo con $\Omega(g(n))$ l'insieme
+delle funzioni $f(n)$ tali per cui:\\[-6pt]
+\[
+  \exists c>0, \exists m \geq 0: \alert{f(n) \geq cg(n)}, \forall n \geq m
+\]
+\end{myboxtitle}
+
+\medskip
+\begin{itemize}
+\item Come si legge: $f(n)$ è “\alert{Omega grande}”  di $g(n)$
+\item Come si scrive: $f(n) = \Omega(g(n))$
+\item $g(n)$ è un \alert{limite asintotico inferiore} per $f(n)$
+\item $f(n)$ cresce almeno quanto $g(n)$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Notazioni $O$, $\Omega$, $\Theta$}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Definizione -- Notazione $\Theta$]
+Sia $g(n)$ una funzione di costo; indichiamo con $\Theta(g(n))$ l'insieme
+delle funzioni $f(n)$ tali per cui:\\[-6pt]
+\[
+  \exists c_1>0, \exists c_2>0, \exists m \geq 0: \alert{c_1g(n) \leq f(n) \leq c_2g(n)}, \forall n \geq m
+\]
+\end{myboxtitle}
+
+\medskip
+\begin{itemize}
+\item Come si legge: $f(n)$ è “\alert{Theta}” di $g(n)$
+\item Come si scrive: $f(n) = \Theta(g(n))$
+\item $f(n)$ cresce esattamente come $g(n)$
+\item $f(n) = \Theta(g(n))$ se e solo se $f(n) = O(g(n))$ e $f(n) = \Omega(g(n))$
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Graficamente}
+  
+\begin{center}
+\vspace{-12pt}
+\includegraphics[width=0.9\textwidth]{plot-3.pdf}
+\end{center}
+  
+\end{frame}
+
+
+%\input analisi/funzioni-1.tex
 \input analisi/funzioni-2.tex
 \input analisi/funzioni-3.tex
 \input analisi/funzioni-4.tex
@@ -211,6 +294,48 @@ int maxsum4(int A[], int n) {
 \end{lstlisting}  
 
 E' facile vedere che la complessità di questa versione è $\theta(n)$.
+
+\end{frame}
+
+\subsection{Ruolo dei fattori molitplicativi}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Fattori moltiplicativi}
+
+\vspace{-9pt}	
+\BB{
+A volte, i fattori moltiplicativi di una funzione di complessità sono talmente alti che se ne sconsiglia l'uso per piccoli valori di $n$
+}
+
+\IG{0.65}{confronto.png}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{GNU Multiple Precision Arithmetic Library}
+
+\BI
+\item Utilizzata da Mathematica, Maple, etc.
+\item Le moltiplicazioni vengono realizzate utilizzando algoritmi diversi,
+mano a mano che $n$ cresce.
+\item \url{https://gmplib.org/manual/Multiplication-Algorithms.html}
+\EI
+
+\medskip
+\includegraphics[width=\textwidth]{gmp.pdf}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{GNU Multiple Precision Arithmetic Library}
+
+\BI
+\item Utilizzata da Mathematica, Maple, etc.
+\item I limiti (threshold) dipendono dall'architettura
+\EI
+
+\includegraphics[width=\textwidth]{threshold.pdf}
 
 \end{frame}
 

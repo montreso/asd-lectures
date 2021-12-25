@@ -7,7 +7,9 @@
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
 
-%\setbeamersize{text margin right=0.5cm} 
+\newcommand*\Ball[1]{\tikz[anchor=base,baseline=-1.5pt]{
+            \node[circle,ball color=blue, shade, 
+ color=white,inner sep=1.2pt] (char) {\tiny #1};}}
 
 
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
@@ -64,7 +66,7 @@ Alberi binari di ricerca}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Dizionario]
-E' un insieme dinamico che implementa le seguenti funzionalità:
+\EE un insieme dinamico che implementa le seguenti funzionalità:
 \BIL
 \item \Item \textsf{lookup}(\Item $k$)
 \item \textsf{insert}(\Item $k$, \Item $v$)
@@ -421,7 +423,8 @@ Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$
 \includegraphics<2|handout:1>[width=\textwidth,page=2]{successor.pdf}
 \end{overprint}
 }{
-\BB{Successore di \circledr{12} ? \pause \circledb{15}}
+\BB{Successore di \circledr{12} ?
+\onslide<2|handout:1>\circledb{15}}
 }
 
 \end{frame}
@@ -495,7 +498,7 @@ Il \alert{successore} di un nodo $u$ è il più piccolo nodo maggiore di $u$
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{Successore-predecessore -- Esempio 4}
+\begin{frame}{Successore-predecessore -- nodo 4}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Definizione]
@@ -1018,7 +1021,9 @@ Tempo di ricerca: $O(h)$
 \EIL
 \end{myboxtitle}
 }{
-\IG{1.0}{costo.pdf}
+\begin{myboxtitle}[Esempio]
+\IG{1.0}{height.pdf}
+\end{myboxtitle}
 }
 
 \end{frame}
@@ -1091,25 +1096,35 @@ Alberi binari di ricerca bilanciati}
 %-------------------------------------------------------------------------
 \section{Alberi binari di ricerca bilanciati}
 
-\begin{frame}{Altezza degli ABR}
+\begin{frame}{Altezza degli alberi binari di ricerca}
 
-\BB{Qual è l'altezza media di un albero di ricerca?}
+\vspace{-9pt}
+\begin{myboxtitle}[Altezza ABR, caso pessimo]
+\BIL
+\item $O(n)$
+\EIL	
+\end{myboxtitle}
+
+\begin{myboxtitle}[Altezza ABR, caso medio]
 \BIL
 \item Caso "semplice": inserimenti in ordine casuale
   \BI
-  \item E' possibile dimostrare che l'altezza media è $O(\log n)$
+  \item \EE possibile dimostrare che l'altezza media è $O(\log n)$
   \EI
 \item Caso generale (inserimenti + cancellazioni): 
   \BI
   \item Difficile da trattare
   \EI
 \EIL
+\end{myboxtitle}
 
-\BB{Nella realtà}
+
+\begin{myboxtitle}[Nella realtà]
 \BIL
 \item Non ci si affida al caso
 \item Si utilizzano tecniche per mantenere l'albero bilanciato
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1125,7 +1140,7 @@ Il \alert{fattore di bilanciamento} $\beta(v)$ di un nodo $v$ è la massima diff
 \item \alert{Alberi AVL} (Adelson-Velskii e Landis, 1962)
 \BI
 \item $\beta(v) \leq 1$  per ogni nodo $v$
-\item Bilanciamento ottenuto tramite rotazioni
+\item Bilanciamento ottenuto tramite \alert{rotazioni}
 \EI
 \item \alert{B-Alberi} (Bayer, McCreight,  1972)
 \BI
@@ -1135,41 +1150,106 @@ Il \alert{fattore di bilanciamento} $\beta(v)$ di un nodo $v$ è la massima diff
 \item \alert{Alberi 2-3} (Hopcroft, 1983)
 \BI
 \item  $\beta(v) = 0$ per ogni nodo $v$
-\item Bilanciamento ottenuto tramite merge/split, grado variabile
+\item Bilanciamento ottenuto tramite \alert{merge/split}, grado variabile
 \EI
 \EIL
 
 \end{frame}
 
-%-------------------------------------------------------------------------
-\begin{frame}{Rotazione}
-    
-\IG{1.0}{rotazione.pdf}
-
-\end{frame}
-
-\subsection{Alberi Red-Black -- Definizioni}
+\subsection{Definizioni}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Alberi Red-Black}
+\begin{frame}{Alberi Red-Black (Guibas and Sedgewick, 1978)}
 
-\vspace{-6pt}
-\BB{Un \alert{albero red-black} è un albero binario di ricerca in cui:}
+\vspace{-9pt}
+\BB{
+Sono \alert{alberi binari di ricerca} in cui:
 \BIL
 \item Ogni nodo è colorato di \alert{rosso} o di \alert{nero}
-\item Le chiavi vengono mantenute solo nei nodi interni dell'albero
-\item Le foglie sono costituite da nodi speciali \textbf{Nil} 
-\EIL
-\BB{Un \alert{albero red-black} deve rispettare questi vincoli}
+\item Le \alert{chiavi} vengono mantenute \alert{solo nei nodi interni} dell'albero
+\item Le foglie sono costituite da \alert{nodi speciali \textbf{Nil}} 
+\item Vengono rispettati i seguenti vincoli:
 \BEL
 \item La radice è nera
 \item Tutte le foglie sono nere
 \item Entrambi i figli di un nodo rosso sono neri
-\item Tutti i cammini semplici da un nodo $u$ ad una delle foglie contenute nel sottoalbero radicato in $u$ hanno lo stesso numero di nodi neri
+\item Ogni cammino semplice da un nodo $u$ ad una delle foglie contenute nel suo sottoalbero ha lo stesso numero di nodi neri
 \EEL
-
+\EIL
+}
 
 \end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Esempi}
+
+\vspace{-12pt}
+\begin{overprint}
+
+\onslide<1|handout:1>
+\BB{\Ball{1} La radice è nera}
+
+\onslide<2|handout:2>
+\BB{\Ball{2} Tutte le foglie sono nere}
+
+\onslide<3|handout:3>
+\BB{\Ball{3} Entrambi i figli di un nodo rosso sono neri}
+
+\onslide<4|handout:4>
+\BB{\Ball{4} Ogni cammino semplice da un nodo $u$ ad una delle foglie contenute nel suo sottoalbero ha lo stesso numero di nodi neri }
+
+\end{overprint}
+
+\includegraphics[width=1.0\textwidth,page=1]{redblack1.pdf}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Reality check}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Java TreeMap, Java TreeSet]
+\tiny
+\url{https://docs.oracle.com/javase/8/docs/api/java/util/TreeMap.html}
+
+\smallskip
+\includegraphics[width=\linewidth]{treemap.png}
+\vspace{-9pt}
+\end{myboxtitle}
+
+\begin{myboxtitle}[C++ STL]
+\tiny
+\url{https://gcc.gnu.org/onlinedocs/libstdc++/libstdc++-html-USERS-4.1/stl__tree_8h-source.html}
+
+\smallskip
+\includegraphics[width=\linewidth]{stl.png}
+\vspace{-9pt}
+\end{myboxtitle}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Reality check}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Linux]
+\tiny
+\url{https://github.com/torvalds/linux/blob/master/Documentation/core-api/rbtree.rst}
+
+\smallskip
+\includegraphics[width=1.0\linewidth]{linux2.png}
+
+\smallskip
+\url{https://github.com/torvalds/linux/blob/master/include/linux/rbtree.h}
+
+\smallskip
+\includegraphics[width=1.0\linewidth]{linux3.png}
+\includegraphics[width=1.0\linewidth]{linux4.png}
+\end{myboxtitle}
+
+\end{frame}
+
 
 %-------------------------------------------------------------------------
 \begin{frame}{Alberi Red-Black -- Memorizzazione}
@@ -1187,10 +1267,9 @@ $\Item\ \mathit{value}$\;
 }{
 \begin{myboxtitle}[Nodi \textbf{Nil}]
 \BIL
-\item Nodo sentinella il cui scopo è evitare di trattare diversamente i puntatori ai nodi dai puntatori \Nil
-\item Al posto di un puntatore \Nil, si usa un puntatore ad un nodo \textbf{Nil}
+\item Nodo \alert{sentinella} il cui scopo è avere accesso al colore di entrambi i figli, evitare di dover gestire casi particolari quando uno dei due è \Nil.
+\item Al posto di un puntatore \Nil, si usa un puntatore ad un nodo \textbf{Nil} con colore nero
 \item Ne esiste solo uno, per risparmiare memoria
-\item Nodo con figli \textbf{Nil} $\Rightarrow$ foglia nell'ABR corrispondente
 \EIL
 \end{myboxtitle}
 }
@@ -1201,7 +1280,7 @@ $\Item\ \mathit{value}$\;
 
 \vspace{-9pt}
 \begin{myboxtitle}[Altezza nera di un nodo $v$]
-L'\alert{altezza nera $b(v)$ di un nodo $v$} è il numero di nodi neri lungo ogni percorso da $v$ (escluso) ad ogni foglia (inclusa) del suo sottoalbero.
+L'\alert{altezza nera $\mathit{bh}(v)$ di un nodo $v$} è il numero di nodi neri lungo ogni cammino da $v$ (escluso) ad ogni foglia (inclusa) del suo sottoalbero.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Altezza nera di un albero Red-Black]
@@ -1213,11 +1292,11 @@ L'\alert{altezza nera di un albero Red-Black} è pari all'altezza nera della sua
 \hrule
 
 \vspace{6pt}
-Entrambe ben definite perché tutti i percorsi hanno lo stesso numero di nodi neri (Vincolo 4)
+Entrambe ben definite perché tutti i cammini hanno lo stesso numero di nodi neri (Vincolo (4))
 
 \end{frame}
 
-\subsection{Alberi Red-Black -- Esempi}
+\subsection{Esempi}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Esempi}
@@ -1226,85 +1305,82 @@ Entrambe ben definite perché tutti i percorsi hanno lo stesso numero di nodi ne
 \begin{overprint}
 
 \onslide<1|handout:1>
-\BB{\emph{3. Entrambi i figli di un nodo rosso sono neri.} \\
-Ma un nodo nero può avere figli neri!}
+\BB{Più colorazioni sono possibili -- Versione 1\\
+Altezza nera: \alert{$\mathit{bh}(r)=3$}}
 
 \onslide<2|handout:2>
-\BB{\emph{4. Ogni percorso da un nodo interno ad un nodo \textbf{Nil} ha lo stesso numero di nodi neri.} 
-Altezza nera di questo albero: 3}
+\BB{Più colorazioni sono possibili -- Versione 2\\
+Altezza nera: \alert{$\mathit{bh}(r)=3$}}
 
 \onslide<3|handout:3>
-\BB{\emph{Più colorazioni sono possibili -- Versione 1\\} 
-Altezza nera di questo albero: 3}
+\BB{Cambiare colorazione può cambiare l'altezza nera\\
+Altezza nera: \alert{$\mathit{bh}(r)=3$}}
 
 \onslide<4|handout:4>
-\BB{\emph{Più colorazioni sono possibili -- Versione 2\\} 
-Altezza nera di questo albero: 3}
+\BB{Cambiare colorazione può cambiare l'altezza nera\\ 
+Altezza nera: \alert{$\mathit{bh}(r)=2$}}
 
 \onslide<5|handout:5>
-\BB{\emph{Cambiare colorazione può cambiare l'altezza nera\\} 
-Altezza nera di questo albero: 3}
-
-\onslide<6|handout:6>
-\BB{\emph{Cambiare colorazione può cambiare l'altezza nera\\} 
-Stesso albero, altezza nera di questo albero: 2}
-
-\onslide<7|handout:7>
 \BB{Questo albero può essere un albero Red-Black?\\}
 
+\onslide<6|handout:6>
+\BB{Guardando il lato sinistro, $2 \leq \mathit{bh}(r) \leq 3$\\
+Guardando il lato destro, $\mathit{bh}(r) \geq 3$\\
+Quindi \alert{bh(r)=3}.
+}
+
+
+\onslide<7|handout:7>
+\BB{Supponiamo che 60 e 70 siano entrambi neri.\\
+\alert{Per rispettare il vincolo \Ball{4}, dobbiamo infrangere il vincolo \Ball{3}}
+}
+
+% \onslide<8|handout:8>
+% \BB{Quindi, almeno uno fra 60 e 70 deve essere rosso.\\
+% Per il vincolo 3, al massimo uno fra 60 e 70 deve essere rosso.}
+
+
 \onslide<8|handout:8>
-\BB{\alert{Per il vincolo 4, l'altezza nera massima deve essere 3.}\\}
+\BB{Proviamo a colorare di  rosso il nodo 60.\\ 
+Esistono cammini con 2 nodi neri e con 3 nodi neri.\\ 
+\alert{Impossibile per il vincolo \Ball{4}}}
 
 \onslide<9|handout:9>
-\BB{Supponiamo che 60 e 70 siano entrambi neri.\\
-\alert{Impossibile per il vincolo 3.}
+\BB{Proviamo a colorare di rosso il nodo 70.\\
+Esistono cammini con 2 nodi neri\\
+\alert{Impossibile per il vincolo \Ball{4}}
 }
 
 \onslide<10|handout:10>
-\BB{Quindi, almeno uno fra 60 e 70 deve essere rosso.\\
-Per il vincolo 3, al massimo uno fra 60 e 70 deve essere rosso.}
+\BB{Questa è l'ultima possibilità.\\
+\alert{Impossibile perchè non rispetta il vincolo \Ball{1}}\\
+\alert{Impossibile perchè non rispetta il vincolo \Ball{4}}
+}
 
 \onslide<11|handout:11>
-\BB{Proviamo a colorare di  rosso il nodo 60. 
-Esistono percorsi con 2 nodi neri e con 3 nodi neri. \alert{Impossibile per il vincolo 4.}}
-
-\onslide<12|handout:12>
-\BB{Proviamo a colorare di rosso il nodo 70.
-Esistono 2 percorsi con 2 nodi neri; per il vincolo 4,
-devono esserci al più 2 nodi neri lungo tutti i percorsi!
-}
-
-\onslide<13|handout:13>
-\BB{Questa è l'ultima possibilità. Impossibile perchè non rispetta
-il vincolo 1 (La radice deve essere nera)
-}
-
-\onslide<14|handout:14>
 \BB{Questo albero non può essere un albero Red-Black!
 }
 
 \end{overprint}
 
 \begin{overprint}
-\includegraphics<1|handout:1>[width=1.0\textwidth,page=1]{redblack1.pdf}
-\includegraphics<2|handout:1>[width=1.0\textwidth,page=1]{redblack1.pdf}
-\includegraphics<3|handout:1>[width=1.0\textwidth,page=3]{redblack1.pdf}
-\includegraphics<4|handout:1>[width=1.0\textwidth,page=4]{redblack1.pdf}
-\includegraphics<5|handout:1>[width=1.0\textwidth,page=5]{redblack1.pdf}
-\includegraphics<6|handout:1>[width=1.0\textwidth,page=6]{redblack1.pdf}
-\includegraphics<7|handout:1>[width=1.0\textwidth,page=7]{redblack1.pdf}
-\includegraphics<8|handout:1>[width=1.0\textwidth,page=8]{redblack1.pdf}
-\includegraphics<9|handout:1>[width=1.0\textwidth,page=9]{redblack1.pdf}
-\includegraphics<10|handout:1>[width=1.0\textwidth,page=10]{redblack1.pdf}
-\includegraphics<11|handout:1>[width=1.0\textwidth,page=11]{redblack1.pdf}
-\includegraphics<12|handout:1>[width=1.0\textwidth,page=12]{redblack1.pdf}
-\includegraphics<13|handout:1>[width=1.0\textwidth,page=13]{redblack1.pdf}
-\includegraphics<14|handout:1>[width=1.0\textwidth,page=14]{redblack1.pdf}
+\includegraphics<1|handout:1>[width=1.0\textwidth,page=3]{redblack1.pdf}
+\includegraphics<2|handout:2>[width=1.0\textwidth,page=4]{redblack1.pdf}
+\includegraphics<3|handout:3>[width=1.0\textwidth,page=5]{redblack1.pdf}
+\includegraphics<4|handout:4>[width=1.0\textwidth,page=6]{redblack1.pdf}
+\includegraphics<5|handout:5>[width=1.0\textwidth,page=7]{redblack1.pdf}
+\includegraphics<6|handout:6>[width=1.0\textwidth,page=7]{redblack1.pdf}
+\includegraphics<7|handout:7>[width=1.0\textwidth,page=9]{redblack1.pdf}
+%\includegraphics<8|handout:8>[width=1.0\textwidth,page=10]{redblack1.pdf}
+\includegraphics<8|handout:8>[width=1.0\textwidth,page=11]{redblack1.pdf}
+\includegraphics<9|handout:9>[width=1.0\textwidth,page=12]{redblack1.pdf}
+\includegraphics<10|handout:10>[width=1.0\textwidth,page=13]{redblack1.pdf}
+\includegraphics<11|handout:11>[width=1.0\textwidth,page=14]{redblack1.pdf}
 \end{overprint}
 
 \end{frame}
 
-\subsection{Alberi Red-Black -- Inserimento}
+\subsection{Inserimento}
 
 
 %-------------------------------------------------------------------------
@@ -1314,15 +1390,22 @@ il vincolo 1 (La radice deve essere nera)
 \BIL
 \item \EE possibile che le condizioni di bilanciamento risultino violate
 \EIL
-\BB{Quando i vincoli Red-Black vengono violate si può agire:}
+\BB{Quando i vincoli Red-Black vengono violati si può agire:}
 \BIL
 \item Modificando i colori nella zona della violazione
-\item Operando dei ribilanciamenti dell’albero tramite rotazioni
+\item Operando dei ribilanciamenti dell’albero tramite \alert{rotazioni}
   \BI
-  \item Rotazione destra
-  \item Rotazione sinistra
+  \item \alert{Rotazione destra}
+  \item \alert{Rotazione sinistra}
   \EI
 \EIL
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Rotazione}
+    
+\IG{1.0}{rotazione.pdf}
 
 \end{frame}
 
@@ -1399,9 +1482,9 @@ $\Tree\ u = T$\;
 \begin{myboxtitle}[Principi generali]
 \BIL
 \item Ci spostiamo verso l’alto lungo il percorso di inserimento 
-\item Ripristinare il vincolo 3 (figli neri di nodo rossso)
-\item Spostiamo le violazioni verso l’alto rispettando il vincolo 4 (mantenendo l’altezza nera dell’albero)
-\item Al termine, coloriamo la radice di nero (vincolo 1)
+\item Ripristinare il vincolo \Ball{3} (figli neri di nodo rossso)
+\item Spostiamo le violazioni verso l’alto rispettando il vincolo (4) (mantenendo l’altezza nera dell’albero)
+\item Al termine, coloriamo la radice di nero (vincolo \Ball{1})
 \EIL
 \end{myboxtitle}
 
@@ -1586,6 +1669,103 @@ Le operazioni di ripristino sono necessarie solo quando due nodi consecutivi son
 
 \end{frame}
 
+
+%-------------------------------------------------------------------------
+\begin{frame}{Altezza albero Red-Black}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Teorema]
+In un albero RB, un sottoalbero di radice $u$ contiene 
+\alert{$n \geq 2^{\mathit{bh}(u)}-1$} nodi interni (nodi non foglie \textbf{Nil}).
+\end{myboxtitle}
+
+\begin{myboxtitle}[Dimostrazione]
+\begin{overprint}
+\onslide<1|handout:1>
+\alert{Caso base $h=0$}:
+\BI
+\item Se $h=0$, $u$ è una foglia {\bf Nil}
+\item il sottoalbero con radice $u$ contiene 
+\alert{$n \geq 2^{\mathit{bh}(u)}-1 = 2^0-1 = 0$} nodi interni
+\EI
+\onslide<2|handout:2>
+\alert{Passo induttivo $h>1$}: 
+\BI
+\item Allora $u$ è un nodo interno con due figli
+\item Ogni figlio $v$ di $u$ ha un'altezza nera $\mathit{bh}(v)$ pari a:
+  \BI 
+  \item Se rosso: $\mathit{bh}(u)$
+  \item Se nero: \alert{$\mathit{bh}(u)-1$} 
+  \EI
+\item Per ip. induttiva, ogni figlio ha $\geq 2^{\mathit{bh}(u)-1}-1$ nodi interni 
+\item Quindi, il n. di nodi interni del sottoalbero con radice $u$ è:
+\[
+  \alert{n \geq 2 \cdot \left(2^{\mathit{bh}(u)-1}-1\right) +1 = 2^{\mathit{bh}(u)} -2 +1 = 2^{\mathit{bh}(u)} -1 }
+\]
+\EI
+\end{overprint}
+\end{myboxtitle}
+
+
+\end{frame}
+
+\begin{frame}{Altezza albero Red-Black}
+    
+\vspace{-9pt}
+\begin{myboxtitle}[Teorema]
+In un albero RB, almeno la metà dei nodi dalla radice ad una foglia deve 
+essere nera.
+\end{myboxtitle}
+
+\begin{myboxtitle}[Dimostrazione]
+\BIL
+\item Per il vincolo \Ball{2}, se un nodo è rosso, i suoi figli devono essere neri.
+\item La situazione in cui sono presenti il minor numero di nodi neri è il caso in cui rossi e neri sono alternati
+\item Quindi, almeno la metà dei nodi deve essere nera.
+\EIL
+\end{myboxtitle}
+
+\end{frame}
+
+\begin{frame}{Altezza albero Red-Black}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Teorema]
+In un albero RB, dati due cammini dalla radice a due foglie, non è possibile che uno sia più lungo del doppio dell'altro.
+\end{myboxtitle}
+
+\begin{myboxtitle}[Dimostrazione]
+\BIL
+\item Per il vincolo \Ball{4}, ogni cammino da un nodo ad una qualsiasi foglia contiene lo stesso numero di nodi neri. 
+\item Per il Lemma precedente, almeno metà dei nodi in ognuno di  questi cammini sono neri. 
+\item Quindi, al limite, uno dei due cammini è costituito da solo nodi neri, mentre l'altro è costituito da nodi neri e rossi alternati.
+\EIL
+\end{myboxtitle}
+
+\end{frame}
+
+\begin{frame}{Altezza albero Red-Black}
+
+
+\vspace{-9pt}
+\begin{myboxtitle}[Teorema]
+L'\alert{altezza} massima di un albero rosso-nero con $n$ nodi interni
+è al più $2 \log(n+1)$.
+\end{myboxtitle}
+
+\begin{myboxtitle}[Dimostrazione]
+\begin{eqnarray*}
+n \geq 2^{\textit{bh}(r)}-1 &\Leftrightarrow& n \geq 2^{h/2}-1  \\
+&\Leftrightarrow& n+1 \geq 2^{h/2}  \\
+&\Leftrightarrow& \log (n+1) \geq h/2 \\
+&\Leftrightarrow& h \leq 2 \log(n+1) 
+\end{eqnarray*}
+\end{myboxtitle}
+
+\end{frame}
+
+
+
 %-------------------------------------------------------------------------
 \begin{frame}{Inserimento -- Complessità}
 
@@ -1600,7 +1780,7 @@ Le operazioni di ripristino sono necessarie solo quando due nodi consecutivi son
 
 \begin{myboxtitle}[Nota]
 \BIL
-\item E' possibile effettuare una “top-down” insertion
+\item \EE possibile effettuare una “top-down” insertion
 \item Si scende fino al punto di inserimento, “aggiustando” l'albero mano a mano
 \item Si effettua l'inserimento in una foglia
 \EIL
@@ -1608,11 +1788,12 @@ Le operazioni di ripristino sono necessarie solo quando due nodi consecutivi son
 
 \end{frame}
 
-\subsection{Alberi Red-Black -- Cancellazione}
+\subsection{Cancellazione}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Cancellazione in Alberi Red-Black}
 
+\vspace{-9pt}
 \BIL
 \item L’algoritmo di cancellazione per alberi Red-Black è costruito 
 sull’algoritmo di cancellazione per alberi binari di ricerca
@@ -1626,6 +1807,7 @@ sull’algoritmo di cancellazione per alberi binari di ricerca
 %-------------------------------------------------------------------------
 \begin{frame}{Cancellazione in Alberi Red-Black}
 
+\vspace{-9pt}
 \BIL
 \item Se il nodo “cancellato” è rosso
 \BI
@@ -1635,9 +1817,9 @@ sull’algoritmo di cancellazione per alberi binari di ricerca
 \EI
 \item Se il nodo “cancellato” è nero
 \BI
-\item Possiamo violare il vincolo 1: la radice può essere un nodo rosso
-\item Possiamo violare il vincolo 3: se il padre e uno dei figli del nodo cancellato erano rossi
-\item Abbiamo violato il vincolo 4: altezza nera cambiata
+\item Possiamo violare il vincolo \Ball{1}: la radice può essere un nodo rosso
+\item Possiamo violare il vincolo \Ball{3}: se il padre e uno dei figli del nodo cancellato erano rossi
+\item Abbiamo violato il vincolo \Ball{4}: altezza nera cambiata
 \EI
 \EIL
 \BB{
@@ -1701,6 +1883,7 @@ Ci sono 4 casi possibili (e 4 simmetrici)!
 %-------------------------------------------------------------------------
 \begin{frame}{Cancellazione in Alberi Red-Black}
 
+\vspace{-9pt}
 \BB{La cancellazione è concettualmente complicata, ma efficiente}
 \BIL
 \item Dal caso (1) si passa ad uno dei casi (2), (3), (4)
@@ -1716,6 +1899,38 @@ casi, ognuno dei quali è gestito in tempo $O(1)$
 \EIL
 
 \end{frame}
+
+
+
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{Alberi Red-Black in Popular Culture}
+
+\vspace{-9pt}
+\BB{Gli alberi RB sono menzionati (correttamente) in un episodio della serie TV canadese "Missing"}
+
+\bigskip
+\textbf{Jess}: "It was the red door again."
+
+\textbf{Pollock}: "I thought the red door was the storage container."
+
+\textbf{Jess}: "But it wasn't red anymore, it was black."
+
+\textbf{Antonio}: "So red turning to black means what?"
+
+\textbf{Pollock}: "Budget deficits, red ink, black ink."
+
+\textbf{Antonio}: "It could be from a binary search tree. \alert{The red-black tree tracks every simple path from a node to a descendant leaf that has the same number of black nodes}."
+
+\textbf{Jess}: "\alert{Does that help you with the ladies?}"
+
+
+\bigskip
+\scriptsize
+\url{https://en.wikipedia.org/wiki/Red\%E2\%80\%93black_tree\#Popular_culture}
+
+\end{OnlySlides}
+
+
 
 
 \end{document}

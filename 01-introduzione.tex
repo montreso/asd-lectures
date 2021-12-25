@@ -1,5 +1,6 @@
 \input templates/header
 \title[ASD - Introduzione]{\textbf{Algoritmi e Strutture Dati}\\[24pt]Introduzione}
+\usepackage{epigraph}
 
 \graphicspath{{figs/01/}}
 
@@ -52,7 +53,7 @@ in un sistema \alert{formale} di calcolo, che risolve il problema in tempo \aler
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Algoritmi nella storia}
+\begin{frame}{Un po' di storia}
 \BIL
 \item Papiro di Rhind o di Ahmes (1850BC): algoritmo del contadino per la moltiplicazione
 \item Algoritmi di tipo numerico furono studiati da matematici babilonesi ed indiani
@@ -67,8 +68,10 @@ in un sistema \alert{formale} di calcolo, che risolve il problema in tempo \aler
 \includegraphics[width=4.5cm]{papyrus.jpg}
 \end{center}
 \tiny
+\vspace{-6pt}
 \url{https://en.wikipedia.org/wiki/Rhind_Mathematical_Papyrus}
 \end{frame}
+
 
 %-------------------------------------------------------------------------
 \begin{frame}[shrink=5]{Origine del nome}
@@ -79,7 +82,7 @@ in un sistema \alert{formale} di calcolo, che risolve il problema in tempo \aler
 \begin{myboxtitle}[\small Abu Abdullah Muhammad bin Musa \alert{al-Khwarizmi}]
 \medskip
 \begin{itemize}
-\item E' stato un matematico, astronomo, astrologo e geografo 
+\item \EE stato un matematico, astronomo, astrologo e geografo 
 \item Nato in Uzbekistan, ha lavorato a Baghdad
 \item Dal suo nome: \alert{algoritmo}
 \end{itemize}
@@ -130,6 +133,9 @@ in un sistema \alert{formale} di calcolo, che risolve il problema in tempo \aler
 \end{columns}
 \end{overprint}
 
+\tiny
+\vspace{-6pt}
+\url{https://en.wikipedia.org/wiki/Muhammad_ibn_Musa_al-Khwarizmi}
 
 \end{frame}
 
@@ -143,6 +149,7 @@ in un sistema \alert{formale} di calcolo, che risolve il problema in tempo \aler
 \vspace{-9pt}
 \begin{myboxtitle}[Esempio: Minimo]
 Il minimo di un insieme $S$ è l'elemento di $S$ che è minore o uguale ad ogni elemento di $S$.
+
 \[
   \Min(S) = a \Leftrightarrow \exists a \in S: \forall b \in S : a \leq b
 \]
@@ -152,6 +159,7 @@ Il minimo di un insieme $S$ è l'elemento di $S$ che è minore o uguale ad ogni 
 Sia $S=s_1, s_2, \ldots, s_n$ una sequenza di dati ordinati e distinti, i.e.  $s_1 < s_2 < \ldots < s_n$. 
 Eseguire una ricerca della posizione di un dato $v$ in $S$ consiste nel restituire un indice $i$ tale che 
 $1 \leq i \leq n$, se $v$ è presente nella posizione $i$, oppure $0$, se $v$ non è presente.
+
 \[
  \mathit{lookup}(S, v) = \begin{cases}
   i & \exists i \in \{1, \mldots, n\}: S_i = v \\
@@ -206,7 +214,7 @@ Le descrizioni precedenti presentano diversi problemi:
 \begin{frame}{Come descrivere un algoritmo}
 
 \BIL
-\item E' necessario utilizzare una descrizione il più possibile formale
+\item \EE necessario utilizzare una descrizione il più possibile formale
 \item Indipendente dal linguaggio: “\alert{Pseudo-codice}”
 \item Particolare attenzione va dedicata al livello di dettaglio
 \BI
@@ -264,7 +272,8 @@ Le descrizioni precedenti presentano diversi problemi:
 \begin{column}{0.485\textwidth}
 \begin{itemize}
 \item $a = b$
-\item $a \leftrightarrow b \ \equiv \ \mathit{tmp} = a; a = b; b = \mathit{tmp}$
+\item $a \leftrightarrow b \ \equiv {}$ \\ 
+  $\mathit{tmp} = a; a = b; b = \mathit{tmp}$
 \item $T[\,]\ A = \NEW\ T[1 \mldots n]$ \\
 \item $T[\,][\,]\ B = \NEW\ T[1 \mldots n][1 \mldots m]$ \\
 \item \INTEGER, \REAL, \BOOLEAN, \INTEGER
@@ -482,7 +491,7 @@ Numero di operazioni "rilevanti", ovvero il numero di operazioni che caratterizz
 Contiamo il numero di confronti per il problema del \alert{minimo}
 \end{mybox}
 
-\TwoCols{
+\TwoColsCustom{0.50}{0.48}{
 \begin{Procedure}
 \caption[A]{\INTEGER \MIN($\INTEGER[\,]\ S$,\ \INTEGER\ $n$)}
 \For{$i = 1$ \TO $n$}
@@ -628,17 +637,69 @@ Contiamo il numero di confronti per il problema della \alert{ricerca}
 }
 \end{Procedure}
 }{
-\pause
 \begin{mybox}
 Algoritmo “naïf”: \alert{$n$} 
 \end{mybox}
+\pause
 \begin{mybox}
-Algoritmo efficiente:\newline \alert{$\lceil \log n \rceil$} 
+Algoritmo efficiente:\newline \alert{2$\lceil \log n \rceil$} 
 \end{mybox}
 }
 
 \end{frame}
 
+\begin{frame}{Un po' di storia}
+	
+\BB{
+\BIL
+\item 1817: Metodo della bisezione per trovare le radici di una funzione (Bolzano)
+\item 1946: Prima menzione di binary search (John Mauchly, progettista di ENIAC)
+\item 1960: Prima versione di binary search che lavora con vettori di dimensione arbitraria (!) (Derrick Henry Lehmer)
+\EIL
+}
+
+\setlength\epigraphwidth{.80\textwidth}
+\epigraph{\alert{Although the basic idea of binary search is comparatively straightforward, the details can be surprisingly tricky.}
+}{\textit{Donald Knuth, The Art of Computer Programming}}
+
+\tiny
+\url{https://hsm.stackexchange.com/questions/2200/what-is-the-first-historical-reference-to-the-binary-search-algorithm}\\
+\url{https://devopedia.org/binary-search}
+
+
+
+\end{frame}
+
+\begin{frame}[shrink=10]{Problemi di overflow}
+
+\vspace{-9pt}
+\TwoColsCustom{0.57}{0.40}{
+\begin{Procedure}
+\caption[A]{\INTEGER\ \binarysearch($\INTEGER[\,]\ S$, $\INTEGER\ v$, \INTEGER $i$, \INTEGER $j$)}
+
+\eIf{$i>j$}{
+  \Return $0$\;
+}
+{
+  \INTEGER $m = \alert{\lfloor i + (j-i)/2 \rfloor}$\;
+  \uIf{$S[m] \Eq v$}{ 
+    \Return $m$\; 
+  }
+  \uElseIf{$S[m] < v$}{
+    \Return $\binarysearch(S, v, m+1, j)$\;
+  }
+  \Else {
+    \Return $\binarysearch(S, v, i, m-1)$\;  
+  }
+}
+\end{Procedure}
+}{
+\begin{mybox}
+Algoritmo efficiente:\newline $2\lceil \log n \rceil$
+\end{mybox}
+}
+
+\end{frame}
 
 
 \subsection{Correttezza}
@@ -691,10 +752,11 @@ Quando il ciclo termina, l'invariante deve rappresentare la “correttezza” de
 
 \begin{frame}{Valutazione algoritmi -- Correttezza}
 	
-\begin{mybox}
+\vspace{-9pt}
+\begin{myboxtitle}[Invariante]
 All'inizio di ogni iterazione del ciclo \textbf{for}, la variabile $\Min$ contiene il minimo parziale degli 
 elementi $S[1 \ldots i-1]$.
-\end{mybox}
+\end{myboxtitle}
 
 \TwoCols{
 \begin{Procedure}

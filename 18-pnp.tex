@@ -39,7 +39,7 @@
 \BB{Con l'eccezione della sezione su backtrack, finora abbiamo considerato solo 
 problemi con soluzioni in tempo polinomoniale}
 \BIL
-\item  Il tempo di esecuzione è $O(n^k)$ per qualche $k$; 
+\item  Il tempo di esecuzione è $O(n^k)$ per qualche $k$
 \EIL
 
 \medskip
@@ -95,11 +95,10 @@ tra un insieme $I$ di istanze del problema e un insieme $S$ di
 soluzioni
 \end{myboxtitle}
 
-\begin{myboxtitle}[Esempio]
-Per il problema \textsc{shortest-path}:
+\begin{myboxtitle}[Esempio -- \textsc{shortest-path}]
 \BIL
 \item Un'istanza è una quadrupla $(V,E,u,v)$
-\item Una soluzione è una sequenza ordinata di vertici
+\item Una soluzione è una sequenza ordinata di vertici $v_1 \ldots v_k$
 \item Nota: possono esistere più soluzioni associate alla stessa istanza
 \EIL
 \end{myboxtitle}
@@ -136,7 +135,7 @@ cammino fra essi
 \BI
 \item Data un'istanza, verificare se soddisfa o meno una data proprietà\\
 La relazione $R$ è una funzione $R: I \rightarrow \{ 0, 1 \}$ 
-\item \alert{\textsc{shortest-path} (Dec.)}: Dati un grafo $G$, due nodi $u,v$  e un valore $k$, esiste un cammino tra $u$ e $v$ di lunghezza maggiore o uguale a $k$?
+\item \alert{\textsc{shortest-path} (Dec.)}: Dati un grafo $G$, due nodi $u,v$  e un valore $k$, esiste un cammino tra $u$ e $v$ di lunghezza minore o uguale a $k$?
 \EI
 \end{myboxtitle}
 
@@ -146,6 +145,7 @@ La relazione $R$ è una funzione $R: I \rightarrow \{ 0, 1 \}$
 %-------------------------------------------------------------------------
 \begin{frame}{Equivalenza problemi di ottimizzazione / decisione}
 
+\vspace{-9pt}
 \BB{Ragioneremo in termini di problemi di decisione}
 \BIL
 \item La versione decisionale è più semplice da trattare matematicamente
@@ -202,13 +202,16 @@ Dati un grafo non orientato $G=(V,E)$ e un insieme di colori $C$, una \alert{col
 \vspace{-12pt}
 \TwoCols{
 \begin{center}
-\IG{0.6}{coloring.pdf}
+\IG{0.54}{coloring.pdf}
 \end{center}
 }{
 \begin{center}
-\IG{0.45}{4colors.pdf}
+\IG{0.40}{4colors.pdf}
 \end{center}
 }
+\tiny
+\url{https://it.wikipedia.org/wiki/Colorazione_dei_grafi\#/media/File:Petersen_graph_3-coloring.svg}
+\url{https://en.wikipedia.org/wiki/Four_color_theorem\#/media/File:Four_Colour_Map_Example.svg}
 \end{frame}
 
 %-------------------------------------------------------------------------
@@ -216,7 +219,7 @@ Dati un grafo non orientato $G=(V,E)$ e un insieme di colori $C$, una \alert{col
 
 \vspace{-9pt}
 \begin{myboxtitle}[Colorazione, ottimizzazione]
-Dato un grafo non orientato $G=(V,E)$, restituire la colorazione che necessita del numero minimo di colori
+Dato un grafo non orientato $G=(V,E)$, restituire la colorazione che richiede il minimo numero di colori
 \end{myboxtitle}
 
 \begin{myboxtitle}[Colorazione, decisionale]
@@ -240,6 +243,10 @@ riga, colonna e sottomatrice
 
 \begin{myboxtitle}[\textsc{sudoku}, decisionale]
 Data una matrice $n^2 \times n^2$ elementi, determinare se esiste un modo per assegnare i numeri in modo da rispettare le regole del Sudoku
+\end{myboxtitle}
+
+\begin{myboxtitle}[\textsc{sudoku-precolored}, decisionale]
+Data una matrice $n^2 \times n^2$ elementi con alcuni numeri già presenti nella matrice, determinare se esiste un modo per assegnare i numeri in modo da rispettare le regole del Sudoku
 \end{myboxtitle}
 
 \end{frame}
@@ -398,6 +405,7 @@ arbitrario di oggetti con il più piccolo sottoinsieme di questi oggetti.
 %-------------------------------------------------------------------------
 \begin{frame}{Riduzione per problemi duali}
 
+\vspace{-9pt}
 \BB{$S \subseteq V$ è un independent set $\Rightarrow$ $V-S$ è un vertex cover}
 Se $S$ è un insieme indipendente:
 \BI
@@ -413,6 +421,7 @@ Se $S$ è un insieme indipendente:
 
 \begin{frame}{Riduzione per problemi duali}
 
+\vspace{-9pt}
 \BB{$V-S$ è un vertex cover $\Rightarrow$ $S \subseteq V$ è un independent set}
 Supponiamo per assurdo che $S$ non sia un independent set:
 \BI
@@ -430,6 +439,7 @@ Supponiamo per assurdo che $S$ non sia un independent set:
 %-------------------------------------------------------------------------
 \begin{frame}{Riduzione per problemi duali}
 
+\vspace{-9pt}
 \BB{$\textsc{vertex-cover} \leq_p \textsc{independent-set}$\\ $\textsc{independent-set} \leq_p \textsc{vertex-cover}$}
 Abbiamo quindi dimostrato che i due problemi sono equivalenti.
 
@@ -460,7 +470,7 @@ Dato un insieme $V$ contenente $n$ \alert{variabili}
 \begin{frame}{SAT}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Soddisfattibilità di formule booleane ((\textsc{SATisfiability}))]
+\begin{myboxtitle}[Soddisfacibilità di formule booleane (\textsc{SATisfiability})]
 Data un'espressione in forma normale congiuntiva, il problema
 della \alert{soddisfacibilità} consiste nel decidere se esiste una
 assegnazione di valori di verità alle variabili che rende
@@ -538,11 +548,11 @@ independent set di dimensione esattamente $k$.
 \BB{Ovviamente: $\textsc{3-sat} \leq_p \textsc{sat}$}
 
 \bigskip
-\BB{E' possibile dimostrare che $\textsc{sat} \leq_p \textsc{3-sat}$?}
+\BB{\EE possibile dimostrare che $\textsc{sat} \leq_p \textsc{3-sat}$?}
 
 \pause
 \smallskip
-E' possibile trasformare una formula \textsc{sat} in una formula \textsc{3-sat} usando due semplici trucchi:
+\EE possibile trasformare una formula \textsc{sat} in una formula \textsc{3-sat} usando due semplici trucchi:
 \BIL
 \item Se la clausola è più lunga di tre elementi, si introduce una nuova variabile e si divide la clausola in due:
 
@@ -560,7 +570,7 @@ E' possibile trasformare una formula \textsc{sat} in una formula \textsc{3-sat} 
 
 \begin{frame}{Transitività delle riduzioni}
 
-E' facile intuire che la nozione di riducibilità polinomiale gode della
+\EE facile intuire che la nozione di riducibilità polinomiale gode della
 proprietà transitiva
 
 \[
@@ -638,13 +648,14 @@ che $(x, \mathbf{true}) \in R$, un \alert{certificato} è un insieme di informaz
 \item \textsc{independent-set}: un sottoinsieme di $V$ di $k$ elementi
 \EIL
 
+\medskip
 Tutti questi ``certificati'' hanno dimensione polinomiale nella dimensione dell'input.
 \end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Classe \NP\ -- Definizione "moderna"}
+\begin{frame}{Classe \NP}
 
 I certificati suddetti possono essere verificati in tempo polinomiale:
 \BIL
@@ -689,40 +700,40 @@ in tempo polinomiale
 }
 \end{frame}
 
-%-------------------------------------------------------------------------
-\begin{frame}{Classe \NP\ -- Definizione basata su non determinismo}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Classe \NP]
-\NP\ è l'insieme di problemi decisionali che possono essere risolti da
-una Macchina di Turing non deterministica in tempo polinomiale
-\end{myboxtitle}
-
-\bigskip
-\BB{In maniera mooolto informale...}
-\BIL
-\item Dato uno stato ed un elemento di input, una macchina non deterministica
-può andare in un insieme \underline{finito} di altri stati
-\item Due interpretazioni per la macchina non deterministica:
-  \BI
-  \item Macchina non deterministica che "azzecca" sempre la scelta giusta 
-  \item Macchina non deterministica che si divide in un insieme finito di copie, una per scelta possibile
-  \EI
-\EIL
-
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{Classe \NP\ -- Definizione basata su non determinismo}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Esempio]
-\textsc{sat} con quattro variabili
-
-\IG{1.0}{albero10.pdf}
-\end{myboxtitle}
-
-\end{frame}
+% %-------------------------------------------------------------------------
+% \begin{frame}{Classe \NP\ -- Definizione basata su non determinismo}
+%
+% \vspace{-9pt}
+% \begin{myboxtitle}[Classe \NP]
+% \NP\ è l'insieme di problemi decisionali che possono essere risolti da
+% una Macchina di Turing non deterministica in tempo polinomiale
+% \end{myboxtitle}
+%
+% \bigskip
+% \BB{In maniera mooolto informale...}
+% \BIL
+% \item Dato uno stato ed un elemento di input, una macchina non deterministica
+% può andare in un insieme \underline{finito} di altri stati
+% \item Due interpretazioni per la macchina non deterministica:
+%   \BI
+%   \item Macchina non deterministica che "azzecca" sempre la scelta giusta
+%   \item Macchina non deterministica che si divide in un insieme finito di copie, una per scelta possibile
+%   \EI
+% \EIL
+%
+% \end{frame}
+%
+% %-------------------------------------------------------------------------
+% \begin{frame}{Classe \NP\ -- Definizione basata su non determinismo}
+%
+% \vspace{-9pt}
+% \begin{myboxtitle}[Esempio]
+% \textsc{sat} con quattro variabili
+%
+% \IG{1.0}{albero10.pdf}
+% \end{myboxtitle}
+%
+% \end{frame}
 
 \section{Problemi \NP-Completi}
 
@@ -774,7 +785,7 @@ a \PTIME, allora risulterebbe $\PTIME=\NP$.
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{\PTIME vs \NP}
+\begin{frame}{\PTIME\ vs \NP}
 
 \vspace{-6pt}
 \IG{0.8}{pnp.pdf}
@@ -787,13 +798,14 @@ a \PTIME, allora risulterebbe $\PTIME=\NP$.
 %-------------------------------------------------------------------------
 \begin{frame}{Problemi \NP-completi: esistono?}
 
+\vspace{-9pt}
 \BB{Problema}
 \BIL
 \item Dimostrare che un problema è contenuto in \NP\ è semplice
 \item Dimostrare che un problema è \NP-completo richiede una dimostrazione difficile, apparantemente impossibile:
 
 \bigskip
-\emph{Tutti i problemi in \NP\ sono riducibili polinomialmente a tale problema - anche quelli che non conosciamo!}
+\emph{Tutti i problemi in \NP\ sono riducibili polinomialmente a tale problema - anche i problemi che non conosciamo!}
 \EIL
 
 \bigskip
@@ -823,7 +835,6 @@ Stephen Cook (1971). "The Complexity of Theorem Proving Procedures". Proceedings
 \IG{1.0}{cook.jpg}
 }
 
-\bigskip
 \tiny
 \url{https://it.wikipedia.org/wiki/Stephen\_Cook\#/media/File:Prof.Cook.jpg}
 
@@ -851,12 +862,14 @@ sono \NP-completi.
 
 \vspace{-9pt}
 \begin{myboxtitle}[Bibliografia]
-Richard Karp (1972). "Reducibility Among Combinatorial Problems". In R.  Miller and J. Thatcher (eds). Proc. of Complexity of Computer Computations, pp. 85–103 (Plenum).
+Richard Karp (1972). "Reducibility Among Combinatorial Problems". In R. Miller and J. Thatcher (eds). Proc. of Complexity of Computer Computations, pp. 85–103 (Plenum).
 \end{myboxtitle}
 
+\vspace{-9pt}
 \IG{0.8}{karp-problems.pdf}
 
 \tiny
+\vspace{-24pt}
 \url{http://aimsciences.org/article/doi/10.3934/naco.2018001}
 \end{frame}
 
@@ -867,7 +880,7 @@ Richard Karp (1972). "Reducibility Among Combinatorial Problems". In R.  Miller 
 \IG{1.0}{compendium.pdf}
 
 \tiny
-\url{https://www.nada.kth.se/\~viggo/problemlist/compendium.html}
+\url{http://www.csc.kth.se/tcs/problemlist.html}
 
 
 \end{frame}
@@ -877,7 +890,7 @@ Richard Karp (1972). "Reducibility Among Combinatorial Problems". In R.  Miller 
 \begin{frame}{Problemi NP-Completi "Classici"}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Cricca (Clique)]
+\begin{myboxtitle}[Cricca (\textsc{clique})]
 Dati un grafo non orientato ed un intero $k$, esiste un sottoinsieme di almeno
 $k$ nodi tutti mutuamente adiacenti?
 \end{myboxtitle}
@@ -905,7 +918,7 @@ $k$ nodi tutti mutuamente adiacenti?
 \begin{frame}{Problemi NP-Completi "Classici"}
 	
 \vspace{-9pt}
-\begin{myboxtitle}[Commesso viaggiatore (Traveling salesperson - TSP)]
+\begin{myboxtitle}[Commesso viaggiatore (Traveling salesperson - \textsc{tsp})]
 Date $n$ città, le distanze tra esse, ed un intero $k$, è possibile partire da
 una città, attraversare ogni città esattamente una volta tornando alla città
 di partenza, percorrendo una distanza non superiore a $k$?
@@ -946,7 +959,7 @@ Il sistema è verificato per $x_1 = x_2 = 1$ ed $x_3 = x_4 = 0$.
 \begin{frame}{Problemi NP-Completi "Classici"}
 	
 \vspace{-9pt}
-\begin{myboxtitle}[Copertura esatta di insiemi (Exact cover)]
+\begin{myboxtitle}[Copertura esatta di insiemi /\textsc{exact cover}]
 Dato un insieme $X$ e una collezione ${\cal Y} = \{Y_1, \mldots,
 Y_n\}$ di sottoinsiemi di $X$, esiste una sottocollezione ${\cal Z} \subseteq {\cal Y}$ che partizioni $X$?
 \end{myboxtitle}
@@ -991,19 +1004,17 @@ ${\cal Z} = \{ B,D,F \}$
 \small
 \vspace{-9pt}
 \begin{myboxtitle}[Partizione (\textsc{partition})]
-Dato un insieme $A = \{ a_1, \mldots, a_n\}$ di interi positivi, esiste un
-sottoinsieme $S$ di \{1, \mldots, n\} tale che $\sum_{i\in S} a_i = \sum_{i
-\notin S}a_i$?
+Dato un vettore $A$ contenente $n$ interi positivi, esiste un
+sottoinsieme $S \subseteq \{1 \ldots n\}$ tale che $\sum_{i\in S} A[i] = \sum_{i \notin S} A[i]$ ?
 \end{myboxtitle}
 
-\begin{myboxtitle}[Somma di sottoinsieme (\textsc{subset-sum})]
-Dati un insieme $A = \{ a_1 , \mldots, a_n\}$ di interi positivi ed un intero
-positivo $k$, esiste un sottoinsieme $S$ di indici in $\{1, \mldots, n\}$ tale
-che $\sum_{i \in S} a_i = k$?
+\begin{myboxtitle}[Somma di sottoinsieme (Subset sum)]
+Dati un vettore $A$ contenente $n$ interi positivi ed un intero positivo $k$, \alert{esiste} un sottoinsieme $S \subseteq \ldots n\}$ tale che 
+$\sum_{i \in S} a[i] = k$?
 \end{myboxtitle}
 
 \begin{myboxtitle}[Zaino (\textsc{knapsack})]
-Dati un intero positivo $C$ (la capacità dello zaino) e un insieme di $n$ oggetti, tali che l'oggetto $i$ è caratterizzato da un ``profitto'' $p_i \in \mathbf{Z}^+$ e da un peso $w_i \in \mathbf{Z}^+$, esiste un sottoinsieme $S \subseteq \{ 1, \mldots, n \}$ tale che il peso totale $w(S) = \sum_{i \in S} w_i \le C$ e il profitto totale $p(S) = \sum_{i \in S} p_i$ è maggiore o uguale a $k$?
+Dati un intero positivo $C$ (la capacità dello zaino) e un insieme di $n$ oggetti, tali che l'oggetto $i$ è caratterizzato da un ``profitto'' $p[i] \in \mathbf{Z}^+$ e da un peso $w[i] \in \mathbf{Z}^+$, esiste un sottoinsieme $S \subseteq \{ 1, \mldots, n \}$ tale che il peso totale $w(S) = \sum_{i \in S} w[i] \le C$ e il profitto totale $p(S) = \sum_{i \in S} p[i]$ è maggiore o uguale a $k$?
 \end{myboxtitle}
 
 \end{frame}
@@ -1027,6 +1038,24 @@ una e una sola volta?
 
 \end{frame}
 
+%-------------------------------------------------------------------------
+\begin{frame}{Problemi NP-completi in altre aree: Economia}
+    
+\BIL
+\item Natural (Nash) equilibrium computation problem is NP-hard; the \textsc{clique} problem can reduced to it
+  \BI
+  \item T. Roughgarden. Computing equilibria: a computational complexity
+perspective. Econ Theory (2010) 42:193–236
+  \EI
+\item \textsc{independent-set} could be used in market analysis for independent portfolio selection, where links between stocks represent correlation
+  \BI
+  \item V. Kalyagin, A. Koldanov, P. Koldanov, V. Zamaraev. Market Graph and Markowitz Model. Optimization in Science and Engineering: In Honor of the 60th Birthday of Panos M. Pardalos. (2014). Pages 293-306.
+  \EI 
+\EIL
+
+\end{frame}
+
+%-------------------------------------------------------------------------
 \begin{frame}{La complessità si nasconde dove non te l'aspetti...}
 
 \vspace{-15pt}
@@ -1069,7 +1098,7 @@ sugli archi, trovare il cammino con peso \alert{minimo}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Isomorfismo fra grafi]
-Il problema dell'isomorfismo fra grafi richiede di determine se due
+Il problema dell'isomorfismo fra grafi richiede di determinare se due
 grafi finiti sono isomorfi.
 \BI
 \item \B{Non sappiamo ancora.... \NP-completo? \PTIME?}
@@ -1104,10 +1133,11 @@ nè \NP-completo}
 \vspace{-9pt}
 \begin{myboxtitle}[Bibliografia]
 \BI
+\item Jeff Erickson, Algorithm. Cap. 12, NP-Hardness\\
+\url{http://jeffe.cs.illinois.edu/teaching/algorithms/}
 \item Sanjeev Arora, Boaz Barak. Computational complexity: a modern approach.
 Cambridge University Press, 2009\\
 \url{http://theory.cs.princeton.edu/complexity/}
-\item  Lance Fortnow. The Golden Ticket. P, NP, and the Search for the Impossible. Princeton University Press, 2013.
 \EI
 \end{myboxtitle}
 
@@ -1119,7 +1149,7 @@ Cambridge University Press, 2009\\
 
 \end{frame}
 
-\begin{frame}<1|handout:0>{Hamiltonian path and cycle}
+\begin{OnlySlides}{Hamiltonian path and cycle}
 \vspace{-12pt}
 \begin{center}
 \IG{0.65}{hamiltonian.png}
@@ -1127,7 +1157,7 @@ Cambridge University Press, 2009\\
 \vfill
 \tiny
 \url{https://xkcd.com/230/}
-\end{frame}
+\end{OnlySlides}
 
 
 

@@ -8,6 +8,8 @@
 \usepackage{tikz}
 \usepackage{xmpmulti}
 \usepackage{listings}
+\usepackage{xfrac}
+\usepackage{cancel}
 
 \lstset{
   basicstyle=\ttfamily,
@@ -19,9 +21,6 @@
 
 \newcommand{\R}[1]{\textcolor{red}{#1}}
 \newcommand{\B}[1]{\textcolor{blue}{#1}}
-
-\renewcommand{\Primo}{\mathit{start}\xspace}
-\renewcommand{\Ultimo}{\mathit{end}\xspace}
 
 \renewcommand{\arraystretch}{1.4}
 \graphicspath{{figs/17/}}
@@ -75,8 +74,8 @@
 \begin{myboxtitle}[Algoritmi probabilistici]
 Il calcolo delle probabilità è applicato non ai dati di input, ma ai dati di output
 \BIL
-\item  Algoritmi corretti, il cui tempo di funzionamento è probabilistico (\alert{Las Vegas})
 \item Algoritmi la cui correttezza è probabilistica (\alert{Montecarlo})
+\item  Algoritmi corretti, il cui tempo di funzionamento è probabilistico (\alert{Las Vegas})
 \EIL
 \end{myboxtitle}
 
@@ -84,21 +83,55 @@ Il calcolo delle probabilità è applicato non ai dati di input, ma ai dati di o
 
 \section{Algoritmi Montecarlo}
 
+\subsection{Test di primalità}
+
+
+\begin{frame}{Test di primalità (Primality test)}
+    
+\vspace{-9pt}
+\begin{myboxtitle}[Test di primalità]
+Algoritmo per determinare se un numero in input $n$ è primo.
+\end{myboxtitle}
+
+\begin{myboxtitle}[Fattorizzazione]
+Algoritmo per listare i fattori che compongono un numero composto.
+\end{myboxtitle}
+
+\vspace{-6pt}
+\TwoCols{
+
+\begin{Procedure}
+\caption{\BOOLEAN \textsf{isPrimeNaif}(\INTEGER $n$)}
+\For{$i = 2$ \TO $\lfloor \sqrt{n} \rfloor$}{
+  \If{$n/i \Eq \lfloor n/i \rfloor$}{
+    \Return \FALSE\;
+  }
+}
+\Return \TRUE\;
+\end{Procedure}
+}{
+\bigskip
+Una soluzione inefficiente testa tutti gli interi fra 2 e $\lfloor \sqrt{n} \rfloor$
+}
+\end{frame}
+
+
 %-------------------------------------------------------------------------
-\begin{frame}{Test di primalità}
+\begin{frame}{Test di primalità -- Fermat}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Piccolo teorema di Fermat]
-Per ogni numero primo $n$ e ogni $b \in [2, \ldots, n-1]$:
-$
-b^{n-1} \bmod n = 1
-$
+Se $n$ è primo, allora:
+\smallskip
+\[
+\forall b, 2 \leq b < n: \qquad  b^{n-1} \bmod n = 1 
+\]
 \end{myboxtitle}
 
 \begin{columns}[T]
 \column{0.45\textwidth}
 \begin{overprint}
-\onslide<1-2|handout:1>
+\onslide<1-3|handout:1>
 \BB{Test di primalità di Fermat}
 \begin{Procedure}
 \caption[A]{\BOOLEAN\ \textsf{isPrime1}(\INTEGER\ $n$)}
@@ -109,7 +142,7 @@ $
     \Return \TRUE\;
   }
 \end{Procedure}
-\onslide<3-4|handout:2>
+\onslide<4-5|handout:2>
 \BB{Test di primalità di Fermat}
 \begin{Procedure}
 \caption[A]{\BOOLEAN\ \textsf{isPrime2}(\INTEGER\ $n$)}
@@ -122,41 +155,48 @@ $
 \Return \TRUE\;
 \end{Procedure}
 \end{overprint}
-\column{0.50\textwidth}
-\onslide<1-4|handout:1-2>
+\column{0.51\textwidth}
+\onslide<1-5|handout:1-2>
 \vspace{-8pt}
 \BB{Questo algoritmo è corretto?}
 \begin{overprint}
 \onslide<2|handout:1>
-Esistono numeri composti tali che:
 
+
+% \medskip
+Esistono numeri composti (\alert{pseudoprimi} in base $b$) tali che:
+\smallskip
 \[
-\alert{\exists} b \in [2, \ldots, n-1]: b^{n-1} \bmod n = 1
+\alert{\exists} b, 2 \leq b < n-1: b^{n-1} \bmod n = 1
 \]
 
+Esempio :
+\smallskip
+\begin{align*}
+& n = 341 = 11 \times 13 \\
+&  2^{340} \bmod 341 = 1 
+\end{align*}
+
+\onslide<3|handout:2>
+
+\smallskip
 \begin{tabular}{|l|l|}
 \hline
-Output & $n$ \\\hline    
+Output & $n$ \\\hline
 \FALSE & \alert{sicuramente} composto \\\hline
 \TRUE & \alert{possibilmente} primo \\\hline
 \end{tabular}
 
-\onslide<4|handout:2>
-\medskip
-\begin{tabular}{|l|l|}
-\hline
-Output & $n$ \\\hline    
-\FALSE & \alert{sicuramente} composto \\\hline
-\TRUE & \alert{probabilmente} primo \\\hline
-\end{tabular}
 
-\medskip
-Esistono dei numeri composti (\alert{numeri di Carmichael}),
-tali che:
+\onslide<5|handout:3>
 
+\smallskip
+Esistono numeri composti tali che:
+\smallskip
 \[
-\alert{\forall} b \in [2, \ldots, n-1]: b^{n-1} \bmod n = 1
+\alert{\forall} b, 2 \leq b < n-1: b^{n-1} \bmod n = 1
 \]
+(\alert{Numeri di Carmichael})
 \end{overprint}
 \column{0.02\textwidth}
 \end{columns}
@@ -164,40 +204,128 @@ tali che:
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Test di Miller-Rabin}
+\begin{frame}{Test di primalità -- Miller-Rabin}
 
 \vspace{-9pt}
-\BIL
-\item Esprimiamo $n-1$ come: $n-1 = m 2^v$ con $m$ dispari
-  \BI
-  \item la rappresentazione binaria di $n-1$ è uguale alla rappresentazione 
-    binaria del numero dispari $m$ seguito da $v$ zeri
-  \EI
-\item Sia $b$ un numero in $[1, \ldots, n-1]$
-\EIL
-
-\BB{
-\begin{overprint}
-\onslide<1|handout:1>
-Se un numero $n$ è \alert{primo}, allora valgono entrambe le seguenti condizioni:
-\onslide<2|handout:2>
-Se un numero $n$ è \alert{composto}, allora almeno una delle seguenti condizioni è falsa:
-\end{overprint}
-\bigskip
+\begin{myboxtitle}[Teorema]
+Se $n$ è \textcolor{blue}{primo} , allora \alert{per ogni} intero $b$, con $2 \leq b < n$ valgono \alert{entrambe} le seguenti condizioni:
 \BEL
-\item $\textsf{mcd}(n,b) = 1$
-\item $b^m \bmod n = 1$ oppure $\exists i, 0 \leq i \leq v-1: b^{2^im} \bmod n = -1$
+\item $\textrm{mcd}(n,b) \alert{=} 1$
+\item $b^m \bmod n \alert{=} 1 \alert{\vee \exists} i, 0 \leq i < v: b^{m \cdot 2^i} \bmod n \alert{=} n-1$
 \EEL
-}
+con $n-1=m \cdot 2^v$, $m$ dispari
+\end{myboxtitle}
+
+\begin{myboxtitle}[Contrapposizione]
+Se \alert{esiste} un intero $b$, con $2 \leq b < n$ tale che \alert{almeno una} delle seguenti condizioni è vera:
+\BEL
+\item $\textrm{mcd}(n,b) \alert{\neq} 1$
+\item $b^m \bmod n \alert{\neq} 1 \alert{\wedge \forall} i, 0 \leq i < v: b^{m \cdot 2^i} \bmod n \alert{\neq} n-1$
+\EEL
+allora $n$ è \textcolor{blue}{composto}
+\end{myboxtitle}
+
+
+
+
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Test di Miller-Rabin}
+\begin{frame}{Test di primalità -- Miller-Rabin}
+
+
+\vspace{-9pt}
+\begin{myboxtitle}[Verifica primalità $n$ -- Esempio: $n=221 = 13 \times 17$]
+\small
+\begin{tabular}{m{6cm}m{5cm}}
+Sia $n$ un numero dispari & $n=221$ \\
+%
+Sia $n-1 = m \cdot 2^v$, con $m$ dispari & $220 = 55 \cdot 2^2$ \\
+%
+$n-1$ in binario è pari a:\newline 
+$m$ in binario seguito da $v$ zeri & $\overbrace{110111}^{m=55}\underbrace{00}_{v=2}$\\
+%
+se $\exists b, 2 \leq b < n$ per cui una delle seguenti affermazioni è vera, $n$ è \alert{composto}: & $b=137$ \alert{(Witness)}\\
+%
+(1) $\textrm{mcd}(n,b) \neq 1$ & $\textrm{mcd}(221,137)=1$ \\
+%
+(2) $b^m \bmod n \neq 1$ \AND\ & $137^{55} \bmod 221 = 188 \neq 1$\\
+\phantom{(2)} $\forall i, 0 \leq i < v: b^{m \cdot 2^i} \bmod n \neq n-1$ &
+$137^{55 \cdot 2^0} \bmod 221 = 188 \neq 220$ \\
+%
+& $137^{55 \cdot 2^1} \bmod 221 = 205 \neq 220$ 
+\end{tabular}
+\end{myboxtitle}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Test di primalità -- Miller-Rabin}
+
+
+\vspace{-9pt}
+\begin{myboxtitle}[Verifica primalità $n$ -- Esempio: $n=229$ numero primo]
+\small
+\begin{tabular}{m{6cm}m{5cm}}
+Sia $n$ un numero dispari & $n=229$ \\
+%
+Sia $n-1 = m \cdot 2^v$, con $m$ dispari & $228 = 57 \cdot 2^2$ \\
+%
+$n-1$ in binario è pari a:\newline 
+$m$ in binario seguito da $v$ zeri & $\overbrace{111001}^{m=57}\underbrace{00}_{v=2}$\\
+%
+se $\exists b, 2 \leq b < n$ per cui una delle seguenti affermazioni è vera, $n$ è \alert{composto}: & Proviamo $b=137$ \\
+%
+(1) $\textrm{mcd}(n,b) \neq 1$ & $\textrm{mcd}(229,137)=1$ \\
+%
+(2) $b^m \bmod n \neq 1$ \AND\ & $137^{57} \bmod 229 = 188 \neq 1$\\
+\phantom{(2)} $\forall i, 0 \leq i < v: b^{m \cdot 2^i} \bmod n \neq n-1$ &
+$137^{57 \cdot 2^0} \bmod 229 = 122 \neq 228$ \\
+%
+& $137^{57 \cdot 2^1} \bmod 229 = \alert{228}$ 
+\end{tabular}
+\end{myboxtitle}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Test di primalità -- Miller-Rabin}
+
+
+\vspace{-9pt}
+\begin{myboxtitle}[Verifica primalità $n$ -- Esempio: $n=221 = 13 \times 17$]
+\small
+\begin{tabular}{m{6cm}m{5cm}}
+Sia $n$ un numero dispari & $n=221$ \\
+%
+Sia $n-1 = m \cdot 2^v$, con $m$ dispari & $220 = 55 \cdot 2^2$ \\
+%
+$n-1$ in binario è pari a:\newline 
+$m$ in binario seguito da $v$ zeri & $\overbrace{110111}^{m=55}\underbrace{00}_{v=2}$\\
+%
+se $\exists b, 2 \leq b < n$ per cui una delle seguenti affermazioni è vera, $n$ è \alert{composto}: & $b=174$ (\alert{Strong liar})\\
+%
+(1) $\textrm{mcd}(n,b) \neq 1$ & $\textrm{mcd}(221,174)=1$ \\
+%
+(2) $b^m \bmod n \neq 1$ \AND\ & $174^{55} \bmod 221 = 47 \neq 1$\\
+\phantom{(2)} $\forall i, 0 \leq i < v: b^{m \cdot 2^i} \bmod n \neq n-1$ &
+$174^{55 \cdot 2^0} \bmod 221 = 47 \neq 220$ \\
+%
+& $174^{55 \cdot 2^1} \bmod 221 = \alert{220}$ 
+\end{tabular}
+\end{myboxtitle}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Test di primalità -- Miller-Rabin}
 
 \vspace{-9pt}
 \BIL
 \item Rabin ha dimostrato che se $n$ è composto, allora ci sono
-almeno $3/4(n-1)$ valori in $[1, \ldots, n-1]$ per i quali una delle condizioni sopra è falsa
+almeno $\sfrac{3}{4}\,(n-1)$ testimoni in $[2, \ldots, n-1]$ 
 \item Il test di compostezza ha una probabilità inferiore a $1/4$ di rispondere
 erroneamente
 \EIL
@@ -229,13 +357,15 @@ erroneamente
 
 \begin{myboxtitle}[Algoritmi probabilistici vs algoritmi deterministici]
 \BIL
-\item Dal 2002, esiste l'algoritmo deterministico AKS di complessità $O(\log^{6+\epsilon})$
+\item Dal 2002, esiste l'algoritmo deterministico AKS di complessità $O(\log^{6+\epsilon} n)$
 \item I fattori moltiplicativi coinvolti sono molto alti
 \item Si preferisce quindi l'algoritmo di Miller-Rabin
 \EIL
 \end{myboxtitle}
 
 \end{frame}
+
+\subsection{Espressione polinomiale nulla}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Esempio -- Espressione polinomiale nulla}
@@ -276,7 +406,234 @@ il grado del polinomio, allora la probabilità di errore non supera $1/2$.
 
 \end{frame}
 
+\subsection{Strutture dati probablistiche}
+
+
+\begin{frame}{BitSet + Tabelle Hash = Bloom Filters}
+
+\vspace{-12pt}
+\begin{columns}[c]
+\begin{column}{0.48\textwidth}
+\begin{myboxtitle}[BitSet]
+\alert{Vantaggi}
+\BI
+\item 1 bit/oggetto
+\EI
+\medskip
+\alert{Svantaggi}
+\BI
+\item Elenco prefissato di oggetti
+\EI
+\end{myboxtitle}
+
+\end{column}
+\hfill
+\begin{column}{0.48\textwidth}
+\begin{myboxtitle}[Tabelle Hash]
+\alert{Vantaggi}
+\BI
+\item Struttura dati dinamica
+\EI
+\medskip
+\alert{Svantaggi}
+\BI
+\item Alta occupazione di memoria
+\EI
+\end{myboxtitle}
+
+\end{column}
+\end{columns}
+
+\medskip
+\begin{myboxtitle}[Bloom filters]
+\medskip
+\TwoCols{
+\alert{Vantaggi}
+\BI
+\item Struttura dati dinamica
+\item Bassa occupazione di memoria
+(10 bit/oggetto)
+\EI
+}
+{
+\alert{Svantaggi}
+\BI
+\item Niente cancellazioni
+\item Risposta probabilistica
+\item No memorizzazione
+\EI
+}
+\end{myboxtitle}
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Bloom filter}
+
+\vspace{-6pt}
+\begin{myboxtitle}[Specifica]
+\BI
+\item $\textsf{insert}(k)$: Inserisce l'elemento $x$ nel bloom filter
+\item $\BOOLEAN\ \textsf{contains}(k)$\\
+\BI
+\item Se restituisce \FALSE, l'elemento $x$ è sicuramente non presente
+nell'insieme
+\item Se restituisce \TRUE, l'elemento $x$ può essere presente oppure no \\
+(\alert{falsi positivi})
+\EI
+\EI
+\end{myboxtitle}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Bloom filter}
+
+\vspace{-6pt}
+\BB{Trade-off fra occupazione di memoria e probabilità di falso positivo}
+\TwoColsCustom{0.7}{0.26}{
+\BI
+\item Sia $\epsilon$ la probabilità di falso positivo
+\item I bloom filter richiedono $1.44\log_2(1/\epsilon)$ bit per elemento
+inserito
+\EI
+}{
+\begin{tabular}{|c|r|}
+\hline
+$\epsilon$ & Bit \\
+\hline
+$10^{-1}$ & 4.78 \\
+\hline
+$10^{-2}$ & 9.57 \\
+\hline
+$10^{-3}$ & 14.35 \\
+\hline
+$10^{-4}$ & 19.13 \\
+\hline
+\end{tabular}
+}
+\end{frame}
+
+
+\begin{frame}{Applicazioni dei Bloom Filter}
+	
+\BB{Chrome Safe Browsing}
+\BIL
+\item Chrome contiene un database delle URL associate a siti con malware, costantemente aggiornato
+\item Fino al 2012, memorizzato con un Bloom Filter
+\item Chrome verifica l'appartenenza di ogni URL al database
+\BI
+\item Se la risposta è \FALSE, non appartiene
+\item Se la risposta è \TRUE, potrebbe appartenere e viene fatta una verifica
+tramite un servizio centralizzato di Google
+\EI
+\EIL
+
+\BB{Qualche dato (da prendere cum grano salis)}
+\BI
+\item Nel 2011, 650k URL memorizzati in 1.94MB
+\item 25 bit per URL, $\epsilon \approx 10^{-5}$
+\EI
+
+\end{frame}
+
+\begin{frame}{Applicazioni dei Bloom Filter}
+
+\BB{Ogni qual volta una verifica locale permette di evitare un'operazione
+più costosa, quali operazioni di I/O e comunicazioni di rete}
+
+\begin{myboxtitle}[They say...]
+\BI
+\item \alert{Facebook} uses bloom filters for typeahead search, to fetch friends and friends of friends to a user typed query.
+\item \alert{Apache HBase} uses bloom filter to boost read speed by filtering out unnecessary disk reads of HFile blocks which do not contain a particular row or column.
+\item \alert{Transactional Memory} (TM) has recently applied Bloom filters to detect memory access conflicts among threads.
+\item When you log into \alert{Yahoo} mail, the browser page requests a bloom filter representing your contact list
+\EI
+\end{myboxtitle}
+	
+\end{frame}
+
+\begin{frame}{Applicazioni dei Bloom Filter}
+
+\BB{In modo più fantasioso, possono essere utilizzati per garantire un certo livello di privacy }
+
+\begin{myboxtitle}[They say...]
+
+To limit the information leak, Bitcoin employs a Bloom filter to obfuscate requests [Hearn and Corallo 2012]. Clients express their request as a Bloom filter and send it to the full node. All transactions which match the pattern given by the Bloom filter are sent to the thin client. The inherent false positive rate of Bloom filters is used to adjust the desired level of privacy at the expense of some additional overhead.
+\end{myboxtitle}
+	
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Implementazione}
+
+\vspace{-6pt}
+\begin{overprint}
+\onslide<1|handout:1>
+\BI
+\item Un vettore booleano $A$ di $m$ bit, inizializzato a \FALSE 
+\item $k$ funzioni hash $h_1, h_2, \ldots, h_k: U \rightarrow [0, m-1]$
+\EI
+\onslide<2-4|handout:2>
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{$\textsf{insert}(k)$}
+\For{$i = 1$ \TO\ $k$}{
+  $A[h_i(k)] = \TRUE$\;
+}
+\end{Procedure}
+\onslide<5|handout:3>
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{$\BOOLEAN\ \textsf{contains}(k)$}
+\For{$i = 1$ \TO\ $k$}{
+  \lIf{$A[h_i(k)] \Eq \FALSE$}{
+		\Return \FALSE
+	}
+}
+\Return \TRUE\;
+\end{Procedure}
+\end{overprint}
+
+\vspace{-6pt}
+\begin{overprint}
+\includegraphics<1|handout:1>[width=1.0\textwidth,page=1]{bloom-crop.pdf}
+\includegraphics<2|handout:0>[width=1.0\textwidth,page=2]{bloom-crop.pdf}
+\includegraphics<3|handout:0>[width=1.0\textwidth,page=3]{bloom-crop.pdf}
+\includegraphics<4|handout:2>[width=1.0\textwidth,page=4]{bloom-crop.pdf}
+\includegraphics<5|handout:3>[width=1.0\textwidth,page=5]{bloom-crop.pdf}
+\end{overprint}
+
+\end{frame}
+
+\begin{frame}{Qualche formula (senza dimostrazione)}
+\BI
+\item Dati $n$ oggetti, $m$ bit, $k$ funzioni hash, la probabilità di un falso
+positivo è pari a:
+
+\[
+ \epsilon = \left( 1 - e^{-kn/m} \right)^k
+\]
+\item Dati $n$ oggetti e $m$ bit, il valore ottimale per $k$ è pari a
+
+\[
+  k = \frac{m}{n}\ln 2
+\]
+\item Dati $n$ oggetti e una probabilità di falsi positivi $\epsilon$, il numero
+di bit $m$ richiesti è pari a:
+
+\[
+ m = -\frac{n \ln \epsilon}{(\ln 2)^2}
+\]
+\EI
+
+\end{frame}
+
+
 \section{Algoritmi Las Vegas}
+
+\subsection{Problema della selezione}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Statistica}
@@ -301,13 +658,17 @@ Estraggono alcune caratteristiche statisticamente rilevanti da un vettore numeri
 \vspace{-9pt}
 \begin{myboxtitle}[Selezione]
 Dato un array $A$ contenente $n$ valori e un valore $1 \leq k \leq n$, 
-trovare l'elemento che si occuperebbe la posizione $k$ se il vettore fosse ordinato
+trovare l'elemento che occuperebbe la posizione $k$ se il vettore fosse ordinato
 \end{myboxtitle}
 
 \begin{myboxtitle}[Mediana]
 Il problema del calcolo della mediana è un sottoproblema del problema
 della selezione con $k=\lceil n/2 \rceil$.
 \end{myboxtitle}
+
+\BB{Come risolvereste il problema?}
+\pause
+Ovviamente, possiamo ordinare i valori e andare a cercare il valore in posizione $k$, con costo $O(n \log n)$. Possiamo fare meglio di così?
 
 \end{frame}
 
@@ -386,8 +747,7 @@ della selezione con $k=\lceil n/2 \rceil$.
 %-------------------------------------------------------------------------
 \begin{frame}{Complessità}
 
-\vspace{-20pt}
-\TwoColsCustom{0.48}{0.48}{
+\vspace{-9pt}
 \begin{myboxtitle}[Caso pessimo]
 \begin{align*}
   T(n) &= \begin{cases}
@@ -397,7 +757,7 @@ della selezione con $k=\lceil n/2 \rceil$.
   T(n) &= O(n^2)
 \end{align*}  
 \end{myboxtitle}
-}{
+
 \begin{myboxtitle}[Caso ottimo]
 \begin{align*}
   T(n) &= \begin{cases}
@@ -407,15 +767,9 @@ della selezione con $k=\lceil n/2 \rceil$.
   T(n) &= O(n)
 \end{align*}  
 \end{myboxtitle}
-}
 
-\begin{myboxtitle}[Caso medio]
-Assumiamo che \textsf{pivot}() restituisca con la stessa probabilità una qualsiasi posizione $j$ del vettore $A$
-\begin{alignat*}{2}
-T(n) &= n-1 + \frac{1}{n}\sum_{q=1}^{n} T\left(\max\{q-1, n-q\}\right)\\
-     &\le n-1 + \frac{2}{n} \sum_{q=\lfloor n/2\rfloor}^{n-1} T(q), &&\qquad\textrm{per $n > 1$}
-\end{alignat*}
-\end{myboxtitle}
+
+
 
 \end{frame}
 
@@ -423,13 +777,61 @@ T(n) &= n-1 + \frac{1}{n}\sum_{q=1}^{n} T\left(\max\{q-1, n-q\}\right)\\
 \begin{frame}{Complessità}
 
 \vspace{-9pt}
+\begin{myboxtitle}[Caso medio]
+Assumiamo che \textsf{pivot}() restituisca con la stessa probabilità una qualsiasi posizione $j$ del vettore $A$
 \begin{align*}
-T\left(n\right) &\le n - 1 + \frac{2c}{n} \sum_{q=\left\lfloor n/2\right\rfloor}^{n-1}q \\
-&\le n + \frac{2c}{n}\left(\sum_{q=1}^{n-1}q - \sum_{q=1}^{\left\lfloor n/2\right\rfloor-1}q\right)\\
-&= n + \frac{2c}{n}\left(\frac{n\left(n- 1\right)}{2} - \frac{\left\lfloor n/2\right\rfloor\left(\left\lfloor n/2\right\rfloor - 1\right)}{2}\right)\\
-&\le n + \frac{c}{n}\big(n\left(n- 1\right) - \left(n/2+1\right)\left(n/2\right)\big)\\
-&= n + c\left(n - 1\right) - \left(c/2\right)\left(n/2+ 1\right) = n + cn - c - cn/4 - c/2\\
-&= cn \left( \frac{1}{c}+ \frac{3}{4} - \frac{3}{2n}\right) \leq cn \left( \frac{1}{c}+ \frac{3}{4}\right) \leq cn
+T(n) &= n + \frac{1}{n}\sum_{q=1}^{n} T\left(\max\{q-1, n-q\}\right)&&\textrm{Media su $n$  casi}\\
+     &\le n + \frac{1}{n} \sum_{q=\lfloor n/2\rfloor}^{n-1} 2T(q), &&\textrm{per $n > 1$}
+\end{align*}
+\end{myboxtitle}
+
+\begin{myboxtitle}[Esempi ]
+\small
+\BIL
+\item $n=4$:
+$\max\{0, \alert{3} \} +
+\max\{1, \alert{2} \} +
+\max\{\alert{2}, 1 \} +
+\max\{\alert{3}, 0 \}$
+\item $n=5$:
+$\max\{0, \alert{4} \}+
+\max\{1, \alert{3} \}+
+\max\{2, \alert{2} \}+
+\max\{\alert{3}, 1 \}+
+\max\{\alert{4}, 0 \}$
+\EIL
+\end{myboxtitle}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}[shrink=5]{Complessità}
+
+% \vspace{-9pt}
+% \begin{align*}
+% T\left(n\right) &\le n - 1 + \frac{2c}{n} \sum_{q=\left\lfloor n/2\right\rfloor}^{n-1}q \\
+% &\le n + \frac{2c}{n}\left(\sum_{q=1}^{n-1}q - \sum_{q=1}^{\left\lfloor n/2\right\rfloor-1}q\right)\\
+% &= n + \frac{2c}{n}\left(\frac{n\left(n- 1\right)}{2} - \frac{\left\lfloor n/2\right\rfloor\left(\left\lfloor n/2\right\rfloor - 1\right)}{2}\right)\\
+% &\le n + \frac{c}{n}\big(n\left(n- 1\right) - \left(n/2+1\right)\left(n/2\right)\big)\\
+% &= n + c\left(n - 1\right) - \left(c/2\right)\left(n/2+ 1\right) = n + cn - c - cn/4 - c/2\\
+% &= cn \left( \frac{1}{c}+ \frac{3}{4} - \frac{3}{2n}\right) \leq cn \left( \frac{1}{c}+ \frac{3}{4}\right) \leq cn
+% \end{align*}
+
+
+
+\vspace{-15pt}
+\small
+\begin{align*}
+T\left(n\right) &\le 
+n + \frac{1}{n} \sum_{q=\left\lfloor \sfrac{n}{2}\right\rfloor}^{n-1} 2 \cdot cq \leq
+n + \frac{2c}{n} \sum_{q=\left\lfloor \sfrac{n}{2}\right\rfloor}^{n-1}q
+&&\textrm{Sostituzione, raccolgo $2c$} \\
+&= n + \frac{2c}{n} \left( \sum_{q=1}^{n-1}q - \sum_{q=1}^{\lfloor \sfrac{n}{2} \rfloor -1} q \right)&&\textrm{Sottrazione prima parte}\\
+&= n + \frac{2c}{n} \cdot \left(\frac{n\left(n- 1\right)}{2} - \frac{\left(\lfloor \sfrac{n}{2}\rfloor\right)\left(\lfloor\sfrac{n}{2}\rfloor - 1\right)}{2}\right)\\
+&\leq n + \frac{2c}{n} \cdot \left(\frac{n\left(n- 1\right)}{2} - \frac{\left(\sfrac{n}{2} -1\right)\left(\sfrac{n}{2} - 2\right)}{2}\right)&&\textrm{Rimozione limite inferiore}\\
+&= n + \frac{\cancel{2}c}{n} \cdot \frac{\left(n^2-n - \left(\sfrac{1}{4}\,n^2 - \sfrac{3}{2}\,n + 2\right)\right)}{\cancel{2}} \\
+&= n + \sfrac{c}{n} \cdot \left(\sfrac{3}{4}\,n^2+ \sfrac{1}{2}\,n-2 \right) \\
+&\leq n + \sfrac{c}{n} \cdot \left(\sfrac{3}{4}\,n^2 + \sfrac{1}{2}\,n\right) = n + \sfrac{3}{4}\,cn + \sfrac{1}{2} \stackrel{?}{\leq} cn&& \textrm{Vera per $c \geq 6$ e $n \geq 1$}\\
 \end{align*}
 
 
@@ -458,8 +860,6 @@ T\left(n\right) &\le n - 1 + \frac{2c}{n} \sum_{q=\left\lfloor n/2\right\rfloor}
 \EIL
 
 \end{frame}
-
-\section{}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Selezione deterministica}
@@ -506,7 +906,7 @@ Supponiamo di avere un algoritmo “black box” che mi ritorni il mediano di $n
 \BIL
 \item Suddividi i valori in gruppi di 5. Chiameremo l'$i$-esimo gruppo $S_i$, con $i \in \left[1, \lceil n/5 \rceil \right]$
 \item Trova il mediano $M_i$ di ogni gruppo $S_i$
-\item Tramite una chiamata ricorsiva, trova il mediano $m$ dei mediani
+\item Tramite una chiamata ricorsiva, trova il mediano $m$ delle mediane
 $[M_1, M_2, \ldots, M_{\lceil n/5 \rceil}]$
 \item Usa $m$ come pivot e richiama l'algoritmo ricorsivamente sull'array opportuno, come nella \textsf{selection}() randomizzata
 \item Quando la dimensione scende sotto una certa dimensione, possiamo

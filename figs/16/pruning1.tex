@@ -1,15 +1,59 @@
 \documentclass[tikz]{standalone}
 
 \input{figs/16/mytikz.sty}
+%\input{mytikz.sty}
 
 \begin{document}
 
 \begin{forest}
 for tree={circle,draw,thick,edge={thick},fill=yellow!40,l=1.00cm,l sep=8pt, s sep=10pt}
-[ 
-    [,fill=red [ [ [] [] ] [ [] [] ] ] [ [ [] [] ] [ [] [] ] ] ]
-    [ [ [ [] [] ] [,fill=red [] [] ] ] [,fill=red [ [] [] ] [ [] [] ] ] ]
+[
+    [,edge label={node[LabelT] {\small $0$}}
+			[,edge label={node[LabelL] {\small $0$}}
+				[,edge label={node[LabelL] {\small $0$}}
+				  [,edge label={node[LabelL] {\small $0$}}]
+				  [,edge label={node[LabelR] {\small $1$}}]
+                ]
+				[,edge label={node[LabelR] {\small $1$}}
+				  [,edge label={node[LabelL] {\small $0$}}]
+				  [,fill=red,edge label={node[LabelR] {\small $1$}}]
+                ]
+            ]
+			[,edge label={node[LabelR] {\small $1$}}
+				[,edge label={node[LabelL] {\small $0$}}
+				  [,edge label={node[LabelL] {\small $0$}}]
+				  [,fill=red,edge label={node[LabelR] {\small $1$}}]
+                ]
+				[,fill=red,edge label={node[LabelR] {\small $1$}}
+				  [,edge label={node[LabelL] {\small $0$}}]
+				  [,edge label={node[LabelR] {\small $1$}}]
+                ]
+            ]
+    ]
+    [,edge label={node[LabelT] {\small $1$}}
+			[,edge label={node[LabelL] {\small $0$}}
+				[,edge label={node[LabelL] {\small $0$}}
+				  [,edge label={node[LabelL] {\small $0$}}]
+				  [,fill=red,edge label={node[LabelR] {\small $1$}}]
+                ]
+				[,fill=red,edge label={node[LabelR] {\small $1$}}
+				  [,edge label={node[LabelL] {\small $0$}}]
+				  [,edge label={node[LabelR] {\small $1$}}]
+                ]
+            ]
+			[,fill=red,edge label={node[LabelR] {\small $1$}}
+				[,edge label={node[LabelL] {\small $0$}}
+				  [,edge label={node[LabelL] {\small $0$}}]
+				  [,edge label={node[LabelR] {\small $1$}}]
+                ]
+				[,edge label={node[LabelR] {\small $1$}}
+				  [,edge label={node[LabelL] {\small $0$}}]
+				  [,edge label={node[LabelR] {\small $1$}}]
+                ]
+            ]
+    ]
 ]
 \end{forest}
+
 
 \end{document}

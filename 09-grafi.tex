@@ -70,7 +70,7 @@ Grafi}
 %-------------------------------------------------------------------------
 \begin{frame}{Problemi relativi ai grafi}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{\emph{Moltissimi problemi possono essere visti come problemi su grafi. 
 Sebbene i problemi abbiano forma astratta, le loro applicazioni si trovano 
 poi negli ambiti più disparati}}
@@ -149,7 +149,7 @@ inequivocabilmente l'assassino!''
 
 \begin{frame}[fragile]{Grafi orientati e non orientati: definizioni}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Grafo orientato (directed)]
 \EE una coppia $G=(V,E)$ dove: 
 \BI
@@ -177,7 +177,7 @@ E = { (a,b), (a,d),
 %-------------------------------------------------------------------------
 \begin{frame}[fragile]{Grafi orientati e non orientati: definizioni}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Grafo non orientato (undirected)]
 \EE una coppia $G=(V,E)$ dove: 
 \BI
@@ -311,7 +311,7 @@ Il \alert{grado uscente} (\alert{out-degree}) di un nodo è il numero di archi i
 %-------------------------------------------------------------------------
 \begin{frame}{Definizioni: Cammino}
 	
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Cammino (Path)]
 In un grafo  $G=(V,E)$ (orientato oppure no), un \alert{cammino}  $C$ di lunghezza $k$ è una sequenza di nodi $u_0, u_1, \ldots, u_k$ tale che $(u_i, u_{i+1}) \in E$ per $0 \leq i \leq k-1$.
 \end{myboxtitle}
@@ -527,6 +527,7 @@ $G.\adj(u) = \{ v | (u,v) \in E \}$
 %-------------------------------------------------------------------------
 \begin{frame}{Matrice di adiacenza: grafi pesati}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Grafi pesati]
 \BI
 \item Gli archi possono avere un \alert{peso} (costo, profitto, etc.)
@@ -561,7 +562,7 @@ $G.\adj(u) = \{ v | (u,v) \in E \}$
 %-------------------------------------------------------------------------
 \begin{frame}{Liste di adiacenza: grafi pesati}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Grafi pesati]
 \BI
 \item Gli archi possono avere un \alert{peso} (costo, profitto, etc.)
@@ -591,7 +592,7 @@ Sia il concetto di \emph{lista di adjacenza} che il concetto di \emph{lista dei 
 \hline
 \textbf{Struttura} & \textbf{Java} &\textbf{C++}& \textbf{Python} \\\hline
 Lista collegata & \texttt{LinkedList} & \texttt{list} & \\\hline
-Vettore statico & \texttt{[]} & \texttt{[]} & \texttt{[]} \\\hline
+Vettore statico & \texttt{[]} & \texttt{[]} & \texttt{list} \\\hline
 Vettore dinamico & \texttt{ArrayList} & \texttt{vector} & \texttt{list} \\\hline
 Insieme & \texttt{HashSet}\newline\texttt{TreeSet} & \texttt{set} & \texttt{set} \\\hline
 Dizionario & \texttt{HashMap}\newline \texttt{TreeMap} & \texttt{map} & \texttt{dict} \\\hline
@@ -712,6 +713,7 @@ c -> {}
 %-------------------------------------------------------------------------
 \begin{frame}{Iterazione su nodi e archi}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Iterazione su tutti i nodi del grafo]
 \vspace{-12pt}
 \RestyleAlgo{plain}
@@ -754,6 +756,9 @@ Costo computazionale
 %-------------------------------------------------------------------------
 \begin{frame}{Riassumendo}
 
+\small
+\vspace{-12pt}
+\TwoCols{
 \begin{myboxtitle}[Matrici di adiacenza]
 \BI
 \item Spazio richiesto $O(n^2)$
@@ -762,7 +767,7 @@ Costo computazionale
 \item \alert{Ideale per grafi densi}
 \EI
 \end{myboxtitle}
-
+}{
 \begin{myboxtitle}[Liste di adiacenza]
 \BI
 \item Spazio richiesto $O(n+m)$
@@ -771,7 +776,10 @@ Costo computazionale
 \item \alert{Ideale per grafi sparsi}
 \EI
 \end{myboxtitle}
-
+}
+\BB{
+Sebbene i matematici preferiscano la rappresentazione a matrice di adiacenza dei grafi per "maneggiarli" con algebra lineare, tale rappresentazione non è ideale per informatici interessati a implementazioni algoritmiche efficienti
+}
 \end{frame}
 
 
@@ -783,6 +791,7 @@ Costo computazionale
 %-------------------------------------------------------------------------
 \begin{frame}{Visite dei grafi}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione del problema]
 Dato un grafo $G=(V,E)$ e un vertice $r \in V$ (\alert{radice}, \alert{sorgente}), visitare una e una volta sola tutti i nodi del grafo che possono essere raggiunti da $r$
 \end{myboxtitle}
@@ -936,7 +945,7 @@ $S.\setinsert(r)$\Comment*{Da specificare}
 
 $\Queue\ Q = \queueconstructor(\,)$\;
 $S.\queueinsert(r)$\;
-$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[1 \mldots G.\textsf{size}()]$\;
+$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[G.\textsf{size}()]$\;
 \ForEach{$u \in G.\VV()-\{r\}$}{$\mmark[u] = \FALSE$\;}
 $\mmark[r] = \TRUE$\;
 \While{\NOT $Q.\queueempty()$}
@@ -998,13 +1007,15 @@ $\mmark[r] = \TRUE$\;
 
 \vspace{-12pt}
 \begin{Procedure}
-\caption[A]{\erdos($\Graph\ G,\ \Node\ r,\ \INTEGER[\,]\ \erdosn,\ \Node[\,]\ \mathit{parent}$)}
+\caption[A]{\erdos($\Graph\ G,\ \Node\ r,\ \INTEGER[\,]\ \erdosn
+%,\ \Node[\,]\ \mathit{parent}
+$)}
 
 $\Queue\ Q = \queueconstructor()$\;
 $Q.\queueinsert(r)$\;
 \ForEach{$u \in G.\VV()-\{r\}$}{$\erdosn[u] = \infty$}
 $\erdosn[r] = 0$\;
-$\mathit{parent}[r] = \Nil$\;
+%$\mathit{parent}[r] = \Nil$\;
 \While{\NOT $Q.\queueempty()$}
 {
   $\Node\ u = Q.\queueremove()$\;
@@ -1013,7 +1024,7 @@ $\mathit{parent}[r] = \Nil$\;
     \If(\REMF{Se il nodo $v$ non è stato scoperto}){$\erdosn[v] \Eq \infty$}
     {
       $\erdosn[v] = \erdosn[u]+1$\;
-      $\mathit{parent}[v] = u$\;
+      %$\mathit{parent}[v] = u$\;
       $Q.\queueinsert(v)$\;
     }
   }
@@ -1050,10 +1061,12 @@ $\mathit{parent}[r] = \Nil$\;
 \item Memorizzato in un vettore dei padri $\mathit{parent}$
 \EIL
 
+\vspace{-9pt}
 \TwoColsCustom{0.44}{0.54}{
 \begin{Procedure}
 \caption[A]{$\erdos([\ldots],\ \alert{\Node[\,]\ \mathit{parent}}$)}
 [\ldots]\;
+\alert{$\mathit{parent}[r] = \Nil$}\;
 \While{\NOT $S.\queueempty()$}
 {
   $\Node\ u = S.\queueremove()$\;
@@ -1107,10 +1120,10 @@ sola
 \item Il numero di archi analizzati è quindi 
 
 \[
-  m = \sum_{u \in V} \mathit{out}_d(u) 
+  m = \sum_{u \in V} d_{\mathit{out}}(u) 
 \]
 
-dove $\mathit{out}_d(u)$ è l'out-degree del nodo $u$
+dove $d_{\mathit{out}}$ è l'out-degree del nodo $u$
 \EIL
 
 \end{frame}
@@ -1191,20 +1204,20 @@ basata su stack esplicito
 \begin{frame}[shrink=15]{DFS (Iterativa, stack esplicito, pre-order)}
 
 \vspace{-12pt}
-\TwoColsCustom{0.58}{0.39}{
+\TwoColsCustom{0.57}{0.39}{
 \begin{Procedure}
 \caption[A]{\dfsproc($\Graph\ G, \Node\ r$)}
 
 $\Stack\ S = \stackconstructor(\,)$\;
 $S.\stackpush(r)$\;
-$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[1 \mldots G.\textsf{size}()]$\;
+$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[G.\textsf{size}()]$\;
 \ForEach{$u \in G.\VV()$}{$\mmark[u] = \FALSE$\;}
 \While{\NOT $S.\stackempty()$}
 {
   $\Node\ u = S.\stackpop()$\;
   \If{\NOT $\mmark[u]$}{
     \{ \alert{visita il nodo $u$ (pre-order)} \}\;
-    $\mmark[v] = \TRUE$ \;
+    $\mmark[u] = \TRUE$ \;
     \ForEach{$v \in G.\adj(u)$}{
       \{ \alert{visita l'arco $(u,v)$} \}\;
       $S.\stackpush(v)$\;
@@ -1227,6 +1240,9 @@ non all'inserimento
 \EIL
 }
 
+\tiny
+\url{https://11011110.github.io/blog/2013/12/17/stack-based-graph-traversal.html}
+
 \end{frame}
 
 \begin{frame}{DFS (Iterativa, stack esplicito, post-order)}
@@ -1237,12 +1253,12 @@ non all'inserimento
   \BI
   \item  viene inserito nello stack con il tag \textsf{discovery}
   \EI
-\item Quando un nodo viene estratto dalla coda con tag \textsf{discovery}:
+\item Quando un nodo viene estratto dallo stack con tag \textsf{discovery}:
   \BI
   \item Viene re-inserito con il tag \textsf{finish}
   \item Tutti i suoi vicini vengono inseriti
   \EI
-\item Quando un nodo viene estratto dalla coda con tag \textsf{finish}:
+\item Quando un nodo viene estratto dallo stack con tag \textsf{finish}:
   \BI
   \item Viene effettuata la post-visita
   \EI
@@ -1256,6 +1272,7 @@ non all'inserimento
 
 \begin{frame}{Componenti (fortemente) connesse}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Motivazioni]
 \BIL
 \item Molti algoritmi che operano sui grafi iniziano decomponendo 
@@ -1278,7 +1295,7 @@ il grafo nel sue componenti connesse.
 
 \begin{frame}{Definizioni: Raggiungibilità}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione]
 Un nodo $v$ è \alert{raggiungibile} da un nodo $u$ se esiste almeno un cammino da $u$ a $v$.
 \end{myboxtitle}
@@ -1300,7 +1317,7 @@ non viceversa
 
 \begin{frame}{Grafi connessi e componenti connesse}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Definizioni]
 \BIL
 \item Un grafo non orientato $G=(V,E)$ è \alert{connesso} $\Leftrightarrow$ ogni
@@ -1312,7 +1329,7 @@ suo nodo è raggiungibile da ogni altro suo nodo
 \BIL
 \item $G'$ è un \alert{sottografo} di $G$ ($G' \subseteq G$) $\Leftrightarrow$ $V' \subseteq V$ e $E'
 \subseteq E$
-\item $G'$ è \alert{massimale} $\Leftrightarrow$ non esiste nessun altro sottografo $G''$ di $G$ tale che $G''$
+\item $G'$ è \alert{massimale} $\Leftrightarrow \nexists$ un altro sottografo $G''$ di $G$ tale che $G''$
 è connesso e più grande di $G'$ (i.e. $G' \subseteq G'' \subseteq G$)
 \EIL
 }{
@@ -1326,7 +1343,7 @@ suo nodo è raggiungibile da ogni altro suo nodo
 
 \begin{frame}{Applicazione DFS: Componenti connesse}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Problema]
 \BI
 \item Verificare se un grafo è connesso oppure no
@@ -1359,7 +1376,7 @@ suo nodo è raggiungibile da ogni altro suo nodo
 \column{0.45\textwidth}
 \begin{Procedure}
 \caption[A]{$\INTEGER[\,]$ \connectedcomponents(\Graph $G$)}
-$\INTEGER[\,]\ \components = \NEW\ \INTEGER[1 \mldots G.\textsf{size}()]$\;
+$\INTEGER[\,]\ \components = \NEW\ \INTEGER[G.\textsf{size}()]$\;
 \ForEach{$u \in G.\VV()$}
 {
   $\components[u] = 0$
@@ -1439,9 +1456,9 @@ v\end{overprint}
 %-------------------------------------------------------------------------
 \begin{frame}{Definizioni: Ciclo}
 	
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Ciclo (cycle)]
-In un grafo non orientato $G=(V,E)$, un \alert{ciclo} $C$ di lunghezza $k > 2$ è una sequenza di nodi $u_0, u_1, \ldots, u_k$ tale che $(u_i, u_{i+1} \in E)$ per $0 \leq i \leq k-1$ e $u_0 = u_k$.
+In un grafo non orientato $G=(V,E)$, un \alert{ciclo} $C$ di lunghezza $k > 2$ è una sequenza di nodi $u_0, u_1, \ldots, u_k$ tale che $(u_i, u_{i+1}) \in E$ per $0 \leq i \leq k-1$ e $u_0 = u_k$.
 \end{myboxtitle}
 
 \TwoCols{
@@ -1458,7 +1475,7 @@ $k > 2$ esclude cicli banali composti da coppie di archi $(u,v)$ e $(v,u)$, che 
 %-------------------------------------------------------------------------
 \begin{frame}{Definizioni: Grafo aciclico}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{columns}[T]
 \column{0.55\textwidth}
 
@@ -1508,7 +1525,7 @@ $\mmark[u] = \TRUE$\;
 \large
 \begin{Procedure}
 \caption[A]{$\BOOLEAN\ \textsf{hasCycle}(\Graph\ G)$}
-$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[1 \mldots G.\textsf{size}()]$\;
+$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[G.\textsf{size}()]$\;
 \ForEach{$u \in G.\VV()$}{
   $\mmark[u] = \FALSE$\;
 }
@@ -1528,9 +1545,9 @@ $\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[1 \mldots G.\textsf{size}()]$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Definizioni: Ciclo}
 	
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Ciclo (cycle)]
-In un grafo orientato $G=(V,E)$, un \alert{ciclo} $C$ di lunghezza $k \geq 2$ è una sequenza di nodi $u_0, u_1, \ldots, u_k$ tale che $(u_i, u_{i+1} \in E)$ per $0 \leq i \leq k-1$ e $u_0 = u_k$.
+In un grafo orientato $G=(V,E)$, un \alert{ciclo} $C$ di lunghezza $k \geq 2$ è una sequenza di nodi $u_0, u_1, \ldots, u_k$ tale che $(u_i, u_{i+1}) \in E$ per $0 \leq i \leq k-1$ e $u_0 = u_k$.
 \end{myboxtitle}
 
 \TwoCols{
@@ -1550,7 +1567,7 @@ Note: un ciclo è detto \alert{semplice} se tutti i suoi nodi sono distinti
 %-------------------------------------------------------------------------
 \begin{frame}{Definizioni: Grafo orientato aciclico (DAG)}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{columns}[T]
 \column{0.48\textwidth}
 \begin{myboxtitle}[DAG]
@@ -1571,6 +1588,7 @@ Un grafo è \alert{ciclico} se contiene un ciclo.
 
 \begin{frame}{Applicazione DFS: Grafo orientato aciclico}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Problema]
 Dato un grafo orientato $G$, scrivere un algoritmo che restituisca \textbf{true} se $G$ contiene un ciclo, \textbf{false}
 altrimenti.
@@ -1601,7 +1619,7 @@ non si comporta correttamente?
 
 \begin{frame}{Classificazione degli archi}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Albero di copertura DFS]
 Ogni volta che si esamina un arco da un nodo marcato ad un nodo non marcato, tale arco viene \alert{arco dell'albero}
 \end{myboxtitle}
@@ -1627,9 +1645,9 @@ $(u,v)$ è detto {\color{brown} arco all'indietro}
 \begin{frame}[shrink=15]{DFS Schema}
 
 \vspace{-12pt}
-\TwoColsCustom{0.7}{0.28}{
+\TwoColsCustom{0.72}{0.28}{
 \begin{Procedure}
-\caption[A]{\dfsschema(\Graph $G$, \Node\ $u$, \INTEGER\ \&$\orologio$, $\INTEGER[\,]\ \ddt$, $\INTEGER[\,]\ \dft$)}
+\caption[A]{\small \dfsschema(\Graph $G$, \Node\ $u$, \INTEGER\ \&$\orologio$, $\INTEGER[\,]\ \ddt$, $\INTEGER[\,]\ \dft$)}
 \{ visita il nodo $u$ (pre-order) \} \;
 $\orologio = \orologio + 1$;~~ $\ddt[u] = \orologio$\;
 \ForEach{$v \in G.\adj(u)$}
@@ -1706,13 +1724,12 @@ $\dft[u] = \orologio$\;
 
 
 
-\begin{frame}{DFS Schema}
+\begin{frame}[shrink=15]{DFS Schema}
 
-\vspace{-18pt}
-\TwoColsCustom{0.65}{0.33}{
-\small
+\vspace{-12pt}
+\TwoColsCustom{0.70}{0.28}{
 \begin{Procedure}
-\caption[A]{\footnotesize \dfsschema(\Graph $G$, \Node\ $u$, \INTEGER\ \&$\orologio$, $\INTEGER[\,]\ \ddt$, $\INTEGER[\,]\ \dft$)}
+\caption[A]{\small \dfsschema(\Graph $G$, \Node\ $u$, \INTEGER\ \&$\orologio$, $\INTEGER[\,]\ \ddt$, $\INTEGER[\,]\ \dft$)}
 $\orologio = \orologio + 1$;~~ $\ddt[u] = \orologio$\;
 \ForEach{$v \in G.\adj(u)$}
 {
@@ -1762,7 +1779,7 @@ $\dft[u] = \orologio$\;
 
 \begin{frame}{Classificazione degli archi}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Perchè classificare gli archi?]
 Possiamo dimostrare proprietà sul tipo degli archi e usare queste proprietà
 per costruire algoritmi migliori
@@ -1792,7 +1809,7 @@ non-sovrapposti; \\
 
 \begin{frame}{Teoria}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Teorema]
 Un grafo orientato è aciclico $\Leftrightarrow$ non esistono archi all'indietro nel grafo.
 \end{myboxtitle}
@@ -1815,7 +1832,7 @@ esiste un cammino da $v$ a $u$ e un arco da $u$ a $v$, ovvero un ciclo.
 \begin{frame}{Applicazione DFS: DAG}
 
 \begin{Procedure}
-\caption[A]{$\BOOLEAN\ \textsf{hasCycle}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
+\caption[A]{$\BOOLEAN\ \textsf{hasCycleRec}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
 
 $\orologio = \orologio + 1$;~~
 $\ddt[u] = \orologio$\;
@@ -1823,7 +1840,7 @@ $\ddt[u] = \orologio$\;
 {
   \uIf{$\ddt[v] \Eq 0$}
   {
-    \If{$\textsf{hasCycle}(G, v, \orologio, \ddt, \dft)$}{\Return \TRUE} 
+    \If{$\textsf{hasCycleRec}(G, v, \orologio, \ddt, \dft)$}{\Return \TRUE} 
   }
   \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}
   {
@@ -1870,7 +1887,7 @@ Non viene individuato nessun arco all'indietro, quindi tutte le chiamate ricorsi
 
 
 \begin{Procedure}
-\caption[A]{$\BOOLEAN\ \textsf{hasCycle}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
+\caption[A]{$\BOOLEAN\ \textsf{hasCycleRec}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
 
 $\orologio = \orologio + 1$;~~
 $\ddt[u] = \orologio$\;
@@ -1878,7 +1895,7 @@ $\ddt[u] = \orologio$\;
 {
   \uIf{$\ddt[v] \Eq 0$}
   {
-    \If{$\textsf{hasCycle}(G, v, \orologio, \ddt, \dft)$}{\Return \TRUE} 
+    \If{$\textsf{hasCycleRec}(G, v, \orologio, \ddt, \dft)$}{\Return \TRUE} 
   }
   \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}
   {
@@ -1921,7 +1938,7 @@ Arco attraversamento: & \color{blue}{altrimenti}
 Viene individuato un arco all'indietro, che causa la restituzione di \TRUE in una chiamata e la conseguente restituzione di \TRUE da parte di tutte le chiamate ricorsive precedenti.
 
 \begin{Procedure}
-\caption[A]{$\BOOLEAN\ \textsf{hasCycle}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
+\caption[A]{$\BOOLEAN\ \textsf{hasCycleRec}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
 
 $\orologio = \orologio + 1$;~~
 $\ddt[u] = \orologio$\;
@@ -1929,7 +1946,7 @@ $\ddt[u] = \orologio$\;
 {
   \uIf{$\ddt[v] \Eq 0$}
   {
-    \If{$\textsf{hasCycle}(G, v, \orologio, \ddt, \dft)$}{\alert{\Return \TRUE}} 
+    \If{$\textsf{hasCycleRec}(G, v, \orologio, \ddt, \dft)$}{\alert{\Return \TRUE}} 
   }
   \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}
   {
@@ -1950,7 +1967,7 @@ $\dft[u] = \orologio$\;
 
 \begin{frame}{Ordinamento topologico}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione]
 Dato un DAG $G$, un \alert{ordinamento topologico} di $G$ è un ordinamento lineare dei suoi nodi tale che se $(u,v) \in E$, allora $u$ appare prima di $v$ nell'ordinamento.
 \end{myboxtitle}
@@ -1966,6 +1983,7 @@ Dato un DAG $G$, un \alert{ordinamento topologico} di $G$ è un ordinamento line
 
 \begin{frame}{Ordinamento topologico}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Problema]
 Scrivere un algoritmo che prende in input un DAG e ritorna un ordinamento
 topologico per esso.
@@ -1993,25 +2011,27 @@ topologico per esso.
 
 \begin{frame}{Ordinamento topologico basato su DFS}
 
-\vspace{-6pt}
-\BB{Algoritmo}
+\vspace{-9pt}
+\begin{myboxtitle}[Algoritmo]
 \BI
-\item Eseguire una DFS nel quale l'operazione di visita consiste nell'aggiungere il nodo in testa ad una lista, "at finish time" (post-ordine)
+\item DFS dove l'operazione di visita consiste nell'aggiungere il nodo in testa ad una lista, \alert{"a tempo di fine"} (post-ordine)
 \item Restituire la lista così ottenuta.
 \EI
+\end{myboxtitle}
 
-\medskip
-\BB{Output}
+\begin{myboxtitle}[Output]
 \BI
 \item La sequenza dei nodi, ordinati per tempo decrescente di fine.
 \EI
+\end{myboxtitle}
 
-\medskip
-\BB{Perchè funziona?}
+\begin{myboxtitle}[Perchè funziona?]
 \pause
 \BI
-\item Quando un nodo è "finito", tutti i suoi discendenti sono stati scoperti e aggiunti alla lista. Aggiungendolo in testa alla lista, il nodo è in ordine corretto.
+\item Quando un nodo è "finito", tutti i suoi discendenti sono stati scoperti e aggiunti alla lista. 
+\item Aggiungendolo in testa alla lista, il nodo è in ordine corretto.
 \EI
+\end{myboxtitle}
 
 \end{frame}
 
@@ -2021,7 +2041,7 @@ topologico per esso.
 \begin{Procedure}
 \caption[A]{\Stack\ \topsort(\Graph $G$)}
 $\Stack\ S = \stackconstructor()$\;
-$\BOOLEAN[\,]\ \mmark = \BOOLEAN[1 \mldots G.\textsf{size}()]$\;
+$\BOOLEAN[\,]\ \mmark = \BOOLEAN[G.\textsf{size}()]$\;
 \lForEach{$u \in G.\VV()$}{$\mmark[u] = \FALSE$}
 \ForEach{$u \in G.\VV()$}
 {
@@ -2079,14 +2099,15 @@ $S.\stackpush(u)$\;
 
 \begin{frame}{Reality check}
     
-\vspace{-6pt}
-\BB{Applicazioni dell'ordinamento topologico}
+\vspace{-9pt}
+\begin{myboxtitle}[Applicazioni dell'ordinamento topologico]
 \BIL
 \item Ordine di valutazione delle celle in uno spreadsheet
 \item Ordine di compilazione in un \texttt{Makefile}
 \item Risoluzione delle dipendenze nei linker
 \item Risoluzione delle dipendenze nei gestori di pacchetti software
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -2100,7 +2121,7 @@ $S.\stackpush(u)$\;
 
 \begin{frame}{Grafi e componenti fortemente connessi}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Definizioni]
 \BIL
 \item Un grafo orientato $G=(V,E)$ è \alert{fortemente connesso} $\Leftrightarrow$\\ ogni
@@ -2112,7 +2133,7 @@ suo nodo è raggiungibile da ogni altro suo nodo
 \begin{myboxtitle}[Repetita iuvant]
 \BIL
 \item $G'$ è un \alert{sottografo} di $G$ ($G' \subseteq G$) $\Leftrightarrow V' \subseteq V$ e $E' \subseteq E$
-\item $G'$ è \alert{massimale} $\Leftrightarrow$ non esiste un altro sottografo $G''$ di $G$ tale che:
+\item $G'$ è \alert{massimale} $\Leftrightarrow \nexists$ un altro sottografo $G''$ di $G$ tale che:
 \BI
 \item $G''$ è connesso 
 \item $G''$ è più grande di $G'$ (i.e. $G' \subseteq G'' \subseteq G$)
@@ -2124,7 +2145,7 @@ suo nodo è raggiungibile da ogni altro suo nodo
 
 \begin{frame}{Connessione forte}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Domanda]
 Questo grafo è fortemente connesso? \pause \alert{No}
 \end{myboxtitle}
@@ -2137,7 +2158,7 @@ Questo grafo è fortemente connesso? \pause \alert{No}
 
 \begin{frame}{Componenti fortemente connesse}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Domanda]
 Quali sono le componenti fortemente connesse di questo grafo?
 \end{myboxtitle}
@@ -2167,7 +2188,7 @@ Quali sono le componenti fortemente connesse di questo grafo?
 
 \begin{frame}{Algoritmo di Kosaraju}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Kosaraju Algorithm (1978)]
 \BI
 \item Effettua una visita DFS del grafo $G$
@@ -2218,7 +2239,7 @@ prima di $v$ nella sequenza ordinata
 
 \begin{frame}{Calcolo del grafo trasposto}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Grafo trasposto (Transpose graph)]
 Dato un grafo orientato $G=(V,E)$, il \alert{grafo trasposto} $G_t = (V, E_T)$ ha gli stessi nodi e gli archi orientati in senso opposto.:
 \[
@@ -2230,7 +2251,7 @@ E_T = \{ (u,v) ~|~ (v,u) \in E \}
 \begin{columns}[T]
 \column{0.45\textwidth}
 \begin{Procedure}
-\caption[A]{$\INTEGER[\,]$ \textsf{transpose}($\Graph\ G$)}
+\caption[A]{\Graph \textsf{transpose}($\Graph\ G$)}
   $\Graph\ G^T = \graphconstructor()$\;
   \lForEach{$u \in G.\VV()$}{ $G^T.\nodeins(u)$}
   \ForEach{$u \in G.\VV()$}{ 
@@ -2273,7 +2294,7 @@ Invece di esaminare i nodi in ordine arbitrario, questa versione di
 \column{0.45\textwidth}
 \begin{Procedure}
 \caption[A]{\connectedcomponents(\Graph $G$, \alert{$\Stack\ S$})}
-$\INTEGER[\,]\ \components = \NEW\ \INTEGER[1 \mldots G.\textsf{size}()]$\;
+$\INTEGER[\,]\ \components = \NEW\ \INTEGER[G.\textsf{size}()]$\;
 \ForEach{$u \in G.\VV()$}
 {
   $\components[u] = 0$
@@ -2365,12 +2386,12 @@ $\components[u] = \mathit{counter}$\;
 
 \begin{frame}{Dimostrazione di correttezza}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Grafo delle componenti]
 $C(G) = (V_c, E_c)$
 \BI
 \item $V_c = \{ C_1, C_2, \ldots , C_k \}$, dove $C_i$ è la $i$-esima SCC of $G$
-\item $E_c = \{ (C_i, C_j) | \exists (u_i, v_i) \in E: u_i \in C_i \wedge u_j \in C_j \}$
+\item $E_c = \{ (C_i, C_j) | \exists (u_i, u_j) \in E: u_i \in C_i \wedge u_j \in C_j \}$
 \EI
 \end{myboxtitle}
 
@@ -2401,7 +2422,7 @@ $C(G) = (V_c, E_c)$
 
 \begin{frame}{Dimostrazione di correttezza}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Discovery time e finish time del grafo delle componenti]
 \begin{align*}
 	\ddt(C) &= \min \{ \ddt(u) | u \in C \} \\
@@ -2416,10 +2437,10 @@ $C(G) = (V_c, E_c)$
 
 \begin{frame}{Dimostrazione di correttezza}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Teorema]
 Siano $C$ e $C'$ due distinte SCCs nel grafo orientato $G=(V,E)$. \\ 
-Se c'è un arco $(C,C') \in E_c$, allora $\dft(C) > \dft(C')$.
+Se esiste un arco $(C,C') \in E_c$, allora $\dft(C) > \dft(C')$.
 \end{myboxtitle}
 
 \TwoCols{
@@ -2431,22 +2452,22 @@ Se c'è un arco $(C,C') \in E_c$, allora $\dft(C) > \dft(C')$.
 
 \begin{frame}{Dimostrazione di correttezza}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Corollario]
-Siano $C_u$ e $C_v$ due SCC distinte nel grafo orientato $G=(V,E)$. \\ 
-Se c'è un arco $(u,v) \in E_t$ tale che $u \in C_u$ e $v \in C_v$, 
-allora $\dft(C_u) < \dft(C_v)$.
+Siano $C_x$ e $C_y$ due SCC distinte nel grafo orientato $G=(V,E)$. \\ 
+Se esiste un arco $(x,y) \in E_t$ tale che $x \in C_x$ e $y \in C_y$, 
+allora\\ $\dft(C_x) < \dft(C_y)$.
 \end{myboxtitle}
 
 \TwoCols{
 \begin{overprint}
 \onslide<1|handout:1>
 \begin{align*}
-(u,v) \in E_t & \Rightarrow \\
-(v,u) \in E & \Rightarrow \\
-(C_v,c_u) \in E_c & \Rightarrow \\
-\dft(C_v) > \dft(C_u) & \Rightarrow \\
-\dft(C_u) < \dft(C_v) &
+(x,y) \in E_t & \Rightarrow \\
+(y,x) \in E & \Rightarrow \\
+(C_y,C_x) \in E_c & \Rightarrow \\
+\dft(C_y) > \dft(C_x) & \Rightarrow \\
+\dft(C_x) < \dft(C_y) &
 \end{align*}
 \onslide<2|handout:2>
 \begin{align*}
@@ -2463,28 +2484,33 @@ allora $\dft(C_u) < \dft(C_v)$.
 \end{frame}
 
 \begin{frame}{Dimostrazione di correttezza}
-    
+
+\TwoColsCustom{0.55}{0.44}{    
 \BIL
-\item Se la componente $C_u$ e la componente $C_v$ sono connesse da un arco 
-$(u,v) \in E_t$, allora:
+\item Se la componente $C_x$ e la componente $C_y$ sono connesse da un arco 
+$(x,y) \in E_t$, allora:
 \BI
-\item Dal corollario, $\dft(C_u) < \dft(C_v)$
-\item Dall'algoritmo, la visita di $C_v$ inizierà primma della visita di $C_u$
+\item Dal corollario, $\dft(C_x) < \dft(C_y)$
+\item Dall'algoritmo, la visita di $C_y$ inizierà prima della visita di $C_x$
 \EI
-\item Non esistono cammini tra $C_v$ e $C_u$ in $G_t$
+\item Non esistono cammini tra $C_y$ e $C_x$ in $G_t$
 (altrimenti il grafo sarebbe ciclico)
 \BI
-\item Dall'algoritmo, la visita di $C_v$ non raggiungerà $C_u$,
+\item Dall'algoritmo, la visita di $C_y$ non raggiungerà $C_x$,
 \EI
 \EIL
+}{
+\includegraphics[width=1.0\textwidth,page=5]{scc2.pdf}
+}
 
+\bigskip
 In altre parole, \texttt{cc()} assegnerà correttamente gli identificatori delle
 componenti ai nodi.
 \end{frame}    
 
 \begin{frame}{Reality check}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Algoritmo di Tarjan (1972)]
 \BIL
 \item Tarjan, R. E. "Depth-first search and linear graph algorithms", SIAM Journal on Computing 1(2): 146–160 (1972)

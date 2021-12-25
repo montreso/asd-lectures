@@ -17,12 +17,13 @@
 
 \begin{frame}{Introduzione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Analisi ammortizzata]
 Una tecnica di analisi di complessità che valuta il tempo richiesto per eseguire, \alert{nel caso pessimo}, una sequenza di operazioni
-su una struttura dati.
+su una struttura dati
 \BI
 \item Esistono operazioni più o meno costose.
-\item Se le operazioni più costose sono poco frequenti, allora il loro\\ costo può essere ammortizzato dalle operazioni
+\item Se le operazioni più costose sono poco frequenti, allora il loro\\ costo può essere \alert{ammortizzato} dalle operazioni
 meno costose
 \EI
 \end{myboxtitle}
@@ -74,7 +75,7 @@ Importante differenza
 \BI
 \item Contatore binario di $k$ bit con un vettore $A$ di booleani 0/1
 \item Bit meno significativo in $A[0]$, bit più significativo in $A[k-1]$
-\item Valore del contatore: \parbox[c]{6cm}{{ \[x = \sum_{i=0}^{k-1} A[i] 2^i\]}}
+\item Valore del contatore: \parbox[c]{6cm}{{ \[x = \sum_{i=0}^{k-1} A[i] \cdot 2^i\]}}
 \vspace{-4pt}
 \item Operazione \textsf{increment}() che incrementa il contatore di $1$
 \EI
@@ -129,63 +130,74 @@ Importante differenza
 
 \begin{frame}{Analisi ammortizzata -- Metodo dell'aggregazione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Metodo dell'aggregazione]
 \BI
-\item Si calcola la complessità $T(n)$ per eseguire \alert{$n$ operazioni} in \alert{sequenza} nel \emph{caso pessimo}
+\item Si calcola la complessità $T(n)$ per eseguire \alert{$n$ operazioni} in \alert{sequenza} nel \alert{caso pessimo}
+\item Si calcola il \alert{costo ammortizzato $T(n)/n$ } come \alert{media} su $n$ operazioni
 \EI
 \end{myboxtitle}
 
-\bigskip
+\BB{
 \BIL
 \item \alert{Sequenza}: si considera l'evoluzione della struttura dati data una sequenza di operazioni 
 \item \alert{Caso pessimo}: si considera la peggior sequenza di operazioni
-\item \alert{ Aggregazione}: sommare assieme tutte le complessità individuali
+\item \alert{Aggregazione}: sommatoria delle complessità individuali
 \EIL
+}
 
 
 \end{frame}
-
-
-
 
 \begin{frame}{Analisi ammortizzata -- Metodo dell'aggregazione}
 
-\begin{myboxtitle}[Analisi “grossolana”]
-\BI
-\item Una chiamata \textsf{increment}() richiede tempo $O(k)$ nel caso pessimo 
-\item Essendoci una sola operazione, esiste un'unica sequenza possibile
-\item Limite superiore $T(n) = O(nk)$ per una sequenza di $n$ incrementi
-\EI
-\end{myboxtitle}
-
-\end{frame}
-
-\begin{frame}{Quanto costano $n$ operazioni di incremento?}
-
-
-\begin{columns}[T]
-\begin{column}{0.38\textwidth}
+\BB{
 \BIL
-\item Sono necessari \alert{$k = \lceil \log n \rceil$} bit per rappresentare $n$
-\item Costo di $1$ operazione: \alert{$T(n)/n = O(k)$}
-\item Costo di $n$ operazioni: \alert{$T(n) = O(nk)$}
+\item Qual è il costo $T(n)$ per eseguire $n$ operazioni (caso pessimo)?
+\item Qual è il costo ammortizzato $T(n)/n$?
 \EIL
-
-\end{column}
-\begin{column}{0.62\textwidth}
-\pause
-\includegraphics[width=\textwidth]{plot1.pdf}
+}
 
 \bigskip
-\hspace{2cm} $k \in \{ 20, \ldots, 35 \}$
-
-
-\end{column}
-\end{columns}
+\begin{overprint}
+\onslide<1|handout:0>
+\begin{Procedure}
+\caption[A]{\textsf{increment}($\INTARRAY\ A$, \INTEGER $k$)}
+\INTEGER $i = 0$\;
+\While{$i < k$ \AND $A[i] \Eq 1$}{
+  $A[i] = 0$\;
+  $i = i+1$\;
+}
+\If{$i < k$}{
+  $A[i] = 1$\;
+}
+\end{Procedure}
+\onslide<2|handout:1>
+\begin{myboxtitle}[Analisi “grossolana”]
+\BIL
+\item Sono necessari \alert{$k = \lceil \log (n+1) \rceil$} bit per rappresentare $n$
+\item Una chiamata \textsf{increment}() richiede tempo $O(k)$ nel caso pessimo 
+\item Costo di $n$ operazioni: \alert{$T(n) = O(nk)$}
+\item Costo di $1$ operazione: \alert{$T(n)/n = O(k) = O(\log n)$}
+\EIL
+\end{myboxtitle}
+\onslide<3|handout:2>
+\TwoColsCustom{0.65}{0.33}{
+\includegraphics[width=\textwidth]{plot1.pdf}
+}{
+\BIL
+\item $n=2^k$ operazioni
+\item $k \in [20,35]$
+\item Eseguito in Java
+\EIL
+}
+\end{overprint}
 
 \end{frame}
 
 \begin{frame}{Quanto costano $n$ operazioni di incremento?}
+
+\vspace{-9pt}
 \begin{myboxtitle}[Considerazioni per un'analisi più stretta]
 \BI
 \item Possiamo osservare che il tempo necessario ad eseguire l’intera sequenza è proporzionale al numero di bit che vengono modificati
@@ -261,15 +273,13 @@ Dalla simulazione si vede che:
 \item $A[i]$ viene modificato ogni $2^i$ incrementi
 \EI
 \begin{myboxtitle}[Analisi ammortizzata]
-\BI 
-\item Costo totale:
-\parbox[c]{8cm}{
-\[
+\BIL
+\item \alert{Costo totale}:
+$\displaystyle
 T(n) = \sum_{i=0}^{k-1} \left\lfloor \frac{n}{2^i} \right\rfloor \leq n \sum_{i=0}^{k-1}  \frac{1}{2^i} \leq n \sum_{i=0}^{+\infty}  \left(\frac{1}{2}\right)^i = 2n
-\]
-}
-\item Costo ammortizzato: $T(n)/n = 2n/n = 2  = O(1)$
-\EI
+$
+\item \alert{Costo ammortizzato}: $T(n)/n \leq 2n/n = 2  = O(1)$
+\EIL
 \end{myboxtitle}
 \end{frame}
 
@@ -295,13 +305,14 @@ T(n) = \sum_{i=0}^{k-1} \left\lfloor \frac{n}{2^i} \right\rfloor \leq n \sum_{i=
 
 \begin{frame}{Analisi ammortizzata -- Metodo degli accantonamenti}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Obiettivi]
 \BI
-\item dimostrare che la somma dei costi ammortizzati $a_i$ è un limite superiore ai costi effettivi $c_i$:
+\item Dimostrare che la somma dei costi ammortizzati $a_i$ è un limite superiore ai costi effettivi $c_i$:
 \[
  \sum_{i=1}^n c_i \leq \sum_{i=1}^n a_i
 \]
-\item  dimostrare che il valore così ottenuto è “poco costoso”
+\item Dimostrare che il valore così ottenuto è “poco costoso”
 \EI
 \end{myboxtitle}
 
@@ -340,57 +351,56 @@ Alcuni punti da ricordare:
 
 \subsection{Potenziale}
 
-\begin{frame}{Analisi amortizzata -- Metodo del potenziale}
+\begin{frame}{Analisi ammortizzata -- Metodo del potenziale}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Funzione di potenziale]
-Si associa alla struttura dati $D$ una \alert{funzione di potenziale} $\Phi(D)$
-\BI
-\item le operazioni meno costose devono incrementare $\Phi(D)$
-\item le operazioni più costose devono decrementare $\Phi(D)$
-\EI
+\BIL
+\item Una \alert{funzione di potenziale $\Phi$} associa ad uno \alert{stato $S$} della struttura dati la \alert{"quantità di lavoro" $\Phi(S)$} che è stato contabilizzato nell'analisi ammortizzata, ma non ancora eseguito
+\item In altre parole, $\Phi(S)$ rappresenta la quantità di energia potenziale "immagazzinata" in quello stato
+\EIL
 \end{myboxtitle}
 
 \begin{myboxtitle}[Costo ammortizzato]
-Il \alert{costo ammortizzato} è pari al \alert{costo effettivo} + \alert{variazione di potenziale}.
+\alert{Costo ammortizzato} = \alert{Costo effettivo} + \alert{Variazione di potenziale}.
 
 \[
-  a_i = c_i + \Phi(D_i) - \Phi(D_{i-1})
+  a_i = c_i + \Phi(S_i) - \Phi(S_{i-1})
 \]
-
-dove $D_i$ è il potenziale associato alla $i$-esima operazione.
+dove $S_i$ è lo stato associato alla $i$-esima operazione.
 \end{myboxtitle}
 
 \end{frame}
 
-\begin{frame}{Analisi amortizzata -- Metodo del potenziale}
+\begin{frame}{Analisi ammortizzata -- Metodo del potenziale}
 
 \vspace{-3pt}
 \BB{Costo ammortizzato,  sequenza di $n$ operazioni}
 \begin{align*}
   A &= \sum_{i=1}^n a_i \\
-    &= \sum_{i=1}^n \left(c_i + \Phi(D_i) - \Phi(D_{i-1}) \right) \\
-    &= \sum_{i=1}^n c_i + \sum_{i=1}^n \left(\Phi(D_i) - \Phi(D_{i-1}) \right) \\
-    &= C + \Phi(D_1) - \Phi(D_0) + \Phi(D_2) - \Phi(D_1) + \ldots + \Phi(D_n) - \Phi(D_{n-1}) \\
-    &= C + \Phi(D_n) - \Phi(D_0)
+    &= \sum_{i=1}^n \left(c_i + \Phi(S_i) - \Phi(S_{i-1}) \right) \\
+    &= \sum_{i=1}^n c_i + \sum_{i=1}^n \left(\Phi(S_i) - \Phi(S_{i-1}) \right) \\
+    &= C + \Phi(S_1) - \Phi(S_0) + \Phi(S_2) - \Phi(S_1) + \ldots + \Phi(S_n) - \Phi(S_{n-1}) \\
+    &= C + \Phi(S_n) - \Phi(S_0)
 \end{align*}
 
 \vspace{-6pt}
-Se la variazione di potenziale $\Phi(D_n) - \Phi(D_0)$ è non negativa,\\
+Se la variazione di potenziale $\Phi(S_n) - \Phi(S_0)$ è non negativa,\\
 \alert{il costo ammortizzato $A$ è un limite superiore al costo reale}
 \end{frame}
 
 \begin{frame}{Contatore binario -- Metodo del potenziale}
 \BIL
-\item Scegliamo come funzione potenziale $\Phi(D)$ il numero bit $1$ presenti nel contatore
+\item Scegliamo come funzione potenziale $\Phi$ il numero bit $1$ presenti nel contatore
 \item Operazione \textsf{increment}():
 \BI
+  \item $t$ è il numero di bit $1$ incontrati a partire dal meno significativo, prima di incontrare un bit $0$
   \item \makebox[4cm][l]{\alert{Costo effettivo}:} $1+t$
   \item \makebox[4cm][l]{\alert{Variazione di potenziale}:} $1-t$
   \item \makebox[4cm][l]{\alert{Costo ammortizzato}:} $1+t + 1 -t = 2$
-  \item $t$ è il numero di bit $1$ incontrati a partire dal meno significativo, prima di incontrare un bit $0$
 \EI
-\item All'inizio, zero bit accesi $\Rightarrow$ $\Phi(D_0)  = 0$ 
-\item Alla fine, $\Phi(D_n) \geq 0$  $\Rightarrow$ la differenza di potenziale è non negativa
+\item All'inizio, zero bit accesi $\Rightarrow$ $\Phi(S_0)  = 0$ 
+\item Alla fine, $\Phi(S_n) \geq 0$  $\Rightarrow$ la differenza di potenziale è non negativa
 \EIL
 
 \end{frame}
@@ -401,6 +411,7 @@ Se la variazione di potenziale $\Phi(D_n) - \Phi(D_0)$ è non negativa,\\
 
 \begin{frame}{Vettori dinamici -- Espansione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Sequenze implementate tramite \alert{vettori dinamici}]
 \BI
 \item Si alloca un vettore di una certa dimensione detta \alert{capacità}
@@ -422,6 +433,7 @@ Se la variazione di potenziale $\Phi(D_n) - \Phi(D_0)$ è non negativa,\\
 \begin{frame}{Vettori dinamici -- Espansione}
 
 
+\vspace{-9pt}
 \begin{myboxtitle}[Problema]
 \BI
 \item Non è noto a priori quanti elementi entreranno nella sequenza
@@ -432,7 +444,7 @@ Se la variazione di potenziale $\Phi(D_n) - \Phi(D_0)$ è non negativa,\\
 \begin{myboxtitle}[Soluzione]
 \BI
 \item Si alloca un vettore di capacità maggiore, si ricopia il contenuto del vecchio vettore nel nuovo e si rilascia il vecchio vettore
-\item Esempi: \texttt{java.util.Vector} (1.0), \texttt{java.util.ArrayList} (1.2)
+\item Esempi: \texttt{java.util.Vector}, \texttt{java.util.ArrayList}
 \EI
 \end{myboxtitle}
 
@@ -452,7 +464,6 @@ private void <@\textcolor{blue}{doubleStorage}@>() {
 }
 
 <@\textcolor{blue}{// Incremento fisso}@>
-private Object[] buffer = new Object[INITSIZE];
 private void <@\textcolor{blue}{incrementStorage}()@> {
   Object[] newb = new Object[<@\textcolor{blue}{buffer.length+INCREMENT}@>];
   System.arraycopy(buffer,0, newb,0, buffer.length);
@@ -462,35 +473,18 @@ private void <@\textcolor{blue}{incrementStorage}()@> {
 	
 \end{frame}
 
-\begin{frame}[fragile,shrink]{Vettori dinamici in Java -- Quale approccio?}
-
-\begin{lstlisting}[language=java]
-private Object[] buffer = new Object[INITSIZE];
-
-<@\textcolor{blue}{// Raddoppiamento -- Utilizzato in ArrayList (1.2)}@>
-private void <@\textcolor{blue}{doubleStorage}@>() {
-  Object[] newb = new Object[<@\textcolor{blue}{2*buffer.length}@>];
-  System.arraycopy(buffer,0, newb,0, buffer.length);
-  buffer = newb;
-}
-
-<@\textcolor{blue}{// Incremento fisso -- Utilizzato in Vector (1.0)}@>
-private Object[] buffer = new Object[INITSIZE];
-private void <@\textcolor{blue}{incrementStorage}()@> {
-  Object[] newb = new Object[<@\textcolor{blue}{buffer.length+INCREMENT}@>];
-  System.arraycopy(buffer,0, newb,0, buffer.length);
-  buffer = newb;
-}
-\end{lstlisting}
-
-\end{frame}
 
 
 \begin{frame}[fragile]{Vettori dinamici -- Espansione}
 
+\vspace{-9pt}
 \onslide<1-2|handout:1>
 \begin{myboxtitle}[Domanda]
 Qual è il migliore fra i due?
+\BI
+\item Raddoppiamento
+\item Incremento costante
+\EI
 \end{myboxtitle}
 
 \onslide<2|handout:1>
@@ -503,14 +497,36 @@ specified beyond the fact that adding an element has
 \end{alltt}
 \end{myboxtitle}
 
-\begin{myboxtitle}[Domanda]
-Cosa significa?
-\end{myboxtitle}
 
 \end{frame}
 
+\begin{frame}[fragile,shrink]{Vettori dinamici in Java -- Quale approccio?}
+
+\vspace{-9pt}
+\begin{lstlisting}[language=java]
+private Object[] buffer = new Object[INITSIZE];
+
+<@\textcolor{blue}{// Raddoppiamento -- Utilizzato in ArrayList (1.2)}@>
+private void <@\textcolor{blue}{doubleStorage}@>() {
+  Object[] newb = new Object[<@\textcolor{blue}{2*buffer.length}@>];
+  System.arraycopy(buffer,0, newb,0, buffer.length);
+  buffer = newb;
+}
+
+<@\textcolor{blue}{// Incremento fisso -- Utilizzato in Vector (1.0)}@>
+private void <@\textcolor{blue}{incrementStorage}()@> {
+  Object[] newb = new Object[<@\textcolor{blue}{buffer.length+INCREMENT}@>];
+  System.arraycopy(buffer,0, newb,0, buffer.length);
+  buffer = newb;
+}
+\end{lstlisting}
+
+\end{frame}
+
+
 \begin{frame}{Analisi ammortizzata, raddoppiamento del vettore}
 
+\vspace{-9pt}
 \begin{columns}[T]
 \begin{column}{0.6\textwidth}
 \alert{Costo effettivo di un'operazione \textsf{add}()}:
@@ -564,6 +580,7 @@ $17$ & $1 + 2^4 = 17$ \\
 
 \begin{frame}{Analisi ammortizzata, raddoppiamento del vettore}
 	
+\vspace{-9pt}
 \begin{columns}[T]
 \begin{column}{0.57\textwidth}
 \alert{Costo effettivo di $n$ operazioni \textsf{add}()}:
@@ -584,6 +601,7 @@ $17$ & $1 + 2^4 = 17$ \\
 
 \begin{frame}{Analisi ammortizzata, incremento del vettore}
 
+\vspace{-9pt}
 \begin{columns}[T]
 \begin{column}{0.6\textwidth}
 \alert{Costo effettivo di un'operazione \textsf{add}()}:
@@ -646,6 +664,7 @@ $17$ & $1 + 4d = 17$ \\
 
 \begin{frame}{Analisi ammortizzata, incremento del vettore}
 	
+\vspace{-9pt}
 \begin{columns}[T]
 \begin{column}{0.57\textwidth}
 \alert{Costo effettivo di $n$ operazioni \textsf{add}()}:
@@ -690,21 +709,34 @@ OpenSDK Java & \texttt{ArrayList} & 1.5 \\
 
 \begin{frame}{Non ancora convinti? Allocazione memoria}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Domande]
 \BI
-\item Quanto memoria occupa un intero memorizzato in un vettore dinamico di interi, nel caso pessimo/ottimo?
-\item Quanto memoria occupa un intero memorizzato in un elemento di una lista di interi, nel caso pessimo/ottimo? 
+\item Quanto memoria occupa un intero 32 bit se memorizzato in un \alert{vettore dinamico}, nel caso pessimo/ottimo?
+\item Quanto memoria occupa un intero 32 bit se memorizzato in un \alert{elemento di una lista}, nel caso pessimo/ottimo? 
 \EI
 \end{myboxtitle}
 
-\pause
-\BB{Alcuni dati interessanti (e inquietanti) relativi a Java}
-\BI
+\begin{overprint}
+\onslide<1|handout:0>
+\onslide<2|handout:1>
+\begin{myboxtitle}[Vettori]
+\BIL
+\item Nel caso ottimo (vettore pieno): \alert{$4n$ byte}
+\item Nel caso pessimo (vettore appena raddoppiato): \alert{$2 \cdot 4n$ byte}
+\EIL
+\end{myboxtitle}
+\onslide<3|handout:2>
+\begin{myboxtitle}[Liste]
+Alcuni dati interessanti (e inquietanti) relativi a Java:
+\BIL
 \item un \texttt{Object} vuoto richiede 16 byte in un'architettura a 64 bit
 \item l'allocazione di memoria avviene per multipli di 8 byte
 \item un oggetto contenente un intero e due reference (lista bidirezionale) richiede 32-40 byte
 (Java compressed references)
-\EI
+\EIL
+\end{myboxtitle}
+\end{overprint}
 
 \end{frame}
 
@@ -751,7 +783,7 @@ public static void print(int dim)
 
 \end{frame}
 
-\begin{frame}[fragile]{Non ancora soddisfatti? Somme stringhe in Python}
+\begin{frame}[fragile]{Non ancora soddisfatti? Somma stringhe in Python}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Esempio]
@@ -766,8 +798,8 @@ for i in range(10000):
 
 \bigskip
 \BIL
-\item In CPython, questo codice viene ottimizzato utilizando \texttt{realloc} invece di \texttt{malloc} e ha costo lineare - fino ad un certo punto
-\item Oltre una certa dimensione, il costo torno ad essere quadratico
+\item In CPython, questo codice viene ottimizzato utilizzando \texttt{realloc} invece di \texttt{malloc} e ha costo lineare - fino ad un certo punto
+\item Oltre una certa dimensione, il costo torna ad essere quadratico
 \item Altre implementazioni di Python non seguono questo approccio
 \EIL
 
@@ -785,6 +817,7 @@ Credits: Michele Baldo
 
 \begin{frame}{Vettori dinamici -- Cancellazione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Domande]
 \BI
 \item Quanto costa togliere un elemento da un vettore?
@@ -792,6 +825,18 @@ Credits: Michele Baldo
 \EI
 \end{myboxtitle}
 
+\begin{overprint}
+\onslide<1|handout:1>\centerline{\includegraphics[width=0.8\textwidth,page=6]{append-insert.pdf}}
+\onslide<2|handout:2>\centerline{\includegraphics[width=0.8\textwidth,page=7]{append-insert.pdf}}
+\onslide<3|handout:3>\centerline{\includegraphics[width=0.8\textwidth,page=8]{append-insert.pdf}}
+\end{overprint}
+
+
+\end{frame}
+
+\begin{frame}{Vettori dinamici -- Cancellazione}
+
+\vspace{-9pt}
 \begin{myboxtitle}[Contrazione]
 Per ridurre lo spreco di memoria, è opportuno contrarre il vettore quando il \alert{fattore di carico $\alpha = \textit{dim} / \textit{capacità}$} diventa troppo piccolo
 
@@ -809,6 +854,7 @@ Quale soglia per il fattore di carico?
 
 \begin{frame}[fragile]{Vettori dinamici -- Cancellazione}
 	
+\vspace{-9pt}
 \begin{myboxtitle}[Strategia naif]
 Una strategia che sembra ovvia è dimezzare la memoria quando il fattore di carico $\alpha$ diventa $\frac{1}{2}$
 \end{myboxtitle}
@@ -835,22 +881,23 @@ Qual è il problema?
 \EI
 
 \bigskip
-Dobbiamo lasciar decrescere il sistema ad un fattore inferiore a $\alpha = \frac{1}{4}$
+Dobbiamo lasciar decrescere il sistema fino a $\alpha = \frac{1}{4}$
 \BI
-\item Dopo un'espansione, il fattore di carico diventa $\frac{1}{2}$
-\item Dopo una contrazione, il fattore di carico diventa $\frac{1}{2}$
+\item Dopo una contrazione, il fattore di carico diventa $\frac{1}{2}$\\
+(esattamente come dopo un'espansione)
 \EI
 
 \bigskip
-Analisi ammortizzata: usiamo una funzione di potenziale che:
+\alert{Analisi ammortizzata}: usiamo una funzione di potenziale che:
 \BI
-\item Vale $0$ all’inizio e subito dopo una espansione o contrazione
+\item Vale $0$ all’inizio e subito dopo un'espansione o contrazione
 \item Cresce fino a raggiungere il numero di elementi presenti nella tavola quando $\alpha$ aumenta fino ad $1$ o diminuisce fino ad $1/4$
 \EI
 \end{frame}
 
 \begin{frame}{Vettori dinamici: contrazione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Funzione di potenziale]
 \[
 \Phi = \begin{cases}	
@@ -869,7 +916,7 @@ Alcuni casi esplicativi:
 \EI
 
 \bigskip
-In altre parole: immediatamente prima di espansioni e contrazioni il potenziale è sufficiente per “pagare” il loro costo
+In altre parole: subito prima di espansioni e contrazioni il potenziale è sufficiente per “pagare” il costo della copia dei \textit{dim} valori
 
 \end{frame}
 
@@ -879,7 +926,7 @@ In altre parole: immediatamente prima di espansioni e contrazioni il potenziale 
 
 \begin{frame}[shrink]{Vettori dinamici: contrazione}
 
-Se $\alpha \geq \frac{1}{2}$ il costo ammortizzato di un inserimento senza espansione è: 
+Se \alert{$\alpha \geq \frac{1}{2}$} il costo ammortizzato di un inserimento \alert{senza espansione} è: 
 {\small
 \begin{eqnarray*}
 a_i &=& c_i + \Phi_i - \Phi_{i-1} \\
@@ -889,7 +936,7 @@ a_i &=& c_i + \Phi_i - \Phi_{i-1} \\
 \end{eqnarray*}
 }
 
-Se $\alpha = 1$ il costo ammortizzato di un inserimento \alert{con espansione} è: 
+Se \alert{$\alpha = 1$} il costo ammortizzato di un inserimento \alert{con espansione} è: 
 {\small
 \begin{eqnarray*}
 a_i &=& c_i + \Phi_i - \Phi_{i-1} \\
@@ -913,6 +960,84 @@ a_i &=& c_i + \Phi_i - \Phi_{i-1} \\
 \EIL
 	
 \end{frame}
+
+\subsection{Reality check}
+
+
+%% 2020 Spostato in analisi ammortizzata perché fatto dopo
+\begin{frame}{Ristrutturazione in tabelle Hash}
+
+\vspace{-9pt}
+\BIL
+\item Non è conveniente che $\alpha$ cresca troppo
+	\BI
+	\item In particolare con la scansione interna
+	\item Ma vale anche per le liste di trabocco
+	\EI
+\item Sopra una soglia $t_\alpha$ prefissata (tipicamente $0.5$-$0.75$)
+\BI
+\item  Si alloca una nuova tabella di dimensione $2m$
+\item Si reinseriscono tutte le chiavi presenti nella nuova tabella
+\EI
+\item Risultato
+\BI
+	\item Fattore di carico dimezzato (tipicamente $0.25$)
+	\item Nessun elemento \textbf{deleted}
+\EI
+\item Costi
+\BI
+\item Costo $O(m)$ per la ristrutturazione nel caso pessimo
+\item Costo ammortizzato costante (vedi dimostrazione per vettori)
+\EI
+\EIL
+
+\end{frame}
+
+\begin{frame}[shrink=10]{Reality check}
+
+{\renewcommand*{\arraystretch}{1.4}
+\begin{tabular}{|P{2.5cm}|P{4.0cm}|P{0.6cm}|P{4.3cm}|}
+\hline
+\textbf{Linguaggio} & \textbf{Tecnica} & $t_\alpha$ & \textbf{Note} 
+\\ \hline
+%
+Java 7\newline \texttt{HashMap} &
+Liste di trabocco basate su \texttt{LinkedList} &
+$0.75$ &
+$O(n)$ nel caso pessimo \newline
+Overhead: $16n + 4m$ byte
+\\ \hline
+%
+Java 8\newline \texttt{HashMap} &
+Liste di trabocco basate su RB Tree &
+$0.75$ &
+$O(\log n)$ nel caso pessimo \newline
+Overhead: $48n + 4m$ byte
+\\ \hline
+C++ \newline \texttt{sparse\_hash} &
+Ind. aperto, scansione quadratica & 
+? &
+Overhead: $2n$ bit
+\\ \hline
+C++ \newline \texttt{dense\_hash} &
+Ind. aperto, scansione quadratica & 
+$0.5$ &
+$X$ byte per chiave-valore $\Rightarrow$ 2-3$X$ overhead
+\\ \hline
+C++ STL \newline \texttt{unordered\_map} &
+Liste di trabocco basate su liste &
+$1.00$ &
+MurmurHash
+\\ \hline
+Python &
+Indirizzam. aperto, scansione quadratica &
+$0.66$ &
+\\ \hline
+\end{tabular}
+}
+\end{frame}
+
+
 
 \end{document}
 

@@ -26,7 +26,7 @@ f(n) &= a_kn^k + a_{k-1}n^{k-1} +  \ldots  + a_1n + a_0 \\
      &= (a_k + |a_{k-1}| +  \ldots  + |a_1| + |a_0|)n^k \\
      &\stackrel{?}{\leq} cn^k
 \end{align*}
-che è vera per $c \geq (|a_k| + |a_{k-1}| +  \ldots  + |a_1| + |a_0|)$ e per $m = 1$.
+che è vera per $c \geq (a_k + |a_{k-1}| +  \ldots  + |a_1| + |a_0|) > 0$ e per $m = 1$.
 \onslide<2|handout:2>
 \textbf{Limite inferiore}: $\exists d>0, \exists m \geq 0: f(n) \geq dn^k, \forall n \geq m$
 
@@ -117,7 +117,7 @@ Dimostrazione:
     f_1(n) \leq c_1g_1(n) \wedge f_2(n) \leq c_2g_2(n) &\Rightarrow& \\
     f_1(n)+f_2(n) \leq c_1g_1(n) + c_2g_2(n) &\Rightarrow& \\
     f_1(n)+f_2(n) \leq \max\{c_1,c_2\} (2 \cdot \max(g_1(n),g_2(n))) &\Rightarrow& \\
-    f_1(n)+f_2(n) = O(g_1(n)+g_2(n))
+    f_1(n)+f_2(n) = O(\max(g_1(n), g_2(n)))
 \end{eqnarray*}
 \end{myboxtitle}
 

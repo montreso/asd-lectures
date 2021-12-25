@@ -122,12 +122,12 @@ Questa ricorrenza può essere trasformata in un algoritmo tramite semplice ricor
 T(n) = 
   \begin{cases}
      T(n/2) + b & n > 1 \\
-     1 & n \leq 1
+     c & n \leq 1
   \end{cases} 
 \]
 \end{mybox}
 
-E' possibile risolvere questa ricorrenza nel modo seguente:
+\EE possibile risolvere questa ricorrenza nel modo seguente:
 
 \begin{columns}
 \begin{column}{0.54\textwidth}
@@ -147,7 +147,7 @@ $n=2^k$, ovvero $k = \log n$
 \end{mybox}	
 \onslide<2>
 \begin{mybox}
-$T(n) = b \log n + T(1) = \Theta(\log n)$	
+$T(n) = b \log n + c = \Theta(\log n)$	
 \end{mybox}	
 \end{column}
 \end{columns}
@@ -167,7 +167,7 @@ T(n) = \begin{cases}
 \]
 \end{mybox}
 
-E' possibile risolvere questa ricorrenza nel modo seguente:
+\EE possibile risolvere questa ricorrenza nel modo seguente:
 \begin{overprint}
 
 %%%%%%%%%%%%%%%%%%%
@@ -196,7 +196,8 @@ T(n) = \cancel{n \sum_{j=0}^{\log n-1} 2^j} \quad \alert{n \cdot \frac{2^{\log n
 \begin{mybox}
 Serie geometrica finita:
 \[
-  \forall x \neq 1: \sum_{j=0}^k x^j = \frac{x^{k+1}-1}{x-1}
+  \forall x \neq 1: \sum_{j=0}^k x^j = \frac{x^{k+1}-1}{x-1} 
+  %\Rightarrow \sum_{j=0}^{63} 2^j = \frac{2^{63+1}-1}{2-1} = 2^{64} -1
 \]
 \end{mybox}
 
@@ -388,8 +389,9 @@ Abbiamo dimostrato che:
 \bigskip
 \BIL
 \item Possiamo affermare che  $T(n) = O(n^3)$
-\item Non possiamo affermare che $T(n) = \Theta(n^3)$, perchè  abbiamo
-dimostrato solo un limite superiore
+\item La dimostrazione precedente non afferma che $T(n)=\Theta(n^3)$, perché ad un certo punto siamo passati a $\leq$
+\item Però è possibile notare che $T(n) \geq n^3$, quindi è possibile affermare che
+$T(n)=\Omega(n^3)$ e quindi $T(n)=\Theta(n^3)$
 \EIL
 
 \end{frame}

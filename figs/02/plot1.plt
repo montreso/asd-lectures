@@ -1,4 +1,4 @@
-#set term pdf enhanced color font "Helvetica,12"
+set term pdf enhanced color font "Helvetica,18"
 set xlabel "n"
 set ylabel "Tempo (ns)"
 set format x "2^{%.0f}"

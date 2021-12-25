@@ -2,11 +2,8 @@ pdffiles := $(patsubst %.plt,%.pdf,$(wildcard *.plt))
 
 all: $(pdffiles) 
 
-%.eps : %.plt seteps.gpt Makefile 
-	gnuplot seteps.gpt $< > $@
-
-%.pdf : %.eps
-	epstopdf $< 
+%.pdf : %.plt setpdf.gpt Makefile 
+	gnuplot setpdf.gpt $< > $@
 
 clean:
 	rm -f *.pdf

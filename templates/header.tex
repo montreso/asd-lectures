@@ -1,14 +1,16 @@
 \ifhandouts
-\documentclass[t,handout,notes]{beamer}
+\documentclass[t,handout,notes,colorlinks]{beamer}
 \fi
 \ifslides
-\documentclass[t]{beamer}
+\documentclass[t,colorlinks]{beamer}
+\geometry{paperwidth=128.00mm, paperheight=96mm}
 \fi
 \ifwide
-\documentclass[t,aspectratio=169]{beamer}
+\documentclass[t,colorlink]{beamers}
+\geometry{paperwidth=153.6mm, paperheight=96mm}
 \fi
 \ifnotes
-\documentclass[t,handout,notes=onlyslideswithnotes]{beamer}
+\documentclass[t,handout,notes=onlyslideswithnotes,colorlinks]{beamer}
 \fi
 
 %% Language-specific 
@@ -21,8 +23,8 @@
 \usepackage{pgfpages}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{hyperref}
 \usepackage{alltt}
+\usepackage{hyperref}
 \usepackage{color}
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
 \usepackage[ruled,vlined]{algorithm2e}
@@ -36,6 +38,8 @@
 \newcounter{chapter} 
 \usepackage[framemethod=TikZ]{mdframed}
 \usepackage{templates/macros}
+
+\hypersetup{colorlinks,linkcolor=,urlcolor=blue}
 
 \usepackage{listings}
 \lstset{
@@ -366,5 +370,11 @@
 \newcommand{\IG}[2]{
 \begin{center}
 \includegraphics[width=#1\textwidth]{#2}
+\end{center}
+}
+
+\newcommand{\IGH}[2]{
+\begin{center}
+\includegraphics[height=#1\textheight]{#2}
 \end{center}
 }

@@ -1,5 +1,4 @@
 \input templates/header
-
 \usepackage{epigraph}
 
 \title[ASD - Analisi di algoritmi]{\textbf{Algoritmi e Strutture Dati}\\[12pt]Analisi di algoritmi\\Introduzione}
@@ -15,7 +14,7 @@
 %-------------------------------------------------------------------------
 \FrameContent
 
-\section{Introduzione}
+\section{Modelli di calcolo}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
@@ -26,7 +25,7 @@
 \item Definizioni
 \item Modelli di calcolo
 \item Esempi di valutazioni
-\item Notazione
+\item Ordini di complessità
 \EIL
 \end{myboxtitle}
 
@@ -105,7 +104,6 @@ dal processore.
 
 \end{frame}
 
-\subsection{Modelli di calcolo -- Definizione}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Modelli di calcolo}
@@ -321,7 +319,7 @@ $n = 2^k \Rightarrow k = \log n$
 
 \end{frame}
 
-\subsection{Notazione}
+\subsection{Ordini di complessità}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Ordini di complessità}
@@ -432,7 +430,7 @@ Windows XP e renderlo esponenziale:
 \end{myboxtitle}
 
 \begin{myboxtitle}[Domande]
-Considerate un modello di calcolo dove la moltiplicazione costa $1$, le addizioni/sottrazioni costano $0.01$.
+Considerate un modello di calcolo dove la moltiplicazione costa $1$, le addizioni/sottrazioni costano $0.01$,
 \BI
 \item Quanto costa l'algoritmo dettato dalla definizione?
 \item Potete fare meglio di così? 
@@ -471,7 +469,8 @@ Considerate un modello di calcolo dove la moltiplicazione costa $1$, le addizion
 \begin{myboxtitle}[Algoritmo elementare della somma -- \textsf{sum}()]
 \BI
 \item richiede di esaminare tutti gli $n$ bit
-\item costo totale $cn$ ($c \equiv$ costo per sommare tre bit e generare riporto)
+\item costo totale $cn = O(n)$ \\
+  ($c \equiv$ costo per sommare tre bit e generare riporto)
 \EI
 \end{myboxtitle}
 
@@ -479,9 +478,8 @@ Considerate un modello di calcolo dove la moltiplicazione costa $1$, le addizion
 Esiste un metodo più efficiente?
 \end{myboxtitle}
 
-\medskip
 \begin{center}
-\includegraphics[width=8cm]{sum.pdf}
+\includegraphics[width=10cm]{sum.pdf}
 \end{center}
 
 \end{frame}
@@ -533,13 +531,12 @@ Riuscite a dimostrarlo?
 \begin{myboxtitle}[Algoritmo elementare del prodotto -- \textsf{prod}()]
 \BI
 \item moltiplicazione di ogni bit con ogni altro bit
-\item costo totale $cn^2$
+\item costo totale $cn^2 = O(n^2)$
 \EI
 \end{myboxtitle}
 
-\medskip
 \begin{center}
-\includegraphics[width=8cm]{mul.pdf}
+\includegraphics[width=7.5cm]{multiplication.pdf}
 \end{center}
 
 \end{frame}
@@ -569,16 +566,23 @@ Si potrebbe concludere che...
 
 \vspace{-9pt}
 \begin{myboxtitle}[Confronto fra problemi]
-Per provare che il problema del prodotto è più costoso del problema della somma, dobbiamo provare che \alert{non esiste} una soluzione in tempo lineare per il prodotto
+Per provare che il problema del prodotto è più costoso del problema della somma, dobbiamo provare che \alert{non esiste} una soluzione in tempo sub-quadratico per il prodotto
 \end{myboxtitle}
 
-\bigskip
-Abbiamo confrontato gli algoritmi, non i problemi!
+\BB{
 \BI
-\item Sappiamo solo che l'algoritmo di somma studiato alle elementari è più efficiente dell'algoritmo del prodotto studiato alle elementari
-\item Nel 1960, Kolmogorov enunciò in una conferenza che la moltiplicazione ha limite inferiore $\Omega(n^2)$
-\item Una settimana dopo, fu provato il contrario!
+\item Abbiamo confrontato gli algoritmi, non i problemi!
+\item Sappiamo solo che l'algoritmo di somma delle elementari è più efficiente dell'algoritmo del prodotto delle elementari
 \EI
+}
+
+\begin{myboxtitle}[Un po' di storia]
+\BI
+\item Nel 1960, Kolmogorov enunciò in una conferenza che la moltiplicazione ha limite inferiore $\Omega(n^2)$
+\item Una settimana dopo, un suo studente provò il contrario!
+\EI
+\end{myboxtitle}
+
 
 \end{frame}
 
@@ -619,7 +623,7 @@ XY &= ac \cdot 2^n + (ad+bc) \cdot 2^{n/2} + bd
     
 \vspace{-9pt}
 \begin{Procedure}
-\caption[A]{\BOOLEAN[\,] \textsf{pdi}($\BOOLEAN[\,]\ X$, $\BOOLEAN[\,]\ Y$, \INTEGER $n$)}
+\caption[A]{$\BOOLEAN[\,]\ \textsf{pdi}(\BOOLEAN[\,]\ X,\ \BOOLEAN[\,]\ Y,\ \INTEGER\ n)$}
 \eIf{$n \Eq 1$}{
   \Return $X[1] \cdot Y[1]$\;
 }
@@ -700,11 +704,11 @@ A_2 &= m\alert{-}A_1\alert{-}A_3=ad+bc
 }
 {
   spezza $X$ in $a;b$ e $Y$ in $c;d$\;
-  $\BOOLEAN[\,]\ A1 = \textsc{karatsuba}(a,c, n/2)$\;
-  $\BOOLEAN[\,]\ A3 = \textsc{karatsuba}(b,d, n/2)$\;
+  $\BOOLEAN[\,]\ A_1 = \textsc{karatsuba}(a,c, n/2)$\;
+  $\BOOLEAN[\,]\ A_3 = \textsc{karatsuba}(b,d, n/2)$\;
   $\BOOLEAN[\,]\ m  = \textsc{karatsuba}(a+b,c+d, n/2)$\;
-  $\BOOLEAN[\,]\ A2 = m-A1-A3$\;
-  \Return $A1\cdot 2^n + A2 \cdot 2^{n/2} + A3$\;
+  $\BOOLEAN[\,]\ A_2 = m-A1-A3$\;
+  \Return $A_1\cdot 2^n + A_2 \cdot 2^{n/2} + A_3$\;
 }
 \end{Procedure}
 
@@ -783,38 +787,10 @@ $2^{2^{16}}$ & 5 & 16 \\\hline
   \EI
 \item \alert{Harvey--van der Hoeven} (2019)
   \BI
-  \item Complessità $O(n \cdot \log n)$
+  \item Complessità $O(n \cdot \log n)$ (\href{https://hal.archives-ouvertes.fr/hal-02070778/document}{[Articolo]}\href{https://www.youtube.com/watch?v=FKGRc867j10&ab_channel=MathsStatsUNSW}{[Video]})
   \EI
 \item Limite inferiore: $\Omega(n \log n)$ (congettura)
 \EI
-
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{GNU Multiple Precision Arithmetic Library}
-
-\BI
-\item Utilizzata da Mathematica, Maple, etc.
-\item Le moltiplicazioni vengono realizzate utilizzando algoritmi diversi,
-mano a mano che $n$ cresce.
-\item \url{https://gmplib.org/manual/Multiplication-Algorithms.html}
-\EI
-
-\medskip
-\includegraphics[width=\textwidth]{gmp.pdf}
-
-\end{frame}
-
-
-%-------------------------------------------------------------------------
-\begin{frame}{GNU Multiple Precision Arithmetic Library}
-
-\BI
-\item Utilizzata da Mathematica, Maple, etc.
-\item I limiti (threshold) dipendono dall'architettura
-\EI
-
-\includegraphics[width=\textwidth]{threshold.pdf}
 
 \end{frame}
 
@@ -850,11 +826,12 @@ problema
 
 \FrameTitle
 
-\section{Algoritmi di ordinamento}
+\section{Tipologia dell'input}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Obiettivo: \alert{valutare gli algoritmi in base all'input}]
 \BI
 \item In alcuni casi, gli algoritmi si comportano diversamente a seconda delle caratteristiche dell'input
@@ -897,12 +874,12 @@ Es.: ricerca di dati non presenti in un database
 \smallskip
 \begin{myboxtitle}[Analisi del \alert{caso ottimo}]
 \BI
-\item Può avere senso se si conoscono informazioni particolari sull'input
+\item Può avere senso se si hanno informazioni particolari sull'input
 \EI
 \end{myboxtitle}
 \end{frame}
 
-\subsection{Problema}
+\subsection{Selection Sort}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Ordinamento}
@@ -929,7 +906,6 @@ Approccio "naif":
 
 \end{frame}
 
-\subsection{Selection Sort}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Selection Sort}
@@ -1306,7 +1282,7 @@ Un'assunzione semplificativa:
 \EI
 
 \bigskip
-\begin{myboxtitle}[Costo computazionale: $O(n \log n)$]
+\begin{myboxtitle}[Costo computazionale]
 \[
   T(n) = \begin{cases}
     c & n=1 \\
@@ -1357,6 +1333,7 @@ Hollerith Machine
 
 \end{frame}
 
+
 %-------------------------------------------------------------------------
 \begin{OnlySlides}{MergeSort, in pillole}
 \begin{center}
@@ -1366,7 +1343,7 @@ Hollerith Machine
 
 
 %-------------------------------------------------------------------------
-\begin{frame}<handout:0>{Ricorsione}
+\begin{OnlySlides}{Ricorsione}
 
 \setlength\epigraphwidth{.60\textwidth}
 \epigraph{\alert{Recursion is the root of computation because it trades description for time.}
@@ -1377,6 +1354,8 @@ Hollerith Machine
 \IG{0.8}{google-recursion.jpg}
 \end{center}
 
-\end{frame}
+\end{OnlySlides}
 
 \end{document}
+
+

@@ -79,7 +79,7 @@ piccolo o uguale del costo di qualunque altro cammino da $s$ a $u$.
 \begin{frame}{Panoramica sul problema}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Cammini minimi da sorgente unica]
+\begin{myboxtitle}[Cammini minimi da singola sorgente]
 \BI
 \item \alert{Input}: Grafo pesato, nodo radice $s$ 
 \item \alert{Output}: i cammini minimi che vanno da $s$ a tutti gli altri nodi
@@ -117,7 +117,7 @@ Non si conoscono algoritmi che abbiano tempo di esecuzione migliore.
 \begin{columns}[T]
 \column{0.63\textwidth}
 \BB{Tipologie di pesi}
-Algoritmi diversi possono funzionare oppure no in caso di alcune categorie speciali di pesi
+Algoritmi diversi possono funzionare oppure no per alcune categorie speciali di pesi
 \BIL
 \item Positivi / positivi+negativi
 \item Reali / interi
@@ -126,8 +126,8 @@ Algoritmi diversi possono funzionare oppure no in caso di alcune categorie speci
 \BB{Pesi negativi vs grafi con cicli negativi}
 Esempio: proprietario di un TIR
 \BIL
-\item Viaggare scarico: perdita, peso positivo
-\item Viaggare carico: profitto, peso negativo
+\item Viaggiare scarico: perdita, peso positivo
+\item Viaggiare carico: profitto, peso negativo
 \EIL
 \column{0.35\textwidth}
 
@@ -190,7 +190,7 @@ Esempio: proprietario di un TIR
 
 \TwoCols{
 \medskip
-Si noti che due cammini minimi possono avere un tratto in comune $A \leadsto B$ \ldots
+Si noti che due cammini minimi possono avere un tratto in comune $A \leadsto C$ \ldots
 }{
 \vspace{-12pt}
 \begin{tikzpicture}[
@@ -201,12 +201,12 @@ Si noti che due cammini minimi possono avere un tratto in comune $A \leadsto B$ 
     mynoder/.style = {circle, draw=black, align=center,fill=red!40},
 }
 \node[mynoder] at (0,0) (A) {A};
-\node[Node] at (1,0) (u1) {};
+\node[Node] at (1,0) (u1) {B};
 \node[Node] at (2,0) (u2) {};
 \node[Node] at (3,0) (u3) {};
-\node[Node] at (4,0) (B) {B};
-\node[Node] at (5,0.75) (C) {C};
-\node[Node] at (5,-0.75) (D) {D};
+\node[Node] at (4,0) (B) {C};
+\node[Node] at (5,0.75) (C) {D};
+\node[Node] at (5,-0.75) (D) {E};
 \path (A) edge [Edge] (u1);
 \path (u1) edge [Edge] (u2);
 \path (u2) edge [Edge] (u3);
@@ -218,7 +218,7 @@ Si noti che due cammini minimi possono avere un tratto in comune $A \leadsto B$ 
 
 \TwoCols{
 \bigskip
-\ldots ma non possono convergere in un nodo comune $B$ dopo aver percorso un tratto iniziale distinto 
+\ldots ma non possono convergere in un nodo comune $C$ dopo aver percorso un tratto distinto 
 }{
 \begin{tikzpicture}[
     thick,
@@ -229,21 +229,19 @@ Si noti che due cammini minimi possono avere un tratto in comune $A \leadsto B$ 
 }
 
 \node[mynoder] at (0,0) (A) {A};
-\node[Node] at (1,0.75) (u1) {};
+\node[Node] at (1,0) (newB) {B};
 \node[Node] at (2,0.75) (u2) {};
 \node[Node] at (3,0.75) (u3) {};
-\node[Node] at (1,-0.75) (d1) {};
 \node[Node] at (2,-0.75) (d2) {};
 \node[Node] at (3,-0.75) (d3) {};
-\node[Node] at (4,0) (B) {B};
-\node[Node] at (5,0.75) (C) {C};
-\node[Node] at (5,-0.75) (D) {D};
-\path (A) edge [Edge] (u1);
-\path (u1) edge [Edge] (u2);
+\node[Node] at (4,0) (B) {C};
+\node[Node] at (5,0.75) (C) {D};
+\node[Node] at (5,-0.75) (D) {E};
+\path (A) edge [Edge] (newB);
+\path (newB) edge [Edge] (u2);
 \path (u2) edge [Edge] (u3);
 \path (u3) edge [Edge] (B);
-\path (A) edge [Edge,dashed] (d1);
-\path (d1) edge [Edge,dashed] (d2);
+\path (newB) edge [Edge,dashed] (d2);
 \path (d2) edge [Edge,dashed] (d3);
 \path (d3) edge [Edge,dashed] (B);
 \path (B) edge [Edge] (C);
@@ -262,6 +260,7 @@ L'\alert{albero dei cammini minimi} è un albero di copertura radicato in $s$ av
 %-------------------------------------------------------------------------
 \begin{frame}{Albero di copertura}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Albero di copertura (Spanning tree)]
 Dato un grafo $G=(V,E)$ non orientato e connesso, un albero di copertura di $G$ è un sottografo $T=(V, E_T)$ 
 tale che 
@@ -377,7 +376,7 @@ i cui valori $d[u]$ rappresentano il costo del cammino da $s$ a $u$ in $T$.
 \end{frame}
 
 
-\begin{frame}{Rappresentazione albero}
+\begin{frame}{Rappresentazione dell'albero}
 
 Per rappresentare l'albero, utilizziamo la rappresentazione basata su vettore dei padri,
 così come abbiamo fatto con le visite in ampiezza/profondità.
@@ -390,7 +389,7 @@ così come abbiamo fatto con le visite in ampiezza/profondità.
 {
   \textbf{print} $s$
 }
-\uElseIf{$\parent[d] \Eq \Nil$}
+\uElseIf{$T[d] \Eq \Nil$}
 {
   \textbf{print} “error”\;
 }
@@ -527,18 +526,19 @@ allora $T$ è una soluzione ottima.
 \begin{overprint}
 \onslide<1|handout:1>
 \BI
-\item Supponiamo per assurdo che il cammino da $s$ a $u$ in $T$ non sia ottimo
-\item Allora esiste un albero $T'$, in cui il cammino
-da $s$ a $u$ ha distanza $d'[u]<d[u]$
-\item Sia $d'[\,]$ il vettore delle distanze associato a $T'$
+\item Supponiamo per assurdo che $T$ non sia ottimo
+\item Allora esiste un cammino $C$ da $s$ ad un nodo $u$ in $T$ non ottimo
+\item Allora esiste un albero ottimo $T'$, in cui il cammino
+$C'$ da $s$ a $u$ ha distanza $d'[u]<d[u]$
+\item Sia $d'$ il vettore delle distanze associato a $T'$
 \EI
 
 
 \onslide<2|handout:2>
 \BI
-\item Poichè $d'[s] = d[s] = 0$, ma $d'[u]<d[u]$, esiste un arco $(h,k)$  per cui 
+\item Poichè $d'[s] = d[s] = 0$, ma $d'[u]<d[u]$, esiste un arco $(h,k)$ in $C'$ tale che:
 \BI
-\item $d'[h] \geq d[h]$ e 
+\item $d'[h] = d[h]$ e 
 \item $d'[k]< d[k]$
 \EI
 \EI
@@ -555,7 +555,7 @@ da $s$ a $u$ ha distanza $d'[u]<d[u]$
     edger/.style = {->,ultra thick,red}
 }
 \node[mynode, label={below:{$d'[s]=d[s]$}}] at (0.0,0.0) (a) {$s$};
-\node[mynode, label={below:{$d'[h] \geq d[h]$}}] at (3.0,0.0) (b) {$h$};
+\node[mynode, label={below:{$d'[h] = d[h]$}}] at (3.0,0.0) (b) {$h$};
 \node[mynode, label={below:{$d'[k] < d[k]$}}] at (5.0,0.0) (c) {$k$};
 \node[mynode, label={below:{$d'[u] < d[u]$}}] at (8.0,0.0) (d) {$u$};
 \draw[edgen,dashed] (a) edge node {} (b);
@@ -566,12 +566,12 @@ da $s$ a $u$ ha distanza $d'[u]<d[u]$
 
 \onslide<3|handout:3>
 \BI
-\item \makebox[2.5cm][l]{Per costruzione:} $d'[h] \geq d[h]$
+\item \makebox[2.5cm][l]{Per costruzione:} $d'[h] = d[h]$
 \item \makebox[2.5cm][l]{Per costruzione:} \textcolor{blue}{$d'[k] = d'[h] + w(h,k)$}
 \item \makebox[2.5cm][l]{Per ipotesi:} \textcolor{red}{$d[k] \le d[h] + w(h,k)$}
 \item Combinando queste due relazioni, si ottiene: 
 \[
-  \textcolor{blue}{d'[k] = d'[h] + w(h,k)} \ge \textcolor{red}{d[h] + w(h,k) \ge d[k]}
+  \textcolor{blue}{d'[k] = d'[h] + w(h,k)} = \textcolor{red}{d[h] + w(h,k) \ge d[k]}
 \]
 Quindi $d'[k] \ge d[k]$, il che contraddice $d'[k] < d[k]$
 \EI
@@ -580,7 +580,7 @@ Quindi $d'[k] \ge d[k]$, il che contraddice $d'[k] < d[k]$
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Algoritmo prototipo}
+\begin{frame}{Algoritmo prototipo -- Rilassamento}
 
 \vspace{-9pt}
 \begin{Procedure}
@@ -590,7 +590,7 @@ Quindi $d'[k] \ge d[k]$, il che contraddice $d'[k] < d[k]$
 \textcolor{blue}{\% Inizializza $d$ con sovrastima della distanza ($d[s]=0$, $d[x] = +\infty$)}\;
 \While{$\exists (u,v): d[u] + G.w(u,v) < d[v]$}
 {
-  $d[v] = d[u] + w(u,v)$\;
+  $d[v] = d[u] + G.w(u,v)$\;
   \textcolor{blue}{\% Sostituisci il padre di $v$ in $T$ con $u$}\;
 }
 \Return $(T,d)$
@@ -638,7 +638,7 @@ $b[s] = \TRUE$\;
 \column{0.97\textwidth}
 \small
 \begin{Procedure}
-\caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$) -- Corpo principale}
 \lnlset{line:shortest-init}{(1)}\alert{$\textsc{DataStructure}\ S = \textsf{DataStructure}()$; $S.\textsf{add}(s)$}\;
 \While{\NOT\ $S.\setempty()$}
 {
@@ -717,7 +717,7 @@ $b[s] = \TRUE$\;
 \column{0.97\textwidth}
 \small
 \begin{Procedure}
-\caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$) -- Corpo principale}
 \lnlset{line:shortest-init}{(1)}\alert{$\Heap\ Q = \heapconstructor(); Q.\heapinsert(s, 0)$}\;
 \While{\NOT\ $Q.\setempty()$}
 {
@@ -759,7 +759,7 @@ $b[s] = \TRUE$\;
 \column{0.97\textwidth}
 \small
 \begin{Procedure}
-\caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$) -- Corpo principale}
 \lnlset{line:shortest-init}{(1)}$\Heap\ Q = \heapconstructor(); Q.\heapinsert(s, 0)$\;
 \While{\NOT\ $Q.\setempty()$}
 {
@@ -796,7 +796,7 @@ $b[s] = \TRUE$\;
 \column{0.97\textwidth}
 \small
 \begin{Procedure}
-\caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$) -- Corpo principale}
 [...]\;
     \If{$d[u] + G.w(u,v) < d[v]$}
     {
@@ -834,7 +834,7 @@ $b[s] = \TRUE$\;
 \column{0.97\textwidth}
 \small
 \begin{Procedure}
-\caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$) -- Corpo principale}
 [...]\;
     \If{$d[u] + G.w(u,v) < d[v]$}
     {
@@ -912,6 +912,7 @@ $b[s] = \TRUE$\;
 
 \begin{frame}{Dijkstra}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Correttezza per pesi positivi]
 \BIL 
 \item Ogni nodo viene estratto una e una sola volta
@@ -955,11 +956,12 @@ Riga & Costo & Ripet. \\\hline
 \medskip
 Costo totale: \alert{$O(n^2)$}
 
-\column{0.5\textwidth}
+\column{0.53\textwidth}
 \vspace{-12pt}
 \tiny
 \begin{Procedure}
 \caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+[...]\;
 \lnlset{line:shortest-init}{(1)}\alert{$\Heap\ Q = \textsf{PriorityQueue}(); Q.\textsf{insert}(s, 0)$}\;
 \While{\NOT\ $Q.\textsf{isEmpty}()$}
 {
@@ -1019,11 +1021,12 @@ Costo totale: \alert{$O(m \log n)$}
 \medskip
 Heap binario introdotto nel 1964
 
-\column{0.5\textwidth}
+\column{0.53\textwidth}
 \vspace{-12pt}
 \tiny
 \begin{Procedure}
 \caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+[...]\;
 \lnlset{line:shortest-init}{(1)}\alert{$\Heap\ Q = \textsf{PriorityQueue}(); Q.\textsf{insert}(s, 0)$}\;
 \While{\NOT\ $Q.\textsf{isEmpty}()$}
 {
@@ -1061,6 +1064,7 @@ Heap binario introdotto nel 1964
 \begin{frame}{Fredman-Tarjan, 1987 -- Heap di Fibonacci}
 
 
+\vspace{-9pt}
 \BB{Costo computazionale}
 
 \begin{columns}
@@ -1084,11 +1088,12 @@ Costo: \alert{$O(m + n \log n)$}
 \medskip
 (*) Costo ammortizzato
 
-\column{0.5\textwidth}
+\column{0.53\textwidth}
 \vspace{-12pt}
 \tiny
 \begin{Procedure}
 \caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+[...]\;
 \lnlset{line:shortest-init}{(1)}\alert{$\Heap\ Q = \textsf{PriorityQueue}(); Q.\textsf{insert}(s, 0)$}\;
 \While{\NOT\ $Q.\textsf{isEmpty}()$}
 {
@@ -1120,14 +1125,14 @@ Costo: \alert{$O(m + n \log n)$}
 \subsection{Bellman-Ford-Moore}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Bellman-Ford, Moore, 1958 -- Coda}
+\begin{frame}{Bellman-Ford-Moore, 1958 -- Coda}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Storia]
 \BI
 \item Proposto da Alfonso Shimbel nel 1955
 \item Pubblicato da Lester Ford, Jr. nel 1956
-\item Pubblicato da Moore nel 1957
+\item Pubblicato da Moore nel 1957 (la versione che vediamo qui)
 \item Pubblicato da Richard Bellman nel 1958
 \item Noto come Bellman-Ford, o Bellman-Ford-Moore
 \EI
@@ -1144,13 +1149,13 @@ Costo: \alert{$O(m + n \log n)$}
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{Bellman-Ford, Moore, 1958 -- Coda}
+\begin{frame}{Bellman-Ford-Moore, 1958 -- Coda}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Linea (1): Inizializzazione]
 \BI
 \item Viene creata una coda di dimensione $n$
-\item Costo computazionale: $O(n)$
+\item Costo computazionale: $O(1)$
 \EI
 \end{myboxtitle}
 
@@ -1160,11 +1165,11 @@ Costo: \alert{$O(m + n \log n)$}
 \column{0.97\textwidth}
 \small
 \begin{Procedure}
-\caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$) -- Corpo principale}
 \lnlset{line:shortest-init}{(1)}\alert{$\Queue\ Q = \queueconstructor(); Q.\textsf{enqueue}(s)$}\;
 \While{\NOT\ $Q.\setempty()$}
 {
-  \lnlset{line:shortest-remove}{(2)}$\INTEGER\ u = Q.\textsf{extract}()$\;
+  \lnlset{line:shortest-remove}{(2)}$u = Q.\textsf{dequeue}()$\;
   $b[u] = \FALSE$\;
   \ForEach{$v \in G.\adj(u)$}
   {
@@ -1182,7 +1187,7 @@ Costo: \alert{$O(m + n \log n)$}
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{Bellman-Ford, Moore, 1958 -- Coda}
+\begin{frame}{Bellman-Ford-Moore, 1958 -- Coda}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Linea (2): Estrazione]
@@ -1198,7 +1203,7 @@ Costo: \alert{$O(m + n \log n)$}
 \column{0.97\textwidth}
 \small
 \begin{Procedure}
-\caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$) -- Corpo principale}
 \lnlset{line:shortest-init}{(1)}$\Queue\ Q = \queueconstructor(); Q.\textsf{enqueue}(s)$\;
 \While{\NOT\ $Q.\setempty()$}
 {
@@ -1219,7 +1224,7 @@ Costo: \alert{$O(m + n \log n)$}
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Bellman-Ford, Moore, 1958 -- Coda}
+\begin{frame}{Bellman-Ford-Moore, 1958 -- Coda}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Linea (3): Inserimento in coda]
@@ -1235,7 +1240,7 @@ Costo: \alert{$O(m + n \log n)$}
 \column{0.97\textwidth}
 \small
 \begin{Procedure}
-\caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$) -- Corpo principale}
 [...]\;
     \If{$d[u] +G.w(u,v) < d[v]$}
     {
@@ -1257,7 +1262,7 @@ Costo: \alert{$O(m + n \log n)$}
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Bellman-Ford, Moore, 1958 -- Coda}
+\begin{frame}{Bellman-Ford-Moore, 1958 -- Coda}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Linea (4): Azione nel caso $v$ sia già presente in $S$]
@@ -1272,7 +1277,7 @@ Costo: \alert{$O(m + n \log n)$}
 \column{0.97\textwidth}
 \small
 \begin{Procedure}
-\caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{\textsf{shortestPath}($\Graph\ G,\ \Node\ s$) -- Corpo principale}
 [...]\;
     \If{$d[u] +G.w(u,v) < d[v]$}
     {
@@ -1292,7 +1297,7 @@ Costo: \alert{$O(m + n \log n)$}
 
 
 
-\begin{frame}{Bellman-Ford, Moore, 1958 -- Coda}
+\begin{frame}{Bellman-Ford-Moore, 1958 -- Coda}
 
 \vspace{-9pt}
 \begin{columns}[T]
@@ -1339,13 +1344,13 @@ Costo: \alert{$O(m + n \log n)$}
 \texttt{C} & $\infty$ & 2        & 2        & 2        & 2 & 2 & 2 & 2 & 2 & 2 & 2 & 2 \\ 
 \texttt{D} & $\infty$ & $\infty$ & 5        & 5        & 5 & 3 & 3 & 3 & 3 & 2 & 2 & 2 \\ 
 \texttt{E} & $\infty$ & $\infty$ & 4        & 4        & 4 & 4 & 3 & 3 & 3 & 3 & 3 & 3 \\ 
-\texttt{F} & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 6 & 5 & 5 & 5 & 4 & 4 & 3 & 3 \\\hline
-$S$ & \texttt{~A~} & \texttt{BC~} & \texttt{CDE} & \texttt{DEB} & \texttt{EBF} & \texttt{BFD} & \texttt{FDE} & \texttt{DE~} & \texttt{~E~} & \texttt{~D~} & \texttt{~F~} &  \\ 
+\texttt{F} & $\infty$ & $\infty$ & $\infty$ & $\infty$ & 6 & 6 & 6 & 6 & 4 & 4 & 3 & 3 \\\hline
+$Q$ & \texttt{~A~} & \texttt{BC~} & \texttt{CDE} & \texttt{DEB} & \texttt{EBF} & \texttt{BFD} & \texttt{FDE} & \texttt{DE~} & \texttt{~E~} & \texttt{~D~} & \texttt{~F~} &  \\ 
 \end{tabular}
 
 \end{frame}
 
-\begin{frame}{Bellman-Ford, Moore, 1958 -- Coda}
+\begin{frame}{Bellman-Ford-Moore, 1958 -- Coda}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Passata - definizione ricorsiva]
@@ -1367,7 +1372,7 @@ lunghezza al più $k$
 
 \end{frame}
 
-\begin{frame}{Bellman-Ford, Moore, 1958 -- Coda}
+\begin{frame}{Bellman-Ford-Moore, 1958 -- Coda}
 
 
 \vspace{-9pt}
@@ -1397,7 +1402,7 @@ Ogni nodo può essere inserito ed estratto al massimo $n-1$ volte
 \vspace{-12pt}
 \footnotesize
 \begin{Procedure}
-\caption[A]{\footnotesize $(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{\footnotesize \textsf{shortestPath}($\Graph\ G,\ \Node\ s$) -- Corpo principale}
 \lnlset{line:shortest-init}{(1)}\alert{$\Queue\ Q = \textsf{Queue}(); Q.\textsf{enqueue}(s)$}\;
 \While{\NOT\ $Q.\textsf{isEmpty}()$}
 {
@@ -1451,7 +1456,7 @@ abbassare il valore del suo campo $d$
 \column{0.0001\textwidth}
 \column{0.97\textwidth}
 \begin{Procedure}
-\caption[A]{$(\INTARRAY, \INTARRAY)$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
+\caption[A]{$(\INTEGER[\,], \INTEGER[\,])$ \textsf{shortestPath}($\Graph\ G,\ \Node\ s$)}
 $\INTEGER[\,]\ d = \NEW\ \INTEGER[1 \mldots G.n]$\REMR{$d[u]$ è la distanza da $s$ a $u$ }
 $\INTEGER[\,]\ T = \NEW\ \INTEGER[1 \mldots G.n]$\REMR{$T[u]$ è il padre di $u$ nell'albero $T$ }
 \ForEach{$u \in G.\VV()-\{s\}$}
@@ -1505,6 +1510,7 @@ BFS & $O(m+n)$ & Senza pesi \\\hline
 \vspace{-9pt}
 \begin{frame}{Cammini minimi, sorgente multipla}
 
+\vspace{-9pt}
 \BB{Possibili soluzioni}
 
 \medskip
@@ -1529,6 +1535,7 @@ Pesi negativi, grafo sparso & $O(nm \log n)$ & Algoritmo di \alert{Johnson per s
 \vspace{-9pt}
 \begin{frame}{Floyd-Warshall, 1962}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Cammini minimi $k$-vincolati]
 Sia $k$ un valore in $\{0,\ldots,n\}$. Diciamo che un cammino 
 $p_{xy}^k$ è un \alert{cammino minimo $k$-vincolato} fra $x$ e $y$ 
@@ -1581,7 +1588,7 @@ fra $x$ e $y$, se esiste.
 \[
   d^k[x][y]) = \begin{cases}
     w(x,y) & k = 0 \\
-    \pause \min({\color{blue}{d^{k-1}[x][y]}}, {\color{red} d^{k-1}[x][k] + d^{k-1}[k][y]}) & k>0
+    \phantom{\min({\color{blue}{d^{k-1}[x][y]}}, {\color{red} d^{k-1}[x][k] + d^{k-1}[k][y]})} & k>0
   \end{cases}
 \]
 \end{myboxtitle}
@@ -1608,10 +1615,58 @@ fra $x$ e $y$, se esiste.
 \draw[edgen,blue] (a) edge[bend left=45] node[above] {1} (c);
 \end{tikzpicture}
 \column{0.55\textwidth}
+\small
+\begin{align*}
+d^0[1][3] &= \phantom{1} \\
+d^1[1][3] &= \phantom{1} \\
+d^2[1][3] &= \phantom{\min(\color{blue}{d^1[1][3]}, \color{red}{d^1[1][2]+d^1[2][3])}} \\
+          &= \phantom{\min(1,0) = 0}
+\end{align*}
+\end{columns}
+\end{myboxtitle}
+
+
+\end{frame}
+
+\begin{frame}{Floyd-Warshall, 1962}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Formulazione ricorsiva]
+\[
+  d^k[x][y]) = \begin{cases}
+    w(x,y) & k = 0 \\
+    \min({\color{blue}{d^{k-1}[x][y]}}, {\color{red} d^{k-1}[x][k] + d^{k-1}[k][y]}) & k>0
+  \end{cases}
+\]
+\end{myboxtitle}
+
+\begin{myboxtitle}[Esempio]
+
+\begin{columns}[T]
+\column{0.4\textwidth}
+\begin{tikzpicture}[
+    thick,
+    font=\ttfamily\bfseries\small
+]
+\tikzset{
+    mynode/.style = {circle, draw=black, align=center,fill=yellow!40},
+    mynoder/.style = {circle, draw=black, align=center,fill=red!40},
+    edgen/.style = {->,thick},
+    edger/.style = {->,ultra thick,red}
+}
+\node[mynode] at (0.0,0.0) (a) {1};
+\node[mynode] at (2.0,0.0) (b) {2};
+\node[mynode] at (4.0,0.0) (c) {3};
+\draw[edgen,red] (a) edge node[above] {2} (b);
+\draw[edgen,red] (b) edge node[above] {-2} (c);
+\draw[edgen,blue] (a) edge[bend left=45] node[above] {1} (c);
+\end{tikzpicture}
+\column{0.55\textwidth}
+\small
 \begin{align*}
 d^0[1][3] &= 1 \\
 d^1[1][3] &= 1 \\
-d^2[1][3] &= \min(d^1[1][3], d^1[1][2]+d^2[2][3]) \\
+d^2[1][3] &= \min(\color{blue}{d^1[1][3]}, \color{red}{d^1[1][2]+d^1[2][3])} \\
           &= \min(1,0) = 0
 \end{align*}
 
@@ -1701,7 +1756,7 @@ $\INTARRAY[\,]\ T = \NEW\ \INTEGER[1 \ldots n][1 \ldots n]$\;
     }
   }
 }
-\Return $d$\
+\Return $(d,T)$\
 \end{Procedure}
 
 \end{frame}
@@ -1724,7 +1779,7 @@ Supponendo di avere il grafo $G$ rappresentato da una matrice di adiacenza $M$, 
 \[
   M^k[x][y]) = \begin{cases}
     M[x][y] & k = 0 \\
-    {\color{blue}{M^{k-1}[x][y]}} \vee {\color{red} M^{k-1}[x][k] \wedge M^{k-1}[k][y]}) & k>0
+    {\color{blue}{M^{k-1}[x][y]}}\ \OR\ ({\color{red} M^{k-1}[x][k]\ \AND\ M^{k-1}[k][y]}) & k>0
   \end{cases}
 \]
 \end{myboxtitle}

@@ -10,9 +10,9 @@
 % \end{PlainFrame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Introduzione all'analisi}
+\section{Notazione asintotica}
 
-\subsection{Notazione asintotica}
+\subsection{Definizioni}
 
 \begin{frame}{Notazioni $O$, $\Omega$, $\Theta$}
 
@@ -156,7 +156,11 @@ che è vera per ogni $c \geq 13$ e per ogni $n \geq \sqrt[3]{7}$, quindi usiamo 
 \end{exampleblock}
 
 \begin{overprint}
-\onslide<1|handout:1>
+
+\onslide<1|handout:0>
+\textbf{Limite inferiore}: $\exists c_1>0, \exists m_1 \geq 0: f(n) \geq c_1n^2, \forall n \geq m_1$
+
+\onslide<2|handout:1>
 \textbf{Limite inferiore}: $\exists c_1>0, \exists m_1 \geq 0: f(n) \geq c_1n^2, \forall n \geq m_1$
 
 \begin{align*}
@@ -165,7 +169,11 @@ f(n) &= 3n^2 + 7n \\
      &\stackrel{?}{\geq} c_1n^2
 \end{align*}
 che è vera per ogni $c_1 \leq 3$ e per ogni $n \geq 0$, quindi $m_1=0$
-\onslide<2|handout:2>
+
+\onslide<3|handout:0>
+\textbf{Limite superiore}: $\exists c_2>0, \exists m_2 \geq 0: f(n) \leq c_2n^2, \forall n \geq m_2$
+
+\onslide<4|handout:2>
 \textbf{Limite superiore}: $\exists c_2>0, \exists m_2 \geq 0: f(n) \leq c_2n^2, \forall n \geq m_2$
 
 \begin{align*}
@@ -175,7 +183,8 @@ f(n) &=    3n^2 + 7n \\
      &\stackrel{?}{\leq} c_2n^2
 \end{align*}
 che è vera per ogni $c_2 \geq 10$ e per ogni $n \geq 1$, quindi $m_2=1$
-\onslide<3|handout:3>
+
+\onslide<5|handout:3>
 \textbf{Notazione $\Theta$}: \[
 \exists c_1>0, \exists c_2>0, \exists m \geq 0:  c_1 n^2 \leq f(n) \leq c_2n^2, \forall n \geq m
 \]
@@ -240,9 +249,14 @@ Dobbiamo dimostrare che $\exists c>0, \exists m>0: n^2 \leq cn^3, \forall n \geq
 
 \begin{itemize}
 \item Otteniamo questo: $n^2 \leq cn^3 \Leftrightarrow c \geq \frac{1}{n}$
-\item La funzione $1/n$ è monotona decrescente per $n>0$. In altre parole,
-possiamo prendere un qualunque valore $m$ (e.g., $m=1$), e prendere un costante $c \geq 1/m$, come ad esempio $c=1$.
+\item La funzione $1/n$ è monotona decrescente per $n>0$. 
+\item In altre parole, possiamo prendere un qualunque valore $m$ (e.g., $m=1$), e prendere un costante $c \geq 1/m$, come ad esempio $c=1$.
 \end{itemize}
 
 \end{frame}
+
+
+
+
+
 

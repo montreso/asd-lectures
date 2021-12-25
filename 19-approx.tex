@@ -4,6 +4,7 @@
 \usepackage{epigraph}
 \usepackage{xcolor}
 \usepackage{colortbl}
+\usepackage{pdfpages}
 
 \newcommand{\PTIME}{\mbox{\sc $\mathbb{P}$}}
 \renewcommand{\NP}{\mbox{$\mathbb{NP}$}}
@@ -15,10 +16,20 @@
 \newcommand{\R}[1]{\textcolor{red}{#1}}
 \newcommand{\B}[1]{\textcolor{blue}{#1}}
 
+\newcommand{\Missing}{\mathit{missing}}
+\newcommand{\DP}{\mathit{DP}}
+\newcommand{\Cost}{\mathit{cost}}
+\newcommand{\Transfer}{\mathit{transfer}}
+%\newcommand{\Out}{\mathit{out}}
+%\newcommand{\Back}{\mathit{back}}
+
+
+
 \renewcommand{\arraystretch}{1.4}
 \graphicspath{{figs/19/}}
 \renewcommand{\enumerazione}{\fontproc{enumeration}}
 \newcommand{\isAdmissible}{\fontproc{isAdmissible}}
+\newcommand{\isImpossible}{\fontproc{reject}}
 
 \begin{document}
 
@@ -49,129 +60,262 @@
 
 
 Non si può avere tutto dalla vita; bisogna rinunciare a qualcosa:
+
+\smallskip
 \BIL
 \item \B{Generalità}: 
   \BI
-  \item Algoritmi \alert{pseudo-polinomiali} che funzionano per
-    solo alcuni casi particolari dell'input
+  \item Algoritmi \alert{pseudo-polinomiali} che sono efficienti
+    solo per alcuni casi particolari dell'input
   \EI
 \item \B{Ottimalità}: 
   \BI
   \item Algoritmi di \alert{approssimazione}, che garantiscono di ottenere soluzioni "vicine" alla soluzione ottimale
   \EI
-\item \B{Efficienza}:
-  \BI
-  \item Algoritmi esponenziali \alert{branch-\&-bound}, che limitano lo spazio di ricerca con un'accurata potatura
-  \EI
 \item \B{Formalità}: 
   \BI
   \item Algoritmi \alert{euristici}, di solito basati su tecniche greedy o di ricerca locale, che forniscano sperimentalmente risultati buoni
   \EI
+\item \B{Efficienza}:
+  \BI
+  \item Algoritmi esponenziali \alert{branch-\&-bound}, che limitano lo spazio di ricerca con un'accurata potatura
+  \EI
 \EIL
 
 \end{frame}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Algoritmi pseudo-polinomiali}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-------------------------------------------------------------------------
-\begin{frame}{Subset-Sum}
+\begin{frame}{Esempio: Subset-Sum}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Somma di sottoinsieme (Subset sum)]
-Dati un insieme $A = \{ a_1 , \mldots, a_n\}$ di interi positivi ed un intero
-positivo $k$, esiste un sottoinsieme $S$ di indici in $\{1, \mldots, n\}$ tale
-che $\sum_{i \in S} a_i = k$?
+\begin{myboxtitle}[Somma di sottoinsieme (\textsc{subset-sum})]
+Dati un vettore $A$ contenente $n$ interi positivi ed un intero positivo $k$, \alert{esiste} un sottoinsieme $S \subseteq \{ 1 \ldots n\}$ tale che 
+$\displaystyle \sum_{i \in S} a[i] = k$?
 \end{myboxtitle}
 
-\IG{0.60}{subsetsum.png}
-
-\vfill
-\tiny
+\begin{overprint}
+\onslide<1|handout:0>
+\TwoColsCustom{0.63}{0.34}{
+\vspace{-12pt}
+\IG{1.0}{subsetsum.png}
+}{
+\footnotesize
 \url{https://xkcd.com/287/}
+}
+\onslide<2|handout:1>
+\BIL
+\item Utilizzando \alert{backtracking}, abbiamo risolto la \alert{versione di ricerca} di questo problema
+\item Quella appena enunciata è la \alert{versione decisionale}
+\item Per semplificare il confronto, ci concentriamo sulla seconda
+\EIL
+\end{overprint}
 
 \end{frame}
 
+
+
 %-------------------------------------------------------------------------
-\begin{frame}{Subset Sum}
+\begin{frame}{Subset Sum -- Programmazione Dinamica}
 
 Definiamo una tabella booleana $DP[0 \ldots n][0 \ldots k]$. 
 
-$DP[i][r]$ è uguale a \TRUE se e solo se esiste un sottoinsieme dei primi $i$ valori memorizzati in $A$ la cui somma è pari a $r$.
+\medskip
+$\DP[i][r]$ è uguale a \TRUE se esiste un sottoinsieme dei primi $i$ valori memorizzati in $A$ la cui somma è pari a $r$, \FALSE altrimenti.
 
+\begin{overprint}
+\onslide<1|handout:0>
 \[
-DP[i][r] = \begin{cases}
-  \FALSE & r < 0 \\
-  \TRUE & r = 0 \\
-  \FALSE & r > 0 \wedge i=0 \\
-  DP[i-1][r]\ \OR\ DP[i-1][r-A[i]] & r>0 \wedge i>0
+\DP[i][r] = \begin{cases}
+  \phantom{\TRUE} & r = 0 \\
+  \phantom{\FALSE} & r > 0 \wedge i=0 \\
+  \phantom{\DP[i-1][r]}\ & r>0 \wedge i>0 \wedge A[i] > r \\
+  \phantom{\DP[i-1][r]\ \OR\ \DP[i-1][r-A[i]]} & r>0 \wedge i>0 \wedge A[i] \leq r \\
 \end{cases}
 \]
 
-\bigskip
-Essendo un problema decisionale:
-\BIL 
-\item è possibile semplificare e utilizzare spazio $\Theta(k)$ invece che $\Theta(nk)$
-\item la complessità resta $\Theta(nk)$
-\EIL
+\onslide<2|handout:1>
+\[
+\DP[i][r] = \begin{cases}
+  \TRUE & r = 0 \\
+  \FALSE & r > 0 \wedge i=0 \\
+  \DP[i-1][r]\ & r>0 \wedge i>0 \wedge A[i] > r \\
+  \DP[i-1][r]\ \OR\ \DP[i-1][r-A[i]] & r>0 \wedge i>0 \wedge A[i] \leq r
+\end{cases}
+\]
+\end{overprint}
 
 \end{frame}
 
+
 %-------------------------------------------------------------------------
-\begin{frame}{Subset Sum}
+\begin{frame}{Subset Sum -- Programmazione dinamica -- $\Theta(nk)$}
 
+\vspace{-9pt}
 \begin{Procedure}
-\caption[A]{\BOOLEAN \subsetsum($\INTARRAY\ A,\ \INTEGER\ n,\ \INTEGER\ k$)}
-
-$\BOOLEAN[\,]\ DP = \NEW\ \BOOLEAN[0 \mldots n][0 \mldots k]$\;
-$DP[0][0] = \TRUE$\;
-\For{$r = 1$ \TO $k$}{
-  $DP[0][r] = \FALSE$\;
+\caption[A]{\BOOLEAN \fontproc{subsetSum}($\INTARRAY\ A,\ \INTEGER\ n,\ \INTEGER\ k$)}
+$\BOOLEAN[\,][\,]\ \DP = \NEW\ \BOOLEAN[0 \ldots n][0 \ldots k] = \{ \FALSE \}$\;
+\For{$i=0$ \TO\ $n$}{
+  $\DP[i][0] = \TRUE$\REMR{$r=0$}
 }
-\For{$i = 1$ \TO $n$}{
-  \For{$r = A[i]$ \TO $k$}{
-    $DP[i][r] = DP[i-1][r]\ \OR\ DP[i-1][r-A[i]]$\;
+\For{$r=1$ \TO\ $k$}{
+  $\DP[0][r] = \FALSE$\REMR{$r>0 \wedge i=0$}
+}
+\For{$i=1$ \TO\ $n$}{
+  \For{$r=1$ \TO $A[i]-1$}{
+    $\DP[i][r] = \DP[i-1][r]$\REMR{$A[i]>r$}
+  }
+  \For{$r=A[i]$ \TO $k$}{
+    $\DP[i][r] = \DP[i-1][r]\ \OR\ \DP[i-1][r-A[i]]$\REMR{$A[i] \leq r$}
   }
 }
-\Return $DP[n][k]$\;
+\Return $\DP[n][k]$\;
 \end{Procedure}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Subset Sum}
-
-Input: $A = [7, 11, 13], k=24$
-
-\bigskip
-\IG{1.0}{table.pdf}
-
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{Complessità}
+\begin{frame}{Subset Sum -- Programmazione dinamica -- $\Theta(nk)$}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Analisi complessità]
-\BIL
-\item Complessità: $O(nk)$
-\item Dimensione dei dati in ingresso: $O(n \log k)$, in quanto $\forall i: A[i] \leq k$ (valori più grandi possono essere esclusi)
-\item Se $k = O(n^c)$ con $c$ costante, allora $\subsetsum$ ha complessità
-polinomiale $O(n^{c+1})$
-\item Se $k = O(2^n)$, allora $\subsetsum$ ha complessità superpolinomiale
-$O(n2^n)$
-\EIL
+\begin{myboxtitle}[Esempio]
+\vspace{-12pt}
+\begin{align*}
+A &= [5,9,10]\\
+n &=3\\ 
+k &=24
+\end{align*} 
 \end{myboxtitle}
 
-\begin{myboxtitle}[Osservazione]
-La complessità di \subsetsum() non dipende soltanto dalla 
-cardinalità $n$ dell'insieme in ingresso, ma anche dai valori contenuti
-nell'insieme
-\end{myboxtitle}
+\IG{1.0}{table-dp.pdf}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Problemi fortemente \NP-completi}
+\begin{frame}{Subset Sum -- Backtracking -- $O(2^n)$}
+
+\vspace{-9pt}
+\begin{Procedure}
+\caption[A]{\BOOLEAN \fontproc{ssRec}($\INTARRAY\ A,\ \INTEGER\ i,\ \INTEGER\ r$)}
+
+\uIf{$r \Eq 0$}{
+  \Return \TRUE\;
+}
+\uElseIf{$i \Eq 0$}{
+  \Return \FALSE\;
+}
+\uElseIf{$A[i]>r$}{
+  \Return $\fontproc{ssRec}(A,i-1,r)$\;
+}
+\Else{
+  \Return $\fontproc{ssRec}(A,i-1,r)\ \OR\ \fontproc{ssRec}(A,i-1,r-A[i])$\;
+}
+\end{Procedure}
+
+\vspace{-9pt}
+\IG{1.0}{table-memo.pdf}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Subset Sum -- Memoization -- $O(nk)$}
+
+\vspace{-9pt}
+\begin{Procedure}
+\caption[A]{\BOOLEAN \fontproc{ssRec}($\INTARRAY\ A,\ \INTEGER\ i,\ \INTEGER\ r, \alert{\Dictionary\ \DP}$)}
+
+\uIf{$r \Eq 0$}{
+  \Return \TRUE\;
+}
+\uElseIf{$r<0$ \OR\ $i \Eq 0$}{
+  \Return \FALSE\;
+}
+\alert{
+\Else{
+ \BOOLEAN $\mathit{res} = \DP.\dictlookup((i,r))$\;
+  \If{$\mathit{res} \Eq \Nil$}{
+    $\mathit{res} = \fontproc{ssRec}(A,i-1,r,\DP)$\;
+    \If{$A[i]<r$}{
+      $\mathit{res} = \mathit{res}$ \OR\ $\fontproc{ssRec}(A,i-1,r-A[i],\DP)$\;
+    }
+    $\DP.\dictinsert((i,r), \mathit{res})$\;
+  }
+  \Return $\mathit{res}$\;
+}
+}
+\end{Procedure}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Subset Sum -- Memoization -- $O(nk)$}
+
+\vspace{-9pt}
+\IG{1.0}{table-memo.pdf}
+
+\begin{myboxtitle}[Esempio]
+\TwoCols{
+\begin{align*}
+A &= [1,1,1,1,1]\\
+n &= 5\\ 
+k &= 5
+\end{align*} 
+}{
+\vspace{-6pt}
+\IG{1.0}{table-limite.pdf}
+}
+\end{myboxtitle}
+
+
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Complessità -- Riassunto}
+
+\vspace{-9pt}
+\BB{
+\begin{tabular}{ll}
+Programmazione dinamica & $\Theta(nk)$ \\
+Backtracking & $O(2^n)$ \\
+Memoization con dizionario & $O(nk), O(2^n)$\\
+\end{tabular}
+}
+
+\BB{Dynamic Programming, Memoization $\equiv$ "Careful brute force"
+\medskip
+\begin{flushright}
+Erik Demeine
+\end{flushright}
+}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Complessità -- Discussione}
+
+\vspace{-9pt}
+\BB{
+$O(nk)$ è una complessità polinomiale?
+}
+\pause
+\medskip
+\BIL
+\item No, $k$ è parte dell'input, non una dimensione dell'input
+\item $k$ viene rappresentato da $t = \lceil \log k \rceil$ cifre binarie
+\item Quindi la complessità è $O(nk) = O(n \cdot 2^t)$, esponenziale
+\EIL
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Problemi fortemente, debolmente \NP-completi}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Dimensioni del problema]
@@ -182,32 +326,158 @@ Dato un problema decisionale $R$ e una sua istanza $I$:
 \EIL
 \end{myboxtitle}
 
-\bigskip
-\BB{Esempi}
-\medskip
+\begin{myboxtitle}[Esempi]
 \small
 \begin{tabular}{|c|c|c|c|}
 \hline
 \textbf{Nome} & $I$ & \# & $d$ \\\hline
-\textsc{subset-sum} & $ \{n, k, a_1, \ldots, a_n\}$ & $\max\{n, k, \max \{ a_i \}\}$ & $O(n \log \#)$ \\\hline
-\textsc{tsp} & $\{n, k, [d_{ij}]\}$ & $\max\{n, k, \max \{ d_{ij} \}\}$ &
-$O(n^2 \log \#)$ \\\hline
-\textsc{clique} & $\{n, m, k, G \}$ & $\max\{n, m, k\}$ & $O(n + m+ \log\#)$\\\hline
+\textsc{subset-sum} & $ \{n, k, A\}$ & $\max\{n, k, \max(A)\}$ & $O(n \log \#)$ \\\hline
+\textsc{clique} & \phantom{$\{n, m, k, G \}$} & \phantom{$\max\{n, m, k\}$} & \phantom{$O(n + m + \log\#)$}\\\hline
+\textsc{tsp} & \phantom{$\{n, k, d \}$} & \phantom{$\max\{n, k, \max(d)\}$} &
+\phantom{$O(n^2 \log \#)$} \\\hline
 \end{tabular}
+\end{myboxtitle}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Problemi fortemente \NP-completi}
+\begin{frame}{Esempio: Cricca}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Cricca (\textsc{clique})]
+Dati un grafo non orientato ed un intero $k$, esiste un sottoinsieme di almeno
+$k$ nodi tutti mutuamente adiacenti?
+\end{myboxtitle}
+
+\IG{0.40}{clique.png}
+
+\vfill
+\tiny
+\url{https://en.wikipedia.org/wiki/Clique_(graph_theory)}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Esempio: Commesso viaggiatore}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Commesso viaggiatore (Traveling salesperson - \textsc{tsp})]
+Date $n$ città e una matrice simmetrica $d$ di distanze positive, dove $d[i][j]$ è la distanza fra $i$ e $j$, trovare un percorso
+che, partendo da una qualsiasi città, attraversi ogni città esattamente una
+volta e ritorni alla città di partenza, in modo che la distanza totale
+percorsa sia minima.
+\end{myboxtitle}
+
+\begin{center}
+\IG{0.45}{tsp.png}
+\end{center}
+
+\vfill
+\tiny
+\url{https://optimization.mccormick.northwestern.edu/images/e/ea/48StatesTSP.png}
+
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Problemi fortemente, debolmente \NP-completi}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Dimensioni del problema]
+Dato un problema decisionale $R$ e una sua istanza $I$:
+\BIL
+\item La \alert{dimensione $d$} di $I$ è la lunghezza della stringa che codifica $I$
+\item Il \alert{valore \#} è il più grande numero intero che appare in $I$
+\EIL
+\end{myboxtitle}
+
+\begin{myboxtitle}[Esempi]
+\small
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Nome} & $I$ & \# & $d$ \\\hline
+\textsc{subset-sum} & $ \{n, k, A\}$ & $\max\{n, k, \max(A)\}$ & $O(n \log \#)$ \\\hline
+\textsc{clique} & $\{n, m, k, G \}$ & $\max\{n, m, k\}$ & $O(n + m + \log\#)$\\\hline
+\textsc{tsp} & $\{n, k, d \}$ & $\max\{n, k, \max(d)\}$ &
+$O(n^2 \log \#)$ \\\hline
+\end{tabular}
+\end{myboxtitle}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Problemi fortemente, debolmente \NP-completi}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Definizione]
-Sia $R_p$ il problema $R$ ristretto a quei dati d'ingresso per i quali \# è
-limitato superiormente da $p(d)$, con $p$ funzione polinomiale in $d$. $R$ è
-\alert{fortemente \NP-completo} se $R_p$ è \NP-completo
+Sia $R_{\mathit{pol}}$ il problema $R$ ristretto a quei dati d'ingresso per i quali \# è
+limitato superiormente da $p(d)$, con $p$ funzione polinomiale in $d$. \\
+$R$ è \alert{fortemente \NP-completo} se $R_{\mathit{pol}}$ è \NP-completo
 \end{myboxtitle}
 
-\begin{myboxtitle}[Esempio -- \textsc{clique} è fortemente \NP-completo]
+\begin{myboxtitle}[Definizione]
+Se un problema \NP-completo non è fortemente \NP-completo, \\
+allora è \alert{debolmente \NP-completo}.    
+\end{myboxtitle}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Esempio: Problema debolmente \NP-completo}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Somma di sottoinsieme (\textsc{subset-sum}]
+Dati un vettore $A$ contenente $n$ interi positivi ed un intero positivo $k$, \alert{esiste} un sottoinsieme $S \subseteq \{ 1 \ldots n\}$ tale che 
+$\displaystyle \sum_{i \in S} a[i] = k$?
+\end{myboxtitle}
+
+\begin{myboxtitle}[Esempio: \textsc{subset-sum} è debolmente \NP-completo]
+\BIL
+\item $\forall A[i] \leq k$ (valori più grandi di $k$ vanno esclusi)
+\item Se $k=O(n^c)$, allora $\# = \max \{n, k, a_1, \ldots, a_n\} = O(n^c)$
+\item La soluzione basata su programmazione dinamica ha complessità
+$O(nk) = O(n^{c+1})$, quindi in $\PTIME$.
+\item Quindi \textsc{subset-sum} non è fortemente \NP-completo
+\EIL
+\end{myboxtitle}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Algoritmi pseudo-polinomiali}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Definizione]
+Un algoritmo che risolve un certo problema $R$, per qualsiasi
+dato $I$ d'ingresso, in tempo $p(\#, d)$, con $p$ funzione polinomiale in $\#$
+e $d$, ha complessità \alert{pseudo-polinomiale}.
+\end{myboxtitle}
+
+\begin{myboxtitle}[Esempio]
+Gli algoritmi per \textsc{subset-sum} basati su programmazione dinamica e memoization sono pseudo-polinomiali.
+\end{myboxtitle}
+
+\begin{myboxtitle}[Teorema]
+Nessun problema fortemente \NP-completo può essere risolto da un algoritmo
+pseudo-polinomiale, a meno che non sia $\PP = \NP$.
+\end{myboxtitle}
+
+\end{frame}
+
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Esempio: Problema fortemente \NP-completo}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Cricca (\textsc{clique})]
+Dati un grafo non orientato ed un intero $k$, esiste un sottoinsieme di almeno
+$k$ nodi tutti mutuamente adiacenti?
+\end{myboxtitle}
+
+\begin{myboxtitle}[\textsc{clique} è fortemente \NP-completo]
 \BIL
 \item $k \leq n$ (altrimenti la risposta è \FALSE)
 \item $\# = \max \{ n, m, k \} = \max \{ n, m \}$
@@ -219,57 +489,93 @@ limitato superiormente da $p(d)$, con $p$ funzione polinomiale in $d$. $R$ è
 
 \end{frame}
 
+
 %-------------------------------------------------------------------------
-\begin{frame}{Problemi debolmente \NP-completi}
+\begin{frame}{Esempio:  Problema fortemente \NP-completo}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Definizione]
-Se un problema \NP-completo non è fortemente \NP-completo, allora è \alert{debolmente \NP-completo}.    
+\begin{myboxtitle}[Commesso viaggiatore (Traveling salesperson - \textsc{tsp})]
+Date $n$ città e una matrice simmetrica $d$ di distanze positive, dove $d[i][j]$ è la distanza fra $i$ e $j$, trovare un percorso
+che, partendo da una qualsiasi città, attraversi ogni città esattamente una
+volta e ritorni alla città di partenza, in modo che la distanza totale
+percorsa sia minima.
 \end{myboxtitle}
 
-\begin{myboxtitle}[Esempio -- \textsc{subset-sum} è debolmente \NP-completo]
+\begin{myboxtitle}[\textsc{tsp} è fortemente \NP-completo]
 \BIL
-\item $\forall a_i \leq k$ (valori più grandi di $k$ vanno esclusi)
-\item Se $k=O(n^c)$, allora $\# = \max \{n, k, a_1, \ldots, a_n\} = O(n^c)$
-\item La soluzione basata su programmazione dinamica ha complessità
-$O(nk) = O(n^{c+1})$, quindi in $\PTIME$.
-\item Quindi \textsc{subset-sum} non è fortemente \NP-completo
+\item Per assurdo, supponiamo \textsc{tsp} sia debolmente \NP-completo
+\item Allora esiste una soluzione pseudo-polinomiale
+\item Usiamo questa soluzione per risolvere un problema \NP-completo in
+  tempo polinomiale - assurdo a meno che $\PP=\NP$
 \EIL
 \end{myboxtitle}
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Circuito hamiltoniano}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Circuito hamiltoniano (\textsc{hamiltonian-circuit})]
+Dato un grafo non orientato $G$, esiste un circuito che attraversi ogni nodo
+una e una sola volta?
+\end{myboxtitle}
+
+\vspace{-9pt}
+\TwoColsCustom{0.4}{0.55}{
+\begin{center}
+\IG{1.0}{hamiltonian-path.pdf}
+\end{center}
+}{
+\begin{myboxtitle}[Complessità]
+\BIL
+\item \textsc{hamiltonian-circuit} è \NP-completo
+\item \EE uno dei 21 problemi elencati nell'articolo di Karp
+\EIL
+\end{myboxtitle}
+}
+
+\vfill
+\tiny
+\url{https://en.wikipedia.org/wiki/Hamiltonian\_path\#/media/File:Hamiltonian\_path.svg}
 
 \end{frame}
 
+
 %-------------------------------------------------------------------------
-\begin{frame}{Algoritmi pseudo-polinomiale}
+\begin{frame}{Esempio: Problema fortemente \NP-completo}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Definizione]
-Un algoritmo che risolve un certo problema $R$, per qualsiasi
-dato $I$ d'ingresso, in tempo $p(\#, d)$, con $p$ funzione polinomiale in $\#$
-e $d$, ha complessità \alert{pseudo-polinomiale}.
-\end{myboxtitle}
+\BB{Dimostriamo che $\textsc{tsp}$ è fortemente \NP-completo}
+\BIL
+\item Sia $G=(V,E)$ un grafo non orientato 
+\item Definiamo una matrice di distanze a partire da $G$
+\medskip
+\[
+  d[i][j] = \begin{cases}
+    1 & (i,j) \in E \\
+    2 & (i,j) \notin E
+  \end{cases}
+\]    
 
-\begin{myboxtitle}[Esempio]
-L'algoritmo che abbiamo visto per \textsc{subset-sum} è pseudo-polinomiale
-\end{myboxtitle}
-
-\begin{myboxtitle}[Teorema]
-Nessun problema fortemente \NP-completo può essere risolto da un algoritmo
-pseudo-polinomiale, a meno che non sia $\PP = \NP$.
-\end{myboxtitle}
-
+\item Il grafo $G$ ha un circuito hamiltoniano se e solo se è possibile
+trovare un percorso da commesso viaggiatore di costo $n$
+\item Se esistesse un algoritmo pseudopolinomiale $A$ per $\textsc{tsp}$, \\
+\textsc{hamiltonian circuit} potrebbe essere risolto da $A$ in tempo polinomiale
+\EIL
 \end{frame}
 
-%-------------------------------------------------------------------------
-\begin{frame}{Problemi debolmente/fortemente \NP-completi}
 
-\vspace{-9pt}
+%-------------------------------------------------------------------------
+\begin{frame}{Problemi debolmente/fortemente \NP-completi?}
+
+\vspace{-18pt}
+\TwoCols{
 \begin{myboxtitle}[Partizione (\textsc{partition})]
-Dato un insieme $A = \{ a_1, \mldots, a_n\}$ di interi positivi, esiste un
-sottoinsieme $S$ di \{1, \mldots, n\} tale che $\sum_{i\in S} a_i = \sum_{i
-\notin S}a_i$?
+Dato un vettore $A$ contenente $n$ interi positivi, esiste un
+sottoinsieme $S \subseteq \{1 \ldots n\}$ tale che $\displaystyle \sum_{i\in S} A[i] = \sum_{i \notin S} A[i]$ ?
 \end{myboxtitle}
-
+}{
 \begin{myboxtitle}[Esempio]
 \begin{overprint}
 \onslide<1|handout:0>
@@ -284,16 +590,20 @@ sottoinsieme $S$ di \{1, \mldots, n\} tale che $\sum_{i\in S} a_i = \sum_{i
 \end{tabular}
 \end{overprint}
 \end{myboxtitle}
+}
 
 \begin{myboxtitle}[Domanda -- \textsc{partition} è debolmente \NP-completo?]
-
-\pause
+\begin{overprint}
+\onslide<1|handout:0>
+~
+\onslide<2|handout:1>
 Sì, perchè è possibile ridurlo a \textsc{subset-sum} scegliendo come
 valore $k$ la metà di tutti i valori presenti:
 
 \[
-  k = \frac{\sum_{i=1}^n a_i}{2} = \frac{44}{2} = 22
+  k = \frac{\sum_{i=1}^n A[i]}{2} = \frac{44}{2} = 22
 \]
+\end{overprint}
 \end{myboxtitle}
 
 \end{frame}
@@ -311,8 +621,12 @@ la stessa, per $1 \le j \le n$?
 \end{myboxtitle}
 
 \begin{myboxtitle}[Domanda -- \textsc{3-partition} è debolmente \NP-completo?]
-\pause
-No, non esiste un algoritmo psuedo-polinomiale per risolvere 3-partition.
+\begin{overprint}
+\onslide<1|handout:0>
+~
+\onslide<2|handout:1>
+No, non esiste un algoritmo pseudo-polinomiale per risolvere 3-partition.
+\end{overprint}
 \end{myboxtitle}
 
 \end{frame}
@@ -327,8 +641,6 @@ No, non esiste un algoritmo psuedo-polinomiale per risolvere 3-partition.
 \begin{myboxtitle}[Premessa]
 \BIL
 \item I problemi più interessanti sono in forma di ottimizzazione
-\item Tali problemi sono "più difficili" dei corrispondenti problemi
-in forma di decisione
 \item Se il problema di decisione è \NP-completo, non sono noti 
 algoritmi polinomiali per il problema di ottimizzazione
 \item Esistono algoritmi polinomiali che trovano soluzioni ammissibili
@@ -374,11 +686,11 @@ c(x^*) \leq c(x) & \leq \alpha(n) c(x^*)  && \alpha(n) > 1 \qquad (\textrm{Minim
 \begin{myboxtitle}[Bin packing]
 Dati:
 \BI
-\item un vettore $A = [a_1, \mldots, a_n]$ di interi positivi (i \alert{volumi}
-di $n$ \alert{oggetti}) 
-\item un intero positivo $k$ (la \alert{capacità} di una \alert{scatola}, tale che $\forall i: a_i \leq k$), 
+\item un vettore $A$ contenente $n$ interi positivi (i \alert{volumi}
+degli \alert{oggetti}) 
+\item un intero positivo $k$ (la \alert{capacità} di una \alert{scatola}, tale che $\forall i: A[i] \leq k$), 
 \EI
-si vuole trovare una partizione di $\{1, \mldots, n\}$ nel minimo numero di sottoinsiemi disgiunti (``scatole'') tali che $\sum_{i\in S} a_i \le k$ per ogni insieme $S$ della partizione
+si vuole trovare una partizione di $\{1, \mldots, n\}$ nel minimo numero di sottoinsiemi disgiunti (``scatole'') tali che $\sum_{i\in S} A[i] \le k$ per ogni insieme $S$ della partizione
 \end{myboxtitle}
 
 \vspace{-9pt}
@@ -407,7 +719,7 @@ spazio è stato occupato della stessa. (Algoritmo Greedy)
 \end{myboxtitle}
 
 \bigskip
-\BB{Esempio}
+\begin{myboxtitle}[Esempio]
 
 \bigskip
 \begin{tabular}{|c|c|c|c|c|c|c|}
@@ -420,7 +732,7 @@ $k=8$
 
 \bigskip
 \begin{overprint}
-
+    
 \onslide<1|handout:0>
 \begin{tabular}{|P{1.1cm}|P{1.1cm}|P{1.1cm}|P{1.1cm}|P{1.1cm}|}
 \hline
@@ -470,6 +782,7 @@ $k=8$
 \end{tabular}
 
 \end{overprint}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -483,17 +796,17 @@ $k=8$
 \item Il numero minimo di scatole $N^*$ è limitato da:
 \medskip
 \[
-  N^* \geq \frac{\sum_{i = 1}^{n} a_i}{k} = \frac{29}{8}  =  3.625
+  N^* \geq \frac{\sum_{i = 1}^{n} A[i]}{k} = \frac{29}{8}  =  3.625
 \]
 \item Non possono esserci due scatole riempite meno della metà:
 \medskip
 \[
-  N < \frac{\sum_{i = 1}^{n} a_i}{k/2} = \frac{29}{8/2} = 7.250 
+  N < \frac{\sum_{i = 1}^{n} A[i]}{k/2} = \frac{29}{8/2} = 7.250 
 \]
 
 \item Abbiamo quindi:
 \[
- N < \frac{\sum_{i = 1}^{n} a_i}{k/2} = 2 \frac{\sum_{i = 1}^{n} a_i}{k/2} \leq 2 N^* = \alpha(n) N^*
+ N < \frac{\sum_{i = 1}^{n} A[i]}{k/2} = 2 \frac{\sum_{i = 1}^{n} A[i]}{k} \leq 2 N^* = \alpha(n) N^*
 \]
 che implica $\alpha(n) = 2$
 \EIL
@@ -503,8 +816,9 @@ che implica $\alpha(n) = 2$
 %-------------------------------------------------------------------------
 \begin{frame}{Approssimazione First-Fit}
 
+\vspace{-9pt}
 \BIL
-\item E' possibile dimostrare un risultato migliore per \FF:
+\item \EE possibile dimostrare un risultato migliore per \FF:
 \medskip
 \[
   N < \frac{17}{10}N^* + 2
@@ -520,73 +834,22 @@ $\alpha(n)$, per casi particolari l'approssimazione può essere migliore
 
 \end{frame}
 
-%-------------------------------------------------------------------------
-\begin{frame}{Commesso viaggiatore}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Commesso viaggiatore (\textsc{tsp})]
-Siano date $n$ città e le distanze (positive) $d_{ij}$ tra esse
-trovare un percorso
-che, partendo da una qualsiasi città, attraversi ogni città esattamente una
-volta e ritorni alla città di partenza, in modo che la distanza complessiva
-percorsa sia minima.
-\end{myboxtitle}
-
-\begin{center}
-\IG{0.50}{tsp.png}
-\end{center}
-
-\vfill
-\tiny
-\url{https://optimization.mccormick.northwestern.edu/images/e/ea/48StatesTSP.png}
 
 
-\end{frame}
 
-%-------------------------------------------------------------------------
-\begin{frame}{Somiglianze con circuito hamiltoniano}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Circuito hamiltoniano (\textsc{hamiltonian-circuit})]
-Dato un grafo non orientato $G$, esiste un circuito che attraversi ogni nodo
-una e una sola volta?
-\end{myboxtitle}
-
-\begin{center}
-\IG{0.4}{hamiltonian-path.pdf}
-\end{center}
-
-\vfill
-\tiny
-\url{https://en.wikipedia.org/wiki/Hamiltonian\_path\#/media/File:Hamiltonian\_path.svg}
-
-\end{frame}
-
-
-%-------------------------------------------------------------------------
-\begin{frame}{Commesso viaggiatore vs circuito hamiltoniano pesato}
-
-\TwoCols{
-\IG{1.0}{tsp-greedy.pdf}
-}{
-\includegraphics<1|handout:1>[width=\textwidth,page=1]{tsp-pentagon.pdf}
-\includegraphics<2|handout:2>[width=\textwidth,page=9]{tsp-pentagon.pdf}
-}
-
-\end{frame}
 
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{Commesso viaggiatore con disuguaglianze triangolari}
+\begin{frame}{Commesso viaggiatore con disuguaglianze particolari}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Commesso viaggiatore con dis. triangolari ($\Delta$-\textsc{tsp})]
-Siano date $n$ città e le distanze (positive) $d_{ij}$ tra esse, \alert{tali per cui vale
+Siano date $n$ città e le distanze (positive) $d[i][j]$ tra esse, \alert{tali per cui vale
 la regola delle diseguaglianze triangolari:
 \smallskip
 \[
-d_{ij} \le d_{ik} + d_{kj} \quad \forall i,j,k : \quad 1 \le i, j, k \le n
+d[i][j] \le d[i][k] + d[k][j] \quad \forall i,j,k : \quad 1 \le i, j, k \le n
 \]}
 Trovare un percorso
 che, partendo da una qualsiasi città, attraversi ogni città esattamente una
@@ -613,13 +876,14 @@ Senza diseguaglianza triangolare
 %-------------------------------------------------------------------------
 \begin{frame}{$\Delta$-\textsc{tsp} è \NP-completo}
 
+\vspace{-9pt}
 \BB{Dimostriamo che $\textsc{hamiltonian-circuit} \leq_p \textrm{$\Delta$-\textsc{tsp}}$}
 \BIL
 \item Sia $G=(V,E)$ un grafo non orientato 
-\item Definiamo un insieme di distanze a partire da $G$
+\item Definiamo una matrice di distanze a partire da $G$
 \medskip
 \[
-  d_{ij} = \begin{cases}
+  d[i][j] = \begin{cases}
     1 & (i,j) \in E \\
     2 & (i,j) \notin E
   \end{cases}
@@ -630,14 +894,43 @@ trovare un percorso da commesso viaggiatore lungo $n$
 \item Valgono le diseguaglianze triangolari: 
 \medskip
 \[
-  d_{ij} \leq 2 \leq d_{ik}+d_{kj}
+  d[i][j] \leq 2 \leq d[i][k]+d[k][j]
 \]
 \EIL
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Lower bound per $\Delta$-\textsc{tsp}}
+\begin{frame}{Commesso viaggiatore vs circuito hamiltoniano pesato}
 
+
+\vspace{-9pt}
+\BIL
+\item Interpretiamo ($\Delta$)-\textsc{tsp} come il problema di trovare
+un circuito hamiltoniano di peso minimo su un grafo completo
+\EIL
+
+\TwoCols{
+\vspace{-9pt}
+\IG{0.8}{tsp-greedy.pdf}
+}{
+\medskip
+\includegraphics<1|handout:1>[width=0.8\textwidth,page=1]{tsp-pentagon.pdf}
+\includegraphics<2|handout:2>[width=0.8\textwidth,page=9]{tsp-pentagon.pdf}
+\includegraphics<3|handout:3>[width=0.8\textwidth,page=5]{tsp-local.pdf}
+
+\bigskip
+\begin{overprint}
+\onslide<2|handout:2>\alert{Costo: $21$}
+\onslide<3|handout:3>\alert{Costo: $19$}
+\end{overprint}
+}
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Algoritmo di approssimazione per $\Delta$-\textsc{tsp}}
+
+\vspace{-9pt}
 \BIL
 \item Interpretiamo $\Delta$-\textsc{tsp} come il problema di trovare
 un circuito hamiltoniano di peso minimo su un grafo completo
@@ -651,7 +944,7 @@ un circuito hamiltoniano di peso minimo su un grafo completo
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Lower bound per $\Delta$-\textsc{tsp}}
+\begin{frame}{Algoritmo di approssimazione per $\Delta$-\textsc{tsp}}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Teorema]
@@ -697,10 +990,10 @@ $\mathit{mst}' < c(\pi) \leq \mathit{mst}$
 \BIL
 \item Si evita di passare per città già visitate - si saltano
 \item Per la disuguaglianza triangolare, il costo $c(\pi)$ del circuito così
-ottenuto è inferiore a $2 \cdot \mathit{mst}$
+ottenuto è inferiore o uguale a $2 \cdot \mathit{mst}$
 \item Quindi:
 $
-  c(\pi) \leq 2 \cdot \mathit{mst} < 2 \cdot c(\pi^*) \quad \Rightarrow \quad \alpha(n) < 2
+  c(\pi) \leq 2 \cdot \mathit{mst} < 2 \cdot c(\pi^*) \quad \Rightarrow \quad \alpha(n) = 2
 $\\
 dove $c(\pi^*)$ è il costo del circuito hamiltoniano ottimo
 \EIL
@@ -739,319 +1032,49 @@ di $3/2$, il migliore risultato al momento
 
 \vspace{-9pt}
 \begin{myboxtitle}[Teorema]
-Non esiste alcun algoritmo di approssimazione assoluta per 
+Non esiste alcun algoritmo di $\alpha(n)$-approssimazione per 
 \textsc{tsp} tale che $c(x') \le sc(x^*)$, con $s \geq 2$ intero positivo, a meno che non sia $\PP = \NP$.
 \end{myboxtitle}
 
-\medskip
-\BB{Dimostrazione}
-\BIL
-\item Ragionamo per assurdo; supponiamo che un tale algoritmo $A$ esista
-\item Si consideri la riduzione $\textsc{hamiltonian-circuit} \leq_p \textsc{tsp}$
-\item Ovvero, sia dato un grafo $G=(V,E)$ e sia $[d_{ij}]$ una
-matrice di distanze tale che:
-\[
-d_{ij} = \begin{cases}
-1, &\textrm{se $[i, j] \in E$},\\
-sn, &\textrm{se $[i, j] \notin E$}.
-\end{cases}
-\]
-\EIL
-
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{Non approssimabilità di \textsc{tsp}}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Teorema]
-Non esiste alcun algoritmo di approssimazione assoluta per il
-\textsc{tsp} tale che 
-\probref{Commesso viaggiatore} tale che $c(x') \le sc(x^*)$, con $s \geq 2$ intero positivo, a meno che non sia $\PP = \NP$.
+\begin{myboxtitle}[Dimostrazione]
+Per chi è interessato, nel libro.
 \end{myboxtitle}
-
-\medskip
-\BB{Dimostrazione}
-\BIL
-\item Due casi:
-  \BI
-  \item Se $G$ ha un circuito Hamiltoniano, allora $c(x^*) = n$, quindi $A$ fornisce, in tempo polinomiale, una soluzione $x'$ tale che $c(x') \le sc(x^*) = sn$
-  \item Se $G$ non ha un circuito Hamiltoniano, allora $c(x^*) > sn$, quindi
-  $A$ fornisce, in tempo polinomiale, una soluzione $x'$ tale che $c(x') \geq c(x^*) > sn$
-  \EI
-\item Quindi $A$ risolve $\textsc{hamiltonian-circuit}$ in tempo polinomiale,
-impossibile a meno che $\PP = \NP$
-\EIL
-
+% \BIL
+% \item Per assurdo, supponiamo che un tale algoritmo $A$ esista
+% \item Si consideri la riduzione $\textsc{hamiltonian-circuit} \leq_p \textsc{tsp}$
+% \item Ovvero, sia dato un grafo $G=(V,E)$ e sia $d$ una
+% matrice di distanze tale che:
+% \[
+% d[i][j] = \begin{cases}
+% 1, &\textrm{se $[i, j] \in E$},\\
+% sn, &\textrm{se $[i, j] \notin E$}.
+% \end{cases}
+% \]
+% \EIL
+% \end{myboxtitle}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Algoritmi branch-\&-bound}
-
-\begin{frame}{Branch-\&-bound}
-
-\begin{myboxtitle}[Branch-\&-bound]
-Per risolvere un problema di ottimizzazione NP-arduo, si può modificare la
-procedura \enumerazione(), vista nella sezione su Backtrack, in modo da
-"potare" certe sequenze di scelte che si rivelino incapaci di
-generare la soluzione ottima
-\end{myboxtitle}
-
-\bigskip
-\BB{Alcune assunzioni -- senza perdere (troppa) generalità}
-\BIL
-\item Problema di minimizzazione
-\item Ogni sequenza di scelte abbia costo non negativo
-\item Ogni scelta, aggiunta alle scelte già effettuate, non faccia 
-diminuire il costo della soluzione parziale così costruita
-\EIL
-    
-\end{frame}
-
-\begin{frame}{Backtrack: ripasso}
-    
-\begin{Procedure}
-\caption[A]{\BOOLEAN\ \enumerazione($\Item[\,]\ S$, \INTEGER $n$, \INTEGER\ $i$, \mldots)}
-$\Set\ C = \getChoices(S, n, i, \mldots)$\REMR{Determina $C$ in funzione di $S[1 \mldots i-1]$}
-\ForEach{$c \in C$}
-{
-  $S[i] = c$\;
-  \If{$\isAdmissible(S, n, i)$}
-  {
-    \If{$\processSolution(S, n, i, \mldots)$}{\Return \TRUE}
-  }
-  \If{$\enumerazione(S, n, i+1, \mldots)$}{\Return\ \TRUE}
-}
-\Return \FALSE\;
-\end{Procedure}
-        
-\end{frame}
-
-\begin{frame}{Backtrack: ripasso}
-    
-\IG{1.0}{albero10.pdf}    
-    
-\end{frame}
-
-\begin{frame}{Branch-\&-bound}
-
-\BB{Upper bound per il costo della soluzione minima}
-\BIL
-\item Durante l'enumerazione, mantengo informazioni sulla miglior
-soluzione ammissibile \Minsol e il suo costo \Mincost
-\item \Mincost costituisce un \alert{limite superiore} (\alert{upper bound})
-per il costo della soluzione minima
-\EIL
-
-\BB{Lower bound per il costo della soluzione minima}
-\BIL
-\item Si supponga di avere disposizione una opportuna funzione \alert{lower bound} $\LB(S, i)$, che:
-  \BI 
-  \item dipenda dalla sequenza di scelte fatte $S[1, \mldots,i]$
-  \item garantisca che tutte le soluzioni ammissibili generabili facendo
-nuove scelte abbiano costo $\geq \LB(S, i)$
-  \EI
-\EIL
-    
-\end{frame}
-
-\begin{frame}{Branch-\&-bound}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Potatura]
-Se $\LB(S, i)$ è maggiore o uguale a \Mincost, allora si può
-evitare di generare ed esplorare il sottoalbero delle scelte radicato in tal
-nodo
-\end{myboxtitle}
-
-\IG{1.0}{albero10.pdf}
-\end{frame}
-
-\begin{frame}{Branch-\&-bound}
-
-\BB{Note}
-\BIL
-\item Questo metodo non migliora la complessità (superpolinomiale) della procedura \enumerazione()
-\item Ne abbassa drasticamente il tempo di esecuzione in pratica
-\item Tutto dipende dalla funzione \LB, che deve essere il più vicino possibile al costo della soluzione ottima
-\EIL
-
-\end{frame}
-
-\begin{frame}{Schema generale}
-
-\vspace{-12pt}
-\begin{Procedure}
-\caption[A]{\branchbound($\Item[\,]\ S$, \INTEGER $n$, \INTEGER\ $i$, \mldots)}
-$\Set\ C = \getChoices(S, n, i, \mldots)$\REMR{Determina $C$ in funzione di $S[1 \mldots i-1]$}
-\ForEach{$c \in C$}
-{
-  $S[i] = c$\;
-  $\INTEGER\ lb = \LB(S, i)$\;
-  \If{$lb < \Mincost$}{
-    \eIf{$i < n$}{
-      $\branchbound(S, n, i+1, \mldots)$\;
-    }{
-      \If{$c(S, i) < \Mincost$}{
-        $\Minsol = S$\;
-        $\Mincost = c(S, i)$\;
-      }
-    }
-  }
-}
-\end{Procedure}
-
-\end{frame}
-
-\begin{frame}{Commesso viaggiatore -- Branch-\&-bound}
-
-\BIL
-\item Sia $n$ il numero di città
-\item $d[h][k]$ la distanza, intera non negativa fra le città $h$ e $k$
-\item Al passo $i$-esimo sono state fatte le scelte $S[1, \mldots, i]$ 
-prese dall'insieme $\{1, \mldots, n\}$
-\item Un percorso ammissibile che "espande" $S[1, \mldots, i]$ deve
-  \BI
-  \item attraversare le città $S[1, \mldots, i]$
-  \item passare da $S[i]$ ad una qualsiasi delle rimanenti $n - i$ città
-  \item attraversare queste ultime città in un ordine qualsiasi
-  \item da una di queste ritornare ad $S[1]$
-  \EI
-\EIL
-\end{frame}
-
-\begin{frame}{Commesso viaggiatore -- Branch-\&-bound}
-
-\BIL
-\item Distanza percorsa finora
-\medskip
-\alert{\[
-C[i] = \begin{cases}
-  0 & i=1 \\
-  C[i-1] + d[S[i-1][S[i]] & i>1
-\end{cases}
-\]
-}\EIL
-\TwoCols{
-\BIL
-\item Lower bound della distanza per tornare a $S[1]$ ($O(n)$)
-\medskip
-\alert{\[
-A = \min_{h \notin S} \{ d[h][S[1]] \}
-\]
-}\EIL
-}{
-\BIL
-\item Lower bound della distanza per andarsene da $S[i]$ ($O(n)$)
-\medskip
-\alert{\[
-B = \min_{h \notin S}\{d[S[i][\eta] \}
-\]
-}\EIL
-}
-\BIL
-\item Lower bound della distanza percorsa per attraversare una
-qualsiasi di queste ultime $n - i$ città, provenendo da (e dirigendosi verso)
-un'altra di queste $n - i$ città ($O(n^3)$)
-\medskip
-\alert{\[
-D[h] = \min_{p,q}\{d[p, h] + d[h, q] : h \neq p \neq q \},\;
-\textrm{per ogni $h \notin S$}.
-\]
-}\EIL
-
-\end{frame}
-
-\begin{frame}{Lower bound}
-Un lower bound $\LB(S)$ è dato dalla seguente espressione:
-
-\[
-\LB(s,i) = \begin{cases}
-  C[i] + d[S[i], S[1]] & i=n \\
-  C[i] + A + B + \left\lceil (\sum_{h \notin S} D[h])/2\right\rceil & i < n
-\end{cases}
-\]
-\end{frame}
-
-\begin{frame}{Commesso viaggiatore -- Branch-\&-bound}
-
-\small
-\vspace{-12pt}
-\begin{Procedure}
-\caption[A]{\bbTsp($\Item[\,]\ S$, $\INTARRAY\ C$, \Set $R$, \INTEGER $n$, \INTEGER\ $i$)}
-\ForEach{$c \in R$}{
-  $S[i] = c$\;
-  $R.\setremove(c)$\;
-  $C[i] = C[i - 1] + d[S[i - 1]][S[i]]$\;
-  \{calcola $A$, $B$, e $D[h]$ per ogni $h \in R$\}\;
-  $\INTEGER\ lb = C[i] + \IIF(i< n, \lceil ( \sum_{h \notin S} D[h]) / 2 \rceil, d[S[i]][S[1]])$\;
-  \If{$lb < \Mincost$}{
-    \eIf{$i < n$}{
-      $\bbTsp(S, C, R, n, i+1)$\;
-    }{
-      $C[n] = lb$\;
-      $\Minsol = S$\;
-      $\Mincost = C[n]$\;
-    }
-  }
-  $R.\setinsert(c)$\;
-}
-\end{Procedure}
-
-\end{frame}
-
-\begin{frame}{Dettagli}
-
-\TwoColsCustom{0.55}{0.40}{
-\BIL
-\item $\Mincost$ è una variabile globale
-\item Invece di inizializzarla a $+\infty$, possiamo scegliere una 
-permutazione a caso
-\item Ad esempio, la permutazione 1-2-5-3-4 ha un costo pari a 21
-\item Per evitare che lo stesso circuito sia generato più volte, si
-parte da un nodo fissato (es. $1$)
-\EIL
-}{
-\includegraphics[width=\textwidth,page=9]{tsp-pentagon.pdf}
-}
-
-\end{frame}
-
-
-%-------------------------------------------------------------------------
-\begin{frame}{Esempio}
-
-\IG{1.0}{branches.pdf}
-
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{Esempio}
-
-\BB{
-In questo semplice esempio, è stato possibile "potare" 42 su 65 nodi
-}
-
-\begin{myboxtitle}[Possibili miglioramenti]
-\BIL
-\item E' possibile variare l'ordine di visita dell'albero delle scelte
-  \BI
-  \item DFS vs Best-first
-  \EI
-\item E' possibile variare il meccanismo di branching
-  \BI
-  \item Sui nodi, sugli archi, etc.
-  \EI
-\item E' possibile cercare dei lower bound più stretti 
-  \BI
-  \item Held, M., and Karp, R. M. (1971), "The Traveling Salesman Problem and Minimum Spanning Trees: part II", Mathematical Programming 1:6-25
-  \EI
-\EIL
-\end{myboxtitle}
-
-\end{frame}
-
-
+% %-------------------------------------------------------------------------
+% \begin{frame}{Non approssimabilità di \textsc{tsp}}
+%
+% \vspace{-9pt}
+% \begin{myboxtitle}[Teorema]
+% Non esiste alcun algoritmo di approssimazione assoluta per il
+% \textsc{tsp} tale che
+% \probref{Commesso viaggiatore} tale che $c(x') \le sc(x^*)$, con $s \geq 2$ intero positivo, a meno che non sia $\PP = \NP$.
+% \end{myboxtitle}
+%
+% \begin{myboxtitle}[Dimostrazione]
+% \BIL
+%   \item Caso 1: Se $G$ ha un circuito Hamiltoniano, allora $c(x^*) = n$, quindi $A$ fornisce, in tempo polinomiale, una soluzione $x'$ tale che $c(x') \le sc(x^*) = sn$
+%   \item Caso 2: Se $G$ non ha un circuito Hamiltoniano, allora $c(x^*) > sn$, quindi
+%   $A$ fornisce, in tempo polinomiale, una soluzione $x'$ tale che $c(x') \geq c(x^*) > sn$
+% \item Quindi $A$ risolve $\textsc{hamiltonian-circuit}$ in tempo polinomiale,
+% impossibile a meno che $\PP = \NP$
+% \EIL
+% \end{myboxtitle}
+%
+% \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Algoritmi euristici}
@@ -1062,14 +1085,15 @@ In questo semplice esempio, è stato possibile "potare" 42 su 65 nodi
 \vspace{-9pt}
 \begin{myboxtitle}[Euristiche]
 Quando si è presi dalla disperazione a causa della enorme difficoltà di un
-problema di ottimizzazione NP-arduo, si può ricorrere ad algoritmi
+problema di ottimizzazione NP-hard, si può ricorrere ad algoritmi
 ``euristici'' che forniscono una soluzione ammissibile
 \BIL
 \item non necessariamente ottima 
 \item non necessariamente approssimata 
 \EI
 
-Dal greco antico heurískō, "Trovo, scopro”
+Dal greco antico $\mathit{\epsilon\upsilon\rho\iota\sigma\kappa\omega}$ %εὑρίσκω 
+(eurisko), "Trovare, scoprire”
 \end{myboxtitle}
 
 \begin{myboxtitle}[Tecniche possibili]
@@ -1106,6 +1130,7 @@ Dal greco antico heurískō, "Trovo, scopro”
 %-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 
+\vspace{-9pt}
 \TwoCols{
 \vspace{-18pt}
 \IG{1.0}{tsp-greedy.pdf}
@@ -1134,25 +1159,24 @@ Dal greco antico heurískō, "Trovo, scopro”
 \vspace{-12pt}
 \begin{Procedure}
 \caption[A]{\Set\ \greedyTsp(\Graph $G$)}
-$\Set\ S = \setconstructor()$\;
+$\Set\ \mathit{result} = \setconstructor()$\;
 $\mfset\ M = \mfconstructor(G.n)$\;
-$\INTEGER[\,]\ \Inc = \NEW\ \INTEGER[1 \ldots n]$\;
-\lFor{$i = 1$ \TO\ $G.n$}{$\Inc[i] = 0$}
-\{ ordina gli archi per peso non decrescente \}\;
-\ForEach{$[u,v] \in G.E$}{
-  \If{$\Inc[u] < 2$ \AND $\Inc[v]<2$ \AND $M.\mffind(u) \neq M.\mffind(v)$}{
-    $S.\setinsert([u,v])$\;
-    $\Inc[u] = \Inc[u]+1$\;
-    $\Inc[v] = \Inc[v]+1$\;
+$\INTEGER[\,]\ \mathit{edges} = \NEW\ \INTEGER[1 \ldots n]$ = \{ 0 \}\REMR{N. archi nella catena}
+$A = \{ \textrm{ordina gli archi per peso non decrescente} \}$\;
+\ForEach{$(u,v) \in A$}{
+  \If{$\mathit{edges}[u] < 2$ \AND $\mathit{edges}[v]<2$ \AND $M.\mffind(u) \neq M.\mffind(v)$}{
+    $\mathit{result}.\setinsert(~(u,v)~)$\;
+    $\mathit{edges}[u] = \mathit{edges}[u]+1$\;
+    $\mathit{edges}[v] = \mathit{edges}[v]+1$\;
     $M.\mfmerge(u,v)$\;
   }
 }
 \INTEGER $u = 1$;
-\lWhile{$\Inc[u] \neq 1$}{$u = u+1$}
+\lWhile{$\mathit{edges}[u] \neq 1$}{$u = u+1$}
 \INTEGER $v = u+1$; 
-\lWhile{$\Inc[v] \neq 1$}{$v = v+1$}
-$S.\setinsert([u,v])$\;
-\Return $S$\;
+\lWhile{$\mathit{edges}[v] \neq 1$}{$v = v+1$}
+$\mathit{result}.\setinsert(~(u,v)~)$\;
+\Return $\mathit{result}$\;
 \end{Procedure}
 
 \end{frame}
@@ -1179,6 +1203,7 @@ partenza
 %-------------------------------------------------------------------------
 \begin{frame}{\textsc{tsp} -- Greedy (2)}
 
+\vspace{-9pt}
 \TwoCols{
 \vspace{-18pt}
 \IG{1.0}{tsp-greedy.pdf}
@@ -1203,6 +1228,7 @@ partenza
 %-------------------------------------------------------------------------
 \begin{frame}{\textsc{tsp} -- Greedy}
 
+\vspace{-9pt}
 \BIL
 \item Costo computazionale:
   \BI
@@ -1250,6 +1276,7 @@ sostituendoli con due archi esterni al circuito\}}
 %-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 
+\vspace{-9pt}
 \TwoCols{
 \vspace{-18pt}
 \IG{1.0}{tsp-greedy.pdf}
@@ -1273,23 +1300,380 @@ sostituendoli con due archi esterni al circuito\}}
 \end{frame}
 
 %-------------------------------------------------------------------------
+\begin{frame}{Algoritmi euristici}
+    
+\vspace{-9pt}
+\BB{
+A heuristic is an algorithm that doesn’t work. \\
+(Except in practice. Sometimes. Maybe)
+~\\
+\begin{flushright}Jeff Erickson\end{flushright}
+
+}
+    
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Algoritmi branch-\&-bound}
+
+\begin{frame}{Branch-\&-bound}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Branch-\&-bound]
+Per risolvere un problema di ottimizzazione NP-arduo, si può modificare la
+procedura \enumerazione(), vista nella sezione su Backtrack, in modo da
+"potare" certe sequenze di scelte che si rivelino incapaci di
+generare la soluzione ottima
+\end{myboxtitle}
+
+\begin{myboxtitle}[Assunzioni -- senza perdere (troppa) generalità]
+\BIL
+\item Problema di minimizzazione
+\item Ogni sequenza di scelte abbia costo non negativo
+\item Ogni scelta, aggiunta alle scelte già effettuate, non faccia 
+diminuire il costo della soluzione parziale così costruita
+\EIL
+\end{myboxtitle}
+    
+\end{frame}
+
+\begin{frame}{Backtrack: ripasso}
+
+\vspace{-9pt}    
+\begin{Procedure}
+\caption[A]{\textcolor{violet}{\enumerazione}($\langle \mathit{dati\ problema} \rangle$, $\Item[\,]\ S$, \INTEGER\ $i$, $\langle \mathit{dati\ parziali} \rangle)$}
+\uIf{$\textcolor{violet}{\isAdmissible}(\langle \mathit{dati\ problema} \rangle, S, i, \langle \mathit{dati\ parziali} \rangle)$}
+{
+  $\textcolor{violet}{\processSolution}(\langle \mathit{dati\ problema} \rangle, S, i, \langle \mathit{dati\ parziali} \rangle)$\;
+  
+  \alert{\Return \TRUE}\REMR{Trovata soluzione, restituisco \TRUE}
+}
+\uElseIf{$\textcolor{violet}{\isImpossible}(\langle \mathit{dati\ problema} \rangle, S, i, \langle \mathit{dati\ parziali} \rangle)$}{
+  \alert{\Return \FALSE}\REMR{Impossibile trovare soluzioni, restituisco \FALSE}
+}
+\Else{
+  $\Set\ C = \textcolor{violet}{\getChoices}(\langle \mathit{dati\ problema} \rangle, S, i, \langle \mathit{dati\ parziali} \rangle)$\;
+  \ForEach{$c \in C$}
+  {
+    $S[i] = c$\;
+    \If{$\textcolor{violet}{\enumerazione}(\langle \mathit{dati\ problema} \rangle, S, i+1, \langle \mathit{dati\ parziali} \rangle)$}{
+      \alert{\Return \TRUE}\REMR{Trovata soluzione, restituisco \TRUE}
+    }
+  }
+  \alert{\Return \FALSE}\REMR{Nessuna soluzione, restituisco \FALSE}
+}
+\end{Procedure}
+        
+\end{frame}
+
+\begin{frame}{Branch-\&-bound}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Upper bound]
+\BIL
+\item Durante l'enumerazione, si mantengono informazioni 
+\BI
+\item sulla miglior soluzione ammissibile \alert{\Minsol} 
+\item il suo costo \alert{\Mincost}
+\EI
+\item \Mincost costituisce un \alert{limite superiore} (\alert{upper bound})
+per il costo della soluzione minima
+\EIL
+\end{myboxtitle}
+
+\begin{myboxtitle}[Lower bound]
+\BIL
+\item Si supponga di avere disposizione una opportuna funzione \alert{lower bound} $\LB(\langle \mathit{dati\ problema} \rangle, S, i, \langle \mathit{dati\ parziali} \rangle)$, che:
+  \BI 
+  \item dipenda dalla sequenza di scelte fatte $S[1  \ldots i]$
+  \item garantisca che tutte le soluzioni ammissibili generabili facendo
+nuove scelte abbiano costo $\geq \LB()$
+  \EI
+\EIL
+\end{myboxtitle}
+    
+\end{frame}
+
+\begin{frame}{Branch-\&-bound}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Potatura]
+Se $\LB()$ è maggiore o uguale a \Mincost, allora si può
+evitare di generare ed esplorare il sottoalbero delle scelte radicato in tal
+nodo
+\end{myboxtitle}
+
+\IG{1.0}{albero10.pdf}
+\end{frame}
+
+\begin{frame}{Branch-\&-bound}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Note]
+\BIL
+\item Questo metodo non migliora la complessità (superpolinomiale) della procedura \enumerazione()
+\item Ne abbassa drasticamente il tempo di esecuzione in pratica
+\item Tutto dipende dalla funzione \LB, che deve approssimare il più  possibile il costo della soluzione ottima
+\EIL
+\end{myboxtitle}
+
+\end{frame}
+
+\begin{frame}{Schema generale}
+
+\vspace{-12pt}
+\begin{Procedure}
+\caption[A]{\branchbound($\langle \mathit{dati\ problema} \rangle$, $\Item[\,]\ S$, \INTEGER\ $i$, $\langle \mathit{dati\ parziali} \rangle$)}
+$\Set\ C = \getChoices(\langle \mathit{dati\ problema} \rangle, S, i, \langle \mathit{dati\ parziali} \rangle)$\;
+\ForEach{$c \in C$}{
+  $S[i] = c$\;
+  $\INTEGER\ \mathit{lb} = \LB(\langle \mathit{dati\ problema} \rangle, S, i, \langle \mathit{dati\ parziali} \rangle)$\;
+  \If{$\mathit{lb} < \Mincost$}{
+    \eIf{$i < n$}{
+      $\branchbound(\langle \mathit{dati\ problema} \rangle, S, i+1, \langle \mathit{dati\ parziali} \rangle)$\;
+    }{
+      \If{$\fontproc{cost}(S, i) < \Mincost$}{
+        $\Minsol = S$\REMR{Variabile globale}
+        $\Mincost = \fontproc{cost}(S, i)$\REMR{Variabile globale}
+      }
+    }
+  }
+}
+\end{Procedure}
+
+\end{frame}
+
+\begin{frame}{Commesso viaggiatore -- Branch-\&-bound}
+
+\vspace{-9pt}
+\BIL
+\item Sia $n$ il numero di città
+\item $d[h][k]$ la distanza intera positiva fra le città $h$ e $k$
+\item Al passo $i$-esimo sono state fatte le scelte $S[1 \ldots i]$ 
+prese dall'insieme $\{1, \mldots, n\}$
+\item Un percorso ammissibile che "espande" $S[1 \ldots i]$ deve
+  \BI
+  \item attraversare le città $S[1 \ldots i]$
+  \item passare da $S[i]$ ad una qualsiasi delle rimanenti $n - i$ città
+  \item attraversare queste ultime città in un ordine qualsiasi
+  \item da una di queste si ritorna ad $S[1]$
+  \EI
+\EIL
+\end{frame}
+
+
+
+\begin{frame}{Commesso viaggiatore -- Branch-\&-bound}
+
+\BIL
+\item Distanza percorsa finora
+\medskip
+\alert{\[
+\Cost[i] = \begin{cases}
+  0 & i=1 \\
+  \Cost[i-1] + d[S[i-1]][S[i]] & i>1
+\end{cases}
+\]
+}\EIL
+\TwoCols{
+\BIL
+\item Lower bound della distanza per \alert{"uscire"} da $S[i]$ ($O(n)$)
+\medskip
+\alert{\[
+\Out = \min_{h \notin S}\{d[S[i]][h] \}
+\]
+}\EIL
+}{
+\BIL
+\item Lower bound della distanza per \alert{tornare} a $S[1]$ ($O(n)$)
+\medskip
+\alert{\[
+\Back = \min_{h \notin S} \{ d[h][S[1]] \}
+\]}
+\EIL
+}
+\BIL
+\item Lower bound della distanza percorsa per attraversare una qualsiasi città $h$ delle $n-i$ città ancora da attraversare, provenendo da (e dirigendosi verso) una città non compresa in $S[2 \ldots i-1]$ ($O(n^3)$)
+\medskip
+\alert{\[
+\forall h \notin S: \Transfer[h] = \min_{p,q \notin S[2 \ldots i-1]}\{d[p][h] + d[h][q] : h \neq p \neq q \}
+\]
+}\EIL
+
+\end{frame}
+
+\begin{frame}{Lower bound}
+
+\vspace{-9pt}
+Se $i<n$, un possibile lower bound $\LB(d, S, i)$ calcola la somma:
+\BIL
+\item del costo $\Cost[i]$ per arrivare al nodo $S[i]$, già speso
+\item metà del costo ottenuto sommando:
+\BI
+\item il lower bound $\Out$ del costo per andare dal nodo $S[i]$ ad un qualunque altro nodo
+\item il lower bound per attraversare i nodi non contenuti in $S$
+\item il lower bound $\Back$ del costo per tornare al nodo $S[1]$ da un qualunque altro nodo
+\EI
+\EIL
+
+\[
+\LB(d, S, i) = \Cost[i] + \left\lceil \frac{\Out + \sum_{h \notin S} \Transfer[h] + \Back}{2} \right\rceil 
+\]
+\end{frame}
+
+\begin{frame}[shrink=12]{Commesso viaggiatore -- Branch-\&-bound}
+
+\vspace{-15pt}
+\begin{Procedure}
+\caption[A]{\bbTsp($\Item[\,]\ S$, \INTEGER $\Cost$, \Set $R$, \INTEGER $n$, \INTEGER\ $i$)}
+$\Set\ \mathit{choices} = \fontproc{copy}(R)$\;
+\ForEach{$c \in \mathit{choices}$}{
+  $S[i] = c$\;
+  $R.\setremove(c)$\;
+  \eIf{$i<n$}{
+    \{calcola $\Out$, $\Back$, e $\Transfer[h]$ per ogni $h \in R$\}\;
+    $\INTEGER\ \mathit{lb} =\Cost[i] + \left\lceil \left(\Out + \sum_{h \notin S} \Transfer[h] + \Back \right) / 2 \right\rceil$\;    
+    \If{$\mathit{lb} < \Mincost$}{
+      $\bbTsp(S, \Cost + d[S[i - 1]][S[i]], R, n, i+1)$\;
+    }
+  }{
+    $\mathit{cost} = \mathit{cost} + d[S[i]][S[1]]$\;    
+    \If{$\mathit{cost} < \Mincost$}{
+      $\Minsol = S$\;
+      $\Mincost = \mathit{costo}$\;
+    }
+  }
+  $R.\setinsert(c)$\;
+}
+\end{Procedure}
+
+
+\end{frame}
+
+\begin{frame}{Dettagli}
+
+\vspace{-9pt}
+\TwoColsCustom{0.55}{0.40}{
+\BIL
+\item $\Mincost$ è una variabile globale
+\item Invece di inizializzarla a $+\infty$, possiamo scegliere una 
+permutazione a caso
+\item Ad esempio, la permutazione 1-2-5-3-4 ha un costo pari a 21
+\item Per evitare che lo stesso circuito sia generato più volte, si
+parte da un nodo fissato (es. $1$)
+\EIL
+}{
+\includegraphics[width=\textwidth,page=9]{tsp-pentagon.pdf}
+}
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Esempio}
+
+\vspace{-9pt}
+\IG{1.0}{albero-tsp.pdf}
+
+\begin{tikzpicture}[remember picture,overlay]
+    \node[xshift=-1.2cm,yshift=-2.3cm] at (current page.north east){%
+    \includegraphics[width=1cm]{node-single.pdf}};
+\end{tikzpicture}
+
+
+\begin{tikzpicture}[remember picture,overlay]
+    \node[xshift=1.2cm,yshift=-2.3cm] at (current page.north west){%
+    \includegraphics[width=2cm]{tsp-pentagon.pdf}};
+\end{tikzpicture}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Esempio}
+
+\vspace{-9pt}
+\BB{
+In questo semplice esempio, è stato possibile "potare" 42 su 65 nodi
+}
+
+\begin{myboxtitle}[Possibili miglioramenti]
+\BIL
+\item \EE possibile variare l'ordine di visita dell'albero delle scelte
+  \BI
+  \item DFS vs Best-first
+  \EI
+\item \EE possibile variare il meccanismo di branching
+  \BI
+  \item Sui nodi, sugli archi, etc.
+  \EI
+\item \EE possibile cercare dei lower bound più stretti 
+  \BI
+  \item Held, M., and Karp, R. M. (1971), "The Traveling Salesman Problem and Minimum Spanning Trees: part II", Mathematical Programming 1:6-25
+  \EI
+\EIL
+\end{myboxtitle}
+
+\end{frame}
+
+
+
+
+
+
+%-------------------------------------------------------------------------
 \begin{frame}{Spunti di lettura}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Bibliografia]
 \BIL
-\item Rego, César; Gamboa, Dorabela; Glover, Fred; Osterman, Colin (2011), "Traveling salesman problem heuristics: leading methods, implementations and latest advances", European Journal of Operational Research, 211 (3): 427–441.
-\url{https://www.sciencedirect.com/science/article/pii/S0377221710006065?via\%3Dihub}
-
+\item Jeff Erickson. Approximation Algorithms. \\ \url{http://jeffe.cs.illinois.edu/teaching/algorithms/notes/J-approx.pdf}\\
+(Per approfondire)
 \item David Williamson, David Shmoys (2010). The Design of Approximation Algorithms. Cambridge University Press.\\
-\url{http://www.designofapproxalgs.com/book.pdf}
-
-\item David Williamson, David Shmoys (2010). The Design of Approximation Algorithms. Cambridge University Press.\\
-\url{http://www.designofapproxalgs.com/book.pdf}
+\url{http://www.designofapproxalgs.com/book.pdf}\\
+(Tanta roba)
+\item David L. Applegate, Robert E. Bixby, Vašek Chvátal, and William J. Cook. The Traveling Salesman Problem: A Computational Study. Princeton University Press, 2007.\\
+(600 pagine \emph{solo} su \textsc{tsp})
 \EIL
 \end{myboxtitle}
 
 
 \end{frame}
+
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{Appunti di storia}
+    
+\includegraphics[width=\textwidth]{dantzig-1.pdf}
+
+\end{OnlySlides}
+
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{Appunti di storia}
+    
+\includegraphics[width=\textwidth]{dantzig-2.pdf}
+
+\end{OnlySlides}
+
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{Appunti di storia}
+    
+\includegraphics[width=\textwidth]{dantzig-3.pdf}
+
+\end{OnlySlides}
+
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{Appunti di storia}
+    
+\includegraphics[width=\textwidth]{dantzig-4.pdf}
+
+\end{OnlySlides}
+
+\ifslides
+{
+\setbeamercolor{background canvas}{bg=}
+\includepdf[pages=2-10]{tsp-solved.pdf}
+}
+\fi
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1304,7 +1688,5 @@ sostituendoli con due archi esterni al circuito\}}
 \begin{frame}{}
 
 \end{frame}
-
-
 
 

@@ -54,14 +54,14 @@
 
 \vspace{-9pt}
 \begin{myboxtitle}[Problema dell'ordinamento - Limite inferiore]
-E' possibile dimostrare che qualunque algoritmo di ordinamento \alert{basato su confronti} ha una complessità 
+\EE possibile dimostrare che qualunque algoritmo di ordinamento \alert{basato su confronti} ha una complessità 
 $\Omega(n \log n)$.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Assunzioni]
 \BI
 \item Consideriamo un qualunque algoritmo $A$ basato su confronti
-\item Assumiamo che tutti i valori siano distinti (no perdita di generalità)
+\item Assumiamo che tutti i valori siano distinti\\ (no perdita di generalità)
 \item L'algoritmo $A$  può essere rappresentato tramite un \alert{albero di decisione}, un albero binario che rappresenta i confronti fra gli elementi
 \EI
 \end{myboxtitle}
@@ -102,12 +102,13 @@ L'altezza dell'albero è almeno $\log k$ - ovvero $\Omega(\log k)$.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Teorema]
-Il numero di confronti necessari per ordinare n elementi nel caso peggiore è $\Omega(n \log n)$
+Il numero di confronti necessari per ordinare $n$ elementi nel caso peggiore è $\Omega(n \log n)$
 \end{myboxtitle}
 
-\end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{frame}
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Spaghetti Sort}
 
 \vspace{-9pt}
@@ -120,8 +121,21 @@ Il numero di confronti necessari per ordinare n elementi nel caso peggiore è $\
 \item Ripeti (4) fino a quando non hai terminato gli spaghetti
 \end{enumerate}
 \end{myboxtitle}
-\end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{TimerSort}
+
+\IG{0.5}{timer-sort.png}
+
+\bigskip
+Da: I'm programmer, I have no life (Facebook)
+
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Counting Sort}
 
 \vspace{-9pt}
@@ -189,7 +203,7 @@ $j = 1$\;
 \BI
 \item Counting Sort non è basato su confronti
 \item Abbiamo cambiato le condizioni di base 
-\item Se $k$ è $O(n^3)$, questo algoritmo è peggiore di tutti quelli visti finora	
+\item Pseudopolinomiale: se $k$ è $O(n^3)$, questo algoritmo è peggiore di tutti quelli visti finora	
 \EI
 \end{myboxtitle}
 \end{frame}%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -308,7 +322,7 @@ $O(n \sqrt{n})$, stabile, adatto per piccoli valori, sequenze quasi ordinate.
 \begin{frame}{Reality check}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Tim Sort]
+\begin{myboxtitle}[Tim Sort ]
 \BI
 \item Algoritmo ibrido, basato su Merge Sort e Insertion Sort
 \item Cerca sequenze consecutive (run) già ordinate 
@@ -318,6 +332,10 @@ $O(n \sqrt{n})$, stabile, adatto per piccoli valori, sequenze quasi ordinate.
 \item $O(n \log n)$ nel caso pessimo
 \EI
 \EI
+
+\medskip
+\url{https://en.wikipedia.org/wiki/Timsort}
+
 \end{myboxtitle}
 
 \begin{myboxtitle}[Utilizzazione]

@@ -10,8 +10,11 @@
 \usetikzlibrary{graphs}
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric}
 \usepackage{xmpmulti}
 \usepackage{listings}
+
+\newcommand{\DP}{\mathit{DP}}
 
 \lstset{
   basicstyle=\ttfamily,
@@ -22,7 +25,9 @@
 }
 
 \tikzset{
-    Node/.style = {circle, draw=black, align=center, fill=yellow!40, thick}
+    Node/.style = {circle, draw=black, align=center, fill=yellow!40, thick},
+    mynode/.style = {circle, thick, draw=black, align=center,fill=yellow!40,font=\ttfamily\bfseries\Large,minimum width = 0.9cm, minimum height =0.9cm},
+    mynoder/.style = {circle, thick, draw=black, align=center,fill=red!20,font=\ttfamily\bfseries\Large,minimum width = 0.9cm, minimum height =0.9cm},
 }	
 \tikzset{
     Edge/.style = {draw=black,thick,-latex}
@@ -94,7 +99,7 @@ much.}{\textit{Gordon Gekko, Wall Street}}
 \BI
 \item Seleziona una sola delle possibile decisioni...
 \item ... quella che sembra ottima (ovvero, è localmente ottima)
-\item E' però necessario dimostare che si ottiene un ottimo globale
+\item \EE però necessario dimostare che si ottenga un ottimo globale
 \EI
 \end{myboxtitle}
 \end{frame}
@@ -263,14 +268,14 @@ Utilizzando il metodo cut-and-paste
 \begin{myboxtitle}[Definizione ricorsiva del suo costo]
 \BIL
 \item Come determinare $k$? Analizzando tutte le possibilità
-\item Sia $DP[i][j]$ la dimensione del
+\item Sia $\DP[i][j]$ la dimensione del
 più grande sottoinsieme $A[i \mydots j] \subseteq S[i \mydots j]$ di intervalli indipendenti
 
 \small
 \[
-DP[i][j] = \begin{cases}
+\DP[i][j] = \begin{cases}
    0 & S[i \mydots j] = \emptyset \\
-	 \max_{k \in S[i \mydots j]} \{ DP[i][k] + DP[k][j] + 1 \} & \textrm{altrimenti}
+	 \max_{k \in S[i \mydots j]} \{ \DP[i][k] + \DP[k][j] + 1 \} & \textrm{altrimenti}
 \end{cases}
 \]
 \EIL
@@ -293,7 +298,7 @@ costo $O(n)$ per sottoproblema nel caso peggiore
 \begin{myboxtitle}[Possiamo fare di meglio?]
 \BI
 \item Abbiamo visto una soluzione $O(n \log n)$ nel caso di intervalli pesati
-\item E' possibile utilizzare quella soluzione con pesi pari a $1$
+\item \EE possibile utilizzare quella soluzione con pesi pari a $1$
 \item Questa soluzione è peggiore, ma...
 \item Siamo sicuri che sia necessario analizzare tutti i possibili valori $k$? 
 \EI
@@ -365,7 +370,7 @@ stessa dimensione di $A'[i \mydots j]$ e gli intervalli sono indipendenti.
 \item \alert{Non è più necessario analizzare due sottoproblemi}:
 \BI
 \item Elimino tutte le attività che non sono compatibili con la scelta ingorda
-\item Mi resta solo un sottoproblema da risolvere: $S[m,j]$
+\item Mi resta solo un sottoproblema da risolvere: $S[m \ldots j]$
 \EI
 \EIL
 
@@ -436,7 +441,7 @@ $\INTEGER\ \Ultimo = 1$\REMR{Ultimo intervallo inserito}
 \section{Resto}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Problema del resto}
+\begin{frame}{Problema del resto (Money change)}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Input]
@@ -449,8 +454,9 @@ $\INTEGER\ \Ultimo = 1$\REMR{Ultimo intervallo inserito}
 \smallskip
 \begin{myboxtitle}[Definizione del problema]
 Trovare il più piccolo numero intero di pezzi necessari per dare un resto di $R$ 
-centesimi utilizzando i tagli di cui sopra, assumendo di avere un numero illimitato di
+centesimi utilizzando i tagli disponibili, assumendo di avere un numero illimitato di
 monete per ogni taglio.
+
 Formalmente, trovare un vettore $x$ di interi non negativi tale che:\\
 $\displaystyle
 	R = \sum_{i=1}^n x[i] \cdot t[i]
@@ -478,14 +484,14 @@ $S(i)$, la cui soluzione ottima è data da $A(i)-\{ j \}$.
 
 \begin{myboxtitle}[Definizione ricorsiva]
 \BI
-\item Tabella di programmazione dinamica: $DP[0 \mydots R]$
-\item $DP[i]$: \alert{minimo n. di monete per risolvere il problema $S[i]$}
+\item Tabella di programmazione dinamica: $\DP[0 \mydots R]$
+\item $\DP[i]$: \alert{minimo n. di monete per risolvere il problema $S(i)$}
 \EI
 \[
-DP[i] = \left\{ 
+\DP[i] = \left\{ 
 \begin{array}{ll}
   0 & i=0 \\
-  \min_{1 \leq j \leq n} \{ DP[i-t[j]] ~|~ t[j] \leq i \} + 1 & i>0
+  \min_{1 \leq j \leq n} \{ \DP[i-t[j]] ~|~ t[j] \leq i \} + 1 & i>0
   \end{array} 
 \right.
 \]
@@ -499,16 +505,16 @@ DP[i] = \left\{
 
 \vspace{-12pt}
 \begin{Procedure}
-\caption[A]{$\INTARRAY$\ \textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
-$DP = \NEW\ \INTEGER[0 \mydots R]$\;
-$S = \NEW\ \INTEGER[0 \mydots R]$\;
-$DP[0] = 0$\;
+\caption[A]{$\INTARRAY$\ \textsf{moneyChange}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
+$\INTEGER[\,]\ DP = \NEW\ \INTEGER[0 \mydots R]$\Comment*{Value of the solution}
+$\INTEGER[\,]\ \mathit{coin} = \NEW\ \INTEGER[0 \mydots R]$\Comment*{Coin to be used for a specific value}
+$\DP[0] = 0$\;
 \For{$i = 1$ \TO\ $R$} {
-  $DP[i] = +\infty$\;
+  $\DP[i] = +\infty$\;
   \For{$j = 1$ \TO\ $n$} {
-    \If{$i > t[j]$ \AND\ $ DP[i-t[j]]+1 < DP[i]$}{
-      $DP[i] = DP[i-t[j]]+1$\;
-      $S[i] = j$\;
+    \If{$i > t[j]$ \AND\ $ \DP[i-t[j]]+1 < \DP[i]$}{
+      $\DP[i] = \DP[i-t[j]]+1$\;
+      $\mathit{coin}[i] = j$\;
     }
   }
 }
@@ -523,20 +529,18 @@ $DP[0] = 0$\;
 
 \vspace{-12pt}
 \begin{Procedure}
-\caption[A]{$\INTARRAY$\ \textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
+\caption[A]{$\INTARRAY$\ \textsf{moneyChange}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
 [...]\;
-$\INTARRAY\ x = \NEW\ \INTEGER[1 \mydots n]$\;
-\For{$i = 1$ \TO\ $n$}{
-  $x[i] = 0$\;
-}
+\Comment{Solution reconstruction}
+$\INTARRAY\ x = \NEW\ \INTEGER[1 \mydots n] = \{ 0 \}$\Comment*{Output vector, initialized to zero}
 \While{$R>0$}{
-  $x[S[r]] = x[S[r]]+1$\;
-  $R = R - t[S[R]]$\;
+  $x[\mathit{coin}[R]] = x[\mathit{coin}[R]]+1$\;
+  $R = R - t[\mathit{coin}[R]]$\;
 }
 \Return $x$\;
 \end{Procedure}
 
-\BB{Complessità?}
+\BB{Complessità? }
 \pause \alert{$O(nR)$}
 
 \end{frame}
@@ -549,9 +553,10 @@ $\INTARRAY\ x = \NEW\ \INTEGER[1 \mydots n]$\;
 
 \vspace{-6pt}
 \begin{myboxtitle}[Domanda]
-E' possibile pensare ad una soluzione greedy?
+\EE possibile pensare ad una soluzione greedy?
 \end{myboxtitle}
 
+\pause
 \begin{myboxtitle}[Risposta]
 Selezionare la moneta $j$ più grande tale per cui $t[j] \leq R$, e poi risolvere 
 il problema $S(R-t[j])$.
@@ -575,7 +580,7 @@ il problema $S(R-t[j])$.
 	
 \vspace{-12pt}
 \begin{Procedure}
-\caption[A]{$\INTARRAY$\ \textsf{resto}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
+\caption[A]{$\INTARRAY$\ \textsf{moneyChange}($\INTARRAY\ t$, \INTEGER $n$, \INTEGER $R$)}
 $\INTARRAY\ x = \NEW\ \INTEGER[1 \mydots n]$\;
 \{ Ordina le monete in modo decrescente \}\;
 \For{$i = 1$ \TO\ $n$} {
@@ -591,7 +596,7 @@ $\INTARRAY\ x = \NEW\ \INTEGER[1 \mydots n]$\;
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Dimostrazione scelta greedy $50,10,5,1$}
+\begin{frame}{Dimostrazione scelta greedy $t = [50,10,5,1]$}
 
 \vspace{-9pt}
 \BIL
@@ -600,6 +605,23 @@ $\INTARRAY\ x = \NEW\ \INTEGER[1 \mydots n]$\;
 	\sum_{i=1}^4 x[i] \cdot t[i] = R \qquad m = \sum_{i=1}^4 x[i] \quad \textrm{è minimo}
 \]
 
+\item Sappiamo che $t[k] \cdot x[k] < t[k-1]$, altrimenti basterebbe sostituire un certo numero di monete di taglia $t[k]$ con quelle del taglio $t[k-1]$.
+
+\bigskip
+\begin{tabular}{lllll}
+    $t[2] \cdot x[2]$ & $= 10 \cdot x[2]$ &< $t[1]$ & $= 50$ & $\Rightarrow x[2] < 5$\\
+    $t[3] \cdot x[3]$ & $= 5 \cdot x[3]$ &< $t[2]$ & $= 10$ & $\Rightarrow x[3] < 2$\\
+    $t[4] \cdot x[4]$ & $= 1 \cdot x[4]$ &< $t[3]$ & $= 5$ & $\Rightarrow x[4] < 5$\\
+\end{tabular}
+\EIL
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Dimostrazione scelta greedy $t = [50,10,5,1]$}
+
+\vspace{-9pt}
+\BIL
 \item Sia $m_k$ la somma delle monete di taglio inferiore a $t[k]$:
 \[
   m_k = \sum_{i=k+1}^4 x[i] \cdot  t[i]
@@ -607,13 +629,15 @@ $\INTARRAY\ x = \NEW\ \INTEGER[1 \mydots n]$\;
 
 \item 
 Se dimostriamo che $\forall k: m_k < t[k]$, allora la soluzione (ottima)
-è proprio quella calcolata dall'algoritmo\\[-6pt]
-\begin{align*}
-m_4 &= 0 &&< 1 = t[4] \\
-m_3 &= 1 \cdot x[4] && < 5 = t[3] \\
-m_2 &= 5 \cdot x[3] + m_3 &&\leq 5 + m_3 < 5 + 5 = 10 = t[2] \\
-m_1 &= 10 \cdot x[2] + m_2 && \leq 40 + m_2 < 40 + 10 = 50 = t[1] \\
-\end{align*}
+è proprio quella calcolata dall'algoritmo
+
+\bigskip
+\begin{tabular}{llllll}
+$m_4$ &= $0$                   &              & $< 1$       &       & $= t[4]$ \\
+$m_3$ &= $1 \cdot x[4] + m_4$  & $< 1 \cdot 4 + m_4$  & $< 5 + 0$   & $= 5$ & $= t[3]$ \\
+$m_2$ &= $5 \cdot x[3] + m_3$  & $< 5 \cdot 1 + m_3$  & $< 5 + 5$   & $=10$ & $= t[2]$ \\
+$m_1$ &= $10 \cdot x[2] + m_2$ & $< 10 \cdot 4 + m_2$ & $< 40 + 10$ & $=50$ & $= t[1]$ 
+\end{tabular}
 \EIL
 
 \end{frame}
@@ -641,6 +665,13 @@ m_1 &= 10 \cdot x[2] + m_2 && \leq 40 + m_2 < 40 + 10 = 50 = t[1] \\
 \end{center}
 
 \end{OnlySlides}
+
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{Fun facts}
+\vspace{-12pt}
+\IG{0.9}{uk-coins.pdf}
+\end{OnlySlides}
+
 
 %-------------------------------------------------------------------------
 \begin{OnlySlides}{Fun facts}
@@ -780,54 +811,45 @@ job $m$ non viene considerato.
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Dimostrazione di correttezza}
+\begin{frame}{Dimostrazione -- Scelta greedy}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Dimostrazione - Scelta greedy]
+\begin{myboxtitle}[Trasformazione soluzione ottima]
 \BIL
-\item Si consideri una permutazione ottima:
+\item Si consideri una permutazione ottima $A$:
 
-\[
-\alert{B = [~B[1],B[2], \mydots, B[m-1], B[m], B[m+1], \mydots B[n]~]}
-\]
+\medskip
+\IG{0.8}{sjf1-crop.pdf}
 
-\item Sia \alert{$m$} la posizione in cui si trova in $B$ il job con \alert{minor tempo di fine}
-\item Si consideri una permutazione in cui i job in posizione $1$, $m$ vengono
+\item Sia \alert{$m$} la posizione in $A$  in cui si trova il job con \alert{minor tempo di fine}
+\item Si consideri una permutazione $A'$ in cui i job in posizione $1$, $m$ vengono
 scambiati: 
 
-\[
-\alert{A = [~B[m], B[2], \mydots, B[m-1], B[1], B[m+1], \mydots, B[n]~]}
-\]
+\medskip
+\IG{0.8}{sjf2-crop.pdf}
 
-\item Il tempo di completamento medio di $A$ è minore o uguale al tempo
-di completamento medio di $B$
+\item Il tempo di completamento medio di $A'$ è minore o uguale al tempo di completamento medio di $A$
 \EIL
 \end{myboxtitle}
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Dimostrazione di correttezza}
+\begin{frame}{Dimostrazione -- Scelta greedy}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Dimostrazione - Scelta greedy]
+\begin{myboxtitle}[La soluzione trasformata è anch'essa ottima]
 \BIL
-\item Si consideri una permutazione in cui i job in posizione $1$, $m$ vengono
-scambiati: 
 
-\[
-\alert{A = [~B[m], B[2], \mydots, B[m-1], B[1], B[m+1], \mydots, B[n]~]}
-\]
+\item Il tempo di completamento medio di $A'$ è minore o uguale al tempo
+di completamento medio di $A$
+\medskip
+\IG{0.8}{sjf3-crop.pdf}
 
-\item Il tempo di completamento medio di $A$ è minore o uguale al tempo
-di completamento medio di $B$
-  \BI
-	\item Job in posizione $1, \mydots, k-1$ in $A$ hanno tempo di completamento 
-	$\leq$ dei job in posizione $1, \mydots, k-1$ in $B$
-	\item Job in posizione $k, \mydots, n$ in $A$ hanno tempo di completamento 
-	$=$ dei job in posizione $k, \mydots, n$ in $B$
-  \EI
-\item Poichè $B$ è ottima, $A$ non può avere tempo di completamento medio minore
-e quindi anche $A$ è ottima.
+  \BIL
+	\item \color{red}{Job in posizione $1, \mydots, m-1$ in $A'$ hanno tempo di completamento $\leq$ dei job in posizione $1, \mydots, m-1$ in $A$}
+	\item \color{blue}Job in posizione $m, \mydots, n$ in $A'$ hanno tempo di completamento $=$ dei job in posizione $m, \mydots, n$ in $A$
+  \EIL
+\item Poichè $A$ è ottima, $A'$ non può avere tempo di completamento medio minore e quindi anche $A'$ è ottima.
 \EIL
 \end{myboxtitle}
 \end{frame}
@@ -860,7 +882,7 @@ massimo.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Zaino reale (o Zaino frazionario)]
-E' possibile prendere frazioni di oggetti.
+\EE possibile prendere frazioni di oggetti.
 \end{myboxtitle}
 
 \end{frame}
@@ -998,9 +1020,9 @@ $i$ & $p_i$ & $w_i$ & $p_i/w_i$ \\
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo}
 \begin{Procedure}
-\caption[A]{$\REAL[\,]$\ \zaino($\REAL[\,]\ p,\ \REAL[\,]\ v,\REAL\ C,\ \INTEGER\ n$)}
+\caption[A]{$\REAL[\,]$\ \zaino($\REAL[\,]\ p,\ \REAL[\,]\ w,\REAL\ C,\ \INTEGER\ n$)}
 $\REAL[\,]\ x = \NEW\ \REAL[1 \mydots n]$\;
-\{ ordina $p$ e $v$ in modo che $p[1]/w[1] \ge p[2]/w[2] \ge \cdots \ge p[n]/w[n]$\}\;
+\{ ordina $p$ e $w$ in modo che $p[1]/w[1] \ge p[2]/w[2] \ge \cdots \ge p[n]/w[n]$\}\;
 \For{$i=1$ \TO\ $n$}
 {
   $x[i] = \MIN(C/w[i], 1)$\;
@@ -1088,7 +1110,7 @@ che il profitto specifico dell'oggetto $1$ è massimo
 \textbf{Frequenza} & 45\% & 13\% & 12\% & 16\% & 9\% & 5\% & \\ \hline
 \textbf{ASCII} & \texttt{\tiny 01100001} & \texttt{\tiny 01100010} & \texttt{\tiny 01100011} & \texttt{\tiny 01100100} & \texttt{\tiny 01100101} & \texttt{\tiny 01100110} & $8n$ \\\hline
 \textbf{Codifica 1} & \texttt{\small 000} & \texttt{\small 001} & \texttt{\small 010} & \texttt{\small 011} & \texttt{\small 100} & \texttt{\small 101} & $3n$ \\\hline
-\textbf{Codifica 2} & \texttt{\small 0} & \texttt{\small 100} & \texttt{\small 101} & \texttt{\small 111} & \texttt{\small 1100} & \texttt{\small 1101} & $2.24n$ \\\hline
+\textbf{Codifica 2} & \texttt{\small 0} & \texttt{\small 101} & \texttt{\small 100} & \texttt{\small 111} & \texttt{\small 1101} & \texttt{\small 1100} & $2.24n$ \\\hline
 \end{tabular}
 \end{overprint}
 \bigskip
@@ -1131,7 +1153,7 @@ prefisso di un altro codice} (condizione necessaria per la decodifica).
 \vspace{-9pt}
 \begin{myboxtitle}[Alcune domande]
 \BIL
-\item E' possibile che il testo codificato sia più lungo della rappresentazione con 3 bit?
+\item \EE possibile che il testo codificato sia più lungo della rappresentazione con 3 bit?
 \item Esistono testi "difficili" per questa codifica?
 \item Come organizzare un algoritmo per la decodifica?
 \EIL
@@ -1406,7 +1428,7 @@ parti dalla radice\;
 \item Il codice per $c$ richiederà allora $d_T(c)$ bit
 \item Se $f[c]$ è il numero di occorrenze di  $c$ in $F$, allora la dimensione della codifica è 
 \[
-  C[F,T] = \sum_{c \in \Sigma} f[c] \cdot d_T(c)
+  C(F,T) = \sum_{c \in \Sigma} f[c] \cdot d_T(c)
 \]
 \EI
 \end{myboxtitle}
@@ -1442,7 +1464,7 @@ parti dalla radice\;
 \vspace{-6pt}
 \BB{
 \BI
-\item Costruire una lista ordinata di nodi foglia per ogni carattere, etichettato con la propria frequenza
+\item Costruire un nodo foglia per ogni carattere, etichettato con la propria frequenza
 \EI
 }
 
@@ -1727,11 +1749,11 @@ edge from parent node[edgestyleR] {1}
 \begin{tabular}{|c|l|}
 \hline
 a & \R{0} \\\hline
-b & \B{1}\R{0}\R{0} \\\hline
-c & \B{1}\R{0}\B{1} \\\hline
+b & \B{1}\R{0}\R{1} \\\hline
+c & \B{1}\R{0}\B{0} \\\hline
 d & \B{1}\B{1}\B{1} \\\hline
-e & \B{1}\B{1}\R{0}\R{0} \\\hline
-f & \B{1}\B{1}\R{0}\B{1} \\\hline
+e & \B{1}\B{1}\R{0}\R{1} \\\hline
+f & \B{1}\B{1}\R{0}\B{0} \\\hline
 \end{tabular}
 }
 \end{center}
@@ -1827,7 +1849,7 @@ profondità massima e i loro codici differiscono solo per l'ultimo bit (sono fog
 \begin{myboxtitle}[Dimostrazione]
 \BI
 \item Al solito, basata sulla trasformazione di una soluzione ottima
-\item Supponiamo che esista un codice ottimo $T$ in cui due caratteri $a,b$ con profondità massima e questi siano diversi da $x,y$
+\item Supponiamo che esista un codice ottimo $T$ in cui i due caratteri $a,b$ con profondità massima siano diversi da $x,y$
 \EI
 \end{myboxtitle}
 
@@ -1841,10 +1863,96 @@ profondità massima e i loro codici differiscono solo per l'ultimo bit (sono fog
 \item Assumiamo senza perdere di generalità: $f[x] \leq f[y]$,		$f[a] \leq f[b]$
 \item Poiché le frequenze di $x$ e $y$ sono minime:    $f[x] \leq f[a]$,		$f[y] \leq f[b]$
 \item Scambiamo $x$ con $a$: otteniamo $T'$
-\item Scambiamo $y$ con $b$: otteniamo $T"$
+\item Scambiamo $y$ con $b$: otteniamo $T''$
 \EIL
 
-\IG{1.0}{huffman.pdf}
+\medskip
+\begin{columns}[T]
+\column{0.32\linewidth}
+\fbox{%
+\begin{tikzpicture}[
+    scale=0.5,
+    transform shape,
+	thick,
+	level distance=1.5cm,
+    level 1/.style={sibling distance=4cm}, 
+    level 2/.style={sibling distance=3cm},
+    level 3/.style={sibling distance=2cm},
+    level 3/.style={sibling distance=1.25cm},
+	font=\ttfamily\bfseries
+  ]
+  \node[mynode] {}
+    child {node[mynode] {}
+    }
+    child {node[mynode] {}
+      child {node[mynoder] {$y$}}
+      child {node[mynode] {}
+        child {node[mynode] {}
+          child {node[mynoder] {$a$}}
+          child {node[mynoder] {$b$}}
+        }
+        child {node[mynoder] {$x$}}
+      }
+    };
+\end{tikzpicture}
+}
+\column{0.32\linewidth}
+\fbox{%
+\begin{tikzpicture}[
+    scale=0.5,
+    transform shape,
+	thick,
+	level distance=1.5cm,
+    level 1/.style={sibling distance=4cm}, 
+    level 2/.style={sibling distance=3cm},
+    level 3/.style={sibling distance=2cm},
+    level 3/.style={sibling distance=1.25cm},
+	font=\ttfamily\bfseries
+  ]
+  \node[mynode] {}
+    child {node[mynode] {}
+    }
+    child {node[mynode] {}
+      child {node[mynoder] {$y$}}
+      child {node[mynode] {}
+        child {node[mynode] {}
+          child {node[mynoder] {$x$}}
+          child {node[mynoder] {$b$}}
+        }
+        child {node[mynoder] {$a$}}
+      }
+    };
+\end{tikzpicture}
+}
+\column{0.32\linewidth}
+\fbox{%
+\begin{tikzpicture}[
+    scale=0.5,
+    transform shape,
+	thick,
+	level distance=1.5cm,
+    level 1/.style={sibling distance=4cm}, 
+    level 2/.style={sibling distance=3cm},
+    level 3/.style={sibling distance=2cm},
+    level 3/.style={sibling distance=1.25cm},
+	font=\ttfamily\bfseries
+  ]
+  \node[mynode] {}
+    child {node[mynode] {}
+    }
+    child {node[mynode] {}
+      child {node[mynoder] {$b$}}
+      child {node[mynode] {}
+        child {node[mynode] {}
+          child {node[mynoder] {$x$}}
+          child {node[mynoder] {$y$}}
+        }
+        child {node[mynoder] {$a$}}
+      }
+    };
+\end{tikzpicture}
+}
+\end{columns}
 
 \end{frame}
 
@@ -1852,19 +1960,19 @@ profondità massima e i loro codici differiscono solo per l'ultimo bit (sono fog
 \begin{frame}[shrink=5]{Scelta greedy}
 
 \BIL
-\item Dimostriamo che: $C(f,T") \leq C(f, T') \leq C(f,T)$
+\item Dimostriamo che: $C(f,T'') \leq C(f, T') \leq C(f,T)$
 
 \begin{eqnarray*}
-C(T) - C(T') &=& \sum_{c \in \Sigma} f[c]d_T(c) - \sum_{c \in \Sigma} f[c]d_{T'}(c) \\
+C(f,T) - C(f,T') &=& \sum_{c \in \Sigma} f[c]d_T(c) - \sum_{c \in \Sigma} f[c]d_{T'}(c) \\
              &=& (f[x]d_T(x)+f[a]d_T(a)) - (f[x]d_{T'}(x)+f[a]d_{T'}(a)) \\
              &=& (f[x]d_T(x)+f[a]d_T(a)) - (f[x]d_{T}(a)+f[a]d_{T}(x)) \\
              &=& (f[a]-f[x])(d_T(a)-d_T(x)) \\
              &\geq& 0 \\
-C(T') - C(T'') &\geq& 0 \qquad \textrm{Come sopra}
+C(f,T') - C(f,T'') &\geq& 0 \qquad \textrm{Come sopra}
 \end{eqnarray*}
 
-\item Ma poiché $T$ è ottimo, sappiamo anche che: $C(f,T) \leq C(f,T")$
-\item Quindi $T"$ è anch'esso ottimo
+\item Ma poiché $T$ è ottimo, sappiamo anche che: $C(f,T) \leq C(f,T'')$
+\item Quindi $T''$ è anch'esso ottimo
 \EIL
 
 \end{frame}
@@ -1879,7 +1987,7 @@ Nelle pubblicità:
 \BIL
 \item Hard-disk 10MB per l'equivalente di 2400 Euro
 %%% Proiettando, un'hard SSD da 1TB, che costa 160 euro nel 2019 su amazon, a questi prezzi viene 240 milioni di euro, una fattore 1.5 milioni
-\item Mouse (con rotellina) per l'equivalente di 200 Euro
+\item Mouse (con sfera) per l'equivalente di 200 Euro
 \EIL
 
 \IG{0.4}{huffman-david.jpg}
@@ -1924,8 +2032,8 @@ e ogni arco ha un costo associato distinto (costi di scavo, etc.)
 \item \alert{$G=(V,E)$}: un grafo non orientato e connesso 
 \item \alert{$w: V \times V \rightarrow \mathbb{R}$}: una funzione di peso (costo di connessione)
 \BI
-\item se $[u,v] \in E$, allora $w(u,v)$ è il peso dell'arco $[u,v]$
-\item se $[u,v] \not\in E$, allora $w(u,v) = +\infty$
+\item se $(u,v) \in E$, allora $w(u,v)$ è il peso dell'arco $(u,v)$
+\item se $(u,v) \not\in E$, allora $w(u,v) = +\infty$
 \EI
 \item Poiché $G$ non è orientato, $w(u,v) = w(v,u)$
 \EIL
@@ -2041,7 +2149,7 @@ Trovare l'albero di copertura il cui \alert{peso totale} sia minimo rispetto a o
 altro albero di copertura.
 
 \[
-w(T) = \sum_{[u,v] \in E_T} w(u,v)
+w(T) = \sum_{(u,v) \in E_T} w(u,v)
 \]
 \end{myboxtitle}
 
@@ -2232,7 +2340,7 @@ rispettata la seguente invariante:
 
 \vspace{-9pt}
 \begin{myboxtitle}[Arco sicuro]
-Un arco $[u,v]$ è detto \alert{sicuro per $A$} se $A \cup \{[u,v]\}$ è ancora un sottoinsieme di qualche albero di connessione minimo.
+Un arco $(u,v)$ è detto \alert{sicuro per $A$} se $A \cup \{(u,v)\}$ è ancora un sottoinsieme di qualche albero di connessione minimo.
 \end{myboxtitle}
 
 \medskip
@@ -2242,8 +2350,8 @@ Un arco $[u,v]$ è detto \alert{sicuro per $A$} se $A \cup \{[u,v]\}$ è ancora 
   \Set $A = \emptyset$\;
   \While{$A$ non forma un albero di copertura}
   {
-     trova un arco sicuro $[u,v]$\;
-     $A = A \cup \{[u,v]\}$\;
+     trova un arco sicuro $(u,v)$\;
+     $A = A \cup \{(u,v)\}$\;
   } 
   \Return $A$\;  
 
@@ -2258,7 +2366,7 @@ Un arco $[u,v]$ è detto \alert{sicuro per $A$} se $A \cup \{[u,v]\}$ è ancora 
 \BI
 \item Un \alert{taglio} $(S,V-S)$ di un grafo non orientato $G=(V,E)$ è una
 partizione di $V$ in due sottoinsiemi disgiunti
-\item Un arco $[u,v$] \alert{attraversa} il taglio se $u \in S$ e $v \in V-S$
+\item Un arco $(u,v)$ \alert{attraversa} il taglio se $u \in S$ e $v \in V-S$
 \item Un taglio \alert{rispetta} un insieme di archi $A$ se nessun arco di $A$
 attraversa il taglio
 \item Un arco che attraversa un taglio è \alert{leggero} nel taglio se il suo
@@ -2331,10 +2439,11 @@ peso è minimo fra i pesi degli archi che attraversano un taglio
 \item Sia $w: V \times V \rightarrow \mathbb{R}$
 \item Sia $A \subseteq E$ un sottoinsieme contenuto in un qualche albero di copertura minimo per $G$ 
 \item Sia $(S,V-S)$ un qualunque taglio che rispetta $A$
-\item Sia $[u,v]$ un arco leggero che attraversa il taglio
+\item Sia $(u,v)$ un arco leggero che attraversa il taglio
 \EIL
 
-Allora  l'arco $[u,v]$ è sicuro per $A$	
+\bigskip
+$\Rightarrow$ l'arco $(u,v)$ è sicuro per $A$	
 \end{myboxtitle}
 \end{frame}
 
@@ -2609,14 +2718,15 @@ Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi:
 %-------------------------------------------------------------------------
 \begin{frame}{Dimostrazione}
 
-\BB{
+\vspace{-9pt}
+\begin{myboxtitle}[Dimostrazione]
 Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi
   \BI
 	\item $(u,v) \in T$: allora $(u,v)$ è sicuro per $A$
 	\item $(u,v) \not\in T$: trasformiamo $T$ in un albero $T'$ contenente
 	  $(u,v)$ e dimostriamo che $T'$ è un albero di copertura minimo
 	\EI
-}
+\end{myboxtitle}
 
 \TwoColsCustom{0.75}{0.21}{
 \BIL
@@ -2676,10 +2786,11 @@ Sia $T$ un  albero di copertura minimo che contiene $A$. Due casi
 \item Sia $w: V \times V \rightarrow \mathbb{R}$
 \item Sia $A \subseteq E$ un sottoinsieme contenuto in un qualche albero di copertura minimo per $G$ 
 \item Sia $C$ una componente connessa (un albero) nella foresta $G_A=(V,A)$
-\item Sia $[u,v]$ un arco leggero che connette $C$ a qualche altra componente in $G_A$
+\item Sia $(u,v)$ un arco leggero che connette $C$ a qualche altra componente in $G_A$
 \EIL
 
-Allora l'arco $[u,v]$ è sicuro per $A$
+\bigskip
+$\Rightarrow$  l'arco $(u,v)$ è sicuro per $A$
 \end{myboxtitle}
 
 \end{frame}
@@ -2692,7 +2803,7 @@ Allora l'arco $[u,v]$ è sicuro per $A$
 \BIL
 \item Ingrandire sottoinsiemi disgiunti di un albero di copertura minimo
 connettendoli fra di loro fino ad avere l’albero complessivo
-\item Si individua un arco sicuro scegliendo un arco $[u,v]$ di peso minimo tra
+\item Si individua un arco sicuro scegliendo un arco $(u,v)$ di peso minimo tra
 tutti gli archi che connettono due distinti alberi (componenti connesse) della
 foresta
 \item L’algoritmo è greedy perché ad ogni passo si aggiunge alla foresta un
@@ -3339,14 +3450,14 @@ dove $V_A$ è l'insieme di nodi raggiunti da archi in $A$
 \item Durante l'esecuzione, i vertici non ancora nell'albero si trovano in una 
 coda con min-priorità $Q$ ordinata in base alla seguente definizione di priorità
 \item "La priorità del nodo $v$ è il peso minimo di un arco che collega $v$ ad
-un vertice nell'albero, o $+\infty$ se tale arco non esiste""
+un vertice nell'albero, o $+\infty$ se tale arco non esiste"
 \EI
 \end{myboxtitle}
 
 \begin{myboxtitle}[Albero registrato come \alert{vettore dei padri}]
 \BI
 \item Ogni nodo $v$ mantiene un puntatore al padre $p[v]$
-\item $A$ è mantenuto implicitamente: $A = \{ [v, p[v]] ~|~ v \in V - Q - \{ r \} \}$
+\item $A$ è mantenuto implicitamente: $A = \{ (v, p[v]) ~|~ v \in V - Q - \{ r \} \}$
 \EI
 \end{myboxtitle}
 
@@ -3844,7 +3955,7 @@ Tempo totale: \alert{$O(n+n \log n + m \log n)=O(m \log n)$}, asintoticamente ug
 \item Input: $n$ punti nel piano 
 \item Il peso di una coppia di punti è dato dalla distanza euclidea fra di essi
 \item Trovare un insieme di connessioni di peso minimo
-\item Da non confendere con gli \alert{Steiner tree}
+\item Da non confondere con gli \alert{Steiner tree}
 \EI
 \end{myboxtitle}
 

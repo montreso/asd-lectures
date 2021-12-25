@@ -4,6 +4,7 @@ set xrange [0:2]
 set yrange [0.8:5]
 
 set xlabel "α"
+set ylabel "Accessi memoria"
 
 set style line 1 lt 1 lc rgb "red" lw 2
 set style line 2 dt "-" lt 1 lc rgb "red" lw 2

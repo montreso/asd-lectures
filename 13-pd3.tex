@@ -54,12 +54,13 @@
 \vspace{-6pt}
 \begin{myboxtitle}[Definizione]
 
-Un'\alert{occorrenza $k$-approssimata} di $P$ in $T$, dove
+Siano:
 \BI
-\item $P = p_1 \ldots p_m$ è una stringa detta \alert{pattern}
-\item $T = t_1 \ldots t_n$ è una stringa detta \alert{testo}, con $m \leq n$,
+\item $P = p_1 \ldots p_m$ una stringa detta \alert{pattern}
+\item $T = t_1 \ldots t_n$ una stringa detta \alert{testo}, con $m \leq n$,
 \EI
-è una copia di $P$ in $T$ in cui sono ammessi $k$ "errori" (o differenze) tra caratteri di $P$ e caratteri di $T$, del seguente tipo:
+
+Un'\alert{occorrenza $k$-approssimata} di $P$ in $T$ è una copia di $P$ in $T$ in cui sono ammessi $k$ "errori" tra $P$ e $T$, del seguente tipo:
 \begin{enumerate}
 \item i corrispondenti caratteri in $P, T$ sono diversi (\alert{sostituzione}) 
 \item un carattere in $P$ non è incluso in $T$ (\alert{inserimento})
@@ -236,11 +237,12 @@ Data una sequenza di $n$ matrici $A_1, A_2, A_3, \ldots, A_n$, compatibili due a
 \EIL
 \end{myboxtitle}
 
-\BB{Cosa vogliamo ottimizzare}
+\begin{myboxtitle}[Cosa vogliamo ottimizzare]
 \BIL
 \item Il prodotto di matrici si basa sulla \alert{moltiplicazione scalare} come operazione elementare
 \item Vogliamo calcolare il prodotto delle $n$ matrici impiegando il più basso numero possibile di moltiplicazioni scalari
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -387,7 +389,7 @@ $P(n)$ & 1 & 1 & 2 & 5 & ? & ? & ? & ? & ? & ? \\\hline
 \[
   P(n) = \begin{cases}
     1 & n = 1 \\
-    \sum_{i=1}^{n-1} P(k)P(n-k) & n>1
+    \sum_{k=1}^{n-1} P(k)P(n-k) & n>1
     \end{cases}
 \]
 
@@ -407,7 +409,7 @@ $P(n)$ & 1 & 1 & 2 & 5 & 14 & 42 & 132 & 429 & 1430 & 4862 \\\hline
 \vspace{-6pt}
 \begin{myboxtitle}[Numero di Catalan]
 \[
-P(n+1) = C(n) = \frac{1}{n+1} {2n\choose n} = \frac{(2n)!}{(n+1)!n!} = \Omega\left(\frac{4^n}{n^{3/2}}\right)
+P(n) = C(n) = \frac{1}{n+1} {2n\choose n} = \frac{(2n)!}{(n+1)!n!} = \Theta\left(\frac{4^n}{n \sqrt{n}}\right)
 \]
 \end{myboxtitle}
 
@@ -692,12 +694,12 @@ Il numero di moltiplicazioni scalari per calcolare il prodotto delle matrici com
 \eIf{$i \Eq j$}
 { \Return\ $0$\; }
 {
-  $\Min = +\infty$\;
+  $\mathit{minSoFar} = +\infty$\;
   \For{\INTEGER $k = i$ \TO\ $j-1$}{
-    \INTEGER $q = \fontproc{recPar}(c, i, k) +  \fontproc{recPar}(c, k+1, j) + c[i-1] \cdot c[k] \cdot c[j]$\;
-    \If{$q < \Min$}{$\Min = q$\;}
+    \INTEGER $\mathit{val} = \fontproc{recPar}(c, i, k) +  \fontproc{recPar}(c, k+1, j) + c[i-1] \cdot c[k] \cdot c[j]$\;
+    \If{$\mathit{val} < \mathit{minSoFar}$}{$\mathit{minSoFar} = \mathit{minSoFar}$\;}
   }
-  \Return \Min\;
+  \Return $\mathit{minSoFar}$\;
 }
 \end{Procedure}
 
@@ -872,7 +874,7 @@ $DP[1][4]$ & $=$ & $\displaystyle\min_{1 \leq k < 4}$ & \{ & $DP[1][k]$ & $+$ & 
 \BIL
 \item Il costo computazionale è $O(n^3)$, in quanto ogni cella richiede tempo $O(n)$ per essere riempita
 \item Il costo della funzione si trova nella posizione $DP[1][n]$
-\item E' anche necessario mostrare la soluzione trovata
+\item \EE anche necessario mostrare la soluzione trovata
 \item Per questo motivo abbiamo registrato informazioni sulla soluzione nella matrice $\mathit{last}$
 \EIL
 \end{myboxtitle}
@@ -910,12 +912,12 @@ $\fontproc{printPar}(\mathit{last}, 1, n)$\;
 
 \vspace{-6pt}
 \begin{Procedure}
-\caption[A]{$\INTARRAY[\,]$ \fontproc{multiply}($\mathbf{matrix}[\,]\ A$, $\INTARRAY[\,]\ S$, \INTEGER $i$, \INTEGER $j$)}
+\caption[A]{$\INTARRAY[\,]$ \fontproc{multiply}($\mathbf{matrix}[\,]\ A$, $\INTARRAY[\,]\ \mathit{last}$, \INTEGER $i$, \INTEGER $j$)}
 \eIf{$i \Eq j$}
 { \Return\ $A[i]$\; }
 {
-  $\INTARRAY[\,]\ X = \fontproc{multiply}(\mathit{last}, i, \mathit{last}[i][j])$\;
-  $\INTARRAY[\,]\ Y = \fontproc{multiply}(\mathit{last}, \mathit{last}[i][j]+1, j)$\;
+  $\INTARRAY[\,]\ X = \fontproc{multiply}(A, \mathit{last}, i, \mathit{last}[i][j])$\;
+  $\INTARRAY[\,]\ Y = \fontproc{multiply}(A, \mathit{last}, \mathit{last}[i][j]+1, j)$\;
   \Return\ $\fontproc{matrix-multiplication}(X,Y)$\;
 }
 \end{Procedure}
@@ -1005,7 +1007,7 @@ grande possibile.
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Esempio}
+\begin{frame}{Esempio -- Ordinato per estremi di fine non-decrescenti}
 
 \vspace{-12pt}
 \begin{center}
@@ -1015,55 +1017,68 @@ grande possibile.
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Pre-elaborazione}
+\begin{frame}{Esempio -- Ordinato per estremi di fine non-decrescenti}
 
-\vspace{-6pt}
-Per usare la programmazione dinamica, è necessario effettuare una pre-elaborazione: ordinare gli intervalli per estremi finali crescenti
-
-  \[
-     b_1 \leq b_2 \leq \ldots \leq b_n
-  \]
-
-\BB{Profitto massimo, prima versione}
-$DP[i]$ contiene il profitto massimo ottenibile con i primi $i$ intervalli
-
-\[
-  DP[i] = \begin{cases}
-    0 & i = 0 \\
-    \max (DP[i-1], \max \{ DP[j]+w_i : j < i \wedge b_j \leq a_i \} ) & i > 0
-  \end{cases}
-\]
-
-\BB{Costo computazionale dell'algoritmo associato a questa formula?}
-\pause 
-
-\smallskip
-$O(n^2)$
+\vspace{-12pt}
+\begin{center}
+\includegraphics[width=0.95\textwidth,page=3]{intervalli-esempio.pdf}
+\end{center}
 
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Pre-elaborazione}
 
-\vspace{-6pt}
+\vspace{-9pt}
+\BB{
+Per usare PD, è necessario effettuare una pre-elaborazione: ordinare gli intervalli per estremi finali non decrescenti
+  \[
+     b_1 \leq b_2 \leq \ldots \leq b_n
+  \]
+}
+
+\begin{myboxtitle}[Profitto massimo (Versione 1)]
+$DP[i]$ contiene il profitto massimo ottenibile con i primi $i$ intervalli
+\small
+\[
+  DP[i] = \begin{cases}
+    0 & i = 0 \\
+    \max (DP[i-1], \max \{ DP[j]+w_i : j < i \wedge b_j \leq a_i \} ) & i > 0
+  \end{cases}
+\]
+\end{myboxtitle}
+
+\begin{myboxtitle}[Costo computazionale?]
+\pause 
+$O(n^2)$
+\end{myboxtitle}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Pre-elaborazione}
+
+\vspace{-9pt}
+\BB{
 Una seconda possibile pre-elaborazione consiste nel pre-calcolare il \alert{predecessore} \alert{$\mathit{pred}_i = j$} di $i$, dove:
 \BIL
 \item $j<i$ è il massimo indice tale che $b_j \leq a_i$
 \item se non esiste tale indice, $\mathit{pred}_i=0$.
 \EIL
+}
 
 \begin{center}
 \IG{0.6}{predecessore.pdf}
 \end{center}
 
-\BB{Profitto massimo, seconda versione}
-
+\begin{myboxtitle}[Profitto massimo (Versione 2)]
 \[
   DP[i] = \begin{cases}
     0 & i = 0 \\
     \max (DP[i-1], DP[\mathit{pred}_i] + w_i) & i > 0
   \end{cases}
 \]
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1106,10 +1121,22 @@ Sì! $O(n \log n)$
 
 \end{frame}
 
+\begin{frame}{Alcune note}
+    
+\BIL
+\item Gli intervalli vanno ordinati per tempo non decrescente di fine
+\item Eventuali intervalli con lo stesso tempo di fine possono essere ordinati in qualunque modo
+\item Questo perché ogni valore $DP[i]$ rappresenta il massimo profitto ottenibile con i primi $i$ intervalli
+\item \EE quindi possibile escludere l'intervallo $i$-esimo se sceglierne uno precedente $j$ (ma con lo stesso tempo di fine $b[i]=b[j]$) ha un valore $DP[j]$ più alto
+\EIL
+
+\end{frame}
+
+
 %-------------------------------------------------------------------------
 \begin{frame}[shrink=10]{Versione completa}
 
-\vspace{-6pt}
+\vspace{-12pt}
 \begin{Procedure}
 \caption[A]{\Set\ \maxinterval($\INTARRAY\ a,\ \INTARRAY\ b,\ \INTARRAY w$, \INTEGER $n$)}	
 
@@ -1140,8 +1167,8 @@ $\Set\ S = \setconstructor()$\;
 %-------------------------------------------------------------------------
 \begin{frame}{Costo computazionale}
 
-\vspace{-6pt}
-\BB{Costo computazionale}
+\vspace{-9pt}
+\begin{myboxtitle}[Costo computazionale]
 \BIL
 \item Ordinamento intervalli: \alert{$O(n \log n)$}
 \item Calcolo predecessori: \alert{$O(n \log n)$}
@@ -1149,9 +1176,11 @@ $\Set\ S = \setconstructor()$\;
 \item Ricostruzione soluzione: \alert{$O(n)$}
 \item Algoritmo completo: \alert{$O(n \log n)$}
 \EIL
+\end{myboxtitle}
 
-\BB{Esercizio}
+\begin{myboxtitle}[Esercizio]
 Scrivere una funzione di calcolo predecessori in tempo $O(n \log n)$
+\end{myboxtitle}
 
 \end{frame}
 
@@ -1160,7 +1189,7 @@ Scrivere una funzione di calcolo predecessori in tempo $O(n \log n)$
 
 \vspace{-6pt}
 \begin{myboxtitle}[Take-home message -- prendi e porta a casa]
-Talvolta, può essere necessario pre-processare l'input per poter applicare nella maniera più efficiente possibile la programmazione dinamica
+Talvolta, può essere necessario pre-processare l'input per poter applicare nella maniera più efficiente la programmazione dinamica
 \end{myboxtitle}
 
 \end{frame}

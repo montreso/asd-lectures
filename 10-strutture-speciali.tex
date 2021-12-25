@@ -90,8 +90,8 @@ una coda, in cui ogni elemento inserito possiede una sua "\alert{priorità}"
 \caption[A]{\textsc{MinPriorityQueue}}
 
 \BlankLine
-\textcolor{blue}{\% Crea una coda con priorità, vuota}\;
-\textsf{MinPriorityQueue}()\;
+\textcolor{blue}{\% Crea una coda con priorità con capacità $n$, vuota}\;
+\Heap \heapconstructor(\INTEGER\ $n$)\;
 
 \BlankLine
 \textcolor{blue}{\% Restituisce \TRUE\ se la coda con priorità è vuota}\;
@@ -119,17 +119,17 @@ una coda, in cui ogni elemento inserito possiede una sua "\alert{priorità}"
 
 \end{frame}
 
-\begin{frame}{Applicazioni}
+\begin{frame}{Reality Check -- Simulatore event-driven}
 
 \vspace{-9pt}
-\BB{Esempio di utilizzo: Simulatore event-driven}
 \BIL
 \item Ad ogni evento è associato un timestamp di esecuzione
 \item Ogni evento può generare nuovi eventi, con timestamp arbitrari
 \item Una coda con min-priorità può essere utilizzata per eseguire gli eventi in ordine di timestamp
 \EIL
 
-\IG{1.0}{events.pdf}
+\medskip
+\IG{0.95}{events.pdf}
 
 
 
@@ -147,6 +147,7 @@ una coda, in cui ogni elemento inserito possiede una sua "\alert{priorità}"
 
 \begin{frame}{Implementazioni}
 
+\begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 Metodo & Lista/vettore  & Lista & Vettore & Albero \\
@@ -156,6 +157,7 @@ Metodo & Lista/vettore  & Lista & Vettore & Albero \\
 \heapinsert()      & $O(n)$ & $O(n)$ & $O(n)$      & $O(\log n)$ \\\hline
 \heapdecrease()    & $O(n)$ & $O(n)$ & $O(\log n)$ & $O(\log n)$ \\\hline
 \end{tabular} 
+\end{center}
 
 \begin{myboxtitle}[Heap]
 Una struttura dati speciale che associa 
@@ -249,12 +251,12 @@ agli algoritmi per alberi min-heap
 \begin{frame}{Alberi binari heap}
 
 \BIL
-\item Un albero heap non impone una relazione di ordinamento totale fra i figli di un nodo
+\item Un albero heap non impone una relazione di \alert{ordinamento totale} fra i figli di un nodo
 \item Un albero heap è un \alert{ordinamento parziale}
   \BI
-  \item \emph{Riflessivo}: Ogni nodo è $\geq$ di se stesso
-  \item \emph{Antisimmetrico}: se $n \geq m$ e $m \geq n$, allora $m=n$
-  \item \emph{Transitivo}: se $n \geq m$ e $m \geq r$, allora $n \geq r$
+  \item \alert{Riflessivo}: Ogni nodo è $\geq$ di se stesso
+  \item \alert{Antisimmetrico}: se $n \geq m$ e $m \geq n$, allora $m=n$
+  \item \alert{Transitivo}: se $n \geq m$ e $m \geq r$, allora $n \geq r$
   \EI
 \item Ordinamenti parziali
   \BI
@@ -345,9 +347,7 @@ A[i] \leq A[l(i)], A[i] \leq A[r(i)]
 
 \begin{frame}{HeapSort}
 
-
-
-
+\vspace{-9pt}
 \begin{myboxtitle}[Organizzazione \heapsort()]
 Ordina un max-heap "in-place", prima costruendo un max-heap nel vettore e poi spostando l'elemento max in ultima posizione, ripristinando la proprietà max-heap
 \BIL
@@ -369,7 +369,7 @@ con radici\\ $l(i)$ e $r(i)$ sono max-heap
 
 \begin{myboxtitle}[Osservazione]
 \BI
-\item E' possibile che $A[i]$ sia minore di $A[l(i)]$ o $A[r(i)]$
+\item \EE possibile che $A[i]$ sia minore di $A[l(i)]$ o $A[r(i)]$
 \item In altre parole, non è detto che il sottoalbero con radice $i$\\ sia
 un max-heap
 \EI
@@ -399,6 +399,7 @@ sia un max-heap
 
 \begin{frame}{Ripristinare la proprietà max-heap}
 
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\maxheapify($\Item[\,]\ A$, \INTEGER $i$, \INTEGER \heapcount)}
 
@@ -413,53 +414,34 @@ sia un max-heap
 }
 \If{$i \neq \Max$}
 {
-  $A[i] \leftrightarrow A[\Max]$\;
+  $\Swap(A,i,\Max)$\;
   $\maxheapify(A, \Max, \heapcount)$\;
 }
 \end{Procedure}
+
+\BB{Qual è la complessità computazionale di $\maxheapify()$?}
 
 
 \end{frame}
 
-\begin{frame}{Complessità computazionale}
+\begin{frame}{\textsf{maxHeapRestore}() -- Complessità computazionale}
 
+\vspace{-9pt}
 \BB{Qual è la complessità computazionale di $\maxheapify()$?}
 
-\begin{overprint}
-\onslide<1|handout:0>
-\begin{Procedure}
-\caption[A]{\maxheapify($\Item[\,]\ A$, \INTEGER $i$, \INTEGER \heapcount)}
-
-\INTEGER $\Max = i$\;
-\If{$\heapleft(i) \leq \heapcount$ \AND $A[\heapleft(i)] > A[\Max]$}
-{
-  $\Max = \heapleft(i)$
-}
-\If{$\heapright(i) \leq \heapcount$ \AND $A[\heapright(i)] > A[\Max]$}
-{
-  $\Max = \heapright(i)$
-}
-\If{$i \neq \Max$}
-{
-  $A[i] \leftrightarrow A[\Max]$\;
-  $\maxheapify(A, \Max, \heapcount)$\;
-}
-\end{Procedure}
-\onslide<2|handout:1>
-\vspace{12pt}
 \BI
 \item Ad ogni chiamata, vengono eseguiti $O(1)$ confronti
 \item Se il nodo $i$ non è massimo, si richiama ricorsivamente
 \maxheapify() su uno dei figli 
 \item L'esecuzione termina quando si raggiunge una foglia
 \item L'altezza dell'albero è pari a $\lfloor \log n \rfloor$
-
 \EI
+
+\bigskip
 \BB{Complessità}
 \[
   T(n) = O(\log n)
 \]
-\end{overprint}
 
 \end{frame}
 
@@ -485,7 +467,7 @@ L'algoritmo funziona correttamente su tutti gli alberi di altezza minore di $h$
 
 \begin{frame}{Dimostrazione correttezza (per induzione sull'altezza)}
 
-\vspace{-9pt}
+\vspace{-12pt}
 \begin{columns}[T]
 \column{0.50\textwidth}
 \BB{Induzione - Altezza $h$ - Caso 1}
@@ -542,18 +524,22 @@ Simmetrico rispetto al Caso 2
 
 \begin{frame}{heapBuild()}
 
-\BB{Principio di funzionamento}
+\vspace{-9pt}
+\begin{myboxtitle}[Principio di funzionamento]
+\TwoColsCustom{0.8}{0.20}{
+\smallskip
 \BIL
 \item Sia $A[1 \ldots n]$ un vettore da ordinare
-\item Tutti i nodi $A[\lfloor n/2 \rfloor+1 \ldots n]$ sono foglie dell'albero e quindi heap contenenti \emph{un} elemento
+\item Tutti i nodi $A[\lfloor n/2 \rfloor+1 \ldots n]$ sono foglie dell'albero e quindi heap contenenti \alert{1} elemento
 \item La procedura \heapbuild() 
   \BI
   \item attraversa i restanti nodi dell'albero, a partire da $\lfloor n/2 \rfloor$ fino ad $1$
   \item esegue \maxheapify() su ognuno di essi
   \EI
 \EIL
-
-\bigskip
+}{
+}
+\end{myboxtitle}
 \begin{Procedure}
 \caption[A]{\heapbuild($\Item[\,]\ A$, \INTEGER $n$)}
 \label{alg:heapbuild}
@@ -596,12 +582,12 @@ e quindi heap di un elemento
 
 \begin{frame}{Correttezza}
 
-\vspace{-12pt}
-\begin{overprint}
-\onslide<1|handout:0>
-\BB{Invariante di ciclo?}
-
-\onslide<2|handout:1>
+\vspace{-9pt}
+% \begin{overprint}
+% \onslide<1|handout:0>
+% \BB{Invariante di ciclo?}
+%
+% \onslide<2|handout:1>
 \begin{myboxtitle}[Invariante di ciclo]
 All'inizio di ogni iterazione del ciclo \FOR, i nodi $[i+1, \ldots, n]$ sono radice di uno heap.
 \end{myboxtitle}
@@ -618,7 +604,7 @@ massima
 \EIL 
 \end{myboxtitle}
 
-\end{overprint}
+% \end{overprint}
 
 
 \end{frame}
@@ -634,7 +620,7 @@ All'inizio di ogni iterazione del ciclo \FOR, i nodi $[i+1, \ldots, n]$ sono rad
 
 \begin{myboxtitle}[Dimostrazione -- Conservazione]
 \BIL
-\item E' possibile applicare $\maxheapify$ al nodo $i$, perché
+\item \EE possibile applicare $\maxheapify$ al nodo $i$, perché
 $2i < 2i+1 \leq n$ sono entrambi radici di heap
 \item Al termine dell'iterazione, tutti i nodi $[i \ldots n]$ sono radici
 di heap
@@ -663,7 +649,7 @@ di heap
 }
 \end{Procedure}
 
-\BB{Quant'è la complessità di \textsc{heapBuild()}?}
+\BB{Qual è la complessità di \textsc{heapBuild()}?}
 \pause
 \BIL
 \item Limite superiore: \pause $T(n) = O(n \log n)$
@@ -691,9 +677,9 @@ $h$ & $\lfloor n/2^{h+1}\rfloor$ \\\hline
 \end{tabular}
 \column{0.45\textwidth}
 \begin{align*}
-T(n) &\leq \sum_{h=1}^{\lfloor n \rfloor} \frac{n}{2^{h+1}}h \\
-     &= n\sum_{h=1}^{\lfloor n \rfloor} \left(\frac{1}{2}\right)^{h+1}h \\
-     &= n/2 \sum_{h=1}^{\lfloor n \rfloor} \left(\frac{1}{2}\right)^{h}h \\
+T(n) &\leq \sum_{h=1}^{\lfloor \log n \rfloor} \frac{n}{2^{h+1}}h \\
+     &= n\sum_{h=1}^{\lfloor \log n \rfloor} \left(\frac{1}{2}\right)^{h+1}h \\
+     &= n/2 \sum_{h=1}^{\lfloor \log n \rfloor} \left(\frac{1}{2}\right)^{h}h \\
      &\leq n/2 \sum_{h=1}^{+\infty} \left(\frac{1}{2}\right)^{h}h 
      & = n = O(n)\\
 \end{align*}
@@ -727,7 +713,7 @@ Formula: $\displaystyle \sum_{h=1}^{+\infty} hx^h = \frac{x}{(1-x)^2}, \textrm{p
 $\heapbuild(A, n)$\;
 \For{$i = n$ \DOWNTO $2$}
 {
-  $A[1] \leftrightarrow A[i]$\;
+  $\Swap(A,1,i)$\;
   $\maxheapify(A, 1, i-1)$\;
 }
 \end{Procedure}
@@ -769,7 +755,7 @@ $\heapbuild(A, n)$\;
 $\heapbuild(A, n)$\;
 \For{$i = n$ \DOWNTO $2$}
 {
-  \alert<1,5,7,9,11,13,15,17,19>{$A[1] \leftrightarrow A[i]$}\;
+  \alert<1,5,7,9,11,13,15,17,19>{$\Swap(A,1,i)$}\;
   \alert<2-4,6,8,10,12,14,16,18,20>{$\maxheapify(A, 1, i-1)$}\;
 }
 \end{Procedure}
@@ -778,15 +764,14 @@ $\heapbuild(A, n)$\;
 
 \begin{frame}{Complessità}
 
+\vspace{-9pt}
 \begin{myboxtitle}[Complessità]
-\pause
-\BIL
-\item La chiamata \heapbuild() costa $\Theta(n)$
-\item La chiamata \maxheapify() costa $\Theta(\log i)$ in un
+\BI
+\item \heapbuild() costa $\Theta(n)$
+\item \maxheapify() costa $\Theta(\log i)$ in un
 heap con $i$ elementi
 \item Viene eseguita con $i$ che varia da $2$ a $n$
-\EIL
-
+\EI
 \[
 T(n) = \sum_{i=2}^n \log i + \Theta(n) = \Theta(n \log n)
 \]
@@ -814,6 +799,12 @@ Per esercizio
 
 \end{frame}
 
+\begin{frame}{Reality check}
+\begin{myboxtitle}[Utilizzo (\url{https://en.wikipedia.org/wiki/Heapsort})]
+\emph{Because of the $O(n \log n)$ upper bound on heapsort's running time and constant upper bound on its auxiliary storage, embedded systems with real-time constraints or systems concerned with security often use heapsort, such as the Linux kernel.}
+\end{myboxtitle}
+
+\end{frame}
 
 \subsection{Implementazione code}
 
@@ -849,7 +840,9 @@ in seguito daremo la precedenza a elementi con priorità minore
 \begin{Procedure}
 \caption[A]{\Swap($\PriorityItem[\,]$ $H$, \INTEGER $i$, \INTEGER $j$)}
 
-$H[i] \leftrightarrow H[j]$\;
+$\PriorityItem\ \mathit{temp} = H[i]$\;
+$H[i] = H[j]$\;
+$H[j] = \mathit{temp}$\;
 $H[i].\heappos = i$\;
 $H[j].\heappos = j$\;
 
@@ -993,6 +986,13 @@ $\minheapify(H, 1, \heapcount)$\;
 \end{tabular}
 \end{frame}
 
+\begin{frame}<1|handout:0>[noframenumbering]{Heap (mucchio) of presents}
+
+\IG{0.8}{tree.png}
+
+\end{frame}
+
+
 \section{Insiemi disgiunti}
 
 \subsection{Introduzione}
@@ -1016,8 +1016,8 @@ $S = \{ S_1, S_2, \ldots, S_k \}$ di \alert{insiemi dinamici disgiunti}
 \begin{myboxtitle}[Operazioni fondamentali]
 \BIL
 \item Creare $n$ insiemi disgiunti, ognuno composto da un unico elemento
-\item \textsf{merge}(): Unire più insiemi
-\item \textsf{find}(): Identificare l'insieme a cui appartiene un elemento
+\item \fontproc{merge}(): Unire più insiemi
+\item \fontproc{find}(): Identificare l'insieme a cui appartiene un elemento
 \EIL
 \end{myboxtitle}
 
@@ -1084,7 +1084,7 @@ Trovare le componenti connesse di un grafo non orientato \alert{dinamico}
 \begin{myboxtitle}[Algoritmo]
 \BIL
 \item Si inizia con componenti connesse costituite da un unico vertice
-\item Per ogni $(u,v) \in E$, si esegue $\textsf{merge}(u, v)$ 
+\item Per ogni $(u,v) \in E$, si esegue $\fontproc{merge}(u, v)$ 
 \item Ogni insieme disgiunto rappresenta
 una componente connessa
 \EIL
@@ -1114,7 +1114,7 @@ una componente connessa
 \vspace{-9pt}
 \begin{myboxtitle}[Complessità]
 \smallskip
-$O(n) + m$ operazioni $\textsf{merge}()$
+$O(n) + m$ operazioni $\fontproc{merge}()$
 \end{myboxtitle}
 
 \begin{myboxtitle}[Motivazione]
@@ -1146,12 +1146,12 @@ Questo algoritmo è interessante per la capacità di gestire grafi dinamici
 
 \end{frame}
 
-\begin{frame}{Operazione $\textsf{find}(x)$}
+\begin{frame}{Operazione $\fontproc{find}(x)$}
 
 \vspace{-9pt}
 \BIL
 \item Si restituisce il rappresentante di $x$
-\item L'operazione $\textsf{find}(x)$ richiede tempo $O(1)$
+\item L'operazione $\fontproc{find}(x)$ richiede tempo $O(1)$
 \EIL
 
 \bigskip
@@ -1160,7 +1160,7 @@ Questo algoritmo è interessante per la capacità di gestire grafi dinamici
 \end{frame}
 
 
-\begin{frame}{Operazione $\textsf{merge}(x,y)$}
+\begin{frame}{Operazione $\fontproc{merge}(x,y)$}
 
 \vspace{-9pt}
 \BIL
@@ -1200,7 +1200,7 @@ i puntatori ai rappresentanti nella lista "appesa"
 
 
 
-\begin{frame}{Operazione $\textsf{merge}(x,y)$}
+\begin{frame}{Operazione $\fontproc{merge}(x,y)$}
 
 \vspace{-9pt}
 \BIL
@@ -1219,7 +1219,7 @@ i puntatori ai rappresentanti nella lista "appesa"
 
 \end{frame}
 
-\begin{frame}{Operazione $\textsf{find}(x)$}
+\begin{frame}{Operazione $\fontproc{find}(x)$}
 
 \vspace{-9pt}
 \begin{columns}[T]
@@ -1255,7 +1255,7 @@ falliscano nel trovare una soluzione esatta
 \BIL
 \item Euristica del \alert{peso} (Liste)
 \item Euristica del \alert{rango} (Alberi)
-\item Euristica della \alert{commpressione dei cammini} (Alberi)
+\item Euristica della \alert{compressione dei cammini} (Alberi)
 \EIL
 \end{myboxtitle}
 
@@ -1264,7 +1264,7 @@ falliscano nel trovare una soluzione esatta
 \begin{frame}{Liste: Euristica sul peso}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Strategia per diminuire il costo dell'operazione \textsf{merge}()]
+\begin{myboxtitle}[Strategia per diminuire il costo dell'operazione \fontproc{merge}()]
 \BIL
 \item Memorizzare nelle liste l’informazione sulla loro lunghezza
 \item Agganciare la lista più corta a quella più lunga
@@ -1274,9 +1274,7 @@ falliscano nel trovare una soluzione esatta
 
 \begin{myboxtitle}[Complessità]
 \BIL
-\item Tramite analisi ammortizzata, è possibile vedere che il costo
-di $n-1$ operazioni merge è $O(n \log n)$
-\item Quindi il costo ammortizzato delle singole operazioni è $O(\log n)$
+\item \EE possibile dimostrare che il costo delle operazioni $\fontproc{find}()$ è limitato superiormente da $O(\log n)$.
 \EIL
 \end{myboxtitle}
 \end{frame}
@@ -1284,7 +1282,7 @@ di $n-1$ operazioni merge è $O(n \log n)$
 \begin{frame}{Alberi: Euristica sul rango}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Strategia per diminuire il costo dell'operazione \textsf{find}()]
+\begin{myboxtitle}[Strategia per diminuire il costo dell'operazione \fontproc{find}()]
 \BIL
 \item Ogni nodo mantiene informazioni sul proprio rango
 \item Il rango $\mathit{rank}[x]$ di un nodo $x$ è il numero di archi 
@@ -1337,22 +1335,36 @@ $2^{\mfrank[r]}$ nodi.
 \begin{overprint}
 \onslide<1|handout:1>
 \BIL
-\item \textbf{Caso base}: All'inizio tutti gli alberi sono costituiti da un nodo singolo, con rank 0: quindi ogni albero ha almeno $2^0=1$ nodi, corretto.
+\item \textbf{Induzione caso base}: All'inizio tutti gli alberi sono costituiti da un nodo singolo, con rank 0;
+\item quindi ogni albero ha almeno $2^0=1$ nodi, corretto.
 \EIL
 \onslide<2|handout:2>
 \BIL
-\item \textbf{Caso 1}:
-Facendo merge di due alberi con radice $x$, $y$ con rango 
-$\mathit{rank}[x] > \mathit{rank}[y]$, il rango finale è pari a $\mathit{rank}[x]$, mentre il numero di nodi è sicuramente maggiore
-di $2^\mathit{rank}[x]$.
+\item \textbf{Induzione caso 1}:
+Facendo merge di due alberi con radici\\ $x$, $y$ con rango 
+$\mathit{rank}[x] > \mathit{rank}[y]$
+
+\smallskip
+\BIL
+\item il rango finale è pari a $\mathit{rank}[x]$
+\item Per induzione, il numero di nodi è ${} \geq 2^{\mathit{rank}[x]} + 2^{\mathit{rank}[y]}$, 
+che è maggiore di $2^{\mathit{rank}[x]}$.
+\EIL
 \EIL
 \onslide<3|handout:3>
 \BIL
-\item \textbf{Caso 2} :Facendo merge di due alberi con radice $x$, $y$ con rango $\mathit{rank}[x] = \mathit{rank}[y]$, il rango finale è pari a $\mathit{rank}[x]+1$ e ha almeno 
+\item \textbf{Induzione caso 2}: Facendo merge di due alberi con radici\\ $x$, $y$ con rango $\mathit{rank}[x] = \mathit{rank}[y]$, 
+
+\smallskip
+\BIL
+\item il rango finale è pari a $\mathit{rank}[x]+1$ 
+\item Per induzione, il numero di nodi è $\geq$ 
 \[
-  2^{\mathit{rank}[x]}+2^{\mathit{rank}[y]} = 2^\mathit{rank}[x] + 2^{\mathit{rank}[x]} = 2^{\mathit{rank}[x]+1}
+  2^{\mathit{rank}[x]}+2^{\mathit{rank}[y]} = 2^{\mathit{rank}[x]} + 2^{\mathit{rank}[x]} = 2^{\mathit{rank}[x]+1}
 \]
+\EIL
 come volevasi dimostrare
+
 \EIL
 \end{overprint}
 \end{myboxtitle}
@@ -1377,7 +1389,7 @@ Un albero \mfset con radice $r$ ed $n$ nodi ha altezza inferiore a $\log n$.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Complessità]
-L'operazione $\textsf{find}(x)$ ha costo $O(\log n)$
+L'operazione $\fontproc{find}(x)$ ha costo $O(\log n)$
 \end{myboxtitle}
 
 
@@ -1442,7 +1454,7 @@ $\INTEGER[\,]\ \mfrank$\;
 \vspace{-15pt}
 \begin{columns}[T]
 \column{0.48\textwidth}
-\begin{myboxtitle}[Operazione $\textsf{find}(x)$]
+\begin{myboxtitle}[Operazione $\fontproc{find}(x)$]
 L'albero viene "appiattito" in modo che 
 ricerche successive di $x$ siano svolte in $O(1)$
 \end{myboxtitle}
@@ -1466,7 +1478,7 @@ ricerche successive di $x$ siano svolte in $O(1)$
 \begin{myboxtitle}[Applicando entrambe le euristiche]
 \BIL
 \item Il rango non è più l'altezza del nodo, ma il \alert{limite superiore} all'altezza del nodo
-\item \alert{Non} viene calcalato il rango corretto
+\item \alert{Non} viene calcolato il rango corretto
 \BI
 \item Troppo difficile mantenere le informazioni di rango corretto
 \item In ogni caso, non è necessario
@@ -1489,7 +1501,7 @@ elementi è $O(m \cdot \alpha(n))$
 
 \begin{tabular}{|P{6cm}|l|l|}
 \hline
-\textbf{Algoritmo} & \textsf{find}() & \textsf{merge}() \\\hline
+\textbf{Algoritmo} & \fontproc{find}() & \fontproc{merge}() \\\hline
 Liste  & $O(1)$ & $O(n)$ \\\hline
 Alberi & $O(n)$ & $O(1)^+$ \\\hline
 Liste + Euristica sul peso & $O(1)$ & $O(\log n)^*$ \\\hline
@@ -1500,15 +1512,16 @@ Compressione cammini & $O(1)^*$ & $O(1)$ \\\hline
 
 \bigskip
 $^*$ Complessità ammortizzata\\
-$^+$ Si considera solo l'operazione di unione, non si considera l'identificazione dei rappresentanti tramite \textsf{find}()
+$^+$ Si considera solo l'operazione di unione, non si considera l'identificazione dei rappresentanti tramite \fontproc{find}()
+
+\bigskip
+Se interessati all'analisi ammortizzata per alberi + euristica sul rango + compressione cammini, consultate questi appunti:\\
+
+\medskip
+\footnotesize
+\url{http://jeffe.cs.illinois.edu/teaching/algorithms/notes/11-unionfind.pdf}
+
 
 \end{frame}
-
-\begin{frame}<1|handout:0>[noframenumbering]{Heap of presents}
-
-\IG{0.8}{tree.png}
-
-\end{frame}
-
 
 \end{document}

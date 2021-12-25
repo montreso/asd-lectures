@@ -58,7 +58,7 @@
 \item Ricerca locale 
 \item Backtrack
 \item Algoritmi probabilistici
-\item Tecniche di approssimazione
+\item Tecniche di soluzione per problemi intrattabili
 \EIL
 
 \end{frame}
@@ -85,12 +85,14 @@
 \begin{frame}{Approccio generale}
 
 \vspace{-9pt}
-\IG{1.0}{progrdyn.pdf}
+\IGH{0.77}{progrdyn.pdf}
 
 \end{frame}
 
 \begin{frame}{Un po' di storia}
 
+\begin{overprint}
+\onslide<1|handout:1>
 \BIL
 \item Il termine \alert{Dynamic Programming} è stato coniato da Richard Bellman 
 agli inizi degli anni '50, nell'ambito dell'ottimizzazione matematica   
@@ -103,7 +105,12 @@ per esempio nel campo della logistica
 
 \bigskip
 \url{https://en.wikipedia.org/wiki/Dynamic_programming\#History}
-
+\onslide<2|handout:0>
+\IGH{0.8}{dynamic-entropy.png}
+\vspace{-12pt}
+\small
+\url{https://xkcd.com/2318/}
+\end{overprint}
 \end{frame}
 
 
@@ -144,7 +151,7 @@ I casi (a)-(e) della figura rappresentano le cinque disposizioni possibili con c
 
 \vspace{-9pt}
 \begin{myboxtitle}[Definizione ricorrenza]
-Definiamo una formula ricorsiva $\mathit{DP}[n]$ che ci permetta di calcolare il numero di disposizioni possibili quando si hanno $n$ tessere.
+Definiamo una formula ricorsiva $\mathit{DP}[n]$ che permetta di calcolare il numero di disposizioni possibili quando si hanno $n$ tessere.
 \end{myboxtitle}
 
 \begin{overprint}
@@ -229,7 +236,7 @@ il problema di dimensione $n-2$
 \end{textblock*}
 
 \begin{myboxtitle}[Successione di Fibonacci]
-$\mathit{DP}[n]$ è pari al $n+1$-esimo numero della serie di Fibonacci, introdotta da Leonardo Pisano detto il Fi'Bonacci (1175--1235).
+$\mathit{DP}[n]$ è pari al $(n+1)$-esimo numero della serie di Fibonacci, introdotta da Leonardo Pisano detto il Fi'Bonacci (1175--1235).
 \end{myboxtitle}
 
 \BIL
@@ -272,7 +279,7 @@ $\mathit{DP}[n]$ è pari al $n+1$-esimo numero della serie di Fibonacci, introdo
 \]
 
 \BB{Qual è la complessità di \textsf{domino1()}?}
-
+\pause
 Ricorrenza lineare di ordine costante:
 \BI
 \item $a_1 = 1, a_2=1, a= a_1+a_2 = 2, \beta=0$
@@ -288,35 +295,39 @@ T(n) = \Theta(2^n)
 %-------------------------------------------------------------------------
 \begin{frame}{Albero di ricorsione di \textsf{domino1()}}
   
-\IG{1.0}{fibonacci-tree.pdf}
+\IG{0.9}{fibonacci-tree.pdf}
 
+\vspace{-12pt}
+\begin{flushright}
 Molti sotto-problemi ripetuti!
+\end{flushright}
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Come evitare di risolvere un problema più di una volta}
   
-\BB{Tabella DP}
+\vspace{-9pt}
+\begin{myboxtitle}[Tabella DP]
 \BIL
-\item Quando risolviamo un problema, memorizziamo il risultato che otteniamo
-in una \alert{tabella $\mathit{DP}$} (vettore, matrice, dizionario, etc)
+\item Memorizziamo il risultato ottenuto risolvendo un particolare problema
+in una \alert{tabella $\mathit{DP}$} (vettore, matrice, dizionario)
 \item La tabella deve contenere un elemento per ogni sottoproblema che dobbiamo risolvere
 \EIL
+\end{myboxtitle}
 
-\smallskip
-\BB{Casi base}
+\begin{myboxtitle}[Casi base]
 \BIL
 \item Memorizziamo i casi base direttamente nelle posizioni relative
 \EIL
+\end{myboxtitle}
 
-\smallskip
-\BB{Iterazione bottom-up}
+\begin{myboxtitle}[Iterazione bottom-up]
 \BIL
-\item Si parte da quelli che possono essere risolti a partire dai
-casi base
+\item Si parte dai problemi risolubili come basi base
 \item Si sale verso problemi via via più grandi ...
 \item ... fino a raggiungere il problema originale
 \EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -349,6 +360,7 @@ casi base
 %-------------------------------------------------------------------------
 \begin{frame}[fragile]{Domino}
 
+\vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\INTEGER\  \textsf{domino2}(\INTEGER $n$)}
   $\mathit{DP} = \NEW\ \INTEGER[0 \ldots n]$\;
@@ -391,7 +403,8 @@ casi base
 %-------------------------------------------------------------------------
 \begin{frame}[fragile]{Domino}
 
-\begin{columns}[T]
+\vspace{-9pt}
+	\begin{columns}[T]
 \column{0.38\textwidth}
 \vspace{-8pt}
 \begin{Procedure}
@@ -478,6 +491,7 @@ dove $\phi$ è la \alert{sezione aurea}:
 \end{columns}
 
 \end{frame}
+
 
 \begin{frame}{Modello costo uniforme vs modello costo logaritmico}
   
@@ -589,7 +603,7 @@ $T = \sum_{i \in S} D[i]$ è massimale
 
 \vspace{-9pt}
 \begin{myboxtitle}[Definizione ricorrenza]
-E' possibile definire una formula ricorsiva che ci permetta di calcolare
+\EE possibile definire una formula ricorsiva che permetta di calcolare
 il sottoinsieme di case che, se selezionate, dà origine alla maggior quantità di donazioni?
 \end{myboxtitle}
 
@@ -637,14 +651,14 @@ HV(i) = \mathit{highest}(HV(i-1), \{ i \} \cup HV(i-2)  )
 \]
 
 \pause
-\begin{myboxtitle}[Sottostruttura ottima]
+\begin{myboxtitle}[Teorema: Sottostruttura ottima]
 \BIL
-\item Sia $HV_p(i)$ il problema dato dalle prime $i$ case
-\item Sia $HV_s(i)$ una soluzione ottima per il problema $HV_p(i)$
+\item Sia $P_i$ il problema dato dalle prime $i$ case
+\item Sia $S_i$ una soluzione ottima per il problema $P_i$
 \item Ne consegue:
   \BI
-  \item Se $i \not\in HV_s(i)$, allora $HV_s(i)=HV_s(i-1)$
-  \item Se $i \in HV_s(i)$, allora $HV_s(i)=HV_s(i-2) \cup \{i\}$
+  \item Se $i \not\in S_i$, allora $S_i=S_{i-1}$
+  \item Se $i \in S_i$, allora $S_i=S_{i-2} \cup \{i\}$
   \EI
 \EIL    
 \end{myboxtitle}
@@ -655,30 +669,30 @@ HV(i) = \mathit{highest}(HV(i-1), \{ i \} \cup HV(i-2)  )
 \begin{frame}{Sottostruttura ottima -- Dimostrazione}
 
 \BI
-\item Sia $HV_p(i)$ il problema dato dalle prime $i$ case
-\item Sia $HV_s(i)$ una soluzione ottima per il problema $HV_p(i)$
-\item Sia $|HV_s(i)|$ il totale di donazioni di $HV_s(i)$
+\item Sia $P_i$ il problema dato dalle prime $i$ case
+\item Sia $S_i$ una soluzione ottima per il problema $P_i$
+\item Sia $|S_i|$ il totale di donazioni di $S_i$
 \EI
 
 \begin{overprint}
 \onslide<1|handout:1>
-\BB{Caso 1: \alert{$i \not\in HV_s(i)$}}
+\BB{Caso 1: \alert{$i \not\in S_i$}}
 \BIL
-\item $HV_s(i)$ è una soluzione ottima anche per $HV_p(i-1)$
-\item Se così non fosse, esisterebbe una soluzione $HV'_s(i-1)$ per il
-problema $HV_p(i-1)$ tale che $|HV'_s(i-1)|>|HV_s(i)|$
-\item Ma allora $HV'_s(i-1)$ sarebbe una soluzione per $HV_p(i)$ tale
-che $|HV'_s(i-1)|>|HV_s(i)|$, assurdo
+\item $S_i$ è una soluzione ottima anche per $P_{i-1}$
+\item Se così non fosse, esisterebbe una soluzione $S'_{i-1}$ per il
+problema $P_{i-1}$ tale che $|S'_{i-1}|>|S_i|$
+\item Ma allora $S'_{i-1}$ sarebbe una soluzione anche per $P_i$ tale
+che $|S'_{i-1}|>|S_i|$, assurdo
 \EIL
 \onslide<2|handout:2>
-\BB{Caso 2: \alert{$i \in HV_s(i)$}}
+\BB{Caso 2: \alert{$i \in S_i$}}
 \BIL
-\item $i-1 \not\in HV_s(i)$, altrimenti non sarebbe una soluzione ammissibile
-\item Quindi, $HV_s(i)-\{i\}$ è una soluzione ottima per $HV_p(i-2)$
-\item Se così non fosse, esisterebbe una soluzione $HV'_s(i-2)$ per il
-problema $HV_p(i-2)$ tale che $|HV'_s(i-2)|>|HV_s(i)-\{i\}|$
-\item Ma allora $HV'_s(i-2) \cup \{i \}$ sarebbe una soluzione per $HV_p(i)$
-tale che $|HV'_s(i-2) \cup \{i\}|>|HV_s(i)|$, assurdo
+\item $i-1 \not\in S_i$, altrimenti non sarebbe una soluzione ammissibile
+\item Quindi, $S_i-\{i\}$ è una soluzione ottima per $P_{i-2}$
+\item Se così non fosse, esisterebbe una soluzione $S'_{i-2}$ per il
+problema $P_{i-2}$ tale che $|S'_{i-2}|>|S_i-\{i\}|$
+\item Ma allora $S'_{i-2} \cup \{i \}$ sarebbe una soluzione per $P_i$
+tale che $|S'_{i-2} \cup \{i\}|>|S_i|$, assurdo
 \EIL
 \end{overprint}
 
@@ -728,7 +742,7 @@ HV(i) = \begin{cases}
   \end{cases}
 \]
 \onslide<2|handout:1>
-\IG{1.0}{fibonacci-tree.pdf}
+\IG{0.9}{fibonacci-tree.pdf}
 \end{overprint}
 
 \end{frame}
@@ -825,7 +839,7 @@ ottenere dalle prime $i$ case di Hateville.
 
 \pause
 \begin{Procedure}
-\caption[A]{\textsf{hateville}($\INTEGER[\,]\ D$, \INTEGER $n$)}
+\caption[A]{\INTEGER\ \textsf{hateville}($\INTEGER[\,]\ D$, \INTEGER $n$)}
 $\INTEGER[\,]\ DP = \NEW\ \INTEGER[0 \ldots n]$\;
 $\mathit{DP}[0] = 0$\;
 $\mathit{DP}[1] = D[1]$\;
@@ -909,29 +923,26 @@ la soluzione!
 \begin{frame}[fragile]{Ricostruire la soluzione originale}
 
 \vspace{-9pt}
-\BB{Approccio}
-\BIL
-\item Si guarda l'elemento $\mathit{DP}[i]$. Da cosa deriva il suo valore?
-  \BI 
-  \item Se $\mathit{DP}[i] = \mathit{DP}[i-1]$, la casa $i$ non è stata selezionata
-  \item Se $\mathit{DP}[i] = \mathit{DP}[i-2]+D[i]$, la casa $i$ è stata selezionata
+\BB{Si guarda l'elemento $\mathit{DP}[i]$. Da cosa deriva il suo valore?}
+  \BIL
+  \item Se \alert{$\mathit{DP}[i] = \mathit{DP}[i-1]$}, la casa $i$ \alert{non è stata selezionata}
+  \item Se \alert{$\mathit{DP}[i] = \mathit{DP}[i-2]+D[i]$}, la casa $i$ \alert{è stata selezionata}
   \item Se entrambe le equazioni sono vere, una vale l'altra!
-  \EI
-\item Utilizziamo questa informazione per ricostruire la soluzione in modo
-  ricorsivo:
-  \BI
-  \item Per ricostruire la soluzione fino ad $i$,
-  ricostriamo la soluzione fino ad $i-2$ e aggiungiamo $i$
-  \item Oppure, ricostriuamo la soluzione fino ad $i-1$ senza aggiungere nulla
-  \EI
-\EIL
+  \EIL
+  
+\medskip
+\BB{Per ricostruire la soluzione fino ad $i$, lavoriamo in modo ricorsivo:}
+  \BIL
+  \item Se \alert{$\mathit{DP}[i] = \mathit{DP}[i-1]$}, si prende la soluzione fino a $i-1$ \alert{senza aggiungere nulla}
+  \item \alert{Altrimenti}, si prende la soluzione fino a $i-2$ e \alert{si aggiunge $i$}
+  \EIL
 
 \end{frame}
 
-\begin{frame}[fragile]{Ricostruire la soluzione originale}
+\begin{frame}[fragile,shrink=5]{Ricostruire la soluzione originale}
 
 \vspace{-12pt}
-\TwoColsCustom{0.57}{0.42}{
+\TwoColsCustom{0.54}{0.43}{
 \begin{Procedure}
 \caption[A]{\Set\ \textsf{solution}($\INTEGER[\,]\ DP$, $\INTEGER[\,]\ D$, \INTEGER $i$)}
 \uIf{$i \Eq 0$}{
@@ -952,10 +963,12 @@ la soluzione!
 }
 {
 \begin{Procedure}
-\caption[A]{\textsf{hateville}($\INTEGER[\,]\ D$, \INTEGER $n$)}
+\caption[A]{\Set\ \textsf{hateville}($\INTEGER[\,]\ D$, \INTEGER $n$)}
 [...]\;
 \Return $\textsf{solution}(DP, D, n)$\;
 \end{Procedure}
+\bigskip
+Note: per come è stato costruito il codice, $D$ non è necessario
 }
 \end{frame}
 
@@ -977,7 +990,7 @@ $T(n) = \Theta(n) \qquad S(n) = \Theta(n)$
 
 \bigskip
 \onslide<1-|handout:1->
-\BB{E' possibile migliorare la complessità spaziale di \textsf{hateville()}?}
+\BB{\EE possibile migliorare la complessità spaziale di \textsf{hateville()}?}
 \onslide<4-|handout:1->
 \medskip
 No, se vogliamo ricostruire la soluzione.
@@ -1001,17 +1014,36 @@ più alto o uguale al valore di qualunque altro sottoinsieme di oggetti
 \EIL
 \end{myboxtitle}
 
-\begin{center}
-\includegraphics[width=0.3\textwidth]{knapsack.png}
-\end{center}
-
+\TwoColsCustom{0.4}{0.55}{
+\vspace{-12pt}
+\IGH{0.30}{knapsack.png}
+}{
 \footnotesize
 \url{https://en.wikipedia.org/wiki/Knapsack_problem\#/media/File:Knapsack.svg}
+}
 
 
 \end{frame}
 
-\begin{frame}{Zaino}
+\begin{frame}{Un po' di storia}
+
+\TwoColsCustom{0.52}{0.46}{
+\BIL
+\item Problemi simili allo zaino erano trattati già intorno al 1896\\
+\begingroup \small (G. Mathews. \emph{On the partition of numbers}. Proceedings of the London Mathematical Society, 1(1):486–490, 1896) \endgroup
+\item Il nome Knapsack è stato introdotto da Dantzig nel 1957.\\
+\begingroup \small (George B. Dantzig. \emph{Discrete-variable extremum problems}. Operations research, 5(2):266–288, 1957) \endgroup
+\EIL
+}{
+\vspace{-12pt}
+\IGH{0.8}{knapsack-dantzig}
+}
+
+\end{frame}
+
+
+
+\begin{frame}{Zaino (Knapsack)}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Input]
@@ -1027,14 +1059,14 @@ Un insieme $S \subseteq \{1, \ldots, n\}$ tale che:
 
 \medskip
 \begin{tabular}{P{5cm}P{5cm}}
-Il \alert{volume totale} deve essere minore o uguale alla capacità &
+Il \alert{peso totale} deve essere minore o uguale alla capacità &
 
 $w(S) = \sum_{i \in S} w[i] \leq C$
 \\
 ~\\
 Il \alert{profitto totale} deve essere massimizzato &
 $
-p(S) = \sum_{i \in S} p[i]
+\textrm{argmax}_S \ p(S) = \sum_{i \in S} p[i]
 $
 \\
 \end{tabular}
@@ -1063,7 +1095,7 @@ $
 \end{columns}
 
 \smallskip
-\BB{Progettare un algoritmo che risolve il problema dello zaino}
+\BB{Come risolvereste il problema?}
 
 \pause
 \smallskip
@@ -1120,7 +1152,8 @@ Cosa succede se lo prendete? & $\mathit{DP}[i][c] = \pause \mathit{DP}[i-1][c-w[
 \BB{Come scegliere la soluzione migliore?}
 
 \[
-\mathit{DP}[i][c] = \pause \max( \mathit{DP}[i-1][c-w[i]] + p[i], \mathit{DP}[i-1][c] )
+\mathit{DP}[i][c] = \pause \max( \overbrace{\mathit{DP}[i-1][c-w[i]]+p[i]}^{\textrm{Preso}},\overbrace{\mathit{DP}[i-1][c]}^{\textrm{Non preso}} )
+%\mathit{DP}[i][c] = \pause \max( \mathit{DP}[i-1][c-w[i]] + p[i], \mathit{DP}[i-1][c] )
 \]
 
 \end{frame}
@@ -1183,10 +1216,10 @@ $\mathit{DP} = \NEW\ \INTEGER[0 \ldots n][0 \ldots C]$\;
   \For{$c = 1$ \TO\ $C$}{
     \eIf{$w[i] \leq c$}{
       \vspace{-12pt}
-      $\mathit{DP}[i][c] = \MAX(\overbrace{\mathit{DP}[i-1][c-w[i]]+p[i]}^{\textrm{Taken}},\overbrace{\mathit{DP}[i-1][c]}^{\textrm{Not taken}})$\;
+      $\mathit{DP}[i][c] = \MAX(\overbrace{\mathit{DP}[i-1][c-w[i]]+p[i]}^{\textrm{Preso}},\overbrace{\mathit{DP}[i-1][c]}^{\textrm{Non preso}})$\;
     }{
       \vspace{-12pt}
-      $\mathit{DP}[i][c] = \overbrace{\mathit{DP}[i-1][c]}^{\textrm{Not taken}}$\;
+      $\mathit{DP}[i][c] = \overbrace{\mathit{DP}[i-1][c]}^{\textrm{Non preso}}$\;
     }
   }
 }
@@ -1198,6 +1231,7 @@ $\mathit{DP} = \NEW\ \INTEGER[0 \ldots n][0 \ldots C]$\;
 
 \begin{frame}[fragile]{Esempio}
 
+\vspace{-18pt}
 \begin{lstlisting}
 w = [ 4, 2, 3, 4]
 p = [10, 7, 8, 6]
@@ -1253,17 +1287,17 @@ $\mathit{DP} = \NEW\ \INTEGER[0 \ldots n][0 \ldots C]$\;
   T(n) = O(nC)
 \]
 
-\BB{E' un algoritmo polinomiale?}
+\BB{\EE un algoritmo polinomiale?}
 
 \onslide<3|handout:1>
 \[ 
   T(n) = O(nC)
 \]
 
-\BB{E' un algoritmo polinomiale?}
+\BB{\EE un algoritmo polinomiale?}
 
 \medskip
-No, è un algoritmo \alert{pseudo-polinomiale}, perchè sono necessari \alert{$k = \log C$} bit
+No, è un algoritmo \alert{pseudo-polinomiale}, perchè sono necessari \alert{$k = \lceil \log C \rceil$} bit
 per rappresentare $C$ e quindi la complessità è:
 
 \[
@@ -1273,1098 +1307,20 @@ per rappresentare $C$ e quindi la complessità è:
 
 \end{frame}
 
+\begin{frame}{Reality check}
 
-\begin{frame}{Zaino ricorsivo}
-
-\vspace{-12pt}
-\begin{Procedure}
-\caption[A]{\textsf{knapsack}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $C$)}
-\Return $\textsf{knapsackRec}(w, p, n, C)$
-\end{Procedure}
-
-\vspace{-15pt}
-\begin{Procedure}
-\caption[A]{\INTEGER\ \textsf{knapsackRec}($\INTARRAY\ w$,\ $\INTARRAY\ p$,\  \INTEGER\ $i$,\ \INTEGER\ $c$)}
-
-\uIf{$c < 0$}{\Return $-\infty$\;}
-\uElseIf{$i  \Eq  0$ \OR\ $c  \Eq  0$}{\Return 0\;}
-\Else{
-$\INTEGER\ \mathit{nottaken} = \textsf{knapsackRec}(w,p, i-1, c)$\;
-$\INTEGER\ \mathit{taken} = \textsf{knapsackRec}(w,p,i-1,c-w[i])+p[i]$\;
-\Return $\MAX(nottaken, taken)$\;
-}
-\end{Procedure}
-
-\vspace{-6pt}
-\BB{Qual è la complessità della funzione \textsf{knapsack()} ricorsiva?}
-
-\end{frame}
-
-
-\begin{frame}[fragile]{Complessità computazionale}
-
-\vspace{-9pt}
-\BB{Qual è la complessità della funzione \textsf{knapsack()} ricorsiva?}
-
-\begin{align*}
-T(n) &= \begin{cases}
-  1 & n \leq 1 \\
-  2T(n-1)+1 & n>1
-\end{cases}\\
-  T(n) &= O(2^n)
-\end{align*}
-
-\BB{E' un algoritmo polinomiale?}
-
-\smallskip
-Ovviamente no!
-
-\medskip
-\BB{Possiamo fare meglio di così?}
-
-\smallskip
-No, secondo l'\alert{opinione} di quasi tutti gli informatici del mondo.
-
-\end{frame}
-
-
-\begin{frame}[fragile]{Memoization}
-
-\vspace{-9pt}
-\BB{Osservazione}
-Non tutti gli elementi della matrice sono necessari alla risoluzione del
-nostro problema.
-
-\begin{lstlisting}
-w = [ 4, 2, 3, 4]
-p = [10, 7, 8, 6]       C = 9  
-\end{lstlisting}
-
-\bigskip
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
-\hline
-& \multicolumn{10}{c|}{$c$} \\\hline
-$i$ & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9}  \\\hline
-\bf{0} & \alert{\bf 0} &  \alert{\bf 0} &  \alert{\bf 0} &  \alert{\bf 0} &  \alert{\bf 0} &  \alert{\bf 0} &  \alert{\bf 0} &  \alert{\bf 0} &  0 &  \alert{\bf 0} \\\hline
-\bf{1} & \alert{\bf 0} &  0 &  \alert{\bf 0} & \alert{\bf 0} & \alert{\bf 10} & \alert{\bf 10} & \alert{\bf 10} & \alert{\bf 10} & 10 & \alert{\bf 10} \\\hline
-\bf{2} & 0 &  0 &  \alert{\bf 7} &  7 & 10 & \alert{\bf 10} & \alert{\bf 17} & 17 & 17 & \alert{\bf 17} \\\hline
-\bf{3} & 0 &  0 &  7 &  8 & 10 & \alert{\bf 15} & 17 & 18 & 18 & \alert{\bf 25} \\\hline
-\bf{4} & 0 &  0 &  7 &  8 & 10 & 15 & 17 & 18 & 18 & \alert{\bf 25} \\\hline  
-\end{tabular}  
-  
-\end{frame}
-
-
-%-------------------------------------------------------------------------
-\begin{frame}{Memoization}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Memoization (annotazione)]
-Tecnica che fonde l'approccio di memorizzazione della programmazione dinamica con l'approccio top-down di divide-et-impera
-\end{myboxtitle}
+Sebbene il problema di base sia molto semplice, assieme alle sue varianti può essere utilizzato in una miriade di applicazioni.
 
 \BIL
-\item Si crea una tabella $\mathit{DP}$, inizializzata con un \alert{valore speciale} ad 
-indicare che un certo sottoproblema non è ancora stato risolto
-\item Ogni volta che si deve risolvere un sottoproblema, si controlla nella tabella se è già stato risolto precedentemente
-\BI
-\item SI:  si usa il risultato della tabella
-\item NO:  si calcola il risultato e lo si memorizza
-\EI
-\item In tal modo, ogni sottoproblema viene calcolato una sola volta e memorizzato come nella versione bottom-up
+\item Taglio dei materiali (con estensioni nel campo 2D-3D)
+\item Logistica
+\item Selezione di portfolio di investimenti
+\item Selezione di reti cellari per nodi mobili
+\item Campionamento adattivo a densità variabile
+\item ....
 \EIL
 
 \end{frame}
-
-\begin{frame}{Zaino con memoization}
-
-\vspace{-9pt}
-\begin{Procedure}
-\caption[A]{\textsf{knapsack}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $C$)}
-\alert{$\mathit{DP} = \NEW\ \INTEGER[1 \ldots n][1 \ldots C]$\;
-\For{$i = 1$ \TO $n$}{
-  \For{$c = 1$ \TO $C$}{
-    $\mathit{DP}[i][c] = -1$\;
-  }
-}}
-\Return $\textsf{knapsackRec}(w, p, n, C, \alert{DP})$
-\end{Procedure}
-
-\BIL
-\item La tabella viene inizializzata esternamente, nella funzione wrapper
-\item Il valore -1 è scelto per indicare una cella non ancora calcolata
-\EIL
-
-\end{frame}
-
-\begin{frame}{Zaino con memoization}
-
-\vspace{-9pt}
-\begin{Procedure}
-\caption[A]{\INTEGER\ \textsf{knapsackRec}($\INTARRAY\ w,\ \INTARRAY\ p,\  \INTEGER\ i,\ \INTEGER\ c,\ \alert{\INTARRAY[\,]\ DP}$)}
-
-\uIf{$c < 0$}{
-  \Return $-\infty$\;
-}
-\uElseIf{$i \Eq 0$ \OR\ $c \Eq 0$}{
-  \Return 0\;
-}
-\Else{
-  \If{\alert{$\mathit{DP}[i][c] < 0$}}{
-    $\INTEGER\ \mathit{nottaken} = \textsf{knapsackRec}(w,p, i-1, c, \alert{DP})$\;
-    $\INTEGER\ \mathit{taken} = \textsf{knapsackRec}(w,p,i-1,c-w[i], \alert{DP})+p[i]$\;
-    $\alert{\mathit{DP}[i][c]} = \MAX(nottaken, taken)$\;
-  }
-  \Return $\alert{\mathit{DP}[i][c]}$\;
-}
-\end{Procedure}
-
-\end{frame}
-
-
-
-%-------------------------------------------------------------------------
-\begin{frame}[fragile,shrink=5]{Zaino con memoization}
-
-\vspace{-9pt}
-\begin{lstlisting}[language=python,tabsize=2]
-def knapsackRec(w, p, i, c, DP):
-	if c < 0:
-		return -math.inf
-	elif i == 0 or c == 0:
-		return 0
-	else:
-		if DP[i][c] < 0:
-			nottaken = knapsackRec(w, p, i-1, c, DP)
-			taken = knapsackRec(w, p, i-1, c-w[<@\color{blue}{i-1}@>], DP) + p[<@\color{blue}{i-1}@>]
-			DP[i][c] = max(nottaken, taken)
-		return DP[i][c]
-
-def knapsack(w,p,C):
-	n = len(w)
-	DP = [[-1]*(C+1) for i in range(n+1)]
-	return knapsackRec(w,p,n,C,DP)
-\end{lstlisting}
-
-\end{frame}
-
-\begin{frame}[fragile]{Esempio}
-
-\begin{lstlisting}
-w = [ 4, 2, 3, 4]
-p = [10, 7, 8, 6]
-C = 9  
-\end{lstlisting}
-
-\bigskip
-\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
-\hline
-& \multicolumn{10}{c|}{$c$} \\\hline
-$i$ & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9}  \\\hline
-\bf{0} & 0 &  0 &  0 &  0 &  0 &  0 &  0 &  0 &  0 &  0 \\\hline
-\bf{1} & 0 &  -1 &  \alert{\bf 0} &  \alert{\bf 0} & \alert{\bf 10} & \alert{\bf 10} & \alert{\bf 10} & \alert{\bf 10} & -1 & \alert{\bf 10} \\\hline
-\bf{2} & 0 &  -1 &  \alert{\bf 7} & -1 & -1 & \alert{\bf 10} & \alert{\bf 17} & -1 & -1 & \alert{\bf 17} \\\hline
-\bf{3} & 0 &  -1 &  -1 &  -1 & -1 & \alert{\bf 15} & -1 & -1 & -1 & \alert{\bf 25} \\\hline
-\bf{4} & 0 &  -1 &  -1 &  -1 & -1 & -1 & -1 & -1 & -1 & \alert{\bf 25} \\\hline  
-\end{tabular}  
-  
-\end{frame}
-
-\begin{frame}{Dizionario vs tabella}
-
-\vspace{-9pt}
-\BB{Inizializzazione tabella}
-  \BIL
-  \item Il costo di inizializzazione è pari a $O(nC)$
-  \item Applicata in questo modo, non c'è alcun vantaggio nell'utilizzare
-  la tecnica di memoization
-  \item Permette tuttavia di tradurre in fretta le espressioni ricorsive
-  \EIL
-
-\pause
-\BB{Utilizzo di un dizionario (hash table)}
-  \BIL
-  \item Invece di utilizzare una tabella, si utilizza un dizionario
-  \item Non è necessario fare inizializzazione
-  \item Il costo di esecuzione è pari a $O(\min(2^n,nC))$
-  \EIL
-
-\end{frame}
-
-\begin{frame}[fragile,shrink=5]{Zaino con dizionario (Python)}
-
-\vspace{-9pt}
-\begin{lstlisting}[language=python,tabsize=2]
-def knapsackRec(w, p, i, c, DP):
-	if c < 0:
-		return -math.inf
-	elif i == 0 or c == 0:
-		return 0
-	else:
-		if <@\color{blue}{not (i,c) in DP}@>:
-			nottaken = knapsackRec(w, p, i-1, c, DP)
-			taken = knapsackRec(w, p, i-1, c-w[i-1], DP) + p[i-1]
-			<@\color{blue}{DP[i,c]}@> = max(nottaken, taken)
-		return <@\color{blue}{DP[i,c]}@>
-
-def knapsack(w,p,C):
-	n = len(w)
-	<@\color{blue}{DP = \{\}}@>
-	return knapsackRec(w,p,n,C,DP)
-\end{lstlisting}
-
-\end{frame}
-
-\begin{frame}[fragile]{Memoization automatica in Python}
-
-\vspace{-9pt}
-\begin{lstlisting}[language=python]
-from functools import wraps
-
-def memo(func):
-  cache = {}
-  @wraps(func)
-  def wrap(*args):
-    if args not in cache:
-      cache[args] = func(*args)
-    return cache[args]
-  return wrap
-\end{lstlisting}
-
-
-\end{frame}
-
-\begin{frame}[fragile]{Memoization automatica in Python}
-
-\vspace{-9pt}
-\begin{lstlisting}[language=python]
-@memo
-def knapsackRec(w, p, i, c):
-  if c < 0:
-    return -math.inf
-  elif i == 0 or c == 0:
-    return 0
-  else:
-    nottaken = knapsackRec(w, p, i-1, c)
-    taken = knapsackRec(w, p, i-1, c-w[<@\color{blue}{i-1}@>]) + p[<@\color{blue}{i-1}@>]
-    return max(nottaken, taken) 
-
-def knapsack(w, p, C):
-  return knapsackRec(w, p, len(w), C)
-
-\end{lstlisting}
-
-
-
-\end{frame}
-
-
-\begin{frame}{Ricostruzione della soluzione}
-
-\vspace{-9pt}
-\BB{Per esercizio}
-
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Variante dello zaino, senza limiti}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}{Variante dello zaino: senza limiti}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Problema dello Zaino, senza limiti di scelta]
-Dato uno zaino di capacità $C$ e $n$ oggetti caratterizzati
-da peso $w$ e profitto $p$, definiamo $\mathit{DP}[i][c]$ come il
-massimo profitto che può essere ottenuto dai primi $i \leq n$
-oggetti contenuti in uno zaino di capacità $c \leq C$, \alert{senza porre
-limiti al numero di volte che un oggetto può essere selezionato}.
-\end{myboxtitle}
-
-\BB{Come modificare la formula ricorsiva?}
-
-\small
-\begin{overprint}
-\onslide<1|handout:0>
-\[
-\mathit{DP}[i][c] = \begin{cases}
-  0 & i=0\ \OR\ c=0 \\
-  -\infty & c < 0 \\
-  \max( \mathit{DP}[i-1][c-w[i]] + p[i], \mathit{DP}[i-1][c] ) & \textrm{otherwise}
-\end{cases}
-\]
-\onslide<2|handout:1>
-\[
-\mathit{DP}[i][c] = \begin{cases}
-  0 & i=0\ \OR\ c=0 \\
-  -\infty & c < 0 \\
-  \max( \mathit{DP}[i\alert{\xout{-1}}][c-w[i]] + p[i], \mathit{DP}[i-1][c] ) & \textrm{otherwise}
-\end{cases}
-\]
-\end{overprint}
-
-\end{frame}
-
-\begin{frame}{Variante dello zaino: senza limiti}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Semplificazione formula]
-In un caso come questo, è possibile semplificare la formula riducendo
-lo spazio occupato
-\end{myboxtitle}
-
-\begin{myboxtitle}[Valore della soluzione]
-Dato uno zaino senza limiti di scelta di capacità $C$ e $n$ oggetti caratterizzati
-da peso $w$ e profitto $p$, definiamo $\mathit{DP}[c]$ come il
-massimo profitto che può essere ottenuto da tali oggetti
-in uno zaino di capacità $c \leq  C$.
-\end{myboxtitle}
-
-\begin{overprint}
-\onslide<1|handout:0>
-\[
-\mathit{DP}[c] = \begin{cases}
-  \makebox[5cm][l]{?} & c=0 \\
-  \makebox[5cm][l]{?} & c>0
-\end{cases}
-\]
-\onslide<2|handout:0>
-\[
-\mathit{DP}[c] = \begin{cases}
-  0 & c=0 \\
-  \makebox[5cm][l]{?} & c>0
-\end{cases}
-\]
-\onslide<3|handout:1>
-\[
-\mathit{DP}[c] = \begin{cases}
-  0 & c=0 \\
-  \max_{w[i] \leq c} \{ \mathit{DP}[c-w[i]]+p[i] \} & c>0
-\end{cases}
-\]
-\end{overprint}
-
-\end{frame}
-
-\begin{frame}{Implementazione tramite memoization}
-
-\vspace{-9pt}
-\begin{Procedure}
-\caption[A]{\textsf{knapsack}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $C$)}
-  $\INTEGER[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots C]$\;
-  \For{$i = 0$ \TO $C$}{
-    $\mathit{DP}[i] = -1$\;
-  }
-  $\textsf{knapsackRec}(w, p, n, C, \mathit{DP})$\;
-  \Return $\mathit{DP}[C]$\;
-\end{Procedure}
-\end{frame}
-  
-\begin{frame}{Implementazione tramite memoization}
-
-\vspace{-9pt}
-\begin{Procedure}
-\caption[A]{\textsf{knapsackRec}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $c$, $\INTEGER[\,]\ \mathit{DP}$)}
-\If{$c  \Eq 0$}{
-  \Return $0$\;
-}
-\If{$\mathit{DP}[c] < 0$}{
-  $\mathit{DP}[c] = 0$\;
-  \For{$i=1$ \TO\ $n$}{
-    \If{$w[i] \leq c$}{
-      \INTEGER $\mathit{val} = \textsf{knapsackRec}(w, p, n, c-w[i], \mathit{DP}) + p[i])$\;
-      $\mathit{DP}[c] = \MAX(\mathit{DP}[c], val)$\;
-    }
-  }
-}
-\Return $\mathit{DP}[c]$\;
-\end{Procedure}
-\end{frame}
-
-\begin{frame}{Complessità computazionale?}
-
-\vspace{-6pt}
-\BB{Qual è la complessità della funzione \textsf{knapsack()}?}
-
-\begin{overprint}
-\onslide<1|handout:0>
-\begin{Procedure}
-\caption[A]{\textsf{knapsackRec}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $c$, $\INTEGER[\,]\ \mathit{DP}$)}
-\If{$c  \Eq 0$}{
-  \Return $0$\;
-}
-\If{$\mathit{DP}[c] < 0$}{
-  $\mathit{DP}[c] = 0$\;
-  \For{$i=1$ \TO\ $n$}{
-    \If{$w[i] \leq c$}{
-      \INTEGER $\mathit{val} = \textsf{knapsackRec}(w, p, n, c-w[i], \mathit{DP}) + p[i])$\;
-      $\mathit{DP}[c] = \MAX(\mathit{DP}[c], val)$\;
-    }
-  }
-}
-\Return $\mathit{DP}[c]$\;
-\end{Procedure}
-\onslide<2|handout:0>
-
-\bigskip
-\[ 
-  T(n) = O(nC)
-\]
-
-\BIL
-\item Nel caso pessimo, è necessario riempire ognuno dei $C$ elementi del vettore $\mathit{DP}$
-\item Riempire un elemento costa $O(n)$
-\EIL
-
-\end{overprint}
-
-\end{frame}
-
-
-\begin{frame}{Ricostruire la soluzione}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Vantaggi]
-\BIL
-\item Non è detto che tutti gli elementi debbano essere riempiti
-\item La complessità in spazio è pari a $\Theta(C)$
-\EIL
-\end{myboxtitle}
-
-\begin{myboxtitle}[Svantaggi]
-Questo approccio rende più difficile ricostruire la soluzione. 
-\BIL
-\item Possiamo ispezionare tutti gli elementi per capire da dove 
-deriva il massimo
-\item Conviene tuttavia memorizzare l'indice da cui deriva il massimo
-\EIL
-\end{myboxtitle}
-
-\end{frame}
-
-\begin{frame}{Implementazione tramite memoization}
-
-\vspace{-9pt}
-\begin{Procedure}
-\caption[A]{\textsf{knapsack}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $C$)}
-  $\INTEGER[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots C]$\;
-  \alert{$\INTEGER[\,]\ \mathit{pos} = \NEW\ \INTEGER[0 \ldots C]$}\;
-  \For{$i = 0$ \TO $C$}{
-    $\mathit{DP}[i] = -1$\;
-    \alert{$\mathit{pos}[i] = -1$}\;
-  }
-  $\textsf{knapsackRec}(w, p, n, C, \mathit{DP}, \alert{\mathit{pos}})$\;
-  \Return \alert{$\textsf{solution}(w,C, \mathit{pos})$}\;
-\end{Procedure}
-\end{frame}
-
-
-
-\begin{frame}{Implementazione tramite memoization}
-
-\vspace{-9pt}
-\begin{Procedure}
-\caption[A]{\textsf{knapsackRec}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $c$, $\INTEGER[\,]\ \mathit{DP}$, \alert{$\INTEGER[\,]\ \mathit{\mathit{pos}}$})}
-\If{$c  \Eq 0$}{
-  \Return $0$\;
-}
-\If{$\mathit{DP}[c] < 0$}{
-  $\mathit{DP}[c] = 0$\;
-  \For{$i=1$ \TO\ $n$}{
-    \If{$w[i] \leq c$}{
-      \INTEGER $\mathit{val} = \textsf{knapsackRec}(w, p, n, c-w[i], \mathit{DP}, \alert{\mathit{pos}}) + p[i])$\;
-      \If{$\mathit{val} \geq \mathit{DP}[c]$}{
-        $\mathit{DP}[c] = val$\;
-        $\alert{pos[c] = i}$\;
-      }
-    }
-  }
-}
-\Return $\mathit{DP}[c]$\;
-\end{Procedure}
-\end{frame}
-
-\begin{frame}{Implementazione tramite memoization}
-
-\vspace{-9pt}
-\begin{Procedure}
-\caption[A]{\textsf{solution}($\INTEGER[\,]\ w$, \INTEGER\ $c$, 
-\alert{$\INTEGER[\,]\ \mathit{\mathit{pos}}$})}
-\eIf{$c  \Eq  0$ \OR\ $\mathit{pos}[c] < 0$}{
-  \Return $\listconstructor()$\;
-}{
-  $\List\ L = \textsf{solution}(w,c-w[pos[c]],\mathit{pos})$\;
-  $L.\setinsert(L.\listhead(), pos[c])$\;  
-  \Return $L$\;
-}
-\end{Procedure}
-
-\BIL
-\item Restituisce una \alert{lista} di indici selezionati\\ 
-(\alert{multinsieme}, gli indici possono
-comparire più volte)
-\item Se $c=0$, lo zaino è stato riempito perfettamente
-\item Se $pos[c] < 0$, lo zaino non può essere riempito interamente\\
-(e.g., pesi pari con capacità dispari).
-\EIL
-
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Sottosequenza comune massimale}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Problema generale}
-
-\vspace{-9pt}
-\begin{myboxtitle}[DNA]
-Una stringa di molecole chiamate basi (\alert{A}denina, \alert{C}itosina, \alert{G}uanina, \alert{T}imina)
-\end{myboxtitle}
-
-
-\begin{myboxtitle}[Problema]
-Date due sequenze di DNA, trovare quanto siano "simili"
-\end{myboxtitle}
-
-\begin{myboxtitle}[Esempi]
-\BIL
-\item Una \alert{sottostringa} dell'altra?\\
-$\alert{\textsf{CCTT}} \subseteq \textsf{AGAC\alert{CCTT}AA}$
-\item \alert{Distanza di edit}:\\
-\textsf{AGAC\alert{C}CTTAA} può essere trasformata in \textsf{AGAC\alert{T}CTTAA} sostituendo
-una \textsf{T} con una \textsf{C}
-\EIL
-\end{myboxtitle}
-
-\end{frame}
-
-
-\begin{frame}{Sottosequenza comune massimale}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Definizione: sottosequenza]
-\BIL
-\item Una sequenza $P$ è una \alert{sottosequenza} di $T$ se $P$ è ottenuto da $T$
-rimuovendo uno o più dei suoi elementi
-\item Alternativamente: $P$ è definito come il sottoinsieme degli indici $\{ 1, \ldots, n \}$
-degli elementi di $T$ che compaiono anche in $P$
-\item I rimanenti elementi sono elencati nello stesso ordine, senza essere necessariamente contigui
-\EIL
-\end{myboxtitle}
-
-\vspace{-9pt}
-\begin{columns}[T]
-\column{0.43\textwidth}
-\begin{myboxtitle}[Esempi]
-\BI
-\item P = "\texttt{AAATA}"
-\item T = "\texttt{\alert{AAA}AT\alert{T}G\alert{A}}"
-\EI
-\end{myboxtitle}
-\column{0.55\textwidth}
-\begin{myboxtitle}[Note]
-\smallskip
-La sequenza vuota $\emptyset$ è sottosequenza di ogni altra sequenza
-\end{myboxtitle}
-\end{columns}
-
-\end{frame}
-
-
-\begin{frame}{Sottosequenza comune massimale}
-
-
-\vspace{-9pt}
-\begin{myboxtitle}[Definizione: sottosequenza comune]
-Una sequenza $X$ è una \alert{sottosequenza comune} (\alert{common subsequence}) di due sequenze $T$, $U$, se è sottosequenza sia di $T$ che di $U$
-
-\BIL
-\item Scriviamo $X \in {\cal CS}(T,U)$
-\EIL
-\end{myboxtitle}
-
-\begin{myboxtitle}[Definizione: sottosequenza comune massimale ]
-Una sequenza $X \in {\cal CS}(T,U)$ è una \alert{sottosequenza comune massimale} (\alert{longest common subsequence}) di due sequenze $T$, $U$, se non esiste altra sottosequenza comune $Y \in {\cal CS}(T,U)$ tale che $Y$ sia più lunga di $X$ ($|Y|>|X|$).
-
-\BIL
-\item Scriviamo $X \in {\cal LCS}(T,U)$
-\EIL
-\end{myboxtitle}
-
-\end{frame}
-
-
-\begin{frame}{Definizione del problema}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Problema: LCS]
-Date due sequenze $T$ e $U$, trovare la più lunga sottosequenza comune di $T$ e $U$.
-\end{myboxtitle}
-
-\begin{myboxtitle}[Esempio]
-\BIL
-\item $T = \texttt{“AAAATTGA”}$
-\item $U = \texttt{“TAACGATA”}$
-\item Output?
-\EIL
-\end{myboxtitle}
-
-\BB{Come risolvereste questo problema?}
-
-\end{frame}
-
-\begin{frame}[shrink=5]{Una soluzione di "forza bruta"}
-  
-\vspace{-9pt}
-\begin{Procedure}
-\caption[A]{\INTEGER\ \fontproc{LCS}($\Item[\,]\ T$, $\Item[\,]\ U$)}
-
-  $\Item[\,]\ \mathit{maxsofar} = \Nil$\;
-  \ForEach{subsequence $X$ of $T$}{
-  \If{$X$ is subsequence of $U$}{
-    \If{$\textsf{len}(X) > \textsf{len}(\mathit{maxsofar})$}{
-     $\mathit{maxsofar} = X$\;
-    }
-  }
-  }
-  \Return $\ell$\;
-\end{Procedure}
-  
-\end{frame}
-
-
-\begin{frame}{Complessità computazionale}
-
-\vspace{-9pt}
-\BB{Domande}
-\BIL
-\item Data una sequenza $T$ lunga $n$, quante sono le sottosequenze di
-$T$?\\ \pause \alert{$2^n$}
-\item Quanto costa verificare se una sequenza è sottosequenza di un'altra?\\
-\pause \alert{$O(m+n)$}
-\item Qual è la complessità computazionale di \textsf{LCS()}?\\
-\pause \alert{$T(n) = \Theta(2^n(m+n))$}
-\item Possiamo fare meglio di così?
-\EIL
-
-\end{frame}
-
-\begin{frame}{Descrizione matematica della soluzione ottima}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Prefisso (\alert{Prefix})]
-Data una sequenza $T$ composta dai caratteri $t_1t_2{\ldots}t_n$, $T(i)$ denota 
-il \alert{prefisso} di $T$ dato dai primi $i$ caratteri, i.e.:
-
-\[
-  T(i) = t_1t_2{\ldots}t_i
-\]
-\end{myboxtitle}
-
-\begin{myboxtitle}[Esempi]
-\BIL
-\item $T = \mathtt{"ABDCCAABD"}$
-\item $T(0) = \mathtt{""}$
-\item $T(3) = \mathtt{"ABD"}$
-\item $T(6) = \mathtt{"ABDCCA"}$
-\EIL
-\end{myboxtitle}
-\end{frame}
-
-\begin{frame}{Descrizione matematica della soluzione ottima}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Goal]
-Date due sequenze $T$ e $U$ di lunghezza $n$ e $m$, scriviamo
-una formula ricorsiva $LCS(T(i), U(j))$ che restituisca la LCS 
-dei prefissi $T(i)$ e $U(j)$.
-\end{myboxtitle}
-
-\[
-  LCS(T(i), U(j)) = \begin{cases}
-   ? & \textrm{Caso base} \\
-   ? & \textrm{Casi ricorsivi}
-  \end{cases}
-\]
-
-\end{frame}
-
-\begin{frame}{Casi ricorsivi}
-
-\vspace{-9pt}
-\BB{Caso 1}
-
-Considerate due prefissi $T(i)$ e $U(j)$ tali per cui l'ultimo loro
-carattere coincide: $t_i = u_j$. Come calcolereste la  LCS di $T(i)$ e $U(j)$?
-
-\BIL
-\item Esempio: $T(i)="\texttt{ALBERTO}"$, $U(j)="\texttt{PIERO}"$
-\EIL
-
-\pause
-\bigskip
-\BB{Soluzione}
-\[
-  LCS(T(i),U(j)) = LCS(T(i-1), U(j-1)) \oplus t_i
-\]
-dove $\oplus$ è l'operatore di concatenazione.
-
-\BIL
-\item $LCS("\texttt{ALBERTO}","\texttt{PIERO}") = LCS("\texttt{ALBERT}","\texttt{PIER}") \oplus "\mathtt{O}"$
-\EIL
-
-\end{frame}
-
-\begin{frame}{Casi ricorsivi}
-
-\vspace{-9pt}
-\BB{Caso 2}
-
-Considerate due prefissi $T(i)$ e $U(j)$ tali per cui l'ultimo loro
-carattere è differente: $t_i \neq u_j$. Come calcolereste la  LCS di $i$ e $j$?
-
-\BIL
-\item Esempio: $T(i)="\texttt{ALBERT}"$, $U(j)="\texttt{PIER}"$
-\EIL
-
-\bigskip
-\BB{Soluzione}
-\pause
-\[
-  LCS(T(i), U(j)) = \mathit{longest}( LCS(T(i-1), U(j)), LCS(T(i), U(j-1))
-\]
-
-\BIL
-\item $LCS("\texttt{ALBERT}","\texttt{PIER}") = \mathit{longest}(
-  LCS("\texttt{ALBER}","\texttt{PIER}"),
-  LCS("\texttt{ALBERT}","\texttt{PIE}") )$
-\EIL
-
-\end{frame}
-
-\begin{frame}{Casi base}
-  
-
-\vspace{-9pt}
-\BB{Casi base}
-
-Qual è la più lunga sottosequenza di $T(i)$ e $U(j)$, quando uno dei
-prefissi è vuoto, i.e. se $i=0$ \OR\ $j=0$?
-\BIL
-\item Esempio: $T(i)="\texttt{ALBERTO}"$, $U(0)=\emptyset$
-\EIL
-
-\pause
-\bigskip
-\BB{Soluzione}
-\[
-  LCS(T(i), U(0)) = \emptyset
-\]
-
-\BIL
-\item $LCS("\texttt{ALBERTO}", \emptyset ) = \emptyset $
-\EIL
-
-\end{frame}
-
-\begin{frame}{La formula completa}
-
-\vspace{-9pt}
-\begingroup
-\footnotesize
-\[
-  LCS(T(i), U(j)) = \begin{cases}
-  \emptyset & i=0\ \OR\ j=0 \\
-  LCS(T(i-1), U(j-1)) \oplus t_i  & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
-  \mathit{longest}( LCS(T(i-1),U(j)),  \\
-  \qquad LCS(T(i), U(j-1)) & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j 
-  \end{cases}
-\]
-\endgroup
-
-\bigskip
-\BB{Dimostrazione}
-Il fatto che la formula sia corretta dovrebbe essere provato. La dimostrazione
-è per assurdo.
-%
-% \bigskip
-% \BB{Problema: Come tradurre questa formula in un programma?}
-% \BIL
-% \item Vorremmo evitare di memorizzare prefissi di lunghezza arbitraria
-% \EIL
-
-\end{frame}
-
-\begin{frame}{Sottostruttura ottima}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Teorema -- Sottostruttura ottima]
-Date le due sequenze $T=(t_1, \ldots, t_n)$ e $U=(u_1, \ldots, u_m)$, sia 
-$Z = (x_1, \ldots, x_k)$ una LCS di $T$ e $U$. Sono dati tre casi:
-
-\bigskip
-\begingroup
-\renewcommand*{\arraystretch}{1.4}
-\begin{tabular}{P{0.3cm}P{3.2cm}cP{7.5cm}}
-1. & $t_n = u_m$ & $\Rightarrow$ & $x_k = t_n = u_m$ \AND\ \newline $X(k-1) \in \mathcal{LCS}(T(n-1), U(m-1))$ \\
-2. & $t_n \neq u_m \wedge x_k \neq t_n$ & $\Rightarrow$ &  $Z \in \mathcal{LCS}( T(n-1), U)$ \\
-3. & $t_n \neq u_m \wedge x_k \neq u_m$ & $\Rightarrow$ &  $Z \in \mathcal{LCS}( T, U(m-1))$ \\
-\end{tabular}    
-\endgroup
-\end{myboxtitle}
-
-\end{frame}
-
-\begin{frame}{Dimostrazione -- Punto 1 -- Parte A}
-
-\vspace{-9pt}
-\BB{$t_n = u_m \Rightarrow x_k = t_n = u_m$}
-
-\BIL
-\item Per assurdo: \alert{$x_k \neq t_n = u_m$}. 
-\item Si consideri $Y=Xt_n$.
-\item Allora $Y \in \mathcal{CS}(T,U)$ e $|Y| > |X|$, contraddizione.
-\EIL
-
-\IG{0.5}{lcs1.pdf}
-
-\end{frame}
-
-\begin{frame}{Dimostrazione -- Punto 1 -- Parte B}
-
-\vspace{-9pt}
-\BB{$t_n = u_m \Rightarrow X(k-1) \in LCS(T(n-1), U(m-1))$}
-
-\BIL
-\item Per assurdo: \alert{$X(k-1) \not\in \mathcal{LCS}( T(n-1), U(m-1) )$}. 
-\item  Allora $\exists Y \in \mathcal{LCS}( T(n-1), U(m-1))$ tale che $|Y| > |X(k-1)|$.
-\item Quindi $Yt_n \in \mathcal{CS}(T,U)$ e $|Yt_n| > |X(k-1)t_n| = X$, contraddizione.
-\EIL
-
-\IG{0.5}{lcs2.pdf}
-
-\end{frame}
-
-
-\begin{frame}{Dimostrazione -- Punto 2 (Punto 3 simmetrico)}
-
-\vspace{-9pt}
-\BB{$t_n \neq u_m \wedge x_k \neq t_n \Rightarrow X \in \mathcal{LCS}(T(u-1), U)$}
-
-\BIL
-\item Per assurdo: \alert{$X \not\in \mathcal{LCS}( T(n-1), U)$}.
-\item Allora $\exists Y \in \mathcal{LCS}( T(n-1), U)$ tale che $|Y| > |X|$.
-\item Quindi è anche vero che $Y \in \mathcal{LCS}(T,U)$.
-\item Quindi $X$ non è una LCS di $T$ e $U$, assurdo.
-\EIL
-
-\IG{0.5}{lcs3.pdf}
-
-\end{frame}
-
-% -----------------------------------------------------------------------------
-\begin{frame}{Ricorrenza per il \alert{valore} della soluzione ottimale}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Lunghezza della LCS]
-Due due sequenze $T$ e $U$ di lunghezza $n$ e $m$, scrivere una formula
-ricorsiva $\mathit{DP}[i][j]$ che restituisca la \alert{lunghezza} della LCS dei prefissi $U(i)$ e $U(j)$.
-\end{myboxtitle}
-
-\begingroup
-\small
-\begin{overprint}
-\onslide<1|handout:0>
-\[
-  \mathit{DP}[i][j] = \begin{cases}
-   \makebox[4cm][l]{?} & i=0\ \OR\ i=0 \\
-   \makebox[4cm][l]{?} & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
-   \makebox[4cm][l]{?} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
-  \end{cases}
-\]
-\onslide<2|handout:0>
-\[
-  \mathit{DP}[i][j] = \begin{cases}
-   0 & i=0\ \OR\ i=0 \\
-   \makebox[4cm][l]{?} & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
-   \makebox[4cm][l]{?} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
-  \end{cases}
-\]
-\onslide<3|handout:0>
-\[
-  \mathit{DP}[i][j] = \begin{cases}
-   0 & i=0\ \OR\ i=0 \\
-   \mathit{DP}[i-1][j-1]+1 & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
-   \makebox[4cm][l]{?} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
-  \end{cases}
-\]
-\onslide<4-6|handout:1>
-\[
-  \mathit{DP}[i][j] = \begin{cases}
-   0 & i=0\ \OR\ j=0 \\
-   \mathit{DP}[i-1][j-1]+1 & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
-   \max \{ \mathit{DP}[i-1][j], \mathit{DP}[i][j-1] \} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
-  \end{cases}
-\]
-\end{overprint}
-\endgroup
-
-\bigskip
-\onslide<5-6|handout:1>
-\BB{Dove si trova l'informazione relativa al problema originale?}
-
-\onslide<6|handout:1>
-\smallskip
-$\mathit{DP}[n][m]$ contiene la lunghezza della LCS del problema originale.
-
-\end{frame}
-
-% -----------------------------------------------------------------------------
-\begin{frame}[fragile]{Calcolare la lunghezza della LCS}
-
-\vspace{-9pt}
-\begin{Procedure}
-\caption[A]{\INTEGER \LCS($\Item[\,]\ T,\ \Item[\,]\ U,\ \INTEGER\ n,\ \INTEGER\ m$)}
-
-$\INTARRAY[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots n][0 \ldots m] $\;
-\For{$i = 0$ \TO $n$}{
-  $\mathit{DP}[i][0] = \mathit{DP}[0][i] = 0$\;
-}
-\For{$i = 1$ \TO\ $n$}{
-  \For{$j = 1$ \TO $m$}{
-  \eIf{$T[i]  \Eq  U[j]$}{
-    $\mathit{DP}[i][j] = \mathit{DP}[i-1][j-1]+1$\;
-  }{
-    $\mathit{DP}[i][j] = \MAX(\mathit{DP}[i-1][j], \mathit{DP}[i][j-1])$\;
-  }
-  }
-}
-\Return $\mathit{DP}[n][m]$\;
-
-\end{Procedure}
-
-
-\end{frame}
-
-% -----------------------------------------------------------------------------
-\begin{frame}{Esempio 1}
-
-\centering
-\vspace{-9pt}
-\includegraphics[width=0.95\textwidth,page=1]{lcs.pdf}
-
-\tiny
-\[
-  \mathit{DP}[i][j] = \begin{cases}
-   0 & i=0\ \OR\ j=0 \\
-   \mathit{DP}[i-1][j-1]+1 & i>0\ \AND\ j>0\ \AND\ t_i = u_j \\
-   \max \{ \mathit{DP}[i-1][j], \mathit{DP}[i][j-1] \} & i>0\ \AND\ j>0\ \AND\ t_i \neq u_j
-  \end{cases}
-\]
-
-\end{frame}
-
-% -----------------------------------------------------------------------------
-\begin{frame}{Ricostruire la soluzione}
-
-\centering
-\vspace{-9pt}
-\includegraphics[width=0.95\textwidth,page=2]{lcs.pdf}
-
-\bigskip
-\BB{Utilizzando la tabella, come possiamo ottenere la soluzione?}
-
-\end{frame}
-
-
-% -----------------------------------------------------------------------------
-\begin{frame}[shrink=10]{Ricostruire la sottosequenza comune}
-
-\vspace{-9pt}
-\begin{Procedure}
-\caption[A]{\INTEGER \LCS($\Item[\,]\ T,\ \Item[\,]\ U,\ \INTEGER\ n,\ \INTEGER\ m$)}
-  $\ldots$\;
-  \Return $\textsf{subsequence}(\mathit{DP}, T, U, n, m)$\;
-\end{Procedure}
-
-\vspace{-18pt}
-\begin{Procedure}
-\caption[A]{\textsf{subsequence}($\INTEGER[\,][\,]\ \mathit{DP}, \Item[\,]\ T,\ \Item[\,]\ U,\ \INTEGER\ i,\ \INTEGER\ j$)}
-\If{$i \Eq 0$ \OR\ $j \Eq 0$}{
-  \Return $\listconstructor()\;$
-}
-\eIf{$T[i] \Eq U[j]$}{
-  $S = \textsf{subsequence}(\mathit{DP}, T, U, i-1, j-1)$\;
-  $S.\listinsert(S.\listhead(), T[i])$\;
-  \Return $S$\;
-}{
-  \eIf{$\mathit{DP}[i-1][j] > \mathit{DP}[i][j-1]$}{
-    \Return $\textsf{subsequence}(\mathit{DP}, T, U, i-1, j)$\;
-  }{
-    \Return $\textsf{subsequence}(\mathit{DP}, T, U, i, j-1)$\;
-  }
-}
-\end{Procedure}
-
-
-\end{frame}
-
-\begin{frame}{Complessità computazionale}
-
-\vspace{-9pt}
-\BB{Qual è la complessità computazionale di \textsf{subsequence()}?}
-
-\pause
-\[
-  T(n) = O(m+n)
-\]
-  
-\bigskip
-\BB{Qual è la complessità computazionale di \textsf{LCS()}?}
-
-\pause
-\[
-  T(n) = O(mn)
-\]
-
-\end{frame}
-
-\begin{frame}{Commenti finali}
-
-\vspace{-9pt}
-\begin{myboxtitle}[Take-home message (prendi e porta a casa)]
-Non sempre è necessario memorizzare informazioni aggiuntive per ricostruire la soluzione.
-\end{myboxtitle}
-
-\end{frame}
-
-\begin{frame}{Reality check -- LCS e \texttt{diff}  }
-
-\vspace{-9pt}
-\BB{\texttt{diff}}
-\BIL
-\item Esamina due file di testo, evidenziondone le differenze a livello di riga. 
-\item Lavorare \alert{a livello di riga} significa che i confronti fra simboli sono in realtà confronti fra righe, e che $n$ ed $m$ sono il numero di righe dei due file
-\EIL
-
-\BB{Ottimizzazioni}
-\BIL
-\item \texttt{diff} è utilizzato soprattutto per codice sorgente; è possibile applicare euristiche sulle righe iniziali e finali
-\item Per distinguere le righe - utilizzo di funzioni hash
-\EIL
-
-\end{frame}
-
-\begin{frame}{Reality check -- LCS e \texttt{diff}  }
-
-\vspace{-9pt}
-\IG{1.0}{diff.pdf}
-
-\end{frame}
-
 
 \end{document}
 

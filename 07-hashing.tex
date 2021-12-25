@@ -78,13 +78,13 @@ capoluoghi.put("Sardegna", "Cagliari");
 %-------------------------------------------------------------------------
 \begin{frame}{Introduzione}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Ripasso]
 Un dizionario è una struttura dati utilizzata per memorizzare insiemi dinamici
 di \alert{coppie $\langle$ chiave, valore $\rangle$}
 \BI
 \item Le coppie sono indicizzate in base alla chiave
-\item Il valore è un "dato satellite"
+\item Il valore è un \alert{dato satellite}
 \EI
 \end{myboxtitle}
 
@@ -119,14 +119,14 @@ $\dictremove()$ & $O(n)$ & $O(n)$ & $O(n)$ & $O(\log n)$ & $O(1)$\\\hline
 \end{tabular}
 }
 
-\BB{Implementazione ideale: \alert{tabelle hash}}
-
-\BI
-\item Si sceglie una \alert{funzione hash} $h$ che mappa ogni chiave $k \in \cal U$\\ in un intero $h(k)$ 
-\item La coppia chiave--valore $\langle k,v \rangle$ viene memorizzata in un vettore nella posizione $h(k)$
-\item Questo vettore viene detto \alert{tabella hash}
+\begin{myboxtitle}[Implementazione ideale: \alert{tabelle hash}]
+\BIL
 \item Hash: From French \alert{hacher} (“to chop”), from Old French \alert{hache} (“axe”)
-\EI
+\item L'insieme delle possibili chiavi è rappresentato \\dall'\alert{insieme universo} $\cal U$
+di dimensione \alert{$u$}
+\item Si memorizzano le chiavi in un vettore $T[0 \ldots m-1]$ di dimensione \alert{$m$}, detto \alert{tabella hash}
+\EIL
+\end{myboxtitle}
 
 \end{frame}
 
@@ -136,13 +136,11 @@ $\dictremove()$ & $O(n)$ & $O(n)$ & $O(n)$ & $O(\log n)$ & $O(1)$\\\hline
 
 \vspace{-6pt}
 \BI
-\item L'insieme delle possibili chiavi è rappresentato \\dall'\alert{insieme universo} $\cal U$
-di dimensione $u$
-\item Il vettore $T[0 \ldots m-1]$ ha dimensione $m$
-\item Una funzione hash è definita come
+\item Una \alert{funzione hash} è definita come
 \(
 h: {\cal U} \rightarrow \{ 0, 1, \ldots, m-1 \}
 \)
+\item La coppia chiave--valore $\langle k,v \rangle$ viene memorizzata in un vettore nella posizione $h(k)$
 \EI	
 \begin{center}
 \includegraphics[width=0.7\textwidth]{hash-crop.pdf}
@@ -169,8 +167,8 @@ diciamo che è avvenuta una \alert{collisione}
 
 \begin{frame}{Tabelle ad accesso diretto}
 
-\vspace{-6pt}
-\BB{Caso particolare: l'insieme ${\cal U}$ è già un sottoinsieme (piccolo) di $\mathbb{Z}^+$}
+\vspace{-9pt}
+\BB{Caso particolare: l'insieme ${\cal U}$ è già un sottoinsieme (piccolo) di $\mathbb{Z}^+$
 \begin{columns}[T]
 \begin{column}{0.9\textwidth}
 \BI
@@ -182,10 +180,11 @@ diciamo che è avvenuta una \alert{collisione}
 \includegraphics[width=	\textwidth]{mewtwo.png}
 \end{column}
 \end{columns}
+}
 
 \begin{myboxtitle}[Tabella a accesso diretto]
 \BI
-\item Si utilizza la funzione hash identità $h(k)=k$
+\item Si utilizza la \alert{funzione hash identità} $h(k)=k$
 \item Si sceglie un valore $m$ pari a $u$
 \EI
 \end{myboxtitle}
@@ -206,9 +205,9 @@ effettivamentre registrate è molto minore di $u=m$, si spreca memoria
 
 \begin{frame}{Funzioni hash perfette}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione]
-Una funzione hash $h$ si dice \alert{perfetta} se è \alert{iniettiva}, ovvero
+Una funzione hash $h$ si dice \alert{perfetta} se è \alert{iniettiva}, ovvero se non dà origine a collisioni:
 \[
 \forall k_1, k_2 \in {\cal U}: k_1 \neq k_2 \Rightarrow h(k_1) \neq h(k_2)
 \]
@@ -245,7 +244,7 @@ h(k) = k - 173.185, m = 10.679
 
 \begin{frame}{Funzioni hash}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Se non possiamo evitare le collisioni]
 \BI
 \item almeno cerchiamo di minimizzare il loro numero
@@ -273,7 +272,7 @@ h(k) = k - 173.185, m = 10.679
 
 \begin{frame}{Funzioni hash}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{\emph{Per poter ottenere una funzione hash con uniformità semplice,\\ la distribuzione delle probabilità $P$ deve essere nota}}
 
 \begin{myboxtitle}[Esempio]
@@ -285,7 +284,7 @@ $H(k) = \lfloor km \rfloor$ soddisfa la proprietà di uniformità semplice
 \BB{Nella realtà}
 \BIL
 \item La distribuzione esatta può non essere (completamente) nota
-\item Si utilizzano allora tecniche "\alert{euristiche}"
+\item Si utilizzano allora tecniche ``\alert{euristiche}"
 \EIL
 
 \end{frame}
@@ -294,45 +293,46 @@ $H(k) = \lfloor km \rfloor$ soddisfa la proprietà di uniformità semplice
 
 \begin{frame}{Come realizzare una funzione hash}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Assunzione]
-Le chiavi possono essere tradotte in valori numerici non negativi, anche
+Le chiavi possono essere tradotte in valori numerici, anche
 interpretando la loro rappresentazione in memoria come un numero.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Esempio: trasformazione stringhe]
 \BI
-\item $\mathit{ord}(c)$: valore ordinale binario del carattere $c$ in qualche codifica
-\item $\mathit{bin}(k)$:	rappresentazione binaria della chiave $k$, concatenando i valori binari 
+\item \alert{$\mathit{ord}(c)$}: valore ordinale binario del carattere $c$ in qualche codifica
+\item \alert{$\mathit{bin}(k)$}:	rappresentazione binaria della chiave $k$, concatenando i valori binari 
   dei caratteri che lo compongono
-\item $\mathit{int}(b)$: valore numerico associato al numero binario $b$
-\item $\mathit{int}(k) = \mathit{int}(\mathit{bin}(k))$
+\item \alert{$\mathit{int}(b)$}: valore numerico associato al numero binario $b$
+\item $\alert{\mathit{int}(k)} = \mathit{int}(\mathit{bin}(k))$
 \EI
 \end{myboxtitle}
 
 
 \end{frame}
 
-\begin{frame}{Come realizzare una funzion hash}
+\begin{frame}{Come realizzare una funzione hash}
 
-\vspace{-6pt}
-\BB{Nei prossimi esempi}
-\BIL
-\item Utilizziamo codice ASCII a 8 bit
-\EIL
+\vspace{-9pt}
+\BB{Nei prossimi esempi, utilizziamo codice ASCII a 8 bit}
 
 \begin{align*}
-\mathit{bin}("\texttt{DOG}") &= \makebox[2.1cm][l]{$\mathit{ord}("\mathtt{D}")$} \makebox[2.1cm][l]{$\mathit{ord}("\mathtt{O}")$} \makebox[2.1cm][l]{$\mathit{ord}("\mathtt{G}"$)} \\
+\mathit{bin}(``\texttt{DOG}") &= \makebox[2.1cm][l]{$\mathit{ord}(``\mathtt{D}")$} \makebox[2.1cm][l]{$\mathit{ord}(``\mathtt{O}")$} \makebox[2.1cm][l]{$\mathit{ord}(``\mathtt{G}"$)} \\
 	&= \makebox[2.1cm][l]{\texttt{01000100}} \makebox[2.1cm][l]{\texttt{01001111}} \makebox[2.1cm][l]{\texttt{01000111}} \\
-\mathit{int}("\texttt{DOG}") &= \makebox[2.1cm][l]{$68 \cdot 256^2 + {}$} \makebox[2.1cm][l]{$79 \cdot 256 + {}$} \makebox[2.1cm][l]{$71$} \\
+\mathit{int}(``\texttt{DOG}") &= \makebox[2.1cm][l]{$68 \cdot 256^2 + {}$} \makebox[2.1cm][l]{$79 \cdot 256 + {}$} \makebox[2.1cm][l]{$71$} \\
 	&= 4,476,743
 \end{align*}
+
+\bigskip
+\BB{Domanda: come fate a trasformare questa sequenza di bit o questo numero in un valore compreso in $[0, m-1]$?}
+
 
 \end{frame}
 
 \begin{frame}{Funzione hash - Estrazione}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Estrazione]
 \BIL
 \item $m = 2^p$
@@ -340,28 +340,34 @@ interpretando la loro rappresentazione in memoria come un numero.
 \EIL
 \end{myboxtitle}
 
-\BB{Problemi}
+\begin{myboxtitle}[Problemi]
+\begin{overprint}
+\onslide<1|handout:0>
+?
+\onslide<2|handout:1>
 \BIL
-\item Selezionare bit presi dal suffisso della chiave può generare collissioni
+\item Selezionare bit presi dal suffisso della chiave può generare collisioni
 con alta probabilità
 \item Tuttavia, anche prendere parti diverse dal suffisso o dal prefisso può generare collisioni.
 \EIL
+\end{overprint}
+\end{myboxtitle}
  
 \end{frame}
 
 \begin{frame}{Funzione hash - Estrazione}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Esempio 1]
 $m = 2^p = 2^{16} = 65536$; $16$ bit meno significativi di $\mathit{bin}(k)$
 
 \begin{align*}
-\mathit{bin}("\texttt{Alberto}") = {} & \texttt{01000001  01101100  01100010  01100101} \\ 
+\mathit{bin}(``\texttt{Alberto}") = {} & \texttt{01000001  01101100  01100010  01100101} \\ 
 &  \texttt{01110010  \alert{01110100  01101111}}\\
-\mathit{bin}("\texttt{Roberto}") = {} & \texttt{01010010  01101111  01100010  01100101} \\
+\mathit{bin}(``\texttt{Roberto}") = {} & \texttt{01010010  01101111  01100010  01100101} \\
 &    \texttt{01110010  \alert{01110100  01101111}} \\
-H("\texttt{Alberto}") = {} & \mathit{int}(\alert{01110100  01101111}) = 29.807 \\
-H("\texttt{Roberto}") = {} & \mathit{int}(\alert{01110100  01101111}) = 29.807
+H(``\texttt{Alberto}") = {} & \mathit{int}(\alert{01110100  01101111}) = 29.807 \\
+H(``\texttt{Roberto}") = {} & \mathit{int}(\alert{01110100  01101111}) = 29.807
 \end{align*}
 \end{myboxtitle}
 
@@ -372,17 +378,17 @@ H("\texttt{Roberto}") = {} & \mathit{int}(\alert{01110100  01101111}) = 29.807
 \begin{frame}{Funzione hash - Estrazione}
 
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Esempio 2]
 $m = 2^p = 2^{16} = 65536$; 16 bit presi all'interno di $\mathit{bin}(k)$
 
 \begin{align*}
-\mathit{bin}("\texttt{Alberto}") = {} & \texttt{0100\alert{0001  01101100  0110}0010  01100101} \\ 
+\mathit{bin}(``\texttt{Alberto}") = {} & \texttt{0100\alert{0001  01101100  0110}0010  01100101} \\ 
 &  \texttt{01110010  01110100  01101111}\\
-\mathit{bin}("\texttt{Alessio}") = {} & \texttt{0100\alert{0001  01101100  0110}0101  01110011} \\ 
+\mathit{bin}(``\texttt{Alessio}") = {} & \texttt{0100\alert{0001  01101100  0110}0101  01110011} \\ 
 &  \texttt{01110011  01101001  01101111} \\
-H("\texttt{Alberto}") = {} & \mathit{int}(\alert{0001011011000110}) = 5.830 \\
-H("\texttt{Alessio}") = {} & \mathit{int}(\alert{0001011011000110}) = 5.830
+H(``\texttt{Alberto}") = {} & \mathit{int}(\alert{0001011011000110}) = 5.830 \\
+H(``\texttt{Alessio}") = {} & \mathit{int}(\alert{0001011011000110}) = 5.830
 \end{align*}
 \end{myboxtitle}
 
@@ -391,7 +397,7 @@ H("\texttt{Alessio}") = {} & \mathit{int}(\alert{0001011011000110}) = 5.830
 
 \begin{frame}[shrink=5]{Funzione hash - XOR}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[XOR]
 \BIL
 \item $m = 2^p$
@@ -399,42 +405,43 @@ H("\texttt{Alessio}") = {} & \mathit{int}(\alert{0001011011000110}) = 5.830
 \EIL
 \end{myboxtitle}
 
-\BB{Problemi}
+\begin{myboxtitle}[Problemi]
 \BIL
 \item Permutazioni (anagrammi) della stessa stringa possono generare lo stesso valore hash
 \EIL
+\end{myboxtitle}
 
 
 \end{frame}
 
 \begin{frame}[shrink=5]{Funzione hash - XOR}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Esempio]
 $m = 2^{16} = 65536$; 5 gruppi di 16 bit ottenuti con 8 zeri di "\alert{padding}"
 
 \begin{columns}[T]
 \column{0.45\textwidth}
 \begin{align*}
-\mathit{bin}&("\texttt{montresor}") = \\ 
+\mathit{bin}&(``\texttt{montresor}") = \\ 
 &\texttt{01101101 01101111}  \oplus {} \\
 &\texttt{01101110 01110100} \oplus {} \\
 &\texttt{01110010 01100101} \oplus {} \\
 &\texttt{01110011 01101111} \oplus {} \\
 &\texttt{01110010 \alert{00000000}} \\
-H&("\texttt{montresor}") = {}\\
+H&(``\texttt{montresor}") = {}\\
 int&(\texttt{01110000 00010001}) = {}\\
 & 28.689 
 \end{align*}
 \column{0.45\textwidth}
 \begin{align*}
-\mathit{bin}&("\texttt{sontremor}") = {} \\
+\mathit{bin}&(``\texttt{sontremor}") = {} \\
 &\texttt{01110011 01101111}  \oplus {} \\
 &\texttt{01101110 01110100} \oplus {} \\
 &\texttt{01110010 01100101} \oplus {} \\
 &\texttt{01101101 01101111} \oplus {} \\
 &\texttt{01110010 \alert{00000000}} \\
-H&("\texttt{sontremor}") = {}\\
+H&(``\texttt{sontremor}") = {}\\
 int&(\texttt{01110000 00010001}) = {}\\
 & 28.689 
 \end{align*}
@@ -447,7 +454,7 @@ int&(\texttt{01110000 00010001}) = {}\\
 
 \begin{frame}{Funzione hash - Metodo della divisione}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Metodo della divisione]
 \BIL
 \item $m$ dispari, meglio se numero primo
@@ -458,9 +465,9 @@ int&(\texttt{01110000 00010001}) = {}\\
 \begin{myboxtitle}[Esempio]
 $m = 383$
 \begin{align*}
-H("\texttt{Alberto}") =  &18.415.043.350.787.183 \bmod 383 =&  221 \\
-H("\texttt{Alessio}") =  &18.415.056.470.632.815  \bmod 383 =& 77 \\
-H("\texttt{Cristian}") = 4.8&60.062.892.481.405.294   \bmod 383 =& 130
+H(``\texttt{Alberto}") =  &18.415.043.350.787.183 \bmod 383 =&  221 \\
+H(``\texttt{Alessio}") =  &18.415.056.470.632.815  \bmod 383 =& 77 \\
+H(``\texttt{Cristian}") = 4.8&60.062.892.481.405.294   \bmod 383 =& 130
 \end{align*}
 
 \end{myboxtitle}
@@ -470,7 +477,7 @@ H("\texttt{Cristian}") = 4.8&60.062.892.481.405.294   \bmod 383 =& 130
 
 \begin{frame}{Funzione hash - Metodo della divisione}         
 
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{Non vanno bene:}
 \BIL
 \item $m=2^p$: solo i $p$ bit meno significativi vengono considerati
@@ -487,7 +494,7 @@ $2^p$ hanno lo stesso valore hash (Esercizio: dimostrare)
 
 \begin{frame}{Funzione hash - Metodo della moltiplicazione (Knuth)}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Metodo della moltiplicazione]
 \BI
 \item $m$ qualsiasi, meglio se potenza di $2$
@@ -505,19 +512,20 @@ $C=\frac{\sqrt{5}-1}{2}$
 }{
 \smallskip
 \begin{align*}
-H("\texttt{Alberto}") = {} &65.536 \cdot 0.78732161432 = 51.598&   \\
-H("\texttt{Alessio}") = {} &65.536 \cdot 0.51516739168 = 33.762&   \\
-H("\texttt{Cristian}") = {} &65.536 \cdot 0.72143641000 = 47.280&   \\
+H(``\texttt{Alberto}") = {} &65.536 \cdot 0.78732161432 = 51.598&   \\
+H(``\texttt{Alessio}") = {} &65.536 \cdot 0.51516739168 = 33.762&   \\
+H(``\texttt{Cristian}") = {} &65.536 \cdot 0.72143641000 = 47.280&  
 \end{align*}
 }
 \end{myboxtitle}
+\tiny \url{https://it.wikipedia.org/wiki/Sezione_aurea\#Coniugato_della_sezione_aurea}
    
 \end{frame}
 
 \begin{frame}{Metodo della moltiplicazione - Implementazione}
 
 
-\vspace{-6pt}
+\vspace{-9pt}
 \BIL
 \item Si scelga un valore $m=2^p$
 \item Sia $w$ la dimensione in bit della parola di memoria: $i, m \leq 2^w$
@@ -542,7 +550,7 @@ H("\texttt{Cristian}") = {} &65.536 \cdot 0.72143641000 = 47.280&   \\
 
 \begin{frame}{Reality check}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \BIL
 \item Non è poi così semplice...
 \BI
@@ -604,7 +612,7 @@ Il successore di City Hash, sempre sviluppato da Google.
 
 \begin{frame}{Problema delle collisioni}
 	
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{Come gestire le collisioni?}
 \BI
 \item Dobbiamo trovare posizioni alternative per le chiavi
@@ -673,7 +681,7 @@ la ricerca di una chiave presente nella tabella
 \end{tabular}
 }
 
-\BB{Analisi del caso pessimo}
+\BB{Analisi del caso pessimo?}
 \pause
 \BI
 \item Tutte le chiavi sono collocate in unica lista
@@ -685,7 +693,7 @@ la ricerca di una chiave presente nella tabella
 
 \begin{frame}{Liste/vettori di trabocco: analisi complessità}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{Analisi del caso medio: assunzioni}
 \BIL
 \item Dipende da come le chiavi vengono distribuite
@@ -708,7 +716,7 @@ una lista è pari a $\alpha = n/m$
 
 \begin{frame}{Liste/vettori di trabocco: analisi complessità}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{Costo hashing}
 \BIL
 \item Una chiave \alert{presente} o \alert{non presente} in tabella può essere 
@@ -745,7 +753,7 @@ collocata in uno qualsiasi degli $m$ slot
 
 \begin{frame}{Liste/vettori di trabocco: analisi complessità}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{Qual è il significato del fattore di carico?}	
 \BIL
 \item Influenza il costo computazionale delle operazioni sulle tabelle hash
@@ -759,7 +767,7 @@ collocata in uno qualsiasi degli $m$ slot
 
 \begin{frame}{Indirizzamento aperto}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{Problemi delle liste/vettori di trabocco}
 \BIL
 \item Struttura dati complessa, con liste, puntatori, etc.
@@ -782,8 +790,8 @@ Si cerca nello slot prescelto, e poi negli slot "alternativi" fino a quando non 
 }
 \end{frame}
 
-\begin{frame}{Definizioni}
-\vspace{-6pt}
+\begin{frame}{Indirizzamento aperto}
+\vspace{-9pt}
 \begin{myboxtitle}[Ispezione]
 Un'\alert{ispezione} è l'esame di uno slot durante la ricerca.
 \end{myboxtitle}
@@ -800,6 +808,11 @@ Estesa nel modo seguente:
 \end{myboxtitle}
 
 
+	
+\end{frame}
+
+\begin{frame}{Indirizzamento aperto}
+
 \begin{myboxtitle}[Sequenza di ispezione]
 Una \alert{sequenza di ispezione} $[ H(k, 0), H(k, 1), \ldots, H(k, m-1) ]$ è 
 una \alert{permutazione} degli indici $[0, \ldots, m-1]$ corrispondente all'ordine
@@ -809,11 +822,6 @@ in cui vengono esaminati gli slot.
 \item Potrebbe essere necessario esaminare tutti gli slot nella tabella
 \EI
 \end{myboxtitle}
-	
-\end{frame}
-
-\begin{frame}{Esempio}
-
 
 \begin{overprint}
 \includegraphics<1|handouts:0>[width=\textwidth,page=1]{ind-aperto.pdf}
@@ -828,7 +836,7 @@ in cui vengono esaminati gli slot.
 
 \begin{frame}{Fattore di carico}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{Cosa succede al fattore di carico $\alpha$?}
 \BIL
 \item Compreso fra 0 e 1
@@ -840,7 +848,7 @@ in cui vengono esaminati gli slot.
 
 \begin{frame}{Tecniche di ispezione}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Hashing uniforme]
 La situazione ideale prende il nome di \alert{hashing uniforme}, in cui
 ogni chiave ha la stessa probabilità di avere come sequenza di ispezione
@@ -851,7 +859,7 @@ una qualsiasi delle $m!$ permutazioni di $[0, \ldots, m-1]$.
 \item Generalizzazione dell'hashing uniforme semplice
 \item Nella realtà:
 \BI
-\item E' difficile implementare il vero hashing uniforme
+\item \EE difficile implementare il vero hashing uniforme
 \item Ci si accontenta di ottenere almeno una permutazione
 \EI
 \item Tecniche diffuse:
@@ -866,7 +874,7 @@ una qualsiasi delle $m!$ permutazioni di $[0, \ldots, m-1]$.
 
 \begin{frame}{Ispezione lineare}
 	
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{
 Funzione: \alert{$H(k, i) = (H_1(k) + h \cdot i) \bmod m$}
 }
@@ -889,7 +897,7 @@ slot pieni viene riempito con probabilità $(i+1)/m$
 
 \begin{frame}{Agglomerazione primaria}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[\alert{Agglomerazione primaria} (primary clustering)]
 \BI
 \item Lunghe sotto-sequenze occupate...
@@ -911,7 +919,7 @@ slot pieni viene riempito con probabilità $(i+1)/m$
 
 \begin{frame}{Ispezione quadratica}
 	
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{
 Funzione: \alert{$H(k, i) = (H_1(k) + h \cdot i^2) \bmod m$}
 }
@@ -933,7 +941,7 @@ offset che dipende da una funzione quadratica nel numero di ispezione $i$
 
 \begin{frame}{Doppio hashing}
 	
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{
 Funzione: \alert{$H(k, i) = (H_1(k) + i \cdot H_2(k)) \bmod m$}
 }
@@ -957,7 +965,7 @@ Funzione: \alert{$H(k, i) = (H_1(k) + i \cdot H_2(k)) \bmod m$}
 
 \begin{frame}{Cancellazione}
 
-\vspace{-3pt}
+\vspace{-12pt}
 \begin{overprint}
 \onslide<1-2|handout:1-2>
 	\BB{
@@ -990,12 +998,13 @@ Funzione: \alert{$H(k, i) = (H_1(k) + i \cdot H_2(k)) \bmod m$}
 \begin{Procedure}
 \noindent\rule{\textwidth}{0.8pt}\hrulefill
 
-\vspace{-3pt}
+\vspace{-15pt}
 {\Hash}
 
 \vspace{-9pt}
 \noindent\rule{\textwidth}{0.8pt}\hrulefill
 
+\vspace{-9pt}
 $\Item[\,]\ K$\REMR{Tabella delle chiavi}
 $\Item[\,]\ V$\REMR{Tabella dei valori}
 \INTEGER $m$\REMR{Dimensione della tabella}
@@ -1005,8 +1014,8 @@ $\Item[\,]\ V$\REMR{Tabella dei valori}
 {
   $\Hash\ t = \NEW\ \Hash$\;
   $t.m = \hashsize$\;
-  $t.K = \NEW\ Item[0 \mldots \hashsize-1]$\;
-  $t.V = \NEW\ Item[0 \mldots \hashsize-1]$\;
+  $t.K = \NEW\ \Item[0 \mldots \hashsize-1]$\;
+  $t.V = \NEW\ \Item[0 \mldots \hashsize-1]$\;
   \For{$i = 0$\ \TO\ $\hashsize-1$}{ $t.K[i] = \hempty$}
   \Return $t$\;
 }
@@ -1021,17 +1030,20 @@ $\Item[\,]\ V$\REMR{Tabella dei valori}
 \begin{Procedure}
 \INTEGER\ \PROCEDURE{\hashscan(\Item $k$, \BOOLEAN \hinsert)}
 {
-  \INTEGER\ $c = m$\REMR{Prima posizione \emph{\hcancel}}
+  \INTEGER\ $\mathit{delpos} = m$\REMR{Prima posizione \emph{\hcancel}}
   \INTEGER\ $i = 0$\REMR{Numero di ispezione}
   \INTEGER\ $j = H(k)$\REMR{Posizione attuale}
   \While{$K[j] \neq k$ \AND\ $K[j] \neq \hempty$ \AND\ $i<m$}
   {
-    \If{$K[j] \Eq \hcancel$ \AND\ $c\Eq m$}{$c = j$}
+    \If{$K[j] \Eq \hcancel$ \AND\ $\mathit{delpos}\Eq m$}{$\mathit{delpos} = j$}
     $j = (j + H'(k)) \bmod m$\;
     $i = i+1$\; 
   }
-  \If{$\hinsert$ \AND\ $K[j] \neq k$ \AND $c < m$}{$j = c$\;}
-  \Return\ $j$\;
+  \eIf{$\hinsert$ \AND\ $K[j] \neq k$ \AND $\mathit{delpos} < m$}{
+    \Return $\mathit{delpos}$\;
+  }{
+    \Return\ $j$\;
+  }
 }
 \BlankLine
 
@@ -1076,6 +1088,7 @@ $\Item[\,]\ V$\REMR{Tabella dei valori}
   \If{$K[i] \Eq k$}
   {
     $K[i] = \hcancel$\;
+    $V[i] = \hempty$\;
   }  
 }
 \end{Procedure}
@@ -1112,34 +1125,123 @@ Liste di trabocco & $\alpha\ge 0$ & $1 + \alpha$ & $1 + \alpha/2$\\
 	
 \end{frame}
 
-\begin{frame}{Ristrutturazione}
+%% 2020 Spostato in analisi ammortizzata perché fatto dopo
+% \begin{frame}{Ristrutturazione}
+%
+% \vspace{-9pt}
+% \BIL
+% \item Non è conveniente che $\alpha$ cresca troppo
+% 	\BI
+% 	\item In particolare con la scansione interna
+% 	\item Ma vale anche per le liste di trabocco
+% 	\EI
+% \item Sopra un soglia $t_\alpha$ prefissata (tipicamente $0.5$-$0.75$)
+% \BI
+% \item  Si alloca una nuova tabella di dimensione $2m$
+% \item Si reinseriscono tutte le chiavi presenti nella nuova tabella
+% \EI
+% \item Risultato
+% \BI
+% 	\item Fattore di carico dimezzato (tipicamente $0.25$)
+% 	\item Nessun elemento \textbf{deleted}
+% \EI
+% \item Costi
+% \BI
+% \item Costo $O(m)$ per la ristrutturazione nel caso pessimo
+% \item Costo ammortizzato costante (vedi dimostrazione per vettori)
+% \EI
+% \EIL
+%
+% \end{frame}
 
+\subsection{Reality check}
+
+
+
+
+
+
+\begin{frame}[shrink=10]{Java \texttt{hashcode()}}
+	
+\vspace{-9pt}
+\begin{myboxtitle}[Dalla documentazione di \texttt{java.lang.Object}]
+The general contract of \texttt{hashCode()} is:
+\begin{enumerate}
+\item Whenever it is invoked on the same object more than once during an
+execution of a Java application, \alert{\emph{the \texttt{hashCode()} method must consistently return
+the same integer, provided no information used in equals comparisons on the
+object is modified}}. This integer need not remain consistent from one execution
+of an application to another execution of the same application.
+\item \alert{\emph{If two objects are equal according to the \texttt{equals(Object)} method, then
+calling the \texttt{hashCode()} method on each of the two objects must produce the same
+integer result}}.
+\item It is not required that if two objects are unequal according to the
+\texttt{equals(Object)} method, then calling the \texttt{hashCode()} method on each of
+the two objects must produce distinct integer results. However, \alert{\emph{the programmer
+should be aware that producing distinct integer results for unequal objects may
+improve the performance of hash tables}}.
+\end{enumerate}
+\end{myboxtitle}
+
+\end{frame}
+
+
+\begin{frame}{Java \texttt{hashcode()}}
+
+\vspace{-9pt}
+\BB{Se una classe non fa override di \texttt{equals()}:}
 \BIL
-\item Non è conveniente che $\alpha$ cresca troppo
-	\BI
-	\item In particolare con la scansione interna
-	\item Ma vale anche per le liste di trabocco
-	\EI
-\item Sopra un soglia $t_\alpha$ prefissata (tipicamente $0.5$-$0.75$)
+\item Eredita i metodi
+\texttt{equals()} e \texttt{hashCode()} così come definiti da \texttt{java.lang.Object}:
 \BI
-\item  Si alloca una nuova tabella di dimensione $2m$
-\item Si reinseriscono tutte le chiavi presenti nella nuova tabella
+\item \texttt{x.equals(y)}  ritorna \textbf{true} se e solo se \texttt{x == y}
+\item \texttt{x.hashCode()} converte l'indirizzo di memoria di \texttt{x} in un intero
 \EI
-\item Risultato
-\BI
-	\item Fattore di carico dimezzato (tipicamente $0.25$)
-	\item Nessun elemento \textbf{deleted}
-\EI
-\item Costi
-\BI
-\item Costo $O(m)$ per la ristrutturazione nel caso pessimo
-\item Costo ammortizzato costante (vedi dimostrazione per vettori)
-\EI
+\EIL
+
+\BB{Se una classe fa ovveride di \texttt{equals()}:}
+\BIL
+\item "Always override hashCode when you override equals", in Bloch, Joshua (2008), Effective Java (2nd ed.)
+\item Se non fate override, oggetti uguali finiscono in posizioni diverse
+nella tabella hash
 \EIL
 
 \end{frame}
 
-\subsection{Reality check}
+\begin{frame}{Java \texttt{hashcode()}}
+
+\vspace{-9pt}
+\BB{Esempio: \texttt{java.lang.String}}
+\BIL
+\item Override di \texttt{equals()} per controllare l’uguaglianza di stringhe
+\item \texttt{hashCode()} in Java 1.0, Java 1.1
+\BI
+\item Utilizzati 16 caratteri della stringa per calcolare l’\texttt{hashCode()}
+\item Problemi con la regola (3) - cattiva performance nelle tabelle
+\EI
+\item \texttt{hashCode()} in Java 1.2 e seguenti:
+\[
+  h(s) = \sum_{i=0}^{n-1} s[i] \cdot 31^{n-1-i}
+\]
+(utilizzando aritmetica \texttt{int})
+\EIL
+
+\end{frame}
+
+
+\begin{frame}[fragile]{Java \texttt{hashcode()}}
+
+\vspace{-9pt}
+\BB{Cosa non fare!}
+
+\begin{lstlisting}[language=java]
+public int hashCode()
+{
+  return 0;
+}
+\end{lstlisting}
+
+\end{frame}
 
 \begin{frame}[shrink=10]{Reality check}
 
@@ -1186,96 +1288,11 @@ $0.66$ &
 \end{frame}
 
 
-
-
-
-\begin{frame}[shrink=10]{Java \texttt{hashcode()}}
-	
-\vspace{-6pt}
-\begin{myboxtitle}[Dalla documentazione di \texttt{java.lang.Object}]
-The general contract of \texttt{hashCode()} is:
-\begin{enumerate}
-\item Whenever it is invoked on the same object more than once during an
-execution of a Java application, \alert{\emph{the \texttt{hashCode()} method must consistently return
-the same integer, provided no information used in equals comparisons on the
-object is modified}}. This integer need not remain consistent from one execution
-of an application to another execution of the same application.
-\item \alert{\emph{If two objects are equal according to the \texttt{equals(Object)} method, then
-calling the \texttt{hashCode()} method on each of the two objects must produce the same
-integer result}}.
-\item It is not required that if two objects are unequal according to the
-\texttt{equals(Object)} method, then calling the \texttt{hashCode()} method on each of
-the two objects must produce distinct integer results. However, \alert{\emph{the programmer
-should be aware that producing distinct integer results for unequal objects may
-improve the performance of hash tables}}.
-\end{enumerate}
-\end{myboxtitle}
-
-\end{frame}
-
-
-\begin{frame}{Java \texttt{hashcode()}}
-
-\vspace{-6pt}
-\BB{Se una classe non fa override di \texttt{equals()}:}
-\BIL
-\item Eredita i metodi
-\texttt{equals()} e \texttt{hashCode()} così come definiti da \texttt{java.lang.Object}:
-\BI
-\item \texttt{x.equals(y)}  ritorna \textbf{true} se e solo se \texttt{x == y}
-\item \texttt{x.hashCode()} converte l'indirizzo di memoria di \texttt{x} in un intero
-\EI
-\EIL
-
-\BB{Se una classe fa ovveride di \texttt{equals()}:}
-\BIL
-\item "Always override hashCode when you override equals", in Bloch, Joshua (2008), Effective Java (2nd ed.)
-\item Se non fate override, oggetti uguali finiscono in posizioni diverse
-nella tabella hash
-\EIL
-
-\end{frame}
-
-\begin{frame}{Java \texttt{hashcode()}}
-
-\vspace{-6pt}
-\BB{Esempio: \texttt{java.lang.String}}
-\BIL
-\item Override di \texttt{equals()} per controllare l’uguaglianza di stringhe
-\item \texttt{hashCode()} in Java 1.0, Java 1.1
-\BI
-\item Utilizzati 16 caratteri della stringa per calcolare l’\texttt{hashCode()}
-\item Problemi con la regola (3) - cattiva performance nelle tabelle
-\EI
-\item \texttt{hashCode()} in Java 1.2 e seguenti:
-\[
-  h(s) = \sum_{i=0}^{n-1} s[i] \cdot 31^{n-1-i}
-\]
-(utilizzando aritmetica \texttt{int})
-\EIL
-
-\end{frame}
-
-
-\begin{frame}[fragile]{Java \texttt{hashcode()}}
-
-\vspace{-6pt}
-\BB{Cosa non fare}
-
-\begin{lstlisting}[language=java]
-public int hashCode()
-{
-  return 0;
-}
-\end{lstlisting}
-
-\end{frame}
-
 \section{Conclusioni}
 
 \begin{frame}{Considerazioni finali}
 	
-\vspace{-6pt}
+\vspace{-9pt}
 \BB{Problemi con hashing}
 \BI
 \item Scarsa "locality of reference" (cache miss)

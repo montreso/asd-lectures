@@ -56,9 +56,11 @@
 \begin{frame}{Ricerca locale}
 
 Se si conosce una soluzione ammissibile (non necessariamente ottima) ad un
-problema di ottimizzazione, si può cercare di trovare una soluzione migliore
-nelle "vicinanze" di quella precedente. Si continua in questo modo fino a
-quando non si è più in grado di migliorare
+problema di ottimizzazione, si può cercare una soluzione migliore
+nelle "vicinanze" di quella precedente. 
+
+\bigskip
+Si continua così fino a quando non si può più migliorare
 
 
 \begin{Procedure}
@@ -89,6 +91,32 @@ $\Sol = \textrm{una soluzione ammissibile del problema}$\;
 
 \subsection{Rete di flusso}
 
+%%---------------------------------------------------------------------------
+\begin{frame}{Flusso massimo nella guerra fredda}
+
+\TwoColsCustom{0.52}{0.46}{
+\vspace{-12pt}
+\IG{1.0}{russian.pdf}
+}{
+\footnotesize
+T. Harris, F. Ross, Fundamentals of a Method for Evaluating Rail Net Capacities. Research
+Memorandum RM-1573, The RAND Corporation, Santa Monica, California, 1955.
+
+\bigskip
+Rete ferroviaria dell'Unione Sovietica occidentale e dell'Europa Orientale. $|V| = 44, |E|=105$. \\
+Flusso massimo di $163 \cdot 10^6$ kg. \\
+Taglio di capacità $163 \cdot 10^6$ kg detto "collo di bottiglia"
+}
+
+\bigskip
+\BB{
+Alexander Schrijver. \href{https://homepages.cwi.nl/~lex/files/histtrpclean.pdf}{On the history of the transportation and
+maximum flow problems}
+}
+
+\end{frame}
+
+
 %-------------------------------------------------------------------------
 \begin{frame}{Rete di flusso}
 
@@ -100,14 +128,14 @@ Una \alert{rete di flusso $G=(V,E,s,t,c)$} è data da:
 \item un nodo $s \in V$ detto \alert{sorgente}
 \item un nodo $t \in V$ detto \alert{pozzo}
 \item una funzione di \alert{capacità} $c: V \times V \rightarrow \mathbb{R}^{\geq 0}$,\\
-tale per cui $(u,v) \not \in E \Rightarrow c(u,v)=0$.
+tale che $(x,y) \not \in E \Rightarrow c(x,y)=0$.
 \EI
 \end{myboxtitle}
 
 \begin{myboxtitle}[Assunzioni]
 \BIL
-\item Per ogni nodo $v \in V$, esiste un cammino $s \leadsto v \leadsto t$ 
-da $s$ a $t$ che passa per $v$.
+\item Per ogni nodo $x \in V$, esiste un cammino $s \leadsto x \leadsto t$ 
+da $s$ a $t$ che passa per $x$.
 \item Possiamo ignorare i nodi che non godono di questa proprietà
 \EIL
 \end{myboxtitle}
@@ -121,6 +149,11 @@ da $s$ a $t$ che passa per $v$.
 
 \end{frame}
 
+
+
+
+
+
 \subsection{Flusso}
 
 %%---------------------------------------------------------------------------
@@ -131,12 +164,12 @@ da $s$ a $t$ che passa per $v$.
 Un \alert{flusso} in $G$ è una funzione \alert{$f: V \times V \rightarrow \mathbb{R}$} 
 che soddisfa le seguenti proprietà:
 \BIL
-\item \alert{Vincolo sulla capacità}: $\forall u,v \in V$, $f(u,v) \leq c(u,v)$
+\item \alert{Vincolo sulla capacità}: $\forall x,y \in V$, $f(x,y) \leq c(x,y)$
 
-\item \alert{Antisimmetria}: $\forall u,v \in V$, $f(u,v) = -f(v,u)$
+\item \alert{Antisimmetria}: $\forall x,y \in V$, $f(x,y) = -f(y,x)$
 
-\item \alert{Conservazione del flusso}: $\forall u \in V-\{s,t\}$, 
-$\sum_{v \in V} f(u,v) = 0$
+\item \alert{Conservazione del flusso}: $\forall x \in V-\{s,t\}$, 
+$\sum_{y \in V} f(x,y) = 0$
 \EIL
 \end{myboxtitle}
 
@@ -147,9 +180,10 @@ $\sum_{v \in V} f(u,v) = 0$
 
 \vspace{-9pt}
 \begin{myboxtitle}[Vincolo sulla capacità]
-Il flusso non deve eccedere la capacità sull'arco
+Il flusso non deve eccedere la capacità sull'arco.
+
 \[
-\alert{\forall u,v \in V: f(u,v) \leq c(u,v)}
+\alert{\forall x,y \in V: f(x,y) \leq c(x,y)}
 \]
 \end{myboxtitle}
 
@@ -165,10 +199,13 @@ Il flusso non deve eccedere la capacità sull'arco
 \begin{frame}{Flusso}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Antisimmetria]
+\begin{myboxtitle}[Simmetria opposta]
+Il flusso che attraversa un arco in direzione $(x,y)$ è l'opposto del flusso che attraversa l'arco in direzione $(y,x)$.
+
 \[
-\alert{\forall u,v \in V: f(u,v) = -f(v,u)}
+\alert{\forall x,y \in V: f(x,y) = -f(y,x)}
 \]
+
 Il flusso viene definito in questo modo per semplificare la proprietà successiva e altre regole.
 \end{myboxtitle}
 
@@ -184,9 +221,10 @@ Il flusso viene definito in questo modo per semplificare la proprietà successiv
 
 \vspace{-9pt}
 \begin{myboxtitle}[Conservazione del flusso]
-Per ogni nodo, la somma dei flussi entranti deve essere uguale alla somma dei flussi uscenti.
+Per ogni nodo diverso da sorgente e pozzo, la somma dei flussi entranti deve essere uguale alla somma dei flussi uscenti.
+
 \[
-\alert{\forall u \in V-\{s,t\}: \sum_{v \in V} f(u,v) = 0}
+\alert{\forall \textcolor{blue}{x} \in V-\{s,t\}: \sum_{y \in V} f(\textcolor{blue}{x}, y) = 0}
 \]
 \end{myboxtitle}
 
@@ -203,9 +241,11 @@ Per ogni nodo, la somma dei flussi entranti deve essere uguale alla somma dei fl
 \vspace{-9pt}
 \begin{myboxtitle}[Valore del flusso]
 Il \alert{valore di un flusso} $f$ è definito come:
+
 \[
-  |f| = \sum_{(s, v) \in E} f(s,v)
+  |f| = \sum_{(s, x) \in E} f(s, x)
 \]
+
 ovvero come la quantità di flusso uscente da $s$.
 \end{myboxtitle}
 
@@ -228,6 +268,7 @@ ovvero come la quantità di flusso uscente da $s$.
 \begin{myboxtitle}[Flusso massimo]
 Data una rete $G=(V,E,s,t,c)$, trovare un flusso che abbia valore massimo fra 
 tutti i flussi associabili alla rete.
+
 \[
   |f^*| = \max \{ |f| \}
 \]
@@ -265,7 +306,7 @@ tutti i flussi associabili alla rete.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Output]
-Se svolta correttamente, è possibile dimostrare che questo approccio restituisce
+\EE possibile dimostrare che questo approccio restituisce
 un flusso massimo
 \end{myboxtitle}
 
@@ -279,8 +320,11 @@ un flusso massimo
 \vspace{-9pt}
 \begin{myboxtitle}[Flusso nullo]
 Definiamo \alert{flusso nullo} la funzione 
-$f_0: V \times V \rightarrow \mathbf{R}^{\geq 0}$ tale che
-$f(u,v) = 0$ per ogni $u,v \in V$.
+$f_0: V \times V \rightarrow \mathbf{R}^{\geq 0}$ tale che:
+
+\[
+  \forall x,y \in V: f(x,y) = 0
+\]
 \end{myboxtitle}
 
 \bigskip
@@ -300,11 +344,14 @@ $f(u,v) = 0$ per ogni $u,v \in V$.
 
 \vspace{-9pt}
 \begin{myboxtitle}[Somma di flussi]
-Per ogni coppia di flussi $f_1$ e $f_2$ in $G$, definiamo il \alert{flusso somma}
-$g = f_1+f_2$ come un flusso tale per cui $g(u,v) = f_1(u,v) + f_2(u,v)$.
+Per ogni coppia di flussi $f_1$ e $f_2$ in $G$, definiamo il \alert{flusso somma} $g = f_1+f_2$ come un flusso tale che 
+
+\[
+  \forall x,y \in V: g(x,y) = f_1(x,y) + f_2(x,y)
+\]
 \end{myboxtitle}
 
-\IG{0.9}{sum.pdf}
+\IG{0.7}{sum.pdf}
 
 \end{frame}
 
@@ -315,7 +362,11 @@ $g = f_1+f_2$ come un flusso tale per cui $g(u,v) = f_1(u,v) + f_2(u,v)$.
 \begin{myboxtitle}[Capacità residua]
 Definiamo \alert{capacità residua} di un flusso $f$ in una rete $G=(V,E,s,t,c)$ 
 una funzione $c_f: V \times V \rightarrow \mathbf{R}^{\geq 0}$
-tale che $c_f(u,v) = c(u,v) - f(u,v)$.
+tale che 
+
+\[
+  \forall x,y \in V: c_f(x,y) = c(x,y) - f(x,y)
+\]
 \end{myboxtitle}
 
 \smallskip
@@ -337,7 +388,11 @@ tale che $c_f(u,v) = c(u,v) - f(u,v)$.
 \begin{myboxtitle}[Capacità residua]
 Definiamo \alert{capacità residua} di un flusso $f$ in una rete $G=(V,E,s,t,c)$ 
 una funzione $c_f: V \times V \rightarrow \mathbf{R}^{\geq 0}$
-tale che $c_f(u,v) = c(u,v) - f(u,v)$.
+tale che 
+
+\[
+  \forall x,y \in V: c_f(x,y) = c(x,y) - f(x,y)
+\]
 \end{myboxtitle}
 
 \smallskip
@@ -360,7 +415,11 @@ Per la definizione di capacità residua, si creano degli archi all'indietro:
 \begin{myboxtitle}[Reti residue]
 Data una rete di flusso $G=(V,E,s,t,c)$ e un flusso $f$ su $G$, 
 possiamo costruire una \alert{rete residua} $G_f=(V,E_f,s,t,c_f)$, tale
-per cui $(u,v) \in E_f$ se e solo se $c_f(u,v) > 0$. 
+per cui:
+
+\[
+  \forall x,y \in V: (x,y) \in E_f \Leftrightarrow c_f(x,y) > 0
+\]
 \end{myboxtitle}
 
 \smallskip
@@ -398,13 +457,36 @@ Se $f$ è un flusso in $G$ e $g$ è un flusso in $G_f$, allora
 $f+g$ è un flusso in $G$.
 \end{myboxtitle}
 
-\BB{Vincolo sulla capacità}
+\begin{overprint}
+\onslide<1|handout:0>
+\TwoColsCustom{0.35}{0.62}{
+\begin{myboxtitle}[Dimostrazione?]
+\BI
+\item Vincolo sulla capacità?
+\item Antisimmetria?
+\item Conservazione del flusso?
+\EI
+\end{myboxtitle}
+}{
+\begin{myboxtitle}[Reminder]
 \begin{align*}
-g(u,v) &\leq c_f(u,v) & \textrm{\small $g$ è un flusso in $G_f$} \\
-\alert{f(u,v)} + g(u,v) &\leq  c_f(u,v) + \alert{f(u,v)} & \textrm{\small Aggiungo termine uguale}\\
-(f+g)(u,v) &\leq c(u,v)-f(u,v) + f(u,v) & \textrm{\small Sostituzione}\\
-(f+g)(u,v) &\leq c(u,v) & \textrm{\small Semplificazione}
+& G_f  =(V,E_f,s,t,c_f)\\
+& \forall x,y \in V: (x,y) \in E_f \Leftrightarrow c_f(x,y) > 0 \\
+& \forall x,y \in V: c_f(x,y) = c(x,y) - f(x,y)
 \end{align*}
+\end{myboxtitle}
+}
+\onslide<2|handout:1>
+\begin{myboxtitle}[Vincolo sulla capacità ($\forall x,y \in V$)]
+\small
+\begin{align*}
+g(x,y) &\leq c_f(x,y) & \textrm{\small $g$ è un flusso in $G_f$} \\
+\alert{f(x,y)} + g(x,y) &\leq  \textcolor{blue}{c_f(x,y}) \qquad\quad~~ + \alert{f(x,y)} & \textrm{\small Aggiungo termine uguale}\\
+(f+g)(x,y) &\leq \textcolor{blue}{c(x,y)-f(x,y)} + f(x,y) & \textrm{\small Sostituzione}\\
+(f+g)(x,y) &\leq c(x,y) & \textrm{\small Semplificazione}
+\end{align*}
+\end{myboxtitle}
+\end{overprint}
 
 \end{frame}
 
@@ -417,12 +499,14 @@ Se $f$ è un flusso in $G$ e $g$ è un flusso in $G_f$, allora
 $f+g$ è un flusso in $G$.
 \end{myboxtitle}
 
-\BB{Antisimmetria}
+\begin{myboxtitle}[Antisimmetria ($\forall x,y \in V$)]
+\small
 \begin{align*}
-f(u,v)+g(u,v) &= -f(v,u)-g(v,u) & \textrm{\small Antisimmetria $f$, $g$} \\
-f(u,v)+g(u,v) &= -(f(v,u) + g(v,u)) & \textrm{\small Raccolta segno $-$} \\
-(f+g)(u,v) &= -(f+g)(v,u) & \textrm{\small Sostituzione} 
+f(x,y)+g(x,y) &= -f(y,x)-g(y,x) & \textrm{\small Antisimmetria $f$, $g$} \\
+f(x,y)+g(x,y) &= -(f(y,x) + g(y,x)) & \textrm{\small Raccolta segno $-$} \\
+(f+g)(x,y) &= -(f+g)(y,x) & \textrm{\small Sostituzione} 
 \end{align*}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -435,13 +519,14 @@ Se $f$ è un flusso in $G$ e $g$ è un flusso in $G_f$, allora
 $f+g$ è un flusso in $G$.
 \end{myboxtitle}
 
-\BB{Conservazione}
-
+\begin{myboxtitle}[Conservazione ($\forall x \in V - \{ s,t \}$)]
+\small
 \begin{align*}
-  \sum_{v \in V} (f+g)(u,v) &= \sum_{v \in V} (f(u,v) + g(u,v)) \\
-  &= \sum_{v \in V} f(u,v) + \sum_{v \in V} g(u,v) \\
-   &= 0
+  \sum_{y \in V} (f+g)(x,y) &= \sum_{y \in V} (f(x,y) + g(x,y)) \\
+  &= \sum_{y \in V} f(x,y) + \sum_{y \in V} g(x,y) \\
+   &= 0 + 0
 \end{align*}
+\end{myboxtitle}
 
 \end{frame}
 
@@ -449,9 +534,11 @@ $f+g$ è un flusso in $G$.
 \begin{frame}{Metodo dei cammini aumentanti}
 
 \vspace{-9pt}
-\BB{Domanda}
-Il punto principale del metodo precedente è il seguente: come trovare un 
-flusso aggiuntivo? 
+\begin{myboxtitle}[Domanda]
+Il problema principale del metodo proposto è il seguente:\\ 
+\alert{Come trovare un 
+flusso aggiuntivo}? 
+\end{myboxtitle}
 
 \begin{center}
 \IG{0.8}{template.pdf}
@@ -466,10 +553,11 @@ flusso aggiuntivo?
 \begin{overprint}
 \onslide<1|handout:1>
 \BIL
-\item Si trova un cammino $C=v_0,v_1,\ldots,v_n$, con $s=v_0$ e $t=v_n$ 
+\item Si trova un cammino $C=v_0,v_1,\ldots, v_n$, con $s=v_0$ e $t=v_n$ 
   nella rete residua $G_f$; 
 \item Si identifica la \alert{capacità del cammino}, corrispondente
   alla minore capacità degli archi incontrati (collo di bottiglia):
+  \smallskip
   \[
     c_f(C) = \min_{i=2 \ldots n} c_f(v_{i-1},v_i)
   \]
@@ -511,15 +599,15 @@ $\INTARRAY[\,]\ f = \NEW\ \INTARRAY[\,]$\REMR{Flusso parziale}
 $\INTARRAY[\,]\ g = \NEW\ \INTARRAY[\,]$\REMR{Flusso da cammino aumentante}
 $\INTARRAY[\,]\ r = \NEW\ \INTARRAY[\,]$\REMR{Rete residua}
 \BlankLine
-\ForEach{$u,v \in G.\VV()$}{
-  $f[u][v] = 0$\REMR{Inizializza un flusso nullo}
-  $r[u][v] = c[u][v]$\REMR{Copia c in r}
+\ForEach{$x,y \in G.\VV()$}{
+  $f[x][y] = 0$\REMR{Inizializza un flusso nullo}
+  $r[x][y] = c[x][y]$\REMR{Copia c in r}
 }
 \Repeat{$g=f_0$}{
   $g = \textrm{flusso associato ad un cammino aumentante in $r$, oppure $f_0$}$\;
-  \ForEach{$u,v \in G.\VV()$}{
-    $f[u][v] = f[u][v] + g[u][v]$\REMR{$f = f + g$}
-    $r[u][v] = c[u][v] - f[u][v]$\REMR{Calcola $c_f$}
+  \ForEach{$x,y \in G.\VV()$}{
+    $f[x][y] = f[x][y] + g[x][y]$\REMR{$f = f + g$}
+    $r[x][y] = c[x][y]	 - f[x][y]$\REMR{Calcola $c_f$}
   }  
 }
 \Return $f$
@@ -641,11 +729,10 @@ $f(\mathtt{d},\mathtt{f}) = 2$\\
 %%---------------------------------------------------------------------------
 \begin{frame}{Ricerca del cammino}
 
-Ford e Fulkerson suggerirono una semplice visita del grafo, in profondità 
-oppure in ampiezza.
+Ford e Fulkerson (1956) parlavano genericamente di una visita per trovare un cammino.
 
 \bigskip
-Edmonds e Karp suggerirono di utilizzare una visita in ampiezza.
+Edmonds e Karp (1972) suggerirono di utilizzare una visita in ampiezza.
 
 \bigskip
 Costo della visita: $O(V+E)$
@@ -656,8 +743,8 @@ Costo della visita: $O(V+E)$
 %%---------------------------------------------------------------------------
 \begin{frame}[fragile]{Ricerca del cammino}
 
-\vspace{-12pt}
-\small
+\vspace{-18pt}
+\footnotesize
 \begin{lstlisting}[language=java]    
 /**
  * Compute the max-flow using the Ford-Fulkerson algorithm
@@ -684,7 +771,7 @@ private static int[][] flow(int[][] C, int s, int t) {
 %%---------------------------------------------------------------------------
 \begin{frame}[fragile,shrink=5]{Ricerca del cammino}
 
-\vspace{-15pt}
+\vspace{-18pt}
 \footnotesize
 \begin{lstlisting}[language=java]    
 /**
@@ -727,8 +814,8 @@ private static int dfs(int[][] C, int[][] F, int i, int t, boolean[] visited, in
 \begin{frame}{Complessità}
 
 \vspace{-3pt}
-\begin{myboxtitle}[Complessità, limite superiore -- Versione Ford-Fulkerson]
-Se le capacità sono intere, l'algoritmo di Ford-Fulkerson
+\begin{myboxtitle}[Complessità, limite superiore -- Ford-Fulkerson]
+Se le capacità sono \alert	{intere}, l'algoritmo di Ford-Fulkerson
 ha complessità \alert{$O((V+E)|f^*|)$} (liste) o \alert{$O(V^2|f^*|)$} (matrice).
 \end{myboxtitle}
 
@@ -749,7 +836,7 @@ effettuato in tempo $O(V+E)$ o $O(V^2)$.
 
 \vspace{-3pt}
 \begin{myboxtitle}[Complessità, limite superiore -- Edmonds e Karp]
-Se le capacità della rete sono intere, l'algoritmo di Edmonds e Karp
+Se le capacità della rete sono \alert{intere}, l'algoritmo di Edmonds e Karp
 ha complessità \alert{$O(VE^2)$} nel caso pessimo.
 \end{myboxtitle}
 
@@ -774,7 +861,8 @@ La complessità dell'algoritmo di Edmonds-Karp è $O(VE^2)$.
 \BIL
 \item Vengono eseguiti $O(VE)$ aumenti di flusso, ognuno dei quali richiede
 una visita in ampiezza $O(V+E)$.
-\item $O(VE(V+E)) = O(VE^2)$
+\item La complessità è quindi $O(VE(V+E))$.
+\item Poiché $E = \Omega(V)$ (ogni nodo diverso da sorgente, pozzo ha almeno un arco entrante e un arco uscente), possiamo semplificare scrivendo che la complessità è $O(VE^2)$
 \EIL
 
 % \begin{myboxtitle}[Lemma - Aumenti di flusso]
@@ -789,9 +877,9 @@ una visita in ampiezza $O(V+E)$.
 
 \vspace{-9pt}
 \begin{myboxtitle}[Lemma - Monotonia]
-Sia $\delta_f(s,v)$ la distanza minima da $s$ a $v$ in una rete residua $G_f$.
+Sia $\delta_f(s,x)$ la distanza minima da $s$ a $x$ in una rete residua $G_f$.
 Sia $f' = f+g$ un flusso nella rete iniziale, con $g$ flusso non nullo derivante
-da un cammino aumentante. Allora $\delta_{f'}(s,v) \geq \delta_f(s,v)$.
+da un cammino aumentante. Allora $\delta_{f'}(s,x) \geq \delta_f(s,x)$.
 \end{myboxtitle}  
 \BI
   \item Quando viene aumentato il flusso, alcuni archi si  ``spengono'' (capacità residua 0)
@@ -828,10 +916,10 @@ di Edmonds e Karp è $O(VE)$.
 \BIL
 \item Sia $G_f$ una rete residua
 \item Sia $C$ un cammino aumentante di $G_f$. 
-\item $(u,v)$ è un arco \alert{critico} (collo di bottiglia) in $C$ se 
+\item $(x,y)$ è un arco \alert{critico} (collo di bottiglia) in $C$ se 
 
 \[
-c_f(u,v) = \min_{(x,y \in C)} \{ c_f(x,y) \}
+c_f(x,y) = \min_{(u,v) \in C} \{ c_f(u,v) \}
 \]
 
 \item In ogni cammino esiste almeno un arco critico
@@ -846,20 +934,20 @@ c_f(u,v) = \min_{(x,y \in C)} \{ c_f(x,y) \}
 \BIL
 \item Poiché i cammini aumentanti sono cammini minimi, abbiamo che:
 \[
- \delta_f(s,v) = \delta_f(s,u)+1
+ \delta_f(s,y) = \delta_f(s,x)+1
 \]
-\item L'arco $(u,v)$ potrà ricomparire se e solo se il flusso lungo l'arco 
-diminuirà, ovvero se $(v,u)$ appare in un cammino aumentante
+\item L'arco $(x,y)$ potrà ricomparire se e solo se il flusso lungo l'arco 
+diminuirà, ovvero se $(y,x)$ appare in un cammino aumentante
 \item  Sia $g$ il flusso quando questo accade; come sopra, abbiamo:
 \[
- \delta_{g}(s,u) = \delta_{g}(s,v)+1
+ \delta_{g}(s,y) = \delta_{g}(s,x)+1
 \]
-\item Per Lemma (Monotonia), abbiamo anche che $\delta_g(s,v)
-\geq \delta_{f}(s,v)$; quindi:
+\item Per Lemma (Monotonia), abbiamo anche che $\delta_g(s,y)
+\geq \delta_{f}(s,y)$; quindi:
 \begin{eqnarray*}
-\delta_{g}(s,u) &=& \delta_{g}(s,v)+1 \\
-  & \geq & \delta_f(s,v) + 1 \\
-  & \geq & \delta_f(s,u) + 2
+\delta_{g}(s,x) &=& \delta_{g}(s,y)+1 \\
+  & \geq & \delta_f(s,y) + 1 \\
+  & = & \delta_f(s,x) + 2
 \end{eqnarray*}
 \EIL
 
@@ -869,10 +957,10 @@ diminuirà, ovvero se $(v,u)$ appare in un cammino aumentante
 \begin{frame}{Dimostrazione complessità}
 
 \BIL
-\item Dal momento in cui un nodo è critico al momento in cui può tornare ad essere critico , il cammino minimo si è allungato almeno di due passi.
-\item La lunghezza massima del cammino fino a $u$, tenuto conto che poi si deve ancora seguire l'arco $(u,v)$,
-è $V-2$. 
-\item Quindi un arco può diventare critico al massimo $(V-2)/2 = V/2-1$ volte. 
+\item Dal momento in cui un nodo è critico al momento in cui può tornare ad essere critico, il cammino minimo si è allungato almeno di due passi.
+\item La lunghezza massima del cammino fino a $x$, tenuto conto che poi si deve ancora seguire l'arco $(x,y)$,
+è $V-2$.
+\item Quindi un arco può diventare critico al massimo $(V-2)/2 = V/2-1$ volte.
 \item Poiché ci sono $O(E)$ archi che possono diventare critici $O(V)$ volte,
 abbiamo che il numero massimo di flussi aumentanti è $O(VE)$. 
 \EIL
@@ -889,14 +977,20 @@ abbiamo che il numero massimo di flussi aumentanti è $O(VE)$.
 \textbf{Nome} & \textbf{Complessità} & \textbf{Note} \\\hline
 Ford-Fulkerson & $O(E|f^*|)$ & Converge con valori razionali \\\hline
 Edmonds-Karp & $O(VE^2)$ & Specializzazione basata su BFS \\\hline
-Dinic, blocking flow & $O(V^2E)$ & In alcune reti particolari, $O((V^{2/3},E^{1/2})E)$ \\\hline
+Dinic, blocking flow & $O(V^2E)$ & In alcune reti particolari, $O(\min(V^{2/3},E^{1/2})E)$ \\\hline
 MPM & $O(V^3)$ & Solo su DAG \\\hline
 Dinic & $O(VE \log V)$ & Struttura dati Dynamic trees \\\hline
-Goldberg e Rao & \begingroup \footnotesize $O(\min(n^{2/3},m^{1/2})m \cdot {}$ \endgroup & $C=\max_{(u,v) \in E} c(u,v)$ \\
-& \begingroup \footnotesize  ${} \cdot \log (n^2/m+2) \log C)$ \endgroup & \\\hline
+Goldberg e Rao & \begingroup \footnotesize $O(\min(V^{2/3},E^{1/2})E \cdot {}$ \endgroup & $C=\max_{(x,y) \in E} c(x,y)$ \\
+& \begingroup \footnotesize  ${} \cdot \log (V^2/E+2) \log C)$ \endgroup & \\\hline
 
 Orlin + King,Rao,Tarjan & $O(VE)$ & Pubblicato nel 2013!\\\hline
 \end{tabular}
+
+\medskip
+\BB{
+Andrew V. Goldberg, Robert E. Tarjan. \href{https://cacm.acm.org/magazines/2014/8/177011-efficient-maximum-flow-algorithms/fulltext}{Efficient Maximum Flow Algorithms}.
+Communications of the ACM, 57(8):82--89. 2014.
+}
 
 \end{frame}
 
@@ -910,8 +1004,12 @@ Orlin + King,Rao,Tarjan & $O(VE)$ & Pubblicato nel 2013!\\\hline
 \vspace{-12pt}
 \begin{myboxtitle}[Taglio]
 Un \alert{taglio} $(S,T)$ della rete di flusso 
-$G=(V,E,s,t,c)$ è una partizione di $V$ in $S$ e $T=V-S$
-tale che $s \in S$ e $t \in T$.
+$G=(V,E,s,t,c)$ è una partizione di $V$ in due sottoinsiemi disgiunti $S,T$ tali che:
+\smallskip
+\begin{eqnarray*}
+    S = V-T \\
+    s \in S \wedge t \in T
+\end{eqnarray*}
 \end{myboxtitle}
 
 \vspace{-12pt}
@@ -936,7 +1034,7 @@ $T = \{ \mathtt{e}, \mathtt{f} \}$\\
 La \alert{capacità} $C(S,T)$ attraverso il taglio $(S,T)$ è pari a:
 
 \[
-  C(S,T) = \sum_{u \in S, v \in T} c(u,v)
+  C(S,T) = \sum_{x \in S, y \in T} c(x,y)
 \]
 \end{myboxtitle}
 
@@ -959,11 +1057,11 @@ $C(S,T) = 14$
 
 \vspace{-9pt}
 \begin{myboxtitle}[Flusso di un taglio]
-Se $f$ è un flusso in $G$, il {\em flusso netto} $F(S,T)$ 
+Se $f$ è un flusso in $G$, il \alert{flusso netto} $F(S,T)$ 
 attraverso $(S,T)$ è:
 
 \[
-  F(S,T) = \sum_{u \in S, v \in T} f(u,v)
+  F(S,T) = \sum_{x \in S, y \in T} f(x,y)
 \]
 \end{myboxtitle}
 
@@ -992,23 +1090,24 @@ Dato un flusso $f$ e un taglio $(S,T$), la quantità di flusso
 $F(S,T)$ che attraversa il taglio è uguale a $|f|$.
 \end{myboxtitle}
 
-\medskip
+\small
 \begin{overprint}
 \onslide<1|handout:1>
 \IG{0.8}{taglio4.pdf}
 \onslide<2|handout:2>
 \begin{align*}
-F(S,T) &= \sum_{u \in S, v \in T} f(u,v) \\
-       &= \sum_{u \in S, v \in V} f(u,v) - \sum_{u \in S, v \in S} f(u,v)& T = V - S\\ 
-       &= \sum_{u \in S, v \in V} f(u,v)& \textrm{Antisimmetria}\\
+F(S,T) &= \sum_{x \in S, y \in T} f(x,y) \\
+       &= \sum_{x \in S, y \in V} f(x,y) - \sum_{x \in S, y \in S} f(x,y)& T = V - S\\ 
+       &= \sum_{x \in S, y \in V} f(x,y) - 0& \textrm{Antisimmetria}\\
        &= [...] 
 \end{align*}
 \onslide<3|handout:3>
 \begin{align*}
-F(S,T) &= \sum_{u \in S, v \in V} f(u,v)& \\ 
-       &= \sum_{u \in S-\{s\}, v \in V} f(u,v) + \sum_{v \in V} f(s,v) & s \in S\\ 
-       &= \sum_{v \in V} f(s,v) & \textrm{Conservazione flusso}\\ 
-       &= |f| & \textrm{Definizione valore flusso}
+F(S,T) &= \sum_{x \in S, y \in V} f(x,y)& \\ 
+       &= \sum_{x \in S-\{s\}, y \in V} f(x,y) + \sum_{y \in V} f(s,y) & s \in S\\ 
+       &= \sum_{x \in S-\{s\}} \sum_{y \in V} f(x,y) + \sum_{y \in V} f(s,y) & \mathrm{Sommatoria}\\ 
+       &= \sum_{x \in S-\{s\}} 0 + \sum_{y \in V} f(s,y) & \textrm{Conservazione flusso}\\ 
+       &= \sum_{y \in V} f(s,y) = |f| & \textrm{Definizione valore flusso}
 \end{align*}
 \end{overprint}
         
@@ -1035,17 +1134,17 @@ Il \alert{flusso massimo} è limitato superiormente dalla capacità del \alert{t
 \item Nessun flusso attraverso un taglio supera la capacità del taglio
 \smallskip
 \[
-  F(S,T) \leq C(S,T) \qquad \forall S \subseteq V, T = V-S
+  F(S,T) \leq C(S,T) \qquad \forall (S,T)\ \textrm{taglio di $V$}
 \]
 Dimostrazione:
 \smallskip
 \[
-  F(S,T) = \sum_{u \in S, v \in T} f(u,v) \leq \sum_{u \in S, v \in T} c(u,v) = C(S,T)
+  F(S,T) = \sum_{x \in S, y \in T} f(x,y) \leq \sum_{x \in S, y \in T} c(x,y) = C(S,T)
 \]
 \item Il flusso che attraversa un taglio è uguale al valore del flusso
 \smallskip
 \[
-  |f| = F(S,T) \qquad \forall S \subseteq V, T = V-S
+  |f| = F(S,T) \qquad \forall (S,T)\ \textrm{taglio di $V$}
 \]
 \EIL
 \onslide<3|handout:3>
@@ -1056,7 +1155,7 @@ Dimostrazione:
 di tutti i possibili tagli. 
 \smallskip
 \[
-|f| \leq C(S,T) \qquad \forall S \subseteq V, T = V-S
+|f| \leq C(S,T) \qquad \forall (S,T)\ \textrm{taglio di $V$}
 \]
 \EIL
 \end{overprint}
@@ -1089,7 +1188,7 @@ Dimostreremo circolarmente:
 %-------------------------------------------------------------------------
 \begin{frame}{Dimostrazione correttezza -- $(1) \Rightarrow (2)$}
 
-\BB{$f$ è un flusso massimo $\Rightarrow$ non esiste nessun cammino aumentante per $G$}
+\BB{$f$ è un flusso massimo $\Rightarrow$\\ non esiste nessun cammino aumentante per $G$}
 
 \BIL
 \item Se esistesse un cammino aumentante, il flusso potrebbe essere aumentato e quindi non sarebbe massimo (assurdo).
@@ -1134,7 +1233,7 @@ esiste un taglio minimo $(S,T)$ tale che $C(S,T) = |f|$}
 \small
 \BI
 \item Poiché $t$ non è raggiungibile da $s$ in $G_f$, tutti gli
-archi $(u,v)$ con $u \in S$ e $v \in T$ sono saturati;  ovvero, $f(u,v) = c(u,v)$. 
+archi $(x,y)$ con $x \in S$ e $y \in T$ sono saturati;  ovvero, $f(x,y) = c(x,y)$. 
 \EI
 
 \end{frame}
@@ -1150,15 +1249,15 @@ esiste un taglio minimo $(S,T)$ tale che $C(S,T) = |f|$}
 \item Per il Lemma -- Valore del flusso di un taglio,
 
 \[ 
-  |f| = \sum_{u \in S, v \in T} f(u,v)
+  |f| = \sum_{x \in S, y \in T} f(x,y)
 \]
 \item Ne segue che:
 
 \[ 
-  |f| = \sum_{u \in S, v \in T} f(u,v) = \sum_{u \in S, v \in t} c(u,v) = C(S,T)
+  |f| = \sum_{x \in S, y \in T} f(x,y) = \sum_{x \in S, y \in T} c(x,y) = C(S,T)
 \]
 
-\item $(S,T)$ è minimo perchè $|f|=C(S,T)$ e per ogni taglio $(S', T')$, abbiamo che $|f| >= C(S', T')$
+\item $(S,T)$ è minimo perchè $|f|=C(S,T)$ e per ogni taglio $(S', T')$, abbiamo che $|f| \leq C(S', T')$ (per il lemma su Capacità taglio)
 
 \EIL
 
@@ -1177,13 +1276,41 @@ il flusso che soddisfa $|f| = C(S,T)$ deve essere massimo.
 
 \end{frame}
 
-\section{Applicazioni}
+\section{Oltre il Flusso Massimo}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Applicazioni}
 
+\BIL
+\item  \alert{Maximum Flows with Edge Demands}\\
+Flusso massimo con limiti inferiori e superiori per la capacità
+
+\item \alert{Node Supplies and Demands}\\
+Il flusso può essere generato o consumato in ogni nodo
+
+\item \alert{Min-Cost Max Flows}\\
+Al flusso è associato un costo, fra due flussi massimali scegliamo quello con costo minimo
+
+\EIL
+\medskip
+\BB{
+Jeff Erickson. \href{https://courses.engr.illinois.edu/cs573/fa2010/notes/24-maxflowext.pdf}{\underline{Lecture 18: Extensions of Maximum Flow}} (8 pp.)
+}
+\BB{
+David P. Williamson. \href{http://www.networkflowalgs.com/book.pdf}{\underline{Network Flow Algorithms}}.\\ 
+Cambridge University Press, 2019 (273 pp.)
+}
+
+
+\end{frame}
+
+
+%-------------------------------------------------------------------------
+\begin{frame}{Applicazioni}
+
+\vspace{-9pt}
 \begin{columns}[T]
-\column{0.45\textwidth}
+\column{0.43\textwidth}
 \BIL
 \item Bipartite matching
 \item Data mining
@@ -1193,7 +1320,7 @@ il flusso che soddisfa $|f| = C(S,T)$ deve essere massimo.
 \item Image segmentation
 \item Network connectivity
 \EIL
-\column{0.45\textwidth}
+\column{0.55\textwidth}
 \BIL
 \item Network reliability
 \item Distributed computing
@@ -1204,6 +1331,12 @@ il flusso che soddisfa $|f| = C(S,T)$ deve essere massimo.
 \item Gene function prediction
 \EIL
 \end{columns}
+
+\medskip
+\BB{
+Jeff Erickson. \href{https://jeffe.cs.illinois.edu/teaching/algorithms/book/11-maxflowapps.pdf}{\underline{Lecture 11: Applications of Flows and Cuts}}.
+}
+
 
 \end{frame}
 
@@ -1217,14 +1350,14 @@ il flusso che soddisfa $|f| = C(S,T)$ deve essere massimo.
 \BIL
 \item Un insieme $J$ contenente $n$ job
 \item Un insieme $W$ contenente $m$ worker
-\item Una relazione $R \subseteq J \times W$, tale per cui $(j,w) \in R$
-se e solo se il job $j$ può essere useguito dal worker $w$
+\item Una relazione $R \subseteq J \times W$, tale che $(j,w) \in R$
+se e solo se il job $j$ può essere eseguito dal worker $w$
 \EIL
 \end{myboxtitle}
 
 \begin{myboxtitle}[Problema - Job Assignment - Output]
 \BIL
-\item Il più grande sottoinsieme $O \subseteq R$, tale per cui:
+\item Il più grande sottoinsieme $O \subseteq R$, tale che:
   \BI
   \item ogni job venga assegnato al più ad un worker
   \item ad ogni worker venga assegnato al più un job
