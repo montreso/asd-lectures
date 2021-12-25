@@ -1,0 +1,27 @@
+\documentclass[tikz]{standalone}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\begin{document}
+
+\tikzset{%
+    add/.style args={#1 and #2}{
+        to path={%
+ ($(\tikztostart)!-#1!(\tikztotarget)$)--($(\tikztotarget)!-#2!(\tikztostart)$)%
+  \tikztonodes},add/.default={.2 and .2}}
+}  
+
+\begin{tikzpicture}
+\coordinate (A) at (0,0);
+\coordinate (B) at (2,1);
+\coordinate (C) at (0.5,1);
+\coordinate (D) at (1,1.5);
+\node[label={below:$p_1$}] at (A) {$\bullet$};
+\node[label={below:$p_2$}] at (B) {$\bullet$};
+\node[label={right:$p$}] at (C) {$\bullet$};
+\node[label={right:$q$}] at (D) {$\bullet$};
+\draw [add= 0.5 and .25, black, dashed, thick] (A) to (B);
+\end{tikzpicture}   
+
+\end{document} 
+

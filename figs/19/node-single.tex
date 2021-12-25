@@ -1,0 +1,25 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+\usepackage{forest}
+
+\begin{document}
+
+\newcommand{\UD}[2]{
+\begin{array}{c}
+        #1  \\
+        #2
+\end{array}
+}
+
+
+\begin{forest}
+for tree={ellipse,draw,thick,edge={thick},fill=yellow!40}
+[ $\UD{UB}{LB}$ ]
+\end{forest}
+
+
+
+
+
+\end{document}

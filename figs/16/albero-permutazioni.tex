@@ -1,0 +1,45 @@
+\documentclass[tikz]{standalone}
+
+\input{figs/16/mytikz.sty}
+%\input{mytikz.sty}
+
+\begin{document}
+
+\begin{forest}
+for tree={circle,draw,thick,edge={thick},fill=yellow!40,l=1.00cm,l sep=8pt, s sep=1.3cm}
+[
+    [,edge label={node[LabelT] {\small $A$}}
+			[,edge label={node[LabelL] {\small $B$}}
+				[, tikz={\node[below=1pt of .south] {$\{ A,B,C \}$};}
+                ,edge label={node[LabelL] {\small $C$}}]
+            ]
+			[,edge label={node[LabelR] {\small $C$}}
+				[, tikz={\node[below=1pt of .south] {$\{ A,C,B \}$};}
+                ,edge label={node[LabelL] {\small $B$}}]
+            ]
+    ]
+    [,edge label={node[LabelR] {\small $B$}}
+			[,edge label={node[LabelL] {\small $A$}}
+				[, tikz={\node[below=1pt of .south] {$\{ B,A,C \}$};}
+                ,edge label={node[LabelL] {\small $C$}}]
+            ]
+			[,edge label={node[LabelR] {\small $C$}}
+				[, tikz={\node[below=1pt of .south] {$\{ B,C,A \}$};}
+                ,edge label={node[LabelL] {\small $A$}}]
+            ]
+    ]
+    [,edge label={node[LabelT] {\small $C$}}
+			[,edge label={node[LabelL] {\small $A$}}
+				[, tikz={\node[below=1pt of .south] {$\{ C,A,B \}$};}
+                ,edge label={node[LabelL] {\small $B$}}]
+            ]
+			[,edge label={node[LabelR] {\small $B$}}
+				[, tikz={\node[below=1pt of .south] {$\{ C,B,A \}$};}
+                ,edge label={node[LabelL] {\small $A$}}]
+            ]
+    ]
+]
+\end{forest}
+
+
+\end{document}

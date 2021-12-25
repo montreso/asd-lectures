@@ -1,0 +1,200 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+
+\begin{document}
+
+
+% ---------------------------------------------------------------------------
+% 1
+% ---------------------------------------------------------------------------
+\begin{tikzpicture}[
+	level distance=1.6cm,
+    level 1/.style={sibling distance=4cm},
+    level 2/.style={sibling distance=2cm},
+    level 3/.style={sibling distance=2cm},
+    level 4/.style={sibling distance=1cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+  \node[mynode, label={right:\LARGE $\qquad h=4$}] {7}
+    child[edger] {node[mynode] {2}
+      child[edgen] {node[mynode] {1}}
+      child[edger] {node[mynode] {5}
+        child[edger] {node[mynode] {3}
+          child[missing] {node[mynode] {}}
+          child[edger] {node[mynode] {4}}
+        }
+        child[edgen] {node[mynode] {6}}
+      }
+    }
+    child[edgen] {node[mynode] {8}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {12}
+           child[edgen] {node[mynode] {9}}
+           child[edgen] {node[mynode] {15}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+\newpage
+
+% ---------------------------------------------------------------------------
+% 2
+% ---------------------------------------------------------------------------
+\begin{tikzpicture}[
+	level distance=1.6cm,
+    level 1/.style={sibling distance=7cm},
+    level 2/.style={sibling distance=5cm},
+    level 3/.style={sibling distance=2.5cm},
+    level 4/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+  \node[mynode] {7}
+    child[edgen] {node[mynoder, label={right:\LARGE $u$}] {2}
+      child[edgen] {node[mynode] {1}}
+      child[edgen] {node[mynode] {5}
+        child[edgen] {node[mynodeb, label={left:\LARGE $s$}] {3}
+          child[missing] {node[mynode] {}}
+          child[edgen] {node[mynode] {4}}
+        }
+        child[edgen] {node[mynode] {6}}
+      }
+    }
+    child[edgen] {node[mynode] {8}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {12}
+           child[edgen] {node[mynode] {9}}
+           child[edgen] {node[mynode] {15}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+\newpage
+
+% ---------------------------------------------------------------------------
+% 3
+% ---------------------------------------------------------------------------
+\begin{tikzpicture}[
+	level distance=1.6cm,
+    level 1/.style={sibling distance=7cm},
+    level 2/.style={sibling distance=5cm},
+    level 3/.style={sibling distance=2.5cm},
+    level 4/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+
+  \node[mynode] {7}
+    child[edgen] {node[mynoder, label={right:\LARGE $u$}] {2}
+      child[edgen] {node[mynode] {1}
+        child[missing] {node {}}
+        child[draw=white] {node[mynodeb, label={left:\LARGE $s$}] {3}
+          child[missing] {node[mynode] {}}
+          child[edgen] {node[mynode] {4}}
+        }
+      }
+      child[edgen] {node[mynode] {5}
+        child[missing] {node[mynodeg,dashed] {3}}
+        child[edgen] {node[mynode] {6}}
+      }
+    }
+    child[edgen] {node[mynode] {8}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {12}
+           child[edgen] {node[mynode] {9}}
+           child[edgen] {node[mynode] {15}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+\newpage
+
+% ---------------------------------------------------------------------------
+% 4
+% ---------------------------------------------------------------------------
+\begin{tikzpicture}[
+	level distance=1.6cm,
+    level 1/.style={sibling distance=7cm},
+    level 2/.style={sibling distance=5cm},
+    level 3/.style={sibling distance=2.5cm},
+    level 4/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+
+  \node[mynode] {7}
+    child[edgen] {node[mynoder, label={right:\LARGE $u$}] {2}
+      child[edgen] {node[mynode] {1}
+        child[missing] {node {}}
+        child[draw=white] {node[mynodeb, label={left:\LARGE $s$}] {3}
+          child[draw=white,text=white,fill=white] {node[mynode,draw=white,text=white,fill=white] {4}}
+          child[draw=white,text=white,fill=white] {node[mynode,draw=white,text=white,fill=white] {4}}
+        }
+      }
+      child[edgen] {node[mynode] {5}
+          child[edgen] {node[mynode] {4}}
+        child[edgen] {node[mynode] {6}}
+      }
+    }
+    child[edgen] {node[mynode] {8}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {12}
+           child[edgen] {node[mynode] {9}}
+           child[edgen] {node[mynode] {15}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+% ---------------------------------------------------------------------------
+% 5
+% ---------------------------------------------------------------------------
+\begin{tikzpicture}[
+	level distance=1.6cm,
+    level 1/.style={sibling distance=7cm},
+    level 2/.style={sibling distance=5cm},
+    level 3/.style={sibling distance=2.5cm},
+    level 4/.style={sibling distance=1.25cm},
+	thick,
+    minimum width={1.1cm},
+	font=\ttfamily\bfseries]
+    
+
+  \node[mynode] {7}
+    child[edgen] {node[mynodeb, label={right:\LARGE $u$}] {3}
+      child[edgen] {node[mynode] {1}
+      }
+      child[edgen] {node[mynode] {5}
+          child[edgen] {node[mynode] {4}}
+        child[edgen] {node[mynode] {6}
+          child[draw=white,text=white,fill=white] {node[mynode,draw=white,text=white,fill=white] {4}}
+          child[draw=white,text=white,fill=white] {node[mynode,draw=white,text=white,fill=white] {4}}
+        }
+      }
+    }
+    child[edgen] {node[mynode] {8}
+        child[missing] {node[mynode] {}}
+        child[edgen] {node[mynode] {12}
+           child[edgen] {node[mynode] {9}}
+           child[edgen] {node[mynode] {15}}
+        }
+    }
+    ;
+
+\end{tikzpicture}
+
+
+\end{document}

@@ -1,0 +1,43 @@
+\documentclass[tikz]{standalone}
+
+\input{figs/16/mytikz.sty}
+%\input{mytikz.sty}
+
+\begin{document}
+
+\begin{forest}
+for tree={circle,draw,thick,edge={thick},fill=yellow!40,l=1.00cm,l sep=8pt, s sep=0.65cm}
+[
+    [,edge label={node[LabelT] {\small $0$}}
+			[,edge label={node[LabelL] {\small $0$}}
+				[, tikz={\node[below=1pt of .south] {$\{ \}$};}
+                ,edge label={node[LabelL] {\small $0$}}]
+				[, tikz={\node[below=1pt of .south] {$\{ 3\}$};}
+                ,edge label={node[LabelR] {\small $1$}}]
+            ]
+			[,edge label={node[LabelR] {\small $1$}}
+				[, tikz={\node[below=1pt of .south] {$\{ 2\}$};}
+                ,edge label={node[LabelL] {\small $0$}}]
+				[, tikz={\node[below=1pt of .south] {$\{ 2,3\}$};}
+                ,edge label={node[LabelR] {\small $1$}}]
+            ]
+    ]
+    [,edge label={node[LabelT] {\small $1$}}
+			[,edge label={node[LabelL] {\small $0$}}
+				[, tikz={\node[below=1pt of .south] {$\{ 1\}$};}
+                ,edge label={node[LabelL] {\small $0$}}]
+				[, tikz={\node[below=1pt of .south] {$\{ 1,3\}$};}
+                ,edge label={node[LabelR] {\small $1$}}]
+            ]
+			[,edge label={node[LabelR] {\small $1$}}
+				[, tikz={\node[below=1pt of .south] {$\{ 1,2\}$};}
+                ,edge label={node[LabelL] {\small $0$}}]
+				[, tikz={\node[below=1pt of .south] {$\{ 1,2,3\}$};}
+                ,edge label={node[LabelR] {\small $1$}}]
+            ]
+    ]
+]
+\end{forest}
+
+
+\end{document}

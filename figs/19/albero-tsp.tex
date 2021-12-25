@@ -1,0 +1,81 @@
+\documentclass[tikz]{standalone}
+
+\input{mytikz.sty}
+\usetikzlibrary{positioning}
+\usepackage{forest}
+
+\tikzset{
+    LabelTL/.style = {midway,left,above,draw=none,fill=none,font=\small},
+    LabelTR/.style = {midway,right,above,draw=none,fill=none,font=\small},
+    LabelL/.style = {midway,left,draw=none,fill=none,font=\small},
+    LabelR/.style = {midway,right,draw=none,fill=none,font=\small},
+}	
+
+\begin{document}
+
+\newcommand{\UD}[2]{
+\begin{array}{c}
+        #1  \\
+        #2
+\end{array}
+}
+
+% \newcommand{\UD}[2]{
+% [#2,#1]
+% }
+
+
+\begin{forest}
+for tree={ellipse,rounded corners=4pt,draw,thick,edge={thick},fill=yellow!40,l sep=30pt, s sep=10pt}
+[ $\UD{21}{18}$,label={$1$}
+    [$\UD{21}{18}$, edge label={node[LabelTL] {$2$}}
+        [$\UD{21}{21}$, edge label={node[LabelL] {$3$}} ]
+        [$\UD{21}{22}$,edge label={node[LabelR] {$4$}} ]
+        [$\UD{21}{18}$,edge label={node[LabelR] {$5$}} 
+          [$\UD{21}{21}$, edge label={node[LabelL] {$3$}} ]
+          [$\UD{21}{21}$,edge label={node[LabelR] {$4$}} ]
+        ]
+    ]
+    [$\UD{21}{18}$,edge label={node[LabelR] {$3$}} 
+      [$\UD{21}{19}$, edge label={node[LabelL] {$2$}}
+        [$\UD{21}{25}$, edge label={node[LabelL] {$4$}}]
+        [$\UD{21}{19}$, edge label={node[LabelR] {$5$}}
+          [$\UD{19}{19}$, label={right:$\mathit{minCost}=19$}, edge label={node[LabelR] {$4$}}]
+        ]
+      ]
+      [$\UD{19}{21}$, edge label={node[LabelL] {$4$}}]
+      [$\UD{19}{21}$, edge label={node[LabelR] {$5$}}]
+    ]
+    [$\UD{19}{18}$,edge label={node[LabelTR] {$4$}} 
+      [$\UD{19}{20}$, edge label={node[LabelL] {$2$}}
+      ]
+      [$\UD{19}{18}$, edge label={node[LabelR] {$3$}}
+        [$\UD{19}{21}$, edge label={node[LabelL] {$2$}}]
+        [$\UD{19}{21}$, edge label={node[LabelR] {$5$}}]
+      ]
+      [$\UD{19}{18}$, edge label={node[LabelR] {$5$}}
+        [$\UD{19}{19}$, edge label={node[LabelL] {$2$}}]
+        [$\UD{19}{24}$, edge label={node[LabelR] {$3$}}]
+      ]
+    ]
+    [,phantom]
+    [,phantom]
+    [,phantom]
+    [$\UD{19}{21}$,edge label={node[LabelTR] {$5$}} ]
+            % [,edge label={node[LabelTL] {\small $S[1]$}}
+            %     [
+            %         [,edge label={node[LabelL,white] {\small $S[3]$}}]
+            %         []
+            %     ]
+            % [,edge label={node[LabelR] {\small $S[2]$}}
+            %  [,edge label={node[LabelTL] {\small $S[3]$}}
+            %  ] [] ] ] [ [ [] [] ] [ [] [] ] ] ]
+            %     [ [ [ [] [] ] [ [] [] ] ] [ [ [] [] ] [ [] [] ] ] ]
+]
+\end{forest}
+
+
+
+
+
+\end{document}
