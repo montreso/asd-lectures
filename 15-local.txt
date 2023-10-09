@@ -1,0 +1,36 @@
+-------------------
+Slide 12
+-------------------
+
+Mandare link su telegram: https://disi.unitn.it/~montreso/asd/material/flow/flusso-esempio1.pdf
+
+Esercizio trovare il flusso massimo - 5 min
+
+Alcuni cose da dire:
+- pensate alla strategia che state seguendo
+- ricorda una ricerca locale? continuate a migliorare finché non si riesce ad 
+  andare avanti
+
+-------------------
+Slide 22
+-------------------
+
+Chiedere come andare avanti dopo il primo flusso?
+
+Chiedere come andare avanti dopo il secondo flusso?
+
+Riflettere sulla ricerca locale - qui non funziona più.
+Si può fare di meglio però - introdurre gli archi all'indietro
+
+-------------------
+Slide 32
+-------------------
+Cercare taglio
+
+
+-------------------
+Slide 48
+-------------------
+Se non c'è tempo, spostare in un'esercitazione.
+
+
