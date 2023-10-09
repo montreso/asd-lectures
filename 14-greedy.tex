@@ -99,7 +99,7 @@ much.}{\textit{Gordon Gekko, Wall Street}}
 \BI
 \item Seleziona una sola delle possibile decisioni...
 \item ... quella che sembra ottima (ovvero, è localmente ottima)
-\item \EE però necessario dimostare che si ottenga un ottimo globale
+\item \EE però necessario dimostrare che si ottenga un ottimo globale
 \EI
 \end{myboxtitle}
 \end{frame}
@@ -320,7 +320,7 @@ Sia $S[i \mydots j]$ un sottoproblema non vuoto, e $m$ l'intervallo di $S[i \myd
 
 \vspace{-6pt}
 \begin{overprint}
-\onslide<1|handout:1>
+\onslide<2|handout:1>
 \begin{myboxtitle}[Dimostrazione \circled{1}]
 
 \smallskip
@@ -336,12 +336,12 @@ Sia $S[i \mydots j]$ un sottoproblema non vuoto, e $m$ l'intervallo di $S[i \myd
 Se nessun intervallo in $S[i \mydots j]$ termina prima di $a_m$, allora $S[i \mydots m] = \emptyset$
 \end{myboxtitle}
 
-\onslide<2|handout:2>
+\onslide<4|handout:2>
 \begin{myboxtitle}[Dimostrazione \circled{2}]
 \BI
 \item Sia \alert{$A'[i \mydots j]$} una soluzione ottima di $S[i \mydots j]$
 \item Sia \alert{$m'$} l'intervallo con minor tempo di fine in $A'[i \mydots j]$
-\item Sia \alert{$A[i \mydots j] = A'[i \mydots j] - \{ m' \} \cup \{ m \}$} una nuova soluzione
+\item Sia \alert{$A[i \mydots j] = (A'[i \mydots j] - \{ m' \}) \cup \{ m \}$} una nuova soluzione
 ottenuta togliendo $m'$ e aggiungendo $m$ ad $A'[i \mydots j]$
 \item \alert{$A[i \mydots j]$ è una soluzione ottima che contiene $m$}, in quanto ha la 
 stessa dimensione di $A'[i \mydots j]$ e gli intervalli sono indipendenti.
@@ -634,9 +634,9 @@ Se dimostriamo che $\forall k: m_k < t[k]$, allora la soluzione (ottima)
 \bigskip
 \begin{tabular}{llllll}
 $m_4$ &= $0$                   &              & $< 1$       &       & $= t[4]$ \\
-$m_3$ &= $1 \cdot x[4] + m_4$  & $< 1 \cdot 4 + m_4$  & $< 5 + 0$   & $= 5$ & $= t[3]$ \\
-$m_2$ &= $5 \cdot x[3] + m_3$  & $< 5 \cdot 1 + m_3$  & $< 5 + 5$   & $=10$ & $= t[2]$ \\
-$m_1$ &= $10 \cdot x[2] + m_2$ & $< 10 \cdot 4 + m_2$ & $< 40 + 10$ & $=50$ & $= t[1]$ 
+$m_3$ &= $x[4] \cdot 1  + m_4$ & $\leq 4 \cdot 1 + m_4$  & $< 4 + 1$   & $= 5$ & $= t[3]$ \\
+$m_2$ &= $x[3] \cdot 5  + m_3$ & $\leq 1 \cdot 5 + m_3$  & $< 5 + 5$   & $=10$ & $= t[2]$ \\
+$m_1$ &= $x[2] \cdot 10 + m_2$ & $\leq 4 \cdot 10 + m_2$ & $< 40 + 10$ & $=50$ & $= t[1]$ 
 \end{tabular}
 \EIL
 
@@ -672,11 +672,21 @@ $m_1$ &= $10 \cdot x[2] + m_2$ & $< 10 \cdot 4 + m_2$ & $< 40 + 10$ & $=50$ & $=
 \IG{0.9}{uk-coins.pdf}
 \end{OnlySlides}
 
+%-------------------------------------------------------------------------
+\begin{OnlySlides}{Fun facts}
+\vspace{-12pt}
+\tiny 
+\url{https://graal.ens-lyon.fr/~abenoit/algo09/coins1.pdf}
+\IG{0.9}{18cents.pdf}
+\end{OnlySlides}
+
 
 %-------------------------------------------------------------------------
 \begin{OnlySlides}{Fun facts}
 \vspace{-12pt}
-\IG{0.9}{18cents.pdf}
+\tiny
+\url{https://arxiv.org/pdf/0809.0400.pdf}
+\IG{0.9}{canonical.pdf}
 \end{OnlySlides}
 
 
@@ -891,7 +901,7 @@ massimo.
 \begin{frame}{Esempio}
 
 \begin{overprint}
-\onslide<1|handout:1>
+\onslide<1-2|handout:1>
 \TwoCols{
   Consideriamo i tre oggetti a lato ed una capacità di 70
 }{
@@ -910,7 +920,7 @@ $i$ & $p_i$ & $w_i$ \\
 \end{tabular}
 }
 }
-\onslide<2|handout:2>
+\onslide<3|handout:2>
 \TwoCols{
   Consideriamo i tre oggetti a lato ed una capacità di 70
 }{
@@ -933,7 +943,7 @@ $i$ & $p_i$ & $w_i$ & $p_i/w_i$ \\
 
 \bigskip
 \begin{overprint}
-\onslide<1|handout:1>
+\onslide<2|handout:1>
 \BB{Approccio 1: Ordinati per \alert{profitto decrescente}}
 \medskip
 \begin{tikzpicture}[
@@ -972,7 +982,7 @@ $i$ & $p_i$ & $w_i$ & $p_i/w_i$ \\
 \node[] at (7.0,-0.50){70};
 \end{tikzpicture}
 
-\onslide<2|handout:2>
+\onslide<3|handout:2>
 \BB{Approccio 3: Ordinati per \alert{profitto specifico $p_i/w_i$ decrescente}}
 
 \medskip
@@ -1035,7 +1045,7 @@ $\REAL[\,]\ x = \NEW\ \REAL[1 \mydots n]$\;
 \makebox[2.5cm][l]{} $O(n)$ se l'input è già ordinato.
 
 \bigskip
-$x[i] \in [0,1]$ rappresenta la proporzione dell'oggetto $i$-esimo
+$x[i] \in [0,1]$ rappresenta la porzione dell'oggetto $i$-esimo
 che deve essere prelevata.
 
 \end{frame}
@@ -1133,7 +1143,8 @@ prefisso di un altro codice} (condizione necessaria per la decodifica).
 
 \begin{myboxtitle}[Esempio 1]
 \BI
-\item "\texttt{babaca}": $\texttt{100} \cdot \texttt{0} \cdot \texttt{100} \cdot \texttt{0} \cdot \texttt{101} \cdot \texttt{0}$
+\item Codice: "\texttt{a}" $\rightarrow$ \texttt{0}, "\texttt{b}" $\rightarrow$ \texttt{10}, "\texttt{c}" $\rightarrow$ \texttt{11}
+\item "\texttt{babaca}": $\texttt{10} \cdot \texttt{0} \cdot \texttt{10} \cdot \texttt{0} \cdot \texttt{11} \cdot \texttt{0}$
 \EI
 \end{myboxtitle}
 
@@ -1500,7 +1511,7 @@ parti dalla radice\;
 \item Rimuovere i due nodi con frequenze minori $f_x$, $f_y$ 
 \item Creare un nodo padre con etichetta "-" e frequenza $f_x+f_y$
 \item Collegare i due nodi rimossi con il nuovo nodo
-\item Aggiungere il nodo così creato alla lista, mantenendo l'ordine
+\item Aggiungere il nodo così creato all'insieme
 \EI
 }
 \medskip
@@ -1537,7 +1548,7 @@ parti dalla radice\;
 \item Rimuovere i due nodi con frequenze minori $f_x$, $f_y$ 
 \item Creare un nodo padre con etichetta "-" e frequenza $f_x+f_y$
 \item Collegare i due nodi rimossi con il nuovo nodo
-\item Aggiungere il nodo così creato alla lista, mantenendo l'ordine
+\item Aggiungere il nodo così creato all'insieme
 \EI
 }
 \medskip
@@ -1576,7 +1587,7 @@ parti dalla radice\;
 \item Rimuovere i due nodi con frequenze minori $f_x$, $f_y$ 
 \item Creare un nodo padre con etichetta "-" e frequenza $f_x+f_y$
 \item Collegare i due nodi rimossi con il nuovo nodo
-\item Aggiungere il nodo così creato alla lista, mantenendo l'ordine
+\item Aggiungere il nodo così creato all'insieme
 \EI
 }
 \medskip
@@ -1618,7 +1629,7 @@ parti dalla radice\;
 \item Rimuovere i due nodi con frequenze minori $f_x$, $f_y$ 
 \item Creare un nodo padre con etichetta "-" e frequenza $f_x+f_y$
 \item Collegare i due nodi rimossi con il nuovo nodo
-\item Aggiungere il nodo così creato alla lista, mantenendo l'ordine
+\item Aggiungere il nodo così creato all'insieme
 \EI
 }
 \medskip
@@ -1658,7 +1669,7 @@ child { node[treenode]  {-\,:\,30}
 \vspace{-6pt}
 \BB{
 \BI
-\item Si termina quando resta un solo nodo nella lista
+\item Si termina quando resta un solo nodo 
 \EI
 }
 \medskip
@@ -1772,15 +1783,15 @@ f & \B{1}\B{1}\R{0}\B{0} \\\hline
 
   $\Heap\ Q = \minheapconstructor()$\;
   \For{$i = 1$ \TO\ $n$}{
-    $Q.\heapinsert(f[i], \treeconstructor(f[i], c[i]))$\;
+    $Q.\heapinsert(\treeconstructor(c[i], f[i]), f[i])$\;
   }
   \For{$i = 1$ \TO\ $n-1$}{
     $z_1 = Q.\heapdeletemin()$\;
     $z_2 = Q.\heapdeletemin()$\;
-    $z = \treeconstructor(z_1.f + z_2.f, \Nil)$\;
+    $z = \treeconstructor(\Nil, z_1.f + z_2.f)$\;
     $z.\Leftvar = z_1$\;
     $z.\Rightvar = z_2$\;
-    $Q.\heapinsert(z.f, z)$\;
+    $Q.\heapinsert(z, z.f)$\;
   }
   \Return $Q.\heapdeletemin()$\;  
 \end{Procedure}
@@ -1957,7 +1968,7 @@ profondità massima e i loro codici differiscono solo per l'ultimo bit (sono fog
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}[shrink=5]{Scelta greedy}
+\begin{frame}[shrink=10]{Scelta greedy}
 
 \BIL
 \item Dimostriamo che: $C(f,T'') \leq C(f, T') \leq C(f,T)$
@@ -2313,6 +2324,11 @@ Non è detto che l'albero di copertura minimo sia univoco
 \end{frame}
 
 
+\begin{OnlySlides}{Città fangosa}
+\begin{center}
+\includegraphics[width=\textwidth]{fangosa.pdf}
+\end{center}
+\end{OnlySlides}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Algoritmo generico}
@@ -2320,7 +2336,7 @@ Non è detto che l'albero di copertura minimo sia univoco
 \vspace{-9pt}
 \begin{myboxtitle}[Schema della lezione]
 \BI
-\item Progettiamo un algoritmo di tipo "goloso" generico
+\item Progettiamo un algoritmo di tipo "ingordo" generico
 \item Mostriamo due "istanze" di questo algoritmo: \alert{Kruskal} e \alert{Prim}
 \EI
 \end{myboxtitle}
@@ -3466,14 +3482,15 @@ un vertice nell'albero, o $+\infty$ se tale arco non esiste"
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{Algoritmo di Prim}
+\begin{frame}[shrink=10]{Algoritmo di Prim}
 
 \vspace{-12pt}
 \begin{Procedure}
-\caption[A]{\prim($\Graph\ G,\ \Node\ r, \INTARRAY\ p$)}
+\caption[A]{$\INTARRAY\ \prim(\Graph\ G,\ \Node\ r)$}
 
 $\Heap\ Q = \minheapconstructor()$\;
 $\PriorityItem[\,]\ \Pos = \NEW\ \PriorityItem[1 \mldots G.n]$\;
+$\INTARRAY\ p = \NEW\ \INTEGER[1 \mldots G.n]$\;
 \ForEach{$u \in G.\VV() - \{ r \}$}{
   $\Pos[u] = Q.\heapinsert(u, +\infty)$\;
 }
@@ -3489,6 +3506,7 @@ $p[r] = 0$\;
     }
   }
 }
+\Return $p$\;
 \end{Procedure}
 \end{frame}
 

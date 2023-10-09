@@ -162,6 +162,22 @@ diciamo che è avvenuta una \alert{collisione}
 
 \end{frame}
 
+\begin{frame}{Possibili implementazioni}
+
+{\footnotesize
+\begin{tabular}{ | P{1.3cm} | P{1.7cm} | P{1.5cm} | P{1.6cm} | P{1.6cm} | P{1.8cm} |}
+\hline
+& \textbf{Array non ordinato} & 	\textbf{Array ordinato} & \textbf{Lista} & \textbf{Alberi RB} & \sout{\textbf{Impl. ideale}} \textbf{Hash table} \\\hline
+$\dictinsert()$ & $O(1),O(n)$ & $O(n)$ & $O(1), O(n)$ & $O(\log n)$ & $O(1)$ \\\hline
+$\dictlookup()$ & $O(n)$ & $O(\log n)$ &  $O(n)$ &  $O(\log n)$ &  $O(1)$\\\hline
+$\dictremove()$ & $O(n)$ & $O(n)$ & $O(n)$ & $O(\log n)$ & $O(1)$\\\hline
+\textbf{foreach} & $O(n)$ & $O(n)$ & $O(n)$ & $O(n)$ & \alert{\sout{$O(n)$}$O(m)$}\\\hline
+\end{tabular}
+}
+
+\end{frame}
+
+
 \subsection{Tabelle ad accesso diretto}
 
 
@@ -325,7 +341,7 @@ interpretando la loro rappresentazione in memoria come un numero.
 \end{align*}
 
 \bigskip
-\BB{Domanda: come fate a trasformare questa sequenza di bit o questo numero in un valore compreso in $[0, m-1]$?}
+\BB{\alert{Domanda}: come trasformare questa sequenza di bit o questo numero in un valore compreso in $[0, m-1]$?}
 
 
 \end{frame}
@@ -343,7 +359,7 @@ interpretando la loro rappresentazione in memoria come un numero.
 \begin{myboxtitle}[Problemi]
 \begin{overprint}
 \onslide<1|handout:0>
-?
+\alert{Domanda}: Quali possono essere i problemi di questo approccio?
 \onslide<2|handout:1>
 \BIL
 \item Selezionare bit presi dal suffisso della chiave può generare collisioni
@@ -406,9 +422,14 @@ H(``\texttt{Alessio}") = {} & \mathit{int}(\alert{0001011011000110}) = 5.830
 \end{myboxtitle}
 
 \begin{myboxtitle}[Problemi]
+\begin{overprint}
+\onslide<1|handout:0>
+\alert{Domanda}: Quali possono essere i problemi di questo approccio?
+\onslide<2|handout:1>
 \BIL
 \item Permutazioni (anagrammi) della stessa stringa possono generare lo stesso valore hash
 \EIL
+\end{overprint}
 \end{myboxtitle}
 
 
@@ -500,7 +521,7 @@ $2^p$ hanno lo stesso valore hash (Esercizio: dimostrare)
 \item $m$ qualsiasi, meglio se potenza di $2$
 \item $C$ costante reale, $0 < C < 1$
 \item Sia $i = \mathit{int}(k)$
-\item $H(k) = \left\lfloor m(C \cdot i - \lfloor C\cdot i \rfloor) \right\rfloor$
+\item $H(k) = \left\lfloor m \cdot (C \cdot i - \lfloor C\cdot i \rfloor) \right\rfloor$
 \EI
 \end{myboxtitle}
 
@@ -968,7 +989,7 @@ Funzione: \alert{$H(k, i) = (H_1(k) + i \cdot H_2(k)) \bmod m$}
 \vspace{-12pt}
 \begin{overprint}
 \onslide<1-2|handout:1-2>
-	\BB{
+	\BB{\alert{Domanda}:
 		Non possiamo semplicemente sostituire la chiave che vogliamo cancellare con un $\Nil$. Perché?
 	}
 \onslide<3|handout:3>
@@ -1014,9 +1035,9 @@ $\Item[\,]\ V$\REMR{Tabella dei valori}
 {
   $\Hash\ t = \NEW\ \Hash$\;
   $t.m = \hashsize$\;
-  $t.K = \NEW\ \Item[0 \mldots \hashsize-1]$\;
-  $t.V = \NEW\ \Item[0 \mldots \hashsize-1]$\;
-  \For{$i = 0$\ \TO\ $\hashsize-1$}{ $t.K[i] = \hempty$}
+  $t.\mathit{keys} = \NEW\ \Item[0 \mldots \hashsize-1]$\;
+  $t.\mathit{values} = \NEW\ \Item[0 \mldots \hashsize-1]$\;
+  \For{$i = 0$\ \TO\ $\hashsize-1$}{ $t.\mathit{keys}[i] = \hempty$}
   \Return $t$\;
 }
 \BlankLine
@@ -1033,13 +1054,13 @@ $\Item[\,]\ V$\REMR{Tabella dei valori}
   \INTEGER\ $\mathit{delpos} = m$\REMR{Prima posizione \emph{\hcancel}}
   \INTEGER\ $i = 0$\REMR{Numero di ispezione}
   \INTEGER\ $j = H(k)$\REMR{Posizione attuale}
-  \While{$K[j] \neq k$ \AND\ $K[j] \neq \hempty$ \AND\ $i<m$}
+  \While{$\mathit{keys}[j] \neq k$ \AND\ $\mathit{keys}[j] \neq \hempty$ \AND\ $i<m$}
   {
-    \If{$K[j] \Eq \hcancel$ \AND\ $\mathit{delpos}\Eq m$}{$\mathit{delpos} = j$}
+    \If{$\mathit{keys}[j] \Eq \hcancel$ \AND\ $\mathit{delpos}\Eq m$}{$\mathit{delpos} = j$}
     $j = (j + H'(k)) \bmod m$\;
     $i = i+1$\; 
   }
-  \eIf{$\hinsert$ \AND\ $K[j] \neq k$ \AND $\mathit{delpos} < m$}{
+  \eIf{$\hinsert$ \AND\ $\mathit{keys}[j] \neq k$ \AND $\mathit{delpos} < m$}{
     \Return $\mathit{delpos}$\;
   }{
     \Return\ $j$\;
@@ -1058,17 +1079,17 @@ $\Item[\,]\ V$\REMR{Tabella dei valori}
 \Item\ \PROCEDURE{\dictlookup(\Item $k$)}
 {
   $\INTEGER\ i = \hashscan(k, \FALSE)$\;
-  \eIf{$K[i] \Eq k$}{\Return\ $V[i]$\;}{\Return\ $\hempty$\;}
+  \eIf{$\mathit{keys}[i] \Eq k$}{\Return\ $\mathit{values}[i]$\;}{\Return\ $\hempty$\;}
 }
 \BlankLine
 
 \PROCEDURE{\dictinsert(\Item $k$, \Item $v$)}
 {
   $\INTEGER\ i = \hashscan(k, \TRUE)$\;
-  \eIf{$K[i] \Eq \hempty$ \OR\ $K[i] \Eq \hcancel$ \OR\ $K[i] \Eq k$}
+  \eIf{$\mathit{keys}[i] \Eq \hempty$ \OR\ $\mathit{keys}[i] \Eq \hcancel$ \OR\ $\mathit{keys}[i] \Eq k$}
   {
-    $K[i] = k$\;
-    $V[i] = v$\;
+    $\mathit{keys}[i] = k$\;
+    $\mathit{values}[i] = v$\;
   }
   {
     \% Errore: tabella hash piena
@@ -1085,10 +1106,10 @@ $\Item[\,]\ V$\REMR{Tabella dei valori}
 \PROCEDURE{\dictremove(\Item $k$)}
 {
   $\INTEGER\ i = \hashscan(k, \FALSE)$\;
-  \If{$K[i] \Eq k$}
+  \If{$\mathit{keys}[i] \Eq k$}
   {
-    $K[i] = \hcancel$\;
-    $V[i] = \hempty$\;
+    $\mathit{keys}[i] = \hcancel$\;
+    $\mathit{values}[i] = \hempty$\;
   }  
 }
 \end{Procedure}

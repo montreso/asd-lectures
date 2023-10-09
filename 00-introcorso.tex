@@ -23,7 +23,7 @@
 
 
 \title[ASD - Introduzione]{\textbf{Algoritmi e Strutture Dati}\\[24pt]
-Stagione 17!}
+ASD turns 19!}
 
 \graphicspath{{figs/00/}}
 
@@ -33,10 +33,38 @@ Stagione 17!}
 \FrameTitle{}
 
 
+%-------------------------------------------------------------------------
+\begin{frame}{Due parole su di me}
+
+\TwoColsCustom{0.60}{0.37}{
+\BIL
+\item Titolare di due corsi:\\[6pt]
+\BIL
+\item \alert{Algoritmi e Strutture Dati}\\
+LT Informatica (+LT ICE, LT MAT)
+\item \alert{Laboratory of Computer Science Education}\\
+  LM Computer Science, LM AIS
+\EIL
+\item Highlights\\[6pt]
+\BIL
+\item Senatore accademico + 9 altre cariche
+\item Co-fondatore Coderdojo Verona
+\item Co-fondatore FabLab UniTrento
+\EIL
+\EIL
+}{
+\vspace{-12pt}
+\IG{1.0}{alberto.jpg}
+}
+
+\end{frame}
+
 
 %-------------------------------------------------------------------------
 \begin{frame}{Cos'è un informatico?}
+\begin{center}
 \includegraphics[height=0.8\paperheight]{geek.jpg}	
+\end{center}
 \end{frame}
 
 %-------------------------------------------------------------------------
@@ -44,12 +72,10 @@ Stagione 17!}
 	
 \vspace{-9pt}
 \begin{myboxtitle}[Problema: Sottovettore di somma massimale]
-\BI
-\item \textbf{Input}: un vettore di interi $A[1 \ldots n]$
-\item \textbf{Output}: il sottovettore $A[i \ldots j]$ di somma massimale,
+\textbf{Input}: un vettore di interi $A$, di $n$ elementi\\[6pt]
+\textbf{Output}: il \alert{sottovettore contiguo} $A[i \ldots j]$ di \alert{somma massimale},
 ovvero il sottovettore la cui somma degli elementi $\sum_{k=i}^j A[k]$ è
 più grande o uguale alla somma degli elementi di qualunque altro sottovettore.
-\EI
 \end{myboxtitle}
 \end{frame}
 
@@ -67,9 +93,11 @@ Eh?  \\(NOOB)
 %-------------------------------------------------------------------------
 \begin{frame}{La vostra risposta}
 \TwoColsCustom{0.5}{0.45}{
-\includegraphics[width=0.8\textwidth]{stackoverflow.jpg}
+\fbox{\includegraphics[width=0.8\textwidth]{stackoverflow.jpg}}
 }{
-Cerco qualcosa su StackOverflow\\(CODE MONKEY)
+\sout{Cerco qualcosa su StackOverflow}\\
+Chiedo a ChatGPT\\
+(CODE MONKEY)
 }
 
 %-------------------------------------------------------------------------
@@ -91,12 +119,10 @@ Posso sviluppare un algoritmo efficiente per lei! \\(COMPUTER SCIENTIST)
 	
 \vspace{-9pt}
 \begin{myboxtitle}[Problema: Sottovettore di somma massimale]
-\BI
-\item \textbf{Input}: un vettore di interi $A[1 \ldots n]$
-\item \textbf{Output}: il sottovettore $A[i \ldots j]$ di somma massimale,
+\textbf{Input}: un vettore contenente $n$ interi $A$\\[6pt]
+\textbf{Output}: il \alert{sottovettore contiguo} $A[i \ldots j]$ di \alert{somma massimale},
 ovvero il sottovettore la cui somma degli elementi $\sum_{k=i}^j A[k]$ è
 più grande o uguale alla somma degli elementi di qualunque altro sottovettore.
-\EI
 \end{myboxtitle}
 
 \begin{overprint}	
@@ -377,15 +403,15 @@ def maxsum2(A):
 \vspace{-9pt}
 \begin{myboxtitle}[Divide-et-impera]
 \BIL
-\item Dividiamo il vettore a metà (sinistra, destra), in due parti più o meno uguali
+\item Dividiamo il vettore in due parti più o meno uguali
 \item \texttt{maxL} è la somma massimale nella parte sinistra
 \item \texttt{maxR} è la somma massimale nella parte destra
 \item Ritorna il massimo dei due valori
-\item Riuscite a dimostrare che è corretto?
+\item L'algoritmo proposto è corretto?
 \EIL
 \end{myboxtitle}
 
-
+\bigskip
 \begin{center}
 \begingroup
 \LARGE
@@ -406,7 +432,7 @@ def maxsum2(A):
 \vspace{-9pt}
 \begin{myboxtitle}[Divide-et-impera]
 \BIL
-\item Dividiamo il vettore a metà (sinistra, destra), in due parti più o meno uguali
+\item Dividiamo il vettore in due parti più o meno uguali
 \item \texttt{maxL} è la somma massimale nella parte sinistra
 \item \texttt{maxR} è la somma massimale nella parte destra
 \item \texttt{maxLL+maxRR} è il valore della sottolista massimale "a metà"
@@ -414,6 +440,7 @@ def maxsum2(A):
 \EIL
 \end{myboxtitle}
 
+\bigskip
 \begin{center}
 \begingroup
 \LARGE
@@ -432,7 +459,7 @@ def maxsum2(A):
 \begin{frame}[fragile]{Versione 3 -- Python -- $O(n \log n)$}
 
 \footnotesize
-\vspace{-21pt}
+\vspace{-18pt}
 \begin{lstlisting}[language=python]
 def maxsum_rec(A,i,j):
   if (i==j):
@@ -493,19 +520,19 @@ def maxsum3(A):
 
 \vspace{-9pt}
 \begin{myboxtitle}[Programmazione dinamica]
-Sia \alert{$\mathit{maxHere}[i]$} il valore del sottovettore di somma massima che termina in posizione $A[i]$
+Sia \alert{$\mathit{maxHere}_i$} il valore del sottovettore di somma massima che termina in posizione $A[i]$
 
 \[
-\mathit{maxHere}[i] = \begin{cases}
-  0 & i<0 \\
-  \max(\mathit{maxHere}[i-1]+A[i], 0) & i \geq 0
+\mathit{maxHere}_{i} = \begin{cases}
+  \max(A[0], 0) & i=0 \\
+  \max(\mathit{maxHere}_{i-1}+A[i], 0) & i > 0
 \end{cases}
 \]
 
 
 \end{myboxtitle}
 
-\BB{Il valore massimo contenuto in $\mathit{maxHere}$ rappresenta il valore del sottovettore di somma massima che termina in una qualunque posizione del vettore, quindi la nostra risposta.
+\BB{Il valore massimo contenuto in $\mathit{maxHere}_0 \ldots \mathit{maxHere}_{n-1}$ rappresenta il valore del sottovettore di somma massima che termina in una qualunque posizione del vettore, quindi la nostra risposta.
 }
 
 \end{frame}
@@ -614,7 +641,7 @@ delle variabili dopo l'esecuzione del ciclo per quell'elemento.
 \BIL
 \item Dal punto di vista didattico, \alert{best problem ever}!
 \item 1977: Ulf Grenander (Brown) introduce il problema, come versione semplificata di un problema più generale in immagini 2D (\emph{maximum likelihood in image processing})
-\item 1984: Algoritmo lineare proposto da Jay Kadane (Carnegie Mellon)
+\item 1984: Algoritmo lineare proposto da Jay Kadane\\(Carnegie Mellon)
 \EIL
 \end{myboxtitle}
 
@@ -644,24 +671,18 @@ Chao, Kun-Mao. \alert{Genomic sequence analysis: A case study in constrained hea
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{Dal 2017-18}
+\begin{frame}{Organizzazione}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Studenti Informatica]
 \BI
-\item Un corso \alert{annuale} da 12 crediti (da 09/2019 a 05/2020), suddiviso in due moduli, ma con un unico esame orale finale
+\item Un corso \alert{annuale} da 12 crediti (da 09/2023 a 05/2024), suddiviso in due moduli, ma con un unico esame orale finale
 \EI
 \end{myboxtitle}
 
-\begin{myboxtitle}[Studenti Matematica]
+\begin{myboxtitle}[Studenti Matematica, Inf. Org., ICE]
 \BI
-\item Due corsi da 6 crediti (uno per semestre), si può fare il primo o entrambi. Nel caso si facciano entrambi, un unico esame orale finale.
-\EI
-\end{myboxtitle}
-
-\begin{myboxtitle}[Studenti Inf. Org. / ICE]
-\BI
-\item Suggerito solo il corso del primo semestre, con esame orale, a meno che non vogliate fare la Magistrale di Informatica.
+\item Scelta fra versione 6 crediti (uno per semestre) o versione da 12 crediti.
 \EI
 \end{myboxtitle}
   
@@ -708,7 +729,7 @@ Chao, Kun-Mao. \alert{Genomic sequence analysis: A case study in constrained hea
 \item Tecniche di risoluzione
   \BI
 	\item Scelta struttura dati 
-	\item Programmazione dinamica 
+	\item Programmaz. dinamica 
 	\item Algoritmi greedy
 	\item Ricerca locale 
 	\item Backtrack
@@ -716,8 +737,8 @@ Chao, Kun-Mao. \alert{Genomic sequence analysis: A case study in constrained hea
 	\EI
 \item Problemi intrattabili
 	\BI
-  \item Algoritmi approssimati
 	\item Problemi NP-completi
+	\item Tecniche euristiche, approssimate
 	\EI
 \EIL
 \end{myboxtitle}
@@ -732,7 +753,7 @@ Chao, Kun-Mao. \alert{Genomic sequence analysis: A case study in constrained hea
 \vspace{-9pt}
 \begin{myboxtitle}[Conoscenze e competenze fondamentali]
 \BI
-\item \alert{Conoscenze}: panoramica aggiornata sui problemi fondamentali e le loro soluzioni algoritmiche
+\item \alert{Conoscenze}: panoramica sui problemi fondamentali e le loro soluzioni algoritmiche
 \item	\alert{Competenze}: tecniche standard per risolvere un'ampia gamma di problemi complessi
 \EI
 \end{myboxtitle}
@@ -748,7 +769,7 @@ Chao, Kun-Mao. \alert{Genomic sequence analysis: A case study in constrained hea
 \begin{myboxtitle}[Tecniche di soluzione\phantom{g}]
 \BI
 \item Risolvete (tanti) problemi
-\item Analizzate le vostre soluzione
+\item Analizzate le vostre soluzioni
 \item Implementatele!
 \EI
 \end{myboxtitle}
@@ -831,6 +852,7 @@ disposizione l'utensile adatto con il quale mettervi immediatamente all'opera."
 On writing, Stephen King
 \end{flushright}
 
+
 \bigskip
 {\tiny
 \url{http://cricca.disi.unitn.it/montresor/teaching/asd/la-cassetta-degli-attrezzi/}
@@ -863,8 +885,8 @@ Laurentius da Voltolina -- Bologna, seconda metà del XIV secolo
 \TwoCols{
 \setlength\epigraphwidth{.90\textwidth}
 \vspace{-18pt}
-\epigraph{\alert{Domanda e sembrerai sciocco per un minuto, non domandare e resterai sciocco per sempre}
-}{\textit{Proverbio cinese}}
+\epigraph{\alert{Chiedi, e ti vergognerai un attimo, non chiedere e ti vergognerai per sempre}
+}{\textit{Murakami Haruki\\Kafka sulla spiaggia}}
 }{
 \setlength\epigraphwidth{.90\textwidth}
 \vspace{-18pt}
@@ -881,7 +903,7 @@ Laurentius da Voltolina -- Bologna, seconda metà del XIV secolo
 \end{myboxtitle}
 \begin{myboxtitle}[Rispondete alle mie domande!]
 \BI
-\item Partercipare in 150 è difficile, ma cercate di partecipare tutti
+\item Partecipare in 150+ è difficile, ma cercate di partecipare tutti
 \EI
 \end{myboxtitle}
 \end{frame}
@@ -891,10 +913,11 @@ Laurentius da Voltolina -- Bologna, seconda metà del XIV secolo
 
 \BIL
 \item "Iscrizione" corso:\\
-\url{https://forms.gle/h8Z3qof5vdkbUhmX9}
-\item Canale Telegram (annunci lezione):\\
-\url{https://t.me/ASD21_UniTN}
-\item Piazza vs Discord vs Moodle?
+\url{https://forms.gle/37B4q9h19ptwKHzK7}
+\item Canale Telegram (annunci, parlo io):\\
+\url{https://t.me/unitn_asd23}
+\item Gruppo telegram (discussione, parlate voi):
+\url{https://t.me/+fr8ck2Cah5NlMDJk}
 \EIL
 
 \end{frame}
@@ -908,67 +931,67 @@ Laurentius da Voltolina -- Bologna, seconda metà del XIV secolo
 \end{frame}
 
 
-% %-------------------------------------------------------------------------
-% \begin{frame}{Sull'uso di portatili e cellulari durante la lezione}
-%
-% \vspace{-6pt}
-% \begin{center}
-% \includegraphics[width=1.0\textwidth]{attention.png}
-% \end{center}
-%
-% \end{frame}
-%
-% %-------------------------------------------------------------------------
-% \begin{frame}{Sull'uso di portatili e cellulari durante la lezione}
-%
-% \footnotesize
-% \BIL
-% \item C. May. \alert{Students are Better Off without a Laptop in the Classroom}. Scientific American, 2017.\\
-% \url{https://www.scientificamerican.com/article/students-are-better-off-without-a-laptop-in-the-classroom/}
-%
-% \item C. Stothart, A. Mitchum, C. Yehnert. \alert{The attentional cost of receiving a cell phone notification}. J Exp Psychol Hum Percept Perform. 41(4):893-7 (Aug. 2015).
-% \url{https://www.ncbi.nlm.nih.gov/pubmed/26121498}
-%
-% \item A.F. Ward, K. Duke, A. Gneezy, and M.W. Bos.
-% \alert{Brain Drain: The Mere Presence of One’s Own Smartphone Reduces Available Cognitive Capacity}.
-% Journal of the Association for Consumer Research, 2(2):140-154 (April 2017) \\
-% \url{https://www.journals.uchicago.edu/doi/10.1086/691462}
-%
-% \EIL
-%
-% \end{frame}
-%
-% %-------------------------------------------------------------------------
-% \begin{frame}{Sull'uso di portatili e cellulari durante la lezione}
-%
-% \begin{columns}[T]
-%
-% \column{0.35\textwidth}
-% \BB{Mettete il cellulare in modalità aereo}
-%
-% \begin{center}
-% \IG{0.9}{airplane.png}
-% \end{center}
-%
-% \column{0.35\textwidth}
-% \BB{Mettete il cellulare nello zaino}
-%
-% \begin{center}
-% \IG{0.9}{backpack.jpg}
-% \end{center}
-%
-% \column{0.3\textwidth}
-% \BB{Spegnete il WiFi del portatile}
-%
-% \begin{center}
-% \IG{0.8}{wifioff.jpg}
-% \end{center}
-%
-% \end{columns}
-%
-%
-%
-% \end{frame}
+%-------------------------------------------------------------------------
+\begin{frame}{Sull'uso di portatili e cellulari durante la lezione}
+
+\vspace{-6pt}
+\begin{center}
+\includegraphics[width=1.0\textwidth]{attention.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Sull'uso di portatili e cellulari durante la lezione}
+
+\footnotesize
+\BIL
+\item C. May. \alert{Students are Better Off without a Laptop in the Classroom}. Scientific American, 2017.\\
+\url{https://www.scientificamerican.com/article/students-are-better-off-without-a-laptop-in-the-classroom/}
+
+\item C. Stothart, A. Mitchum, C. Yehnert. \alert{The attentional cost of receiving a cell phone notification}. J Exp Psychol Hum Percept Perform. 41(4):893-7 (Aug. 2015).
+\url{https://www.ncbi.nlm.nih.gov/pubmed/26121498}
+
+\item A.F. Ward, K. Duke, A. Gneezy, and M.W. Bos.
+\alert{Brain Drain: The Mere Presence of One’s Own Smartphone Reduces Available Cognitive Capacity}.
+Journal of the Association for Consumer Research, 2(2):140-154 (April 2017) \\
+\url{https://www.journals.uchicago.edu/doi/10.1086/691462}
+
+\EIL
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Sull'uso di portatili e smartphone durante la lezione}
+
+\begin{columns}[T]
+
+\column{0.35\textwidth}
+\BB{Smartphone in modalità aereo}
+
+\begin{center}
+\IG{0.9}{airplane.png}
+\end{center}
+
+\column{0.35\textwidth}
+\BB{Smartphone nello zaino}
+
+\begin{center}
+\IG{0.9}{backpack.jpg}
+\end{center}
+
+\column{0.3\textwidth}
+\BB{Spegnete il WiFi del portatile}
+
+\begin{center}
+\IG{0.8}{wifioff.jpg}
+\end{center}
+
+\end{columns}
+
+
+
+\end{frame}
 
 
 
@@ -1016,7 +1039,9 @@ Laurentius da Voltolina -- Bologna, seconda metà del XIV secolo
 \EI
 \item Tutorato:
 \BI
-\item TBD
+\item Luca Mosetti
+\item Carmen Casulli
+\item Michele Ghilardi
 \EI
 \EIL
 \end{frame}
@@ -1037,8 +1062,9 @@ Tecniche nuove, $3^a$ ed. (2014)\\
 
 \begin{myboxtitle}[Approfondimenti]
 \BI
-\item Cormen, Leiserson, Rivest, Stein. \alert{\emph{Introduction to Algorithms}}. \\The MIT Press; $3^{\textrm{rd}}$ ed. (2009) (\euro 44.33)
-\item Jon Kleinberg, Eva Tardos. \alert{\emph{Algorithm Design}}. \\Addison Wesley, $1^{\textrm{st}}$ Int. ed. (2013) (\euro 75.28)
+\item Cormen, Leiserson, Rivest, Stein. \alert{\emph{Introduction to Algorithms}}. \\The MIT Press; $4^{\textrm{th}}$ ed. (2022) (\euro 103.28)
+\item Cormen, Leiserson, Rivest, Stein. \alert{\emph{Introduction to Algorithms}}. \\The MIT Press; $3^{\textrm{rd}}$ ed. (2009) (\euro 48.73)
+\item Jon Kleinberg, Eva Tardos. \alert{\emph{Algorithm Design}}. \\Addison Wesley, $1^{\textrm{st}}$ Int. ed. (2013) (\euro 94.99)
 \EI
 \end{myboxtitle}
 
@@ -1056,14 +1082,14 @@ Tecniche nuove, $3^a$ ed. (2014)\\
 \bigskip
 \begin{tabular}{|l|l|l|}
 \hline
-Mercoledì & 13.30 -- 15.30 & Lezione/Esercitazione \textbf{or} Lab \\\hline
-Giovedì & 13.30 -- 15.30 & Lezione/Esercitazione \\\hline
+Martedì & 10.30 -- 12.30 & Lezione/Esercitazione \\\hline
+Giovedì & 13.30 -- 15.30 & Lezione/Esercitazione \textbf{or} Lab \\\hline
 \end{tabular}
 \end{myboxtitle}
 
 \begin{myboxtitle}[Ricevimento]
 \BI
-\item Via zoom, martedì ore 18.30\\
+\item Via zoom, annunciato settimanalmente\\
 \url{https://tinyurl.com/TheHouseOfMontresor}
 \item Al termine di ogni lezione, in presenza
 \item Via mail, quando volete
@@ -1114,7 +1140,7 @@ Giovedì & 13.30 -- 15.30 & Lezione/Esercitazione \\\hline
 
 \begin{myboxtitle}[Regole]
 \BI
-\item \alert{Salto appello}: in ogni anno solare:
+\item \alert{Salto appello}: in ogni anno solare (2024, 2025):
 \BI
 \item potete \underline{consegnare} al massimo \alert{3} scritti parte A
 \item potete \underline{consegnare} al massimo \alert{3} scritti parte B
@@ -1143,8 +1169,8 @@ Giovedì & 13.30 -- 15.30 & Lezione/Esercitazione \\\hline
 \item Corrette tramite software: Contest Management System (CMS), valutate in maniera competitiva
 \item Ricevete un bonus compreso fra 0 e 6 punti
 \BI
-\item Progetto 1: Dicembre 2021 [0-3] punti
-\item Progetto 2: Maggio 2022 [0-3] punti
+\item Progetto 1: Dicembre 2023 [0-3] punti
+\item Progetto 2: Maggio 2024 [0-3] punti
 \EI
 \EI
 \end{myboxtitle}
@@ -1162,7 +1188,7 @@ Per accedere all'orale, è necessario:
 \begingroup
 \tiny
 \begin{align*}
-  \mathrm{12\ crediti} & \qquad \frac{(\textrm{Voto Scritto 1 + BonusLab 1}) + (\textrm{Voto Scritto 2 + BonusLab2 })}{2} \geq 18 \\
+  \mathrm{12\ crediti} & \qquad \frac{(\textrm{Voto Scritto 1 + BonusLab 1}) + (\textrm{Voto Scritto 2 + BonusLab2 })}{2} \geq 17.5 \\
   \mathrm{6\ crediti} & \qquad \textrm{Voto Scritto} + \textrm{Bonus Lab} \geq 17.5 
 \end{align*}
 \endgroup
@@ -1183,44 +1209,30 @@ Per accedere all'orale, è necessario:
 \BB{I voti dei progetti non hanno scadenza}
 
 \medskip
-\BB{Caveat emptor!}
-\BI
-\item Se vi ripresentate fra 10 anni, non garantisco nulla....
-\EI
+\BB{Caveat emptor!
+
+Se vi ripresentate fra 10 anni, non garantisco nulla....
+}
 
 \end{frame}
 
-%-------------------------------------------------------------------------
-\begin{frame}{Novità 2021/22}
-
-\BIL
-\item Ho 40 persone che hanno superato gli scritti e non si sono mai presentati all'orale
-\item Da quest'anno, è possibile registrare il voto senza fare orale, fino ad un massimo di 21:
-
-\[
-  \min(\textrm{voto scritto}, 21)
-\]
-
-\item Per ottenere un voto superiore, è obbligatorio fare l'orale
-\EIL
-\end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Date scritti}
 
 \vspace{-9pt}
 \TwoCols{
-\begin{myboxtitle}[Studenti 2021-22]
+\begin{myboxtitle}[Studenti 2023-24]
 \begin{tabular}{|l|l|}
 \hline
-\textbf{Parte 1} & \textbf{Parte 2} \\\hline
-01/2022 & \\\hline
-02/2022 &  \\\hline
-06/2022 & {06/2021} \\\hline
-07/2022 & {07/2021} \\\hline
-09/2022 & {09/2021} \\\hline
-  & {01/2022} \\\hline
- & {02/2022} \\\hline
+\textbf{Parte A} & \textbf{Parte B} \\\hline
+01/2024 & \\\hline
+02/2024 &  \\\hline
+06/2024 & {06/2024} \\\hline
+07/2024 & {07/2024} \\\hline
+09/2024 & {09/2024} \\\hline
+  & {01/2025} \\\hline
+ & {02/2025} \\\hline
 \end{tabular}
 \end{myboxtitle}
 }{
@@ -1228,25 +1240,14 @@ Per accedere all'orale, è necessario:
 \begin{tabular}{|l|l|}
 \hline
 \textbf{Parte 1 }& \textbf{Parte 2} \\\hline
-01/2022 & 01/2021\\\hline
-02/2022 & 02/2021 \\\hline
-06/2022 & {06/2021} \\\hline
-07/2022 & {07/2021} \\\hline
-09/2022 & {09/2021} \\\hline
+01/2024 & 01/2024\\\hline
+02/2024 & 02/2024 \\\hline
+06/2024 & {06/2024} \\\hline
+07/2024 & {07/2024} \\\hline
+09/2024 & {09/2024} \\\hline
 \end{tabular}
 \end{myboxtitle}
 }
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{Appello orale straordinario}
-
-\BIL
-\item Seconda metà di Ottobre 2021
-\item Riservato a persone che hanno già completato il 3° anno, quindi non hanno lezioni da frequentare
-(studenti fuori corso e in attesa di laurea)
-\EIL
-
 \end{frame}
 
 %-------------------------------------------------------------------------
@@ -1301,7 +1302,8 @@ l'intento sia conseguito.”
 \item Speck\&Tech
 \item Facoltiadi
 \item Coderdojo
-\item Olimpiadi dell'Informatica
+\item Palestra di algoritmi
+\item \textbf{Fablab}
 \EIL
 \end{myboxtitle}
 }{
@@ -1320,10 +1322,10 @@ l'intento sia conseguito.”
 \item Francesco Gazzetta (2018)
 \item Simone Degiacomi (2019)
 \item Beatrice Vergani (2020)
+\item Fabrizio Sandri (2022)
+\item Emanuele Grisenti (2022)
+\item Sebastiono Tocci (2023)
 \EI
-\end{myboxtitle}
-\begin{myboxtitle}[DISI Fablab]
-To be announced!
 \end{myboxtitle}
 }
 
@@ -1331,7 +1333,7 @@ To be announced!
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{valutazione della didattica}
+\begin{frame}{Valutazione della didattica}
 
 \BIL
 \item Questionario valutazione didattica:\\

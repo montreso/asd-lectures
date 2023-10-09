@@ -139,10 +139,25 @@ I casi (a)-(e) della figura rappresentano le cinque disposizioni possibili con c
 
 
 %-------------------------------------------------------------------------
-\begin{frame}<1|handout:0>[fragile]{Domino}
+\begin{frame}[fragile]{Domino}
 
 \vspace{-9pt}
+\BB{Quante disposizioni ci sono per $n=7$?}
+
+\begin{center}
+\begin{tabular}{m{7cm}m{3cm}}
+Wooclap.com, codice: \href{https://app.wooclap.com/ZAEBFA}{\alert{\underline{ZAEBFA}}}
+&
+\includegraphics[width=1.8cm]{qrcode-13-pd1.png}\\
+\end{tabular}
+\end{center}
+
+\bigskip
+Hint: calcola quante disposizioni ci sono per $n=0 \ldots 7$ 
+
+\bigskip
 \BB{Come risolvereste il problema?}
+
 
 \end{frame}
 
@@ -252,7 +267,6 @@ $\mathit{DP}[n]$ è pari al $(n+1)$-esimo numero della serie di Fibonacci, intro
 
 \vspace{-9pt}
 \BB{Algoritmo ricorsivo che risolve il problema Domino}
-
 \begin{Procedure}
 \caption[A]{\INTEGER\ \textsf{domino1}(\INTEGER\ $n$)}
   \eIf{$n \leq 1$}{
@@ -263,6 +277,14 @@ $\mathit{DP}[n]$ è pari al $(n+1)$-esimo numero della serie di Fibonacci, intro
 \end{Procedure}
 
 \BB{Qual è l'equazione di ricorrenza associata a \textsf{domino1()}?}
+\begin{center}
+\begin{tabular}{m{7cm}m{3cm}}
+Wooclap.com, codice: \href{https://app.wooclap.com/ZAEBFA}{\alert{\underline{ZAEBFA}}}
+&
+\includegraphics[width=1.8cm]{qrcode-13-pd1.png}\\
+\end{tabular}
+\end{center}
+
 
 \end{frame}
 
@@ -487,6 +509,7 @@ dove $\phi$ è la \alert{sezione aurea}:
 \column{0.25\textwidth}
 
 \bigskip
+\bigskip
 \alert{$\log F(n) = \Theta(n)$}
 \end{columns}
 
@@ -495,8 +518,7 @@ dove $\phi$ è la \alert{sezione aurea}:
 
 \begin{frame}{Modello costo uniforme vs modello costo logaritmico}
   
-Sotto il modello di costo logaritmico, le tre versioni hanno la seguente
-complessità:
+Nel modello di costo logaritmico, le tre versioni hanno complessità:
 
 \begin{center}
 \begin{tabular}{|c|c|c|}
@@ -509,11 +531,10 @@ complessità:
 \end{center}
 
 \bigskip
-Si può fare meglio di così utilizzando l'esponenziazione di matrici basata
-su quadrati:
+Se siete curiosi, si può risolvere il problema in tempo $O(n \log n)$ utilizzando l'esponenziazione di matrici basata su quadrati o un algoritmo che sfrutta una proprietà dei numeri di Fibonacci:
 
 \bigskip
-\url{https://brilliant.org/wiki/fast-fibonacci-transform/}
+\url{https://jeffe.cs.illinois.edu/teaching/algorithms/book/03-dynprog.pdf}
 
 
 \end{frame}
@@ -548,28 +569,24 @@ fondi a cui partecipano uno o entrambi i propri vicini.
 \vspace{-9pt}
 \begin{myboxtitle}[Problemi]
 \BIL
-\item Scrivere un algoritmo che restituisca la quantità massima di
+\item Scrivere un algoritmo che dato il vettore $D$, restituisca la quantità massima di
 fondi che può essere raccolta
-\item Scrivere un algoritmo che restituisca il sottoinsieme di indici 
-$S \subseteq \{ 1, \ldots, n \}$ tale per cui la donazione totale
-$T = \sum_{i \in S} D[i]$ è massimale
+\item Bonus: restituire un sottoinsieme di indici 
+$S \subseteq \{ 1, \ldots, n \}$ tale che il totale dei fondi raccolti
+$T = \sum_{i \in S} D[i]$ sia massimale
 \EIL
 \end{myboxtitle}
 
-\begin{myboxtitle}[Esempio]
-\BIL
-\item Vettore donazioni: \textsf{D = [4, 3, 6, 5]}
-\item Raccolta fondi massima: 10
-\item Insieme indici: $\{1, 3\}$
-\EIL
+\begin{myboxtitle}[Qual è la donazione massima con \alert{$D = [4, 3, 6, 5, 8, 7]$?}]
+\vspace{-6pt}
+\begin{tabular}{m{7cm}m{3cm}}
+Wooclap.com, codice: \href{https://app.wooclap.com/ZAEBFA}{\alert{\underline{ZAEBFA}}}
+&
+\includegraphics[width=1.8cm]{qrcode-13-pd1.png}\\
+\end{tabular}
+\vspace{-6pt}
 \end{myboxtitle}
 
-\end{frame}
-
-%-------------------------------------------------------------------------
-\begin{frame}{Hateville}
-
-\vspace{-9pt}
 \BB{Come risolvereste il problema?}
 
 \end{frame}
@@ -580,17 +597,18 @@ $T = \sum_{i \in S} D[i]$ è massimale
 \vspace{-9pt}
 \begin{myboxtitle}[Problemi]
 \BIL
-\item Scrivere un algoritmo che restituisca la quantità massima di
+\item Scrivere un algoritmo che dato il vettore $D$, restituisca la quantità massima di
 fondi che può essere raccolta
-\item Scrivere un algoritmo che restituisca il sottoinsieme di indici 
-$S \subseteq \{ 1, \ldots, n \}$ tale per cui la donazione totale
-$T = \sum_{i \in S} D[i]$ è massimale
+\item Bonus: restituire un sottoinsieme di indici 
+$S \subseteq \{ 1, \ldots, n \}$ tale che il totale dei fondi raccolti
+$T = \sum_{i \in S} D[i]$ sia massimale
 \EIL
 \end{myboxtitle}
 
 \begin{myboxtitle}[La vostra soluzione funziona con questo esempio?]
 \BIL
 \item Vettore donazioni: \textsf{D = [10, 5, 5, 10]}
+\pause
 \item Raccolta fondi massima: 20
 \item Insieme indici: $\{1, 4\}$
 \EIL
@@ -669,9 +687,9 @@ HV(i) = \mathit{highest}(HV(i-1), \{ i \} \cup HV(i-2)  )
 \begin{frame}{Sottostruttura ottima -- Dimostrazione}
 
 \BI
-\item Sia $P_i$ il problema dato dalle prime $i$ case
-\item Sia $S_i$ una soluzione ottima per il problema $P_i$
-\item Sia $|S_i|$ il totale di donazioni di $S_i$
+\item Sia \alert{$P_i$} il \alert{problema} dato dalle prime $i$ case
+\item Sia \alert{$S_i$} una \alert{soluzione} ottima per il problema $P_i$
+\item Sia $\alert{||S||} = \sum_{k \in S} D[k]$ il \alert{totale di donazioni} di un insieme $S$
 \EI
 
 \begin{overprint}
@@ -680,9 +698,9 @@ HV(i) = \mathit{highest}(HV(i-1), \{ i \} \cup HV(i-2)  )
 \BIL
 \item $S_i$ è una soluzione ottima anche per $P_{i-1}$
 \item Se così non fosse, esisterebbe una soluzione $S'_{i-1}$ per il
-problema $P_{i-1}$ tale che $|S'_{i-1}|>|S_i|$
+problema $P_{i-1}$ tale che $||S'_{i-1}||>||S_i||$
 \item Ma allora $S'_{i-1}$ sarebbe una soluzione anche per $P_i$ tale
-che $|S'_{i-1}|>|S_i|$, assurdo
+che $||S'_{i-1}||>||S_i||$, assurdo
 \EIL
 \onslide<2|handout:2>
 \BB{Caso 2: \alert{$i \in S_i$}}
@@ -690,9 +708,9 @@ che $|S'_{i-1}|>|S_i|$, assurdo
 \item $i-1 \not\in S_i$, altrimenti non sarebbe una soluzione ammissibile
 \item Quindi, $S_i-\{i\}$ è una soluzione ottima per $P_{i-2}$
 \item Se così non fosse, esisterebbe una soluzione $S'_{i-2}$ per il
-problema $P_{i-2}$ tale che $|S'_{i-2}|>|S_i-\{i\}|$
+problema $P_{i-2}$ tale che $||S'_{i-2}||>||S_i-\{i\}||$
 \item Ma allora $S'_{i-2} \cup \{i \}$ sarebbe una soluzione per $P_i$
-tale che $|S'_{i-2} \cup \{i\}|>|S_i|$, assurdo
+tale che $||S'_{i-2} \cup \{i\}||>||S_i||$, assurdo
 \EIL
 \end{overprint}
 
@@ -1077,21 +1095,19 @@ $
 \begin{frame}{Esempi}
 
 \vspace{-9pt}
-\BB{Quali sono gli oggetti migliori per questo esempio?}
+\BB{Qual è il valore massimo per questo zaino, con $C=12$?}
 
 \begin{columns}[T]
 \column{0.40\textwidth} 
-\begin{tabular}{|r|c|c|c|}
+\begin{tabular}{|r|c|c|c|c|}
 \hline
-\textbf{Item id} & \textbf{1} & \textbf{2} & \textbf{3} \\\hline
-\textbf{Weight} & 10 & 4 & 8 \\\hline
-\textbf{Profit} & 20 & 6 & 12 \\\hline 
+\textbf{Item id} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4}\\\hline
+\textbf{Weight} & 12 & 4 & 6 & 2 \\\hline
+\textbf{Profit} & 26 & 8 & 12 & 4 \\\hline 
 \end{tabular} 
-\column{0.15\textwidth}
-\[C=12\]
-\pause
-\column{0.35\textwidth}
-\[S = \{1 \}\]
+\column{0.55\textwidth}
+wooclap.com, codice: \href{https://app.wooclap.com/ZAEBFA}{\alert{\underline{ZAEBFA}}}
+\includegraphics[width=1.8cm]{qrcode-13-pd1.png}\\
 \end{columns}
 
 \smallskip
@@ -1099,21 +1115,19 @@ $
 
 \pause
 \smallskip
-\BB{Il vostro algoritmo funziona per questo esempio?}
+\BB{Il vostro algoritmo funziona per questo esempio, con $C=12$?}
 
 \begin{columns}[T]
 \column{0.40\textwidth}
-\begin{tabular}{|r|c|c|c|}
+\begin{tabular}{|r|c|c|c|c|}
 \hline
-\textbf{Item id} & \textbf{1} & \textbf{2} & \textbf{3} \\\hline
-\textbf{Weight} & 10 & 4 & 8 \\\hline
-\textbf{Profit} & 20 & 7 & 15 \\\hline 
-\end{tabular}
-\column{0.15\textwidth}
-\[C=12\]
+\textbf{Item id} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4}\\\hline
+\textbf{Weight} & 12 & 4 & 6 & 2 \\\hline
+\textbf{Profit} & 26 & 9 & 13 & 5 \\\hline 
+\end{tabular} 
 \pause
-\column{0.35\textwidth}
-\[S = \{ 2,3 \}\]
+\column{0.55\textwidth}
+\[S = \{ 2,3, 4 \}\]
 \end{columns}
 \end{frame}
 

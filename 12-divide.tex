@@ -290,8 +290,8 @@ nel piolo di sinistra
 \begin{overprint}
 \onslide<0|handout:1>
 \includegraphics[width=\textwidth]{hanoi-0.png}
-\onslide<1-40|handout:0>
-\multiinclude[<+>][format=png,start=0,end=39,graphics={width=\textwidth}]{hanoi}
+\onslide<1-39|handout:0>
+\multiinclude[<+>][format=png,start=0,end=38,graphics={width=\textwidth}]{hanoi}
 {\tiny \url{https://it.wikipedia.org/wiki/Torre_di_Hanoi\#/media/File:Tower_of_Hanoi_4.gif}}
 \end{overprint}
 }
@@ -313,12 +313,19 @@ nel piolo di sinistra
 }
 \end{Procedure}
 
+\vspace{-6pt}
+\begin{myboxtitle}[Costo computazionale]
+\begin{overprint}
+\onslide<1|handout:0>
+?
+\onslide<2|handout:1>
 \BIL
-\item Questa soluzione è ottima (si può dimostrare)
 \item Ricorrenza: $T(n) = 2T(n-1)+1$
-\item Costo computazionale? \pause \alert{$O(2^n)$}
+\item Costo computazionale? \alert{$O(2^n)$}
+\item Questa soluzione è ottima (si può dimostrare)
 \EIL
-
+\end{overprint}
+\end{myboxtitle}
 \end{frame}
 
 \section{Quicksort}
@@ -417,7 +424,7 @@ $\INTEGER\ j = \Primo$\;
   \If{$A[i] <\mathit{ pivot}$}
   {
     $j = j + 1$\;
-	$\Swap(A,i,j)$\;
+	$\;(A,i,j)$\;
   }
 }
 $A[\Primo] = A[j]$\;
@@ -430,7 +437,7 @@ $A[j] = \mathit{pivot}$\;
 \caption[A]{\Swap($\Item[\,]\ A$, \INTEGER $i$, \INTEGER $j$)}
 $\Item\ \mathit{temp} = A[i]$\;
 $A[i] = A[j]$\;
-$A[j] = A[\mathit{temp}]$\;
+$A[j] = \mathit{temp}$\;
 \end{Procedure}
 }
 

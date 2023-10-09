@@ -51,7 +51,7 @@
 %-------------------------------------------------------------------------
 \begin{frame}{String matching approssimato}
 
-\vspace{-6pt}
+\vspace{-9pt}
 \begin{myboxtitle}[Definizione]
 
 Siano:
@@ -68,9 +68,9 @@ Un'\alert{occorrenza $k$-approssimata} di $P$ in $T$ è una copia di $P$ in $T$ 
 \end{enumerate}
 \end{myboxtitle}
 
-\begin{myboxtitle}[Problema -- Approximated string matching]
-Trovare un'occorrenza $k$-approssimata di $P$ in $T$ con $k$ minimo\\ 
-($0 \leq k \leq m$).
+\begin{myboxtitle}[Esempio]
+T = \texttt{questoèun\textcolor{red}{o}s\textcolor{red}{c}empio} \\
+P = \texttt{~~~~~~~un\textcolor{red}{e}sempio}
 \end{myboxtitle}
 
 \end{frame}
@@ -78,16 +78,16 @@ Trovare un'occorrenza $k$-approssimata di $P$ in $T$ con $k$ minimo\\
 %-------------------------------------------------------------------------
 \begin{frame}{Esempio}
 
-\vspace{-6pt}
-\begin{myboxtitle}[Esempio]
-T = \texttt{questoèun\textcolor{red}{o}s\textcolor{red}{c}empio} \\
-P = \texttt{~~~~~~~un\textcolor{red}{e}sempio}
+\vspace{-9pt}
+\begin{myboxtitle}[Problema -- Approximated string matching]
+Trovare un'occorrenza $k$-approssimata di $P$ in $T$ con $k$ minimo\\ 
+($0 \leq k \leq m$).
 \end{myboxtitle}
 
-\begin{myboxtitle}[Domande]
+\begin{myboxtitle}[Spiegazione]
 \BIL
 \item Qual è il minimo valore $k$ per cui si trova un'occorrenza $k$-approssimata di $P$ in $T$?
-\item A partire da dove?
+\item Dove?
 \item Con quali errori?
 \EIL
 \end{myboxtitle}
@@ -100,9 +100,10 @@ P = \texttt{~~~~~~~un\textcolor{red}{e}sempio}
 \vspace{-6pt}
 \begin{myboxtitle}[Definizione]
 Sia $DP[0 \ldots m][0 \ldots n]$ una tabella di programmazione dinamica
-tale che $DP[i][j]$ sia il minimo valore $k$ per cui esiste un'occorrenza $k$-approssimata di $P(i)$ in $T(j)$ che termina nella posizione $j$
+tale che \alert{$DP[i][j]$ sia il minimo valore $k$ per cui esiste un'occorrenza $k$-approssimata di $P(i)$ in $T(j)$ che termina nella posizione $j$}
 \end{myboxtitle}
 
+\pause
 \BB{Quattro possibilità}
 \small
 \smallskip
@@ -136,7 +137,7 @@ i  & \textrm{$j=0$}\\
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Ricostruzione della soluzione finale}
+\begin{frame}{Dove si trova la soluzione finale?}
 
 \vspace{-6pt}
 \BIL

@@ -21,7 +21,7 @@
 \newcommand{\Cost}{\mathit{cost}}
 \newcommand{\Transfer}{\mathit{transfer}}
 %\newcommand{\Out}{\mathit{out}}
-%\newcommand{\Back}{\mathit{back}}
+\renewcommand{\Back}{\mathit{last}}
 
 
 
@@ -74,7 +74,7 @@ Non si può avere tutto dalla vita; bisogna rinunciare a qualcosa:
   \EI
 \item \B{Formalità}: 
   \BI
-  \item Algoritmi \alert{euristici}, di solito basati su tecniche greedy o di ricerca locale, che forniscano sperimentalmente risultati buoni
+  \item Algoritmi \alert{euristici}, di solito basati su tecniche greedy o di ricerca locale, che forniscono sperimentalmente risultati buoni
   \EI
 \item \B{Efficienza}:
   \BI
@@ -160,17 +160,17 @@ $\DP[i][r]$ è uguale a \TRUE se esiste un sottoinsieme dei primi $i$ valori mem
 \caption[A]{\BOOLEAN \fontproc{subsetSum}($\INTARRAY\ A,\ \INTEGER\ n,\ \INTEGER\ k$)}
 $\BOOLEAN[\,][\,]\ \DP = \NEW\ \BOOLEAN[0 \ldots n][0 \ldots k] = \{ \FALSE \}$\;
 \For{$i=0$ \TO\ $n$}{
-  $\DP[i][0] = \TRUE$\REMR{$r=0$}
+  $\DP[i][0] = \TRUE$\REMR{Obiettivo raggiunto}
 }
 \For{$r=1$ \TO\ $k$}{
-  $\DP[0][r] = \FALSE$\REMR{$r>0 \wedge i=0$}
+  $\DP[0][r] = \FALSE$\REMR{Valori terminati}
 }
 \For{$i=1$ \TO\ $n$}{
   \For{$r=1$ \TO $A[i]-1$}{
-    $\DP[i][r] = \DP[i-1][r]$\REMR{$A[i]>r$}
+    $\DP[i][r] = \DP[i-1][r]$\REMR{Valore troppo grande}
   }
   \For{$r=A[i]$ \TO $k$}{
-    $\DP[i][r] = \DP[i-1][r]\ \OR\ \DP[i-1][r-A[i]]$\REMR{$A[i] \leq r$}
+    $\DP[i][r] = \DP[i-1][r]\ \OR\ \DP[i-1][r-A[i]]$\REMR{Valore ok}
   }
 }
 \Return $\DP[n][k]$\;
@@ -203,16 +203,16 @@ k &=24
 \caption[A]{\BOOLEAN \fontproc{ssRec}($\INTARRAY\ A,\ \INTEGER\ i,\ \INTEGER\ r$)}
 
 \uIf{$r \Eq 0$}{
-  \Return \TRUE\;
+  \Return $\TRUE$\REMR{Obiettivo raggiunto}
 }
 \uElseIf{$i \Eq 0$}{
-  \Return \FALSE\;
+  \Return $\FALSE$\REMR{Valori terminati}
 }
 \uElseIf{$A[i]>r$}{
-  \Return $\fontproc{ssRec}(A,i-1,r)$\;
+  \Return $\fontproc{ssRec}(A,i-1,r)$\REMR{Valore troppo grande}
 }
 \Else{
-  \Return $\fontproc{ssRec}(A,i-1,r)\ \OR\ \fontproc{ssRec}(A,i-1,r-A[i])$\;
+  \Return $\fontproc{ssRec}(A,i-1,r)\ \OR\ \fontproc{ssRec}(A,i-1,r-A[i])$\REMR{Valore ok}
 }
 \end{Procedure}
 
@@ -223,25 +223,25 @@ k &=24
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{Subset Sum -- Memoization -- $O(nk)$}
+\begin{frame}{Subset Sum -- Memoization -- $O(nk)$, $O(2^n)$}
 
 \vspace{-9pt}
 \begin{Procedure}
-\caption[A]{\BOOLEAN \fontproc{ssRec}($\INTARRAY\ A,\ \INTEGER\ i,\ \INTEGER\ r, \alert{\Dictionary\ \DP}$)}
+\caption[A]{\BOOLEAN \fontproc{ssRec}($\INTARRAY\ A,\ \INTEGER\ i,\ \INTEGER\ r,\ \alert{\Dictionary\ \DP}$)}
 
 \uIf{$r \Eq 0$}{
-  \Return \TRUE\;
+  \Return \TRUE\REMR{Obiettivo raggiunto}
 }
-\uElseIf{$r<0$ \OR\ $i \Eq 0$}{
-  \Return \FALSE\;
+\uElseIf{$i \Eq 0$}{
+  \Return \FALSE\REMR{Valori terminati}
 }
 \alert{
 \Else{
- \BOOLEAN $\mathit{res} = \DP.\dictlookup((i,r))$\;
+ \BOOLEAN $\mathit{res} = \DP.\dictlookup(\langle i,r \rangle)$\;
   \If{$\mathit{res} \Eq \Nil$}{
-    $\mathit{res} = \fontproc{ssRec}(A,i-1,r,\DP)$\;
+    $\mathit{res} = \fontproc{ssRec}(A,i-1,r,\DP)$\REMR{Valore non preso}
     \If{$A[i]<r$}{
-      $\mathit{res} = \mathit{res}$ \OR\ $\fontproc{ssRec}(A,i-1,r-A[i],\DP)$\;
+      $\mathit{res} = \mathit{res}$ \OR\ $\fontproc{ssRec}(A,i-1,r-A[i],\DP)$\REMR{Valore preso}
     }
     $\DP.\dictinsert((i,r), \mathit{res})$\;
   }
@@ -253,7 +253,7 @@ k &=24
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{Subset Sum -- Memoization -- $O(nk)$}
+\begin{frame}{Subset Sum -- Memoization -- $O(nk)$, $O(2^n)$}
 
 \vspace{-9pt}
 \IG{1.0}{table-memo.pdf}
@@ -411,9 +411,9 @@ $O(n^2 \log \#)$ \\\hline
 
 \vspace{-9pt}
 \begin{myboxtitle}[Definizione]
-Sia $R_{\mathit{pol}}$ il problema $R$ ristretto a quei dati d'ingresso per i quali \# è
-limitato superiormente da $p(d)$, con $p$ funzione polinomiale in $d$. \\
-$R$ è \alert{fortemente \NP-completo} se $R_{\mathit{pol}}$ è \NP-completo
+Sia $R_{\mathit{pol}}$ il problema $R$ ristretto ai dati d'ingresso per i quali \# è
+limitato superiormente da $T_p(d)$, con $T_p$ funzione polinomiale in $d$. \\
+$R$ è \alert{fortemente \NP-completo} se e solo se $R_{\mathit{pol}}$ è \NP-completo
 \end{myboxtitle}
 
 \begin{myboxtitle}[Definizione]
@@ -450,13 +450,12 @@ $O(nk) = O(n^{c+1})$, quindi in $\PTIME$.
 
 \vspace{-9pt}
 \begin{myboxtitle}[Definizione]
-Un algoritmo che risolve un certo problema $R$, per qualsiasi
-dato $I$ d'ingresso, in tempo $p(\#, d)$, con $p$ funzione polinomiale in $\#$
-e $d$, ha complessità \alert{pseudo-polinomiale}.
+Un algoritmo ha complessità \alert{pseudo-polinomiale} se risolve un certo problema $R$, per qualsiasi
+dato $I$ d'ingresso, in tempo $T_p(\#, d)$, funzione con tempo polinomiale (non costante) in $\#$.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Esempio]
-Gli algoritmi per \textsc{subset-sum} basati su programmazione dinamica e memoization sono pseudo-polinomiali.
+Gli algoritmi per \textsc{subset-sum} e \textsc{knapsack} sono pseudo-polinomiali.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Teorema]
@@ -482,7 +481,7 @@ $k$ nodi tutti mutuamente adiacenti?
 \item $k \leq n$ (altrimenti la risposta è \FALSE)
 \item $\# = \max \{ n, m, k \} = \max \{ n, m \}$
 \item $d = O(n + m + \log \#) = O(n+m)$
-\item Quindi $\# = \max \{ n, m \}$ è limitato superiormente da $O(n+m)$
+\item Quindi $\# = \max \{ n, m \}$ è \alert{già} limitato superiormente da $O(n+m)$
 \item Il problema ristretto è identico a \textsc{clique}, che è \NP-completo
 \EIL
 \end{myboxtitle}
@@ -570,7 +569,7 @@ trovare un percorso da commesso viaggiatore di costo $n$
 \begin{frame}{Problemi debolmente/fortemente \NP-completi?}
 
 \vspace{-18pt}
-\TwoCols{
+\TwoColsCustom{0.53}{0.45}{
 \begin{myboxtitle}[Partizione (\textsc{partition})]
 Dato un vettore $A$ contenente $n$ interi positivi, esiste un
 sottoinsieme $S \subseteq \{1 \ldots n\}$ tale che $\displaystyle \sum_{i\in S} A[i] = \sum_{i \notin S} A[i]$ ?
@@ -579,11 +578,13 @@ sottoinsieme $S \subseteq \{1 \ldots n\}$ tale che $\displaystyle \sum_{i\in S} 
 \begin{myboxtitle}[Esempio]
 \begin{overprint}
 \onslide<1|handout:0>
+\begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 14 & 6 & 12 & 3 & 7 & 2 \\\hline
 \end{tabular}
-\onslide<2|handout:1>
+\end{center}
+\onslide<2-|handout:1>
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
 \R{14} & \R{6} & \B{12} & \B{3} & \B{7} & \R{2} \\\hline
@@ -595,14 +596,16 @@ sottoinsieme $S \subseteq \{1 \ldots n\}$ tale che $\displaystyle \sum_{i\in S} 
 \begin{myboxtitle}[Domanda -- \textsc{partition} è debolmente \NP-completo?]
 \begin{overprint}
 \onslide<1|handout:0>
-~
+Come lo risolvereste?
 \onslide<2|handout:1>
-Sì, perchè è possibile ridurlo a \textsc{subset-sum} scegliendo come
+\EE possibile ridurlo a \textsc{subset-sum} scegliendo come
 valore $k$ la metà di tutti i valori presenti:
 
 \[
   k = \frac{\sum_{i=1}^n A[i]}{2} = \frac{44}{2} = 22
 \]
+\onslide<3|handout:2>
+Poichè è possibile risolverlo tramite un algoritmo pseudo-polinomiale, \textsc{partition} è debolmente \NP-completo
 \end{overprint}
 \end{myboxtitle}
 
@@ -611,7 +614,7 @@ valore $k$ la metà di tutti i valori presenti:
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{Problemi debolmente/fortemente \NP-completi}
+\begin{frame}{Problemi debolmente/fortemente \NP-completi?}
 
 \vspace{-9pt}
 \begin{myboxtitle}[3-Partizione (\textsc{3-partition})]
@@ -641,7 +644,7 @@ No, non esiste un algoritmo pseudo-polinomiale per risolvere 3-partition.
 \begin{myboxtitle}[Premessa]
 \BIL
 \item I problemi più interessanti sono in forma di ottimizzazione
-\item Se il problema di decisione è \NP-completo, non sono noti 
+\item Se il problema decisionale è \NP-completo, non sono noti 
 algoritmi polinomiali per il problema di ottimizzazione
 \item Esistono algoritmi polinomiali che trovano soluzioni ammissibili
 più o meno vicine a quella ottima
@@ -680,42 +683,61 @@ c(x^*) \leq c(x) & \leq \alpha(n) c(x^*)  && \alpha(n) > 1 \qquad (\textrm{Minim
 
 
 %-------------------------------------------------------------------------
-\begin{frame}{Esempio}
+\begin{frame}{Bin-packing approssimato}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Bin packing]
 Dati:
 \BI
-\item un vettore $A$ contenente $n$ interi positivi (i \alert{volumi}
-degli \alert{oggetti}) 
-\item un intero positivo $k$ (la \alert{capacità} di una \alert{scatola}, tale che $\forall i: A[i] \leq k$), 
+\item un vettore $A$ contenente $n$ interi positivi\\
+(i \alert{volumi} degli \alert{oggetti}) 
+\item un intero positivo $k$\\
+(la \alert{capacità} di una \alert{scatola}, tale che $\forall i: A[i] \leq k$), 
 \EI
 si vuole trovare una partizione di $\{1, \mldots, n\}$ nel minimo numero di sottoinsiemi disgiunti (``scatole'') tali che $\sum_{i\in S} A[i] \le k$ per ogni insieme $S$ della partizione
 \end{myboxtitle}
 
+\IG{1.0}{bin-packing.pdf}
+
+\end{frame}
+
+%-------------------------------------------------------------------------
+\begin{frame}{Bin-packing approssimato}
+
 \vspace{-9pt}
-\TwoColsCustom{0.45}{0.53}{
-\begin{myboxtitle}[Esempio]
+\begin{myboxtitle}[Esempio -- $k=8$]
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
 3 & 7 & 2 & 5 & 4 & 3 & 5 \\\hline
 \end{tabular}
 \end{myboxtitle}
-}{
-\begin{myboxtitle}[Domanda]
-Come risolvereste il problema?
+
+\begin{myboxtitle}[Esempio -- $k=10$]
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+3 & 2 & 7 & 5 & 3 & 5 & 10 & 5 \\\hline
+\end{tabular}
 \end{myboxtitle}
-}
+
+\begin{myboxtitle}[Esercizi]
+\BIL
+\item Provate a risolvere questi esempi "a mano"
+\item Ragionate su possibili algoritmi
+\EIL
+\end{myboxtitle}
 
 \end{frame}
+
+%-------------------------------------------------------------------------
+
 
 %-------------------------------------------------------------------------
 \begin{frame}{First-fit}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Algoritmo \textsc{first-fit}]
+\begin{myboxtitle}[Algoritmo \textsc{first-fit} (Greedy)]
 Gli oggetti sono considerati in un ordine qualsiasi e ciascun oggetto è assegnato alla prima scatola che lo può contenere, tenuto conto di quanto
-spazio è stato occupato della stessa. (Algoritmo Greedy)
+spazio è stato occupato della stessa. 
 \end{myboxtitle}
 
 \bigskip
@@ -818,12 +840,12 @@ che implica $\alpha(n) = 2$
 
 \vspace{-9pt}
 \BIL
-\item \EE possibile dimostrare un risultato migliore per \FF:
+\item \EE possibile dimostrare un risultato migliore per First Fit:
 \medskip
 \[
   N < \frac{17}{10}N^* + 2
 \]  
-\item Variante FFD (First-fit decreasing): gli oggetti sono considerati
+\item Variante First-fit decreasing: gli oggetti sono considerati
 in ordine non decrescente
 \[
   N < \frac{11}{9}N^* + 4
@@ -877,26 +899,37 @@ Senza diseguaglianza triangolare
 \begin{frame}{$\Delta$-\textsc{tsp} è \NP-completo}
 
 \vspace{-9pt}
-\BB{Dimostriamo che $\textsc{hamiltonian-circuit} \leq_p \textrm{$\Delta$-\textsc{tsp}}$}
+\begin{myboxtitle}[Lemma]
+$\textsc{hamiltonian-circuit} \leq_p \textrm{$\Delta$-\textsc{tsp}}$
+\end{myboxtitle}
+\begin{overprint}
+\onslide<1|handout:1>
+\begin{myboxtitle}[Dimostrazione]
 \BIL
 \item Sia $G=(V,E)$ un grafo non orientato 
-\item Definiamo una matrice di distanze a partire da $G$
-\medskip
+\item Definiamo una matrice di distanze a partire da $G$:
 \[
   d[i][j] = \begin{cases}
     1 & (i,j) \in E \\
     2 & (i,j) \notin E
   \end{cases}
 \]    
-
-\item Il grafo $G$ ha un circuito hamiltoniano se e solo se è possibile
-trovare un percorso da commesso viaggiatore lungo $n$
-\item Valgono le diseguaglianze triangolari: 
-\medskip
-\[
+\item Diseguaglianze triangolari: 
+$
   d[i][j] \leq 2 \leq d[i][k]+d[k][j]
-\]
+$
+\item $G$ ha un circuito hamiltoniano $\Leftrightarrow$\\
+esiste un percorso $\Delta$-\textsc{tsp} in $d$ di lunghezza $n$
 \EIL
+\end{myboxtitle}
+\onslide<2|handout:2>
+\begin{myboxtitle}[Teorema]
+$\Delta$-\textsc{tsp} è \NP-completo
+\end{myboxtitle}
+\begin{myboxtitle}[Dimostrazione]
+Poiché $\textsc{hamiltonian-circuit}$ (un problema \NP-completo) è riducibile a $\Delta$-\textsc{tsp}, ne segue che $\Delta$-\textsc{tsp} è NP-completo.
+\end{myboxtitle}
+\end{overprint}
 \end{frame}
 
 %-------------------------------------------------------------------------
@@ -1011,7 +1044,6 @@ dove $c(\pi^*)$ è il costo del circuito hamiltoniano ottimo
 \begin{frame}{Algoritmo per $\Delta$-\textsc{tsp}}
 
 \vspace{-9pt}
-\begin{myboxtitle}[Note]
 \BIL
 \item La complessità dell'algoritmo è pari a $O(n^2 \log n)$:
   \BI
@@ -1021,9 +1053,11 @@ dove $c(\pi^*)$ è il costo del circuito hamiltoniano ottimo
 \item Esistono grafi "perversi" per cui il fattore di approssimazione tende
 al valore $2$
 \item L'algoritmo di Christofides (1976) ha un fattore di approssimazione
-di $3/2$, il migliore risultato al momento
+di $3/2$, il migliore risultato al momento...
+\pause
+\item Anna R. Karlin, Nathan Klein, Shayan Oveis Gharan. A (Slightly) Improved Approximation Algorithm for Metric TSP. STOC'21, best paper award.
+"For some $\epsilon >10^{-36}$, we give a $3/2-\epsilon$ approximation algorithm for metric TSP."
 \EIL
-\end{myboxtitle}
   
 \end{frame}
 
@@ -1033,7 +1067,7 @@ di $3/2$, il migliore risultato al momento
 \vspace{-9pt}
 \begin{myboxtitle}[Teorema]
 Non esiste alcun algoritmo di $\alpha(n)$-approssimazione per 
-\textsc{tsp} tale che $c(x') \le sc(x^*)$, con $s \geq 2$ intero positivo, a meno che non sia $\PP = \NP$.
+\textsc{tsp} tale che $c(x') \le sc(x^*)$, con $s$ intero positivo, a meno che non sia $\PP = \NP$.
 \end{myboxtitle}
 
 \begin{myboxtitle}[Dimostrazione]
@@ -1255,7 +1289,7 @@ Sia $\pi$ un circuito Hamiltoniano del grafo completo derivante dal problema
 \[
 I_2(\pi) = \parbox[t]{9cm}{\{$\pi'$: $\pi'$ è ottenuto da
 $\pi$ cancellando due archi non consecutivi del circuito e
-sostituendoli con due archi esterni al circuito\}}
+sostituendoli con due archi non compresi nel circuito\}}
 \]
 \end{myboxtitle}
 
@@ -1400,8 +1434,7 @@ nuove scelte abbiano costo $\geq \LB()$
 \vspace{-9pt}
 \begin{myboxtitle}[Potatura]
 Se $\LB()$ è maggiore o uguale a \Mincost, allora si può
-evitare di generare ed esplorare il sottoalbero delle scelte radicato in tal
-nodo
+evitare di generare ed esplorare il sottoalbero delle scelte radicato in tal nodo
 \end{myboxtitle}
 
 \IG{1.0}{albero10.pdf}
@@ -1414,7 +1447,7 @@ nodo
 \BIL
 \item Questo metodo non migliora la complessità (superpolinomiale) della procedura \enumerazione()
 \item Ne abbassa drasticamente il tempo di esecuzione in pratica
-\item Tutto dipende dalla funzione \LB, che deve approssimare il più  possibile il costo della soluzione ottima
+\item Tutto dipende dalla funzione \LB, che deve approssimare il più  possibile il costo della soluzione effettiva
 \EIL
 \end{myboxtitle}
 
@@ -1447,80 +1480,128 @@ $\Set\ C = \getChoices(\langle \mathit{dati\ problema} \rangle, S, i, \langle \m
 \begin{frame}{Commesso viaggiatore -- Branch-\&-bound}
 
 \vspace{-9pt}
+\begin{myboxtitle}[Situazione al passo $i$-esimo]
 \BIL
 \item Sia $n$ il numero di città
 \item $d[h][k]$ la distanza intera positiva fra le città $h$ e $k$
 \item Al passo $i$-esimo sono state fatte le scelte $S[1 \ldots i]$ 
 prese dall'insieme $\{1, \mldots, n\}$
-\item Un percorso ammissibile che "espande" $S[1 \ldots i]$ deve
-  \BI
-  \item attraversare le città $S[1 \ldots i]$
-  \item passare da $S[i]$ ad una qualsiasi delle rimanenti $n - i$ città
-  \item attraversare queste ultime città in un ordine qualsiasi
-  \item da una di queste si ritorna ad $S[1]$
-  \EI
 \EIL
+\end{myboxtitle}
+
+\begin{myboxtitle}[Lower bound]
+Riuscite a calcolare un lower bound a partire da questi dati?
+\end{myboxtitle}
+
 \end{frame}
 
 
-
-\begin{frame}{Commesso viaggiatore -- Branch-\&-bound}
-
-\BIL
-\item Distanza percorsa finora
-\medskip
-\alert{\[
-\Cost[i] = \begin{cases}
-  0 & i=1 \\
-  \Cost[i-1] + d[S[i-1]][S[i]] & i>1
-\end{cases}
-\]
-}\EIL
-\TwoCols{
-\BIL
-\item Lower bound della distanza per \alert{"uscire"} da $S[i]$ ($O(n)$)
-\medskip
-\alert{\[
-\Out = \min_{h \notin S}\{d[S[i]][h] \}
-\]
-}\EIL
-}{
-\BIL
-\item Lower bound della distanza per \alert{tornare} a $S[1]$ ($O(n)$)
-\medskip
-\alert{\[
-\Back = \min_{h \notin S} \{ d[h][S[1]] \}
-\]}
-\EIL
-}
-\BIL
-\item Lower bound della distanza percorsa per attraversare una qualsiasi città $h$ delle $n-i$ città ancora da attraversare, provenendo da (e dirigendosi verso) una città non compresa in $S[2 \ldots i-1]$ ($O(n^3)$)
-\medskip
-\alert{\[
-\forall h \notin S: \Transfer[h] = \min_{p,q \notin S[2 \ldots i-1]}\{d[p][h] + d[h][q] : h \neq p \neq q \}
-\]
-}\EIL
-
-\end{frame}
-
-\begin{frame}{Lower bound}
+\begin{frame}{Lower bound -- Versione 1}
 
 \vspace{-9pt}
-Se $i<n$, un possibile lower bound $\LB(d, S, i)$ calcola la somma:
-\BIL
-\item del costo $\Cost[i]$ per arrivare al nodo $S[i]$, già speso
-\item metà del costo ottenuto sommando:
-\BI
-\item il lower bound $\Out$ del costo per andare dal nodo $S[i]$ ad un qualunque altro nodo
-\item il lower bound per attraversare i nodi non contenuti in $S$
-\item il lower bound $\Back$ del costo per tornare al nodo $S[1]$ da un qualunque altro nodo
-\EI
-\EIL
+\begin{myboxtitle}[Costo effettivo della soluzione trovata finora]
+La somma totale degli archi percorsi nel cammino percorso finora.\\[6pt]
+\alert{$
+  \Cost[i] = \sum_{h=2}^i d[S[h-1]][S[h]]
+$}
+\end{myboxtitle}	
 
-\[
-\LB(d, S, i) = \Cost[i] + \left\lceil \frac{\Out + \sum_{h \notin S} \Transfer[h] + \Back}{2} \right\rceil 
-\]
+\begin{myboxtitle}[Lower bound]
+\alert{$
+  \LB(d, S, i) = \Cost[i]
+$}
+\end{myboxtitle}	
+
+\includegraphics[width=0.5\textwidth]{lower-bound0a.pdf}
+
 \end{frame}
+
+\begin{frame}{Lower bound -- Versione 2}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Lower bound per "uscire" dall'ultimo nodo]
+Il valore minimo fra tutti gli archi che escono da $S[i]$ e vanno in uno dei nodi non ancora scelti.\\[6pt]
+\alert{$
+\mathit{out}[S[i]] = \min_{k \notin S[1 \ldots i]} d[S[i]][k]
+$}
+\end{myboxtitle}	
+
+\begin{myboxtitle}[Lower bound]
+\alert{$
+  \LB(d, S, i) = \Cost[i] + \mathit{out}[S[i]]
+$}
+\end{myboxtitle}	
+
+\includegraphics[width=0.5\textwidth]{lower-bound0b.pdf}
+
+\end{frame}
+
+
+\begin{frame}{Lower bound -- Versione 3}
+
+\vspace{-9pt}
+\begin{myboxtitle}[Lower bound per "uscire" dai nodi non ancora scelti]
+Per ogni nodo $h$ non scelto, il valore minimo fra gli archi che escono da esso e vanno in un nodo non ancora scelto oppure in $S[1]$ (chiusura del circuito)\\[6pt]
+\alert{$
+\forall h \notin S[1 \ldots h]: \mathit{out}[h] = \min_{k \not\in S[2 \ldots i]} d[h][k]
+$}
+\end{myboxtitle}	
+
+\begin{myboxtitle}[Lower bound]
+\alert{$
+\LB(d, S, i) = \Cost[i] + \mathit{out}[S[i]] + \sum_{h \notin S[1 \ldots i]} \mathit{out}[h]
+$}
+\end{myboxtitle}	
+
+\includegraphics[width=1.0\textwidth]{lower-bound1.pdf}
+\end{frame}
+
+\begin{frame}{Lower bound -- Versione 4}
+
+\begin{overprint}
+
+\onslide<1|handout:1>
+\vspace{-9pt}
+\begin{myboxtitle}[Lower bound per "attraversare" i nodi non ancora scelti]
+Per ogni nodo $h$ non scelto, il costo minimo dato dalla somma di due archi $(p, h)$ e $(h, q)$ distinti che entrano e escono da $h$, proveniendo da $S[i]$ o da un nodo non ancora scelto; andando in un nodo non ancora scelto oppure in $S[1]$\\[6pt]
+\alert{$
+\Transfer[h] = \min_{p \notin S[1, \ldots, i-1], q \notin S[2 \ldots i], p,q,h\ \textrm{distinti}}\{d[p][h] + d[h][q] \}
+$}
+\end{myboxtitle}
+
+\onslide<2|handout:2>
+\vspace{-9pt}
+\begin{myboxtitle}[Lower bound per tornare nel primo nodo]
+Il valore minimo fra tutti gli archi che vanno da uno dei nodi non ancora scelti a $S[1]$\\[6pt]
+\alert{$
+\mathit{last} = \min_{h \notin S[1 \ldots i]} d[h][S[1]]
+$}
+\end{myboxtitle}
+
+\onslide<3|handout:3>
+\vspace{-9pt}
+\begin{myboxtitle}[Lower bound]
+Si divide per un fattore 2 perché tutti gli archi vengono contati due volte, in uscita per un nodo e in entrata per un altro\\[6pt]
+\alert{$
+\LB(d, S, i) = \Cost[i] + \left\lceil \frac{\Out + \sum_{h \notin S} \Transfer[h] + \mathit{last}}{2} \right\rceil$}
+\end{myboxtitle}
+
+\end{overprint}
+
+\IG{1.0}{lower-bound2.pdf}
+
+\end{frame}
+
+
+
+
+% \item Lower bound:\\[6pt]
+% \alert{$
+% \LB(d, S, i) = \Cost[i] + \left\lceil \frac{\Out + \sum_{h \notin S} \Transfer[h] + \mathit{last}}{2} \right\rceil
+% $}
+% \item S
+
+
 
 \begin{frame}[shrink=12]{Commesso viaggiatore -- Branch-\&-bound}
 
@@ -1540,8 +1621,8 @@ $\Set\ \mathit{choices} = \fontproc{copy}(R)$\;
   }{
     $\mathit{cost} = \mathit{cost} + d[S[i]][S[1]]$\;    
     \If{$\mathit{cost} < \Mincost$}{
-      $\Minsol = S$\;
-      $\Mincost = \mathit{costo}$\;
+      $\Minsol = S$\REMR{Variabile globale}
+      $\Mincost = \mathit{costo}$\REMR{Variabile globale}
     }
   }
   $R.\setinsert(c)$\;
@@ -1631,7 +1712,7 @@ In questo semplice esempio, è stato possibile "potare" 42 su 65 nodi
 (Per approfondire)
 \item David Williamson, David Shmoys (2010). The Design of Approximation Algorithms. Cambridge University Press.\\
 \url{http://www.designofapproxalgs.com/book.pdf}\\
-(Tanta roba)
+(500 pagine)
 \item David L. Applegate, Robert E. Bixby, Vašek Chvátal, and William J. Cook. The Traveling Salesman Problem: A Computational Study. Princeton University Press, 2007.\\
 (600 pagine \emph{solo} su \textsc{tsp})
 \EIL

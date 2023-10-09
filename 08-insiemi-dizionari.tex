@@ -367,7 +367,7 @@ Specializzazione di \texttt{std::vector} per ottimizzare la memorizzazione, dime
 
 \begin{tabular}{|P{3.1cm}|P{1.5cm}|P{1.5cm}|P{1.5cm}|P{1.5cm}|P{1.7cm}|P{1.3cm}|}	
 \hline
-& \textsf{contains}\newline\textsf{lookup} & \textsf{insert} & \textsf{remove} & \textsf{min} & \textsf{foreach}\newline (Memoria) & Ordine \\
+& \textsf{contains}\newline\textsf{lookup} & \textsf{insert} & \textsf{remove} & \textsf{min} & \textsf{foreach} & Ordine \\
 \hline
 Vettore booleano & $O(1)$ & $O(1)$ & $O(1)$ & $O(m)$ & $O(m)$ & Sì \\\hline
 Lista non ordinata & $O(n)$ & $O(n)$ & $O(n)$ & $O(n)$ & $O(n)$ & No\\\hline
@@ -429,6 +429,8 @@ $n=\mathtt{len(L)}$
 \multicolumn{2}{|c|}{\textbf{Operazione}}& \textbf{Caso medio} & \textbf{Caso pessimo} \\
 \hline
 \texttt{x in S} & \textcolor{blue}{Contains} & $O(1)$ & $O(n)$ \\
+\hline
+\texttt{for x in S} & \textcolor{blue}{Iterator} & $O(n)$ & $O(n)$ \\
 \hline
 \texttt{S.add(x)} & \textcolor{blue}{Insert} & $O(1)$ & $O(n)$ \\
 \hline

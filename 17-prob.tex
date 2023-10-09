@@ -472,12 +472,12 @@ il grado del polinomio, allora la probabilità di errore non supera $1/2$.
 \vspace{-6pt}
 \begin{myboxtitle}[Specifica]
 \BI
-\item $\textsf{insert}(k)$: Inserisce l'elemento $x$ nel bloom filter
-\item $\BOOLEAN\ \textsf{contains}(k)$\\
+\item $\textsf{insert}(\mathit{key})$: Inserisce l'elemento $\mathit{key}$ nel bloom filter
+\item $\BOOLEAN\ \textsf{contains}(\mathit{key})$\\
 \BI
-\item Se restituisce \FALSE, l'elemento $x$ è sicuramente non presente
+\item Se restituisce \FALSE, l'elemento $\mathit{key}$ è sicuramente non presente
 nell'insieme
-\item Se restituisce \TRUE, l'elemento $x$ può essere presente oppure no \\
+\item Se restituisce \TRUE, l'elemento $\mathit{key}$ può essere presente oppure no
 (\alert{falsi positivi})
 \EI
 \EI
@@ -543,22 +543,30 @@ più costosa, quali operazioni di I/O e comunicazioni di rete}
 
 \begin{myboxtitle}[They say...]
 \BI
-\item \alert{Facebook} uses bloom filters for typeahead search, to fetch friends and friends of friends to a user typed query.
+\item \alert{Medium} uses Bloom filters to avoid recommending articles a user has previously read.
 \item \alert{Apache HBase} uses bloom filter to boost read speed by filtering out unnecessary disk reads of HFile blocks which do not contain a particular row or column.
-\item \alert{Transactional Memory} (TM) has recently applied Bloom filters to detect memory access conflicts among threads.
-\item When you log into \alert{Yahoo} mail, the browser page requests a bloom filter representing your contact list
+\item \alert{Ethereum} uses Bloom filters for quickly finding logs on the Ethereum blockchain.
 \EI
+\bigskip
+\tiny{
+https://en.wikipedia.org/wiki/Bloom\_filter
+}
 \end{myboxtitle}
+
 	
 \end{frame}
 
 \begin{frame}{Applicazioni dei Bloom Filter}
 
-\BB{In modo più fantasioso, possono essere utilizzati per garantire un certo livello di privacy }
+\begin{myboxtitle}[Firefox CRLite]
+CRLite is a technology proposed by a group of researchers at the IEEE Symposium on Security and Privacy 2017 that compresses revocation information so effectively that 6.7 GB of revocation data can become 1.3 MB. It accomplishes this by combining Certificate Transparency data and Internet scan results with cascading Bloom filters, building a data structure that is reliable, easy to verify, and easy to update.
 
-\begin{myboxtitle}[They say...]
+\bigskip
+\tiny{
+https://blog.mozilla.org/security/2020/01/09/crlite-part-1-all-web-pki-revocations-compressed/ \\
+https://blog.mozilla.org/security/2020/01/09/crlite-part-2-end-to-end-design/
+}
 
-To limit the information leak, Bitcoin employs a Bloom filter to obfuscate requests [Hearn and Corallo 2012]. Clients express their request as a Bloom filter and send it to the full node. All transactions which match the pattern given by the Bloom filter are sent to the thin client. The inherent false positive rate of Bloom filters is used to adjust the desired level of privacy at the expense of some additional overhead.
 \end{myboxtitle}
 	
 \end{frame}
@@ -578,17 +586,17 @@ To limit the information leak, Bitcoin employs a Bloom filter to obfuscate reque
 \onslide<2-4|handout:2>
 \vspace{-12pt}
 \begin{Procedure}
-\caption[A]{$\textsf{insert}(k)$}
+\caption[A]{$\textsf{insert}(\mathit{key})$}
 \For{$i = 1$ \TO\ $k$}{
-  $A[h_i(k)] = \TRUE$\;
+  $A[h_i(\mathit{key})] = \TRUE$\;
 }
 \end{Procedure}
 \onslide<5|handout:3>
 \vspace{-12pt}
 \begin{Procedure}
-\caption[A]{$\BOOLEAN\ \textsf{contains}(k)$}
+\caption[A]{$\BOOLEAN\ \textsf{contains}(\mathit{key})$}
 \For{$i = 1$ \TO\ $k$}{
-  \lIf{$A[h_i(k)] \Eq \FALSE$}{
+  \lIf{$A[h_i(\mathit{key})] \Eq \FALSE$}{
 		\Return \FALSE
 	}
 }

@@ -90,8 +90,8 @@ piccolo o uguale del costo di qualunque altro cammino da $s$ a $u$.
 \BI
 \item \alert{Input}: Grafo pesato, una coppia di vertici $s$, $d$
 \item \alert{Output}: un cammino minimo fra $s$ e $d$
-\item Si risolve il primo problema e si estrae il cammino richiesto. 
-Non si conoscono algoritmi che abbiano tempo di esecuzione migliore.
+\item Si risolve il primo problema e si estrae il cammino richiesto
+Non si conoscono algoritmi più efficienti
 \EI
 \end{myboxtitle}
 
@@ -113,7 +113,7 @@ Non si conoscono algoritmi che abbiano tempo di esecuzione migliore.
 %-------------------------------------------------------------------------
 \begin{frame}{Pesi}
 
-\vspace{-9pt}
+\vspace{-12pt}
 \begin{columns}[T]
 \column{0.63\textwidth}
 \BB{Tipologie di pesi}
@@ -123,15 +123,14 @@ Algoritmi diversi possono funzionare oppure no per alcune categorie speciali di 
 \item Reali / interi
 \EIL
 
-\BB{Pesi negativi vs grafi con cicli negativi}
-Esempio: proprietario di un TIR
+\BB{Esempio: proprietario di un TIR}
 \BIL
 \item Viaggiare scarico: perdita, peso positivo
 \item Viaggiare carico: profitto, peso negativo
 \EIL
 \column{0.35\textwidth}
 
-\vspace{-12pt}
+\vspace{-9pt}
 \begin{center}
 \begin{tikzpicture}[
     thick,
@@ -179,6 +178,8 @@ Esempio: proprietario di un TIR
 \end{center}
 
 \end{columns}
+
+\BB{Domanda: perché i cicli negativi sono un problema?}
 
 \end{frame}
 
@@ -923,7 +924,7 @@ $b[s] = \TRUE$\;
 \BB{Per induzione sul numero $k$ di nodi estratti}
 
 \BIL
-\item Caso base: vero perchè $d[s]=0$ e non ci sono lunghezze negative
+\item Caso base: vero perchè $d[s]=0$ e non ci sono pesi negativi
 \item Ipotesi induttiva: vero per i primi $k-1$ nodi
 \item Passo induttivo: quando viene estratto il $k$-esimo nodo $u$:
   \BI
@@ -1077,7 +1078,7 @@ Heap binario introdotto nel 1964
 Riga & Costo & Ripet. \\\hline
 (1) & $O(n)$ & 1 \\\hline
 (2) & $O(\log n)$ & $O(n)$ \\\hline
-(3) & $O(\log n)$ & $O(n)$ \\\hline
+(3) & $O(1)^{(*)}$ & $O(n)$ \\\hline
 (4) & $O(1)^{(*)}$ & $O(m)$ \\\hline
 \end{tabular}
 \endgroup
@@ -1130,17 +1131,21 @@ Costo: \alert{$O(m + n \log n)$}
 \vspace{-9pt}
 \begin{myboxtitle}[Storia]
 \BI
-\item Proposto da Alfonso Shimbel nel 1955
-\item Pubblicato da Lester Ford, Jr. nel 1956
-\item Pubblicato da Moore nel 1957 (la versione che vediamo qui)
-\item Pubblicato da Richard Bellman nel 1958
+\item Proposto da \alert{Alfonso Shimbe}l nel 1955
+\item Pubblicato da \alert{Lester Ford, Jr}. nel 1956
+\item Pubblicato da \alert{Edward F. Moore} nel 1958 
+  \BI
+  \item \alert{Shortest path faster algorithm}
+  \item La versione che vediamo qui
+  \EI
+\item Pubblicato da \alert{Richard Bellman} nel 1958
 \item Noto come Bellman-Ford, o Bellman-Ford-Moore
 \EI
 \end{myboxtitle}
 
 \begin{myboxtitle}[Note]
 \BI
-\item Computazionalmente più pesante di Dikstra
+\item Computazionalmente più pesante di Dijkstra
 \item Funziona anche con archi di peso negativo
 \EI
 \end{myboxtitle}
@@ -1364,9 +1369,9 @@ presenti in $S$ al termine della passata $k-1$-esima.
 \begin{myboxtitle}[Correttezza -- intuizione]
 \BIL
 \item Al termine della passata $k$, i vettori $T$ e $d$ descrivono i cammini minimi di
-lunghezza al più $k$ 
+peso al più $k$ 
 \item Al termine della passata $n-1$, i vettori $T$ e $d$ descrivono i cammini minimi
-(di lunghezza al più $n-1$)
+(di peso al più $n-1$)
 \EIL
 \end{myboxtitle}
 
@@ -1434,13 +1439,16 @@ Ogni nodo può essere inserito ed estratto al massimo $n-1$ volte
 
 \vspace{-9pt}
 \BB{Osservazione}
-\BIL
-\item I cammini minimi in un DAG sono sempre ben definiti; anche in presenza di
+I cammini minimi in un DAG sono sempre ben definiti; anche in presenza di
 pesi negativi, non esistono cicli negativi
-\item E' possibile rilassare gli archi in ordine topologico, una volta sola. 
+
+\BB{Come risolvere il problema?}
+
+\pause
+
+\EE possibile rilassare gli archi in ordine topologico, una volta sola. 
 Non essendoci cicli, non c'è modo di tornare su un nodo già visitato e 
 abbassare il valore del suo campo $d$
-\EIL
 
 \BB{Algoritmo}
 \BIL
@@ -1491,14 +1499,18 @@ $\Stack\ S = \textsf{topsort}(G)$\;
 \medskip
 \begingroup
 \renewcommand*{\arraystretch}{1.2}
-\begin{tabular}{|l|l|P{5cm}|}
+\begin{tabular}{|l|l|l|}
 \hline
+BFS & $O(m+n)$ & Senza pesi \\\hline
 Dijkstra & $O(n^2)$ & Pesi positivi, grafi densi \\\hline
 Johnson & $O(m \log n)$ & Pesi positivi, grafi sparsi \\\hline
-Fredman-Tarjan & $O(m + n \log n)$ & Pesi positivi, grafi densi, dimensioni molto grandi  \\\hline
+Fredman-Tarjan & $O(m + n \log n)$ & Pesi positivi, grafi densi, \\
+& & dimensioni molto grandi  \\\hline
 Bellman-Ford & $O(mn)$ & Pesi negativi \\\hline
   & $O(m+n)$ & DAG \\\hline
-BFS & $O(m+n)$ & Senza pesi \\\hline
+Bernstein,Nanongkai & & \\
+Wullf-Nilsen (2022) & $O(m \log^8 \nu \log W)$ & Pesi negativi, interi \\\hline
+
 \end{tabular}
 \endgroup
 

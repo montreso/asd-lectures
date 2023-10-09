@@ -300,6 +300,12 @@ Allocazione degli esami universitari
 
 \end{frame}
 
+%-------------------------------------------------------------------------
+\begin{frame}{Sudoku}
+	
+\IG{1.0}{sudoku-color.jpg}
+
+\end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Insieme indipendente}
@@ -645,7 +651,7 @@ che $(x, \mathbf{true}) \in R$, un \alert{certificato} è un insieme di informaz
 \item \textsc{sat}: un assegnamento di verità alle variabili 
   della formula
 \item \textsc{graph-coloring}: un'associazione nodo-colore $f: V \rightarrow \{ 1, \ldots, k \}$  
-\item \textsc{independent-set}: un sottoinsieme di $V$ di $k$ elementi
+\item \textsc{independent-set}: un sottoinsieme $S \subseteq V$ di $k$ elementi
 \EIL
 
 \medskip
@@ -662,8 +668,8 @@ I certificati suddetti possono essere verificati in tempo polinomiale:
 \item \textsc{sat}: si calcola il valore di verità della formula a partire dall'assegnamento di verità delle variabili in tempo $O(n)$
 \item \textsc{graph-coloring}: si verifica che nodi adiacenti non abbiano lo stesso
 colore in tempo $O(m+n)$
-\item \textsc{independent-set}: si verifica che nodi in $V$ non abbiano nodi
-adiacenti in $V$ in tempo $O(m+n)$
+\item \textsc{independent-set}: si verifica che nodi in $S$ non abbiano nodi
+adiacenti in $S$ in tempo $O(m+n)$
 \EIL
 
 \begin{myboxtitle}[Classe \NP]
@@ -946,8 +952,8 @@ vettore $b$ di $m$ elementi interi, esiste un vettore $x$ di $n$ elementi $0$/$1
 
 \begin{myboxtitle}[Esempio]
 \begin{alignat*}{4}
-x_1 &+ x_2 &&+ x_3 &&+ x_4 &&\ge 2\\
-x_1 &- x_2 &&- x_3 &&+ x_4 &&\ge 0\\
+x_1 &+ x_2 &&+ x_3 &&+ x_4 &&\le 2\\
+x_1 &- x_2 &&- x_3 &&+ x_4 &&\le 0\\
 x_1 &&&+ x_3 &&+ x_4 &&\le 1
 \end{alignat*}
 Il sistema è verificato per $x_1 = x_2 = 1$ ed $x_3 = x_4 = 0$.

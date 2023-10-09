@@ -43,27 +43,27 @@ Grafi}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Esempi}
-\vspace{-12pt}
+\vspace{-8pt}
 \centering
-\IG{0.9}{esempi-grafi.pdf}
+\IG{0.65}{esempi.pdf}
 \end{frame}
 
 %-------------------------------------------------------------------------
 \begin{frame}{Problemi relativi ai grafi}
-\BB{Problemi in grafi non pesati}
+\begin{myboxtitle}[Problemi in grafi non pesati]
 \BIL
 \item Ricerca del cammino più breve (misurato in numero di archi)
 \item Componenti (fortemente) connesse, verifica ciclicità, ordinamento topologico
 \EIL
-
+\end{myboxtitle}
 \medskip
-\BB{Problemi in grafi pesati}
+\begin{myboxtitle}[Problemi in grafi pesati]
 \BIL
 \item Cammini di peso minimo
 \item Alberi di copertura di peso minimo
 \item Flusso massimo
 \EIL
-
+\end{myboxtitle}
 
 \end{frame}
 
@@ -154,7 +154,7 @@ inequivocabilmente l'assassino!''
 \EE una coppia $G=(V,E)$ dove: 
 \BI
 \item $V$ è un insieme di \alert{nodi} (\alert{node}) o \alert{vertici} (\alert{vertex})
-\item $E$ è un insieme di coppie ordinate $(u,v)$ di nodi dette \alert{archi} (\alert{edge})
+\item $E$ è un insieme di coppie ordinate di nodi $(u,v)$  dette \alert{archi} o \alert{lati} (\alert{edge})
 \EI
 \end{myboxtitle}
 
@@ -182,7 +182,7 @@ E = { (a,b), (a,d),
 \EE una coppia $G=(V,E)$ dove: 
 \BI
 \item $V$ è un insieme di \alert{nodi} (\alert{node}) o \alert{vertici} (\alert{vertex})
-\item $E$ è un insieme di coppie non ordinate $(u,v)$ dette \alert{archi} (\alert{edge})
+\item $E$ è un insieme di coppie non ordinate di nodi $(u,v)$ dette \alert{archi} o \alert{lati} (\alert{edge})
 \EI
 \end{myboxtitle}
 
@@ -354,7 +354,7 @@ $\graphconstructor(\,)$\REMR{Crea un nuovo grafo}
 \Set $\VV()$\REMR{Restituisce l'insieme di tutti i nodi}
 
 \BlankLine
-\INTEGER $\textsf{size}()$\REMR{Restituisce il numero di nodi}
+\INTEGER $\fontproc{size}()$\REMR{Restituisce il numero di nodi}
 
 \BlankLine
 \Set $\adj(\Node\ u)$\REMR{Restituisce l'insieme dei nodi adiacenti a $u$}
@@ -393,7 +393,7 @@ $\graphconstructor(\,)$\REMR{Crea un nuovo grafo}
 \Set $\VV()$\REMR{Restituisce l'insieme di tutti i nodi}
 
 \BlankLine
-\INTEGER $\textsf{size}()$\REMR{Restituisce il numero di nodi}
+\INTEGER $\fontproc{size}()$\REMR{Restituisce il numero di nodi}
 
 \BlankLine
 \Set $\adj(\Node\ u)$\REMR{Restituisce l'insieme dei nodi adiacenti a $u$}
@@ -823,7 +823,7 @@ Visita ricorsiva: per ogni nodo adiacente, si visita ricorsivamente tale nodo, v
 Un approccio ingenuo alla visita di un grafo potrebbe essere il seguente:
 
 \begin{Procedure}
-\caption[A]{$\textsf{visit}(\Graph\ $G$)$}
+\caption[A]{$\fontproc{visit}(\Graph\ $G$)$}
 \ForEach{$u \in G.\VV()$}{
 	\{ \alert{visita nodo $u$} \}\;
   \ForEach{$v \in G.\adj(u)$}{
@@ -850,7 +850,7 @@ Un approccio ingenuo alla visita di un grafo potrebbe essere il seguente:
 
 \TwoCols{
 \begin{Procedure}
-\caption[A]{\textsf{BFSTraversal}($\Graph\ G, \INTEGER\ r$)}
+\caption[A]{\fontproc{BFSTraversal}($\Graph\ G, \INTEGER\ r$)}
 
 $\Queue\ Q = \queueconstructor()$\;
 $Q.\queueinsert(r)$\;
@@ -888,7 +888,7 @@ $Q.\queueinsert(r)$\;
 \begin{frame}{Algoritmo generico di attraversamento}
 	
 \begin{Procedure}
-\caption[A]{\textsf{graphTraversal}($\Graph\ G, \Node\ r$)}
+\caption[A]{\fontproc{graphTraversal}($\Graph\ G, \Node\ r$)}
 
 $\Set\ S = \setconstructor()$\Comment*{Insieme generico}
 $S.\setinsert(r)$\Comment*{Da specificare}
@@ -945,7 +945,7 @@ $S.\setinsert(r)$\Comment*{Da specificare}
 
 $\Queue\ Q = \queueconstructor(\,)$\;
 $S.\queueinsert(r)$\;
-$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[G.\textsf{size}()]$\;
+$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[G.\fontproc{size}()]$\;
 \ForEach{$u \in G.\VV()-\{r\}$}{$\mmark[u] = \FALSE$\;}
 $\mmark[r] = \TRUE$\;
 \While{\NOT $Q.\queueempty()$}
@@ -1083,7 +1083,7 @@ $\erdosn[r] = 0$\;
 \end{Procedure}
 }{
 \begin{Procedure}
-\caption[A]{\textsf{printPath}($\Node\ r,\ \Node\ s,\ \Node[\,]\ \mathit{parent}$)}
+\caption[A]{\fontproc{printPath}($\Node\ r,\ \Node\ s,\ \Node[\,]\ \mathit{parent}$)}
 
 \uIf{$r \Eq s$}
 {
@@ -1095,7 +1095,7 @@ $\erdosn[r] = 0$\;
 }
 \Else
 {
-  $\textsf{printPath}(r, \mathit{parent}[s], \mathit{parent})$\;
+  $\fontproc{printPath}(r, \mathit{parent}[s], \mathit{parent})$\;
   \textbf{print} $s$\;
 }
 \end{Procedure}
@@ -1210,7 +1210,7 @@ basata su stack esplicito
 
 $\Stack\ S = \stackconstructor(\,)$\;
 $S.\stackpush(r)$\;
-$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[G.\textsf{size}()]$\;
+$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[G.\fontproc{size}()]$\;
 \ForEach{$u \in G.\VV()$}{$\mmark[u] = \FALSE$\;}
 \While{\NOT $S.\stackempty()$}
 {
@@ -1251,14 +1251,14 @@ non all'inserimento
 \BIL
 \item Quando un nodo viene scoperto:
   \BI
-  \item  viene inserito nello stack con il tag \textsf{discovery}
+  \item  viene inserito nello stack con il tag \fontproc{discovery}
   \EI
-\item Quando un nodo viene estratto dallo stack con tag \textsf{discovery}:
+\item Quando un nodo viene estratto dallo stack con tag \fontproc{discovery}:
   \BI
-  \item Viene re-inserito con il tag \textsf{finish}
+  \item Viene re-inserito con il tag \fontproc{finish}
   \item Tutti i suoi vicini vengono inseriti
   \EI
-\item Quando un nodo viene estratto dallo stack con tag \textsf{finish}:
+\item Quando un nodo viene estratto dallo stack con tag \fontproc{finish}:
   \BI
   \item Viene effettuata la post-visita
   \EI
@@ -1376,7 +1376,7 @@ suo nodo è raggiungibile da ogni altro suo nodo
 \column{0.45\textwidth}
 \begin{Procedure}
 \caption[A]{$\INTEGER[\,]$ \connectedcomponents(\Graph $G$)}
-$\INTEGER[\,]\ \components = \NEW\ \INTEGER[G.\textsf{size}()]$\;
+$\INTEGER[\,]\ \components = \NEW\ \INTEGER[G.\fontproc{size}()]$\;
 \ForEach{$u \in G.\VV()$}
 {
   $\components[u] = 0$
@@ -1500,7 +1500,7 @@ altrimenti.
 
 \large
 \begin{Procedure}
-\caption[A]{$\BOOLEAN\ \textsf{hasCycleRec}(\Graph\ G,\ \Node\ u, \Node\ p, \BOOLEAN[\,]\ \mmark)$}
+\caption[A]{$\BOOLEAN\ \fontproc{hasCycleRec}(\Graph\ G,\ \Node\ u, \Node\ p, \BOOLEAN[\,]\ \mmark)$}
 
 $\mmark[u] = \TRUE$\;
 \ForEach{$v \in G.\adj(u) - \{ p \}$}
@@ -1509,7 +1509,7 @@ $\mmark[u] = \TRUE$\;
   {
     \Return \TRUE\;
   }
-  \ElseIf{$\textsf{hasCycleRec}(G, v, u, \mmark)$}
+  \ElseIf{$\fontproc{hasCycleRec}(G, v, u, \mmark)$}
   {
     \Return \TRUE\;
   }
@@ -1524,14 +1524,14 @@ $\mmark[u] = \TRUE$\;
 
 \large
 \begin{Procedure}
-\caption[A]{$\BOOLEAN\ \textsf{hasCycle}(\Graph\ G)$}
-$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[G.\textsf{size}()]$\;
+\caption[A]{$\BOOLEAN\ \fontproc{hasCycle}(\Graph\ G)$}
+$\BOOLEAN[\,]\ \mmark = \NEW\ \BOOLEAN[G.\fontproc{size}()]$\;
 \ForEach{$u \in G.\VV()$}{
   $\mmark[u] = \FALSE$\;
 }
 \ForEach{$u \in G.\VV()$}{
   \If{$\NOT\ \mmark[u]$}{
-    \If{$\textsf{hasCyclerec}(G, u, \NULL, \mmark)$}{
+    \If{$\fontproc{hasCycleRec}(G, u, \NULL, \mmark)$}{
       \Return \TRUE\;
     }
   }
@@ -1832,7 +1832,7 @@ esiste un cammino da $v$ a $u$ e un arco da $u$ a $v$, ovvero un ciclo.
 \begin{frame}{Applicazione DFS: DAG}
 
 \begin{Procedure}
-\caption[A]{$\BOOLEAN\ \textsf{hasCycleRec}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
+\caption[A]{$\BOOLEAN\ \fontproc{hasCycleRec}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
 
 $\orologio = \orologio + 1$;~~
 $\ddt[u] = \orologio$\;
@@ -1840,7 +1840,7 @@ $\ddt[u] = \orologio$\;
 {
   \uIf{$\ddt[v] \Eq 0$}
   {
-    \If{$\textsf{hasCycleRec}(G, v, \orologio, \ddt, \dft)$}{\Return \TRUE} 
+    \If{$\fontproc{hasCycleRec}(G, v, \orologio, \ddt, \dft)$}{\Return \TRUE} 
   }
   \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}
   {
@@ -1887,7 +1887,7 @@ Non viene individuato nessun arco all'indietro, quindi tutte le chiamate ricorsi
 
 
 \begin{Procedure}
-\caption[A]{$\BOOLEAN\ \textsf{hasCycleRec}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
+\caption[A]{$\BOOLEAN\ \fontproc{hasCycleRec}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
 
 $\orologio = \orologio + 1$;~~
 $\ddt[u] = \orologio$\;
@@ -1895,7 +1895,7 @@ $\ddt[u] = \orologio$\;
 {
   \uIf{$\ddt[v] \Eq 0$}
   {
-    \If{$\textsf{hasCycleRec}(G, v, \orologio, \ddt, \dft)$}{\Return \TRUE} 
+    \If{$\fontproc{hasCycleRec}(G, v, \orologio, \ddt, \dft)$}{\Return \TRUE} 
   }
   \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}
   {
@@ -1938,7 +1938,7 @@ Arco attraversamento: & \color{blue}{altrimenti}
 Viene individuato un arco all'indietro, che causa la restituzione di \TRUE in una chiamata e la conseguente restituzione di \TRUE da parte di tutte le chiamate ricorsive precedenti.
 
 \begin{Procedure}
-\caption[A]{$\BOOLEAN\ \textsf{hasCycleRec}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
+\caption[A]{$\BOOLEAN\ \fontproc{hasCycleRec}(\Graph\ G,\ \Node\ u, \INTEGER\ \&\orologio, \INTEGER[\,]\ \ddt, \INTEGER[\,]\ \dft)$}
 
 $\orologio = \orologio + 1$;~~
 $\ddt[u] = \orologio$\;
@@ -1946,7 +1946,7 @@ $\ddt[u] = \orologio$\;
 {
   \uIf{$\ddt[v] \Eq 0$}
   {
-    \If{$\textsf{hasCycleRec}(G, v, \orologio, \ddt, \dft)$}{\alert{\Return \TRUE}} 
+    \If{$\fontproc{hasCycleRec}(G, v, \orologio, \ddt, \dft)$}{\alert{\Return \TRUE}} 
   }
   \ElseIf{$\ddt[u]>\ddt[v]$ \AND $\dft[v] \Eq 0$}
   {
@@ -2041,7 +2041,7 @@ topologico per esso.
 \begin{Procedure}
 \caption[A]{\Stack\ \topsort(\Graph $G$)}
 $\Stack\ S = \stackconstructor()$\;
-$\BOOLEAN[\,]\ \mmark = \BOOLEAN[G.\textsf{size}()]$\;
+$\BOOLEAN[\,]\ \mmark = \BOOLEAN[G.\fontproc{size}()]$\;
 \lForEach{$u \in G.\VV()$}{$\mmark[u] = \FALSE$}
 \ForEach{$u \in G.\VV()$}
 {
@@ -2174,7 +2174,7 @@ Quali sono le componenti fortemente connesse di questo grafo?
 \begin{frame}{Soluzione "ingenua" (e non corretta)}
 
 \BIL
-\item Si applica l'algoritmo $\textsf{cc}()$ al grafo 
+\item Si applica l'algoritmo $\fontproc{cc}()$ al grafo 
 \item Purtroppo, il risultato dipende dal nodo di partenza
 \EIL
 
@@ -2193,7 +2193,7 @@ Quali sono le componenti fortemente connesse di questo grafo?
 \BI
 \item Effettua una visita DFS del grafo $G$
 \item Calcola il grafo trasposto $G_t$
-\item Esegui una visita DFS sul grafo $G_t$ utilizzando $\textsf{cc}$, esaminando i nodi nell'ordine inverso di tempo di fine della prima visita
+\item Esegui una visita DFS sul grafo $G_t$ utilizzando $\fontproc{cc}$, esaminando i nodi nell'ordine inverso di tempo di fine della prima visita
 \item Le componenti connesse (e i relativi alberi DF) rappresentano le componenti fortemente connesse di $G$
 \EI
 \end{myboxtitle}
@@ -2202,7 +2202,7 @@ Quali sono le componenti fortemente connesse di questo grafo?
 \caption[A]{$\INTEGER[\,]$ \scc($\Graph\ G$)}
 
   $\Stack\ S = \topsort(G)$\REMR{First visit}
-  $G^T = \textsf{transpose}(G)$\REMR{Graph transposal}
+  $G^T = \fontproc{transpose}(G)$\REMR{Graph transposal}
   $\Return\ \connectedcomponents(G^T, S)$\REMR{Second visit}
 
 \end{Procedure}
@@ -2251,7 +2251,7 @@ E_T = \{ (u,v) ~|~ (v,u) \in E \}
 \begin{columns}[T]
 \column{0.45\textwidth}
 \begin{Procedure}
-\caption[A]{\Graph \textsf{transpose}($\Graph\ G$)}
+\caption[A]{\Graph \fontproc{transpose}($\Graph\ G$)}
   $\Graph\ G^T = \graphconstructor()$\;
   \lForEach{$u \in G.\VV()$}{ $G^T.\nodeins(u)$}
   \ForEach{$u \in G.\VV()$}{ 
@@ -2294,15 +2294,15 @@ Invece di esaminare i nodi in ordine arbitrario, questa versione di
 \column{0.45\textwidth}
 \begin{Procedure}
 \caption[A]{\connectedcomponents(\Graph $G$, \alert{$\Stack\ S$})}
-$\INTEGER[\,]\ \components = \NEW\ \INTEGER[G.\textsf{size}()]$\;
+$\INTEGER[\,]\ \components = \NEW\ \INTEGER[G.\fontproc{size}()]$\;
 \ForEach{$u \in G.\VV()$}
 {
   $\components[u] = 0$
 }
 \INTEGER\ $\mathit{counter} = 0$\;
-\While{\alert{\NOT\ $S.\textsf{isEmpty}()$}}
+\While{\alert{\NOT\ $S.\fontproc{isEmpty}()$}}
 {
-  \alert{$u = S.\textsf{pop}()$}\;
+  \alert{$u = S.\fontproc{pop}()$}\;
   \If{$\components[u] \Eq 0$}
   {
     $\mathit{counter} = \mathit{counter}+1$\;
@@ -2342,7 +2342,7 @@ $\components[u] = \mathit{counter}$\;
 \caption[A]{$\INTEGER[\,]$ \scc($\Graph\ G$)}
 
   $\Stack\ S = \topsort(G)$\REMR{First visit}
-  $G^T = \textsf{transpose}(G)$\REMR{Graph transposal}
+  $G^T = \fontproc{transpose}(G)$\REMR{Graph transposal}
   $\Return\ \connectedcomponents(G^T, S)$\REMR{Second visit}
 
 \end{Procedure}

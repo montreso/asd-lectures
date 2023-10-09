@@ -155,16 +155,16 @@ $i$ & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5
 
 \vspace{-9pt}
 \begin{myboxtitle}[Memoization (annotazione)]
-Tecnica che fonde l'approccio di memorizzazione della programmazione dinamica con l'approccio top-down di divide-et-impera
+Tecnica che fonde l'approccio di memorizzazione della programmazione dinamica con l'approccio \alert{top-down} di divide-et-impera
 \end{myboxtitle}
 
 \BIL
-\item Si crea una tabella $\mathit{DP}$, inizializzata con un \alert{valore speciale} ad 
-indicare che un certo sottoproblema non è ancora stato risolto
+\item Si crea una tabella $\mathit{DP}$, inizializzata con un \alert{valore speciale} che 
+indica che un sottoproblema non è ancora stato risolto
 \item Quando si deve risolvere un sottoproblema, si controlla nella tabella se è già stato risolto:
 \BI
-\item SI:  si usa il risultato della tabella
-\item NO:  si calcola il risultato e lo si memorizza
+\item[\alert{SI}]:  si usa il risultato della tabella
+\item[\alert{NO}]:  si calcola il risultato e lo si memorizza
 \EI
 \item In tal modo, ogni sottoproblema viene calcolato una sola volta e memorizzato come nella versione bottom-up
 \EIL
@@ -355,10 +355,28 @@ def knapsack(w, p, C):
 \end{frame}
 
 
-\begin{frame}{Ricostruzione della soluzione}
+\begin{frame}[fragile]{Ricostruzione della soluzione}
 
 \vspace{-9pt}
 \BB{Per esercizio}
+
+\begin{lstlisting}
+w = [ 4, 2, 3, 4]
+p = [10, 7, 8, 6]
+C = 9  
+\end{lstlisting}
+
+\bigskip
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+& \multicolumn{10}{c|}{$c$} \\\hline
+$i$ & \textbf{0} & \textbf{1} & \textbf{2} & \textbf{3} & \textbf{4} & \textbf{5} & \textbf{6} & \textbf{7} & \textbf{8} & \textbf{9}  \\\hline
+\bf{0} &   &    &    &    &    &    &    &    &    &    \\\hline
+\bf{1} &   &  -1 &  \alert{\bf 0} &  \alert{\bf 0} & \alert{\bf 10} & \alert{\bf 10} & \alert{\bf 10} & \alert{\bf 10} & -1 & \alert{\bf 10} \\\hline
+\bf{2} &   &  -1 &  \alert{\bf 7} & -1 & -1 & \alert{\bf 10} & \alert{\bf 17} & -1 & -1 & \alert{\bf 17} \\\hline
+\bf{3} &   &  -1 &  -1 &  -1 & -1 & \alert{\bf 15} & -1 & -1 & -1 & \alert{\bf 25} \\\hline
+\bf{4} &   &  -1 &  -1 &  -1 & -1 & -1 & -1 & -1 & -1 & \alert{\bf 25} \\\hline  
+\end{tabular}  
 
 \end{frame}
 
@@ -467,11 +485,11 @@ in uno zaino di capacità $c \leq  C$.
   \Return $0$\;
 }
 \If{$\mathit{DP}[c] < 0$}{
-  $\mathit{maxSoFar} = 0$\;
+  \INTEGER $\mathit{maxSoFar} = 0$\;
   \For{$i=1$ \TO\ $n$}{
     \If{$w[i] \leq c$}{
-      \INTEGER $\mathit{val} = \textsf{knapsackRec}(w, p, n, c-w[i], \mathit{DP}) + p[i])$\;
-      $\mathit{maxSoFar} =  = \MAX(\mathit{maxSoFar}, val)$\;
+      \INTEGER $\mathit{val} = \textsf{knapsackRec}(w, p, n, c-w[i], \mathit{DP}) + p[i]$\;
+      $\mathit{maxSoFar} = \MAX(\mathit{maxSoFar}, val)$\;
     }
   }
   $\mathit{DP}[c] = \mathit{maxSoFar}$\;
@@ -704,11 +722,16 @@ Date due sequenze $T$ e $U$, trovare la più lunga sottosequenza comune di $T$ e
 \end{myboxtitle}
 
 \begin{myboxtitle}[Esempio]
+\TwoCols{
 \BIL
-\item $T = \texttt{“AAAATTGA”}$
-\item $U = \texttt{“TAACGATA”}$
+\item $T = \texttt{“AAAATTGGA”}$
+\item $U = \texttt{“TAACGATATGGA”}$
 \item Output?
 \EIL
+}{
+wooclap.com, codice: \href{https://app.wooclap.com/ZAEBFA}{\alert{\underline{PBXUKB}}}
+\includegraphics[width=2.5cm]{qrcode-13-pd2.png}
+}
 \end{myboxtitle}
 
 \BB{Come risolvereste questo problema?}
@@ -796,8 +819,9 @@ dei prefissi $T(i)$ e $U(j)$.
 \vspace{-9pt}
 \BB{Caso 1}
 
-Considerate due prefissi $T(i)$ e $U(j)$ tali per cui l'ultimo loro
-carattere coincide: $t_i = u_j$. Come calcolereste la  LCS di $T(i)$ e $U(j)$?
+Gli ultimi caratteri di $T(i)$ e di $U(j)$ coincidono: \alert{$t_i = u_j$}. 
+
+Come calcolereste la  LCS di $T(i)$ e $U(j)$?
 
 \BIL
 \item Esempio: $T(i)=\texttt{"ALBERTO"}$, $U(j)=\texttt{"PIERO"}$
@@ -822,8 +846,9 @@ dove $\oplus$ è l'operatore di concatenazione.
 \vspace{-9pt}
 \BB{Caso 2}
 
-Considerate due prefissi $T(i)$ e $U(j)$ tali per cui l'ultimo loro
-carattere è differente: $t_i \neq u_j$. Come calcolereste la  LCS di $i$ e $j$?
+Gli ultimi caratteri di $T(i)$ e di $U(j)$ non coincidono: \alert{$t_i \neq u_j$}. 
+
+Come calcolereste la  LCS di $i$ e $j$?
 
 \BIL
 \item Esempio: $T(i)=\texttt{"ALBERT"}$, $U(j)=\texttt{"PIER"}$
@@ -969,7 +994,7 @@ $X = (x_1, \ldots, x_k)$ una LCS di $T$ e $U$. Sono dati tre casi:
 
 \vspace{-9pt}
 \begin{myboxtitle}[Lunghezza della LCS]
-Due due sequenze $T$ e $U$ di lunghezza $n$ e $m$, scrivere una formula
+Date due sequenze $T$ e $U$ di lunghezza $n$ e $m$, scrivere una formula
 ricorsiva $\mathit{DP}[i][j]$ che restituisca la \alert{lunghezza} della LCS dei prefissi $T(i)$ e $U(j)$.
 \end{myboxtitle}
 
@@ -1100,7 +1125,7 @@ $\INTARRAY[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots n][0 \ldots m] $\;
 }
 \eIf{$T[i] \Eq U[j]$}{
   $S = \textsf{subsequence}(\mathit{DP}, T, U, i-1, j-1)$\;
-  $S.\listinsert(S.\listtail(), T[i])$\;
+  $S.\listinsert(S.\listhead(), T[i])$\;
   \Return $S$\;
 }{
   \eIf{$\mathit{DP}[i-1][j] > \mathit{DP}[i][j-1]$}{
@@ -1138,7 +1163,7 @@ $\INTARRAY[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots n][0 \ldots m] $\;
 
 \vspace{-9pt}
 \BB{
-Se si vuole solo misurare la lunghezza della LCS senza ricostuire la soluzione, è possibile conservare solo la riga precedente.
+Se si vuole solo misurare la lunghezza della LCS senza ricostruire la soluzione, è possibile conservare solo la riga precedente.
 }
 
 \vspace{-9pt}
@@ -1213,5 +1238,3 @@ Se non è necessario ricostruire la soluzione, è possibile risparmiare spazio c
 
 
 
-Freedman. M. L., “On computing the length of longest increasing subsequence”, Discrete Math., Vol.
-11, 1975.

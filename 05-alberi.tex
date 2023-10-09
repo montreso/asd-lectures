@@ -1178,7 +1178,7 @@ Il costo di una visita di un albero contenente $n$ nodi è $\Theta(n)$, in quant
 \alert{$\Tree\ \treesibling()$}\;
 \BlankLine
 
-\% Inserisce il sottoalbero $t$ come primo nodo di questo nodo\;
+\% Inserisce il sottoalbero $t$ come primo figlio di questo nodo\;
 \alert{$\insertchild(\Tree\ t)$}\;
 \BlankLine
 
@@ -1549,9 +1549,9 @@ $\Siblingvar = t$\;
 
 \PROCEDURE{\deletesibling()}
 {
-  $\Tree\ \mathit{newBrother} = \Siblingvar.\treesibling()$\;
+  $\Tree\ \mathit{newSibling} = \Siblingvar.\treesibling()$\;
   $\treedelete(\Siblingvar)$\;
-  $\Siblingvar = \mathit{newBrother}$\;
+  $\Siblingvar = \mathit{newSibling}$\;
 }
 \BlankLine
 

@@ -49,13 +49,13 @@
         child [grow=right] {node (q) {} edge from parent[draw=none]
           child [grow=right] {node (q) {$O(n)$ \quad \makebox[2cm][r]{$k=\log n$}} edge from parent[draw=none]
             child [grow=up] {node (r) {$\vdots$} edge from parent[draw=none]
-              child [grow=up] {node (s) {$O(n)$ \quad \makebox[2cm][r]{$k=2$}} edge from parent[draw=none]
-                child [grow=up] {node (t) {$O(n)$ \quad  \makebox[2cm][r]{$k=1$}} edge from parent[draw=none]
-                  child [grow=up] {node (u) {$O(n)$ \quad  \makebox[2cm][r]{$k=0$}} edge from parent[draw=none]}
+              child [grow=up] {node (s) {$O(n)$ \quad \makebox[2cm][r]{$i=2$}} edge from parent[draw=none]
+                child [grow=up] {node (t) {$O(n)$ \quad  \makebox[2cm][r]{$i=1$}} edge from parent[draw=none]
+                  child [grow=up] {node (u) {$O(n)$ \quad  \makebox[2cm][r]{$i=0$}} edge from parent[draw=none]}
                 }
               }
             }
-            child [grow=down] {node (v) {$O(n \cdot \lg n)$
+            child [grow=down] {node (v) {$O(n \cdot \log n)$
             }edge from parent[draw=none]}
           }
         }

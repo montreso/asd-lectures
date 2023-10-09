@@ -245,10 +245,10 @@ Parte DX: \alert{$\lfloor n/2 \rfloor$}
     \Return $m$\Rem*[r]{\makebox[25mm][c]{$c_5$}\makebox[15mm][c]{$0$}\makebox[15mm][c]{$0$}}
   }
   \uElseIf(\Rem*[f]{\makebox[25mm][c]{$c_6$}\makebox[15mm][c]{$0$}\makebox[15mm][c]{$1$}}){$A[m] < v$}{
-    \Return $\binarysearch(A, v, m+1, j)$\Rem*[r]{\makebox[25mm][c]{$c_7 + T(\lfloor (n-1)/2 \rfloor)$}\makebox[15mm][c]{$0$}\makebox[15mm][c]{$0/1$}}
+    \Return $\binarysearch(A, v, m+1, j)$\Rem*[r]{\makebox[25mm][c]{$c_7 + T(\lfloor n/2 \rfloor)$}\makebox[15mm][c]{$0$}\makebox[15mm][c]{$0/1$}}
   }
   \Else {
-    \Return $\binarysearch(A, v, i, m-1)$\Rem*[r]{\makebox[25mm][c]{$c_7 + T(\lfloor n/2 \rfloor)$}\makebox[15mm][c]{$0$}\makebox[15mm][c]{$1/0$}} 
+    \Return $\binarysearch(A, v, i, m-1)$\Rem*[r]{\makebox[25mm][c]{$c_7 + T(\lfloor (n-1)/2 \rfloor)$}\makebox[15mm][c]{$0$}\makebox[15mm][c]{$1/0$}} 
   }
 }
 
@@ -785,7 +785,7 @@ $2^{2^{16}}$ & 5 & 16 \\\hline
   \BI
   \item Complessità $O(n \cdot \log n \cdot 8^{O(\log^* n)})$
   \EI
-\item \alert{Harvey--van der Hoeven} (2019)
+\item \alert{Harvey--van der Hoeven} (2019-2021)
   \BI
   \item Complessità $O(n \cdot \log n)$ (\href{https://hal.archives-ouvertes.fr/hal-02070778/document}{[Articolo]}\href{https://www.youtube.com/watch?v=FKGRc867j10&ab_channel=MathsStatsUNSW}{[Video]})
   \EI
