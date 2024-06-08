@@ -99,7 +99,7 @@ much.}{\textit{Gordon Gekko, Wall Street}}
 \BI
 \item Seleziona una sola delle possibile decisioni...
 \item ... quella che sembra ottima (ovvero, è localmente ottima)
-\item \EE però necessario dimostrare che si ottenga un ottimo globale
+\item \EE però necessario dimostrare che si ottien un ottimo globale
 \EI
 \end{myboxtitle}
 \end{frame}
@@ -307,6 +307,15 @@ costo $O(n)$ per sottoproblema nel caso peggiore
 \end{frame}
 
 %-------------------------------------------------------------------------
+\begin{frame}{}
+
+\includegraphics<1|handout:1>[width=1.0\textwidth,page=3]{esempio1.pdf}
+\includegraphics<2|handout:2>[width=1.0\textwidth,page=2]{esempio1.pdf}
+
+\end{frame}	
+
+
+%-------------------------------------------------------------------------
 \begin{frame}{Scelta ingorda (Greedy Choice)}
 
 \vspace{-9pt}
@@ -352,14 +361,6 @@ stessa dimensione di $A'[i \mydots j]$ e gli intervalli sono indipendenti.
 \end{frame}
 
 %-------------------------------------------------------------------------
-\begin{frame}{}
-
-\includegraphics<1|handout:1>[width=1.0\textwidth,page=3]{esempio1.pdf}
-\includegraphics<2|handout:2>[width=1.0\textwidth,page=2]{esempio1.pdf}
-
-\end{frame}	
-
-%-------------------------------------------------------------------------
 \begin{frame}{Conseguenze}
 
 \BIL
@@ -385,13 +386,13 @@ stessa dimensione di $A'[i \mydots j]$ e gli intervalli sono indipendenti.
 \{ ordina $a$ e $b$ in modo che $b[1] \le b[2] \le \cdots \le b[n]$ \}\;
 $\Set\ S = \setconstructor()$\;
 $S.\setinsert(1)$\;
-$\INTEGER\ \Ultimo = 1$\REMR{Ultimo intervallo inserito}
+$\INTEGER\ \mathit{last} = 1$\REMR{Ultimo intervallo inserito}
 \For{$i = 2$ \TO\ $n$}
 {
-  \If(\REMF{Controllo indipendenza}){$a[i] \geq b[\Ultimo]$}
+  \If(\REMF{Controllo indipendenza}){$a[i] \geq b[\mathit{last}]$}
   {
     $S.\setinsert(i)$\;
-    $\Ultimo = i$\;
+    $\mathit{last} = i$\;
   }
 }
 \Return $S$\;
@@ -491,7 +492,7 @@ $S(i)$, la cui soluzione ottima è data da $A(i)-\{ j \}$.
 \DP[i] = \left\{ 
 \begin{array}{ll}
   0 & i=0 \\
-  \min_{1 \leq j \leq n} \{ \DP[i-t[j]] ~|~ t[j] \leq i \} + 1 & i>0
+  \min_{1 \leq j \leq n \wedge t[j] \leq i} \{ \DP[i-t[j]] \} + 1 & i>0
   \end{array} 
 \right.
 \]
@@ -512,7 +513,7 @@ $\DP[0] = 0$\;
 \For{$i = 1$ \TO\ $R$} {
   $\DP[i] = +\infty$\;
   \For{$j = 1$ \TO\ $n$} {
-    \If{$i > t[j]$ \AND\ $ \DP[i-t[j]]+1 < \DP[i]$}{
+    \If{$i \geq t[j]$ \AND\ $ \DP[i-t[j]]+1 < \DP[i]$}{
       $\DP[i] = \DP[i-t[j]]+1$\;
       $\mathit{coin}[i] = j$\;
     }

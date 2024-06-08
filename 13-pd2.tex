@@ -176,12 +176,7 @@ indica che un sottoproblema non è ancora stato risolto
 \vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\INTEGER\ \textsf{knapsack}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $C$)}
-\alert{$\mathit{DP} = \NEW\ \INTEGER[1 \ldots n][1 \ldots C]$\;
-\For{$i = 1$ \TO $n$}{
-  \For{$c = 1$ \TO $C$}{
-    $\mathit{DP}[i][c] = -1$\;
-  }
-}}
+\alert{$\mathit{DP} = \NEW\ \INTEGER[1 \ldots n][1 \ldots C] = \{ -1 \}$}\;
 \Return $\textsf{knapsackRec}(w, p, n, C, \alert{DP})$
 \end{Procedure}
 
@@ -467,12 +462,8 @@ in uno zaino di capacità $c \leq  C$.
 \vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\INTEGER\ \textsf{knapsack}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $C$)}
-  $\INTEGER[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots C]$\;
-  \For{$i = 0$ \TO $C$}{
-    $\mathit{DP}[i] = -1$\;
-  }
-  $\textsf{knapsackRec}(w, p, n, C, \mathit{DP})$\;
-  \Return $\mathit{DP}[C]$\;
+  $\INTEGER[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots C] = \{ -1 \}$\;
+  \Return $\textsf{knapsackRec}(w, p, n, C, \mathit{DP})$\;
 \end{Procedure}
 \end{frame}
   
@@ -565,17 +556,12 @@ deriva il massimo
 \vspace{-9pt}
 \begin{Procedure}
 \caption[A]{\INTEGER\ \textsf{knapsack}($\INTEGER[\,]\ w$, $\INTEGER[\,]\ p$, \INTEGER\ $n$, \INTEGER\ $C$)}
-  $\INTEGER[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots C]$\;
-  \alert{$\INTEGER[\,]\ \mathit{pos} = \NEW\ \INTEGER[0 \ldots C]$}\;
-  \For{$i = 0$ \TO $C$}{
-    $\mathit{DP}[i] = -1$\;
-    \alert{$\mathit{pos}[i] = -1$}\;
-  }
+  $\INTEGER[\,]\ \mathit{DP} = \NEW\ \INTEGER[0 \ldots C] = \{ -1 \}$\;
+  \alert{$\INTEGER[\,]\ \mathit{pos} = \NEW\ \INTEGER[0 \ldots C] = \{ -1 \}$}\;
   $\textsf{knapsackRec}(w, p, n, C, \mathit{DP}, \alert{\mathit{pos}})$\;
   \Return \alert{$\textsf{solution}(w,C, \mathit{pos})$}\;
 \end{Procedure}
 \end{frame}
-
 
 
 \begin{frame}{Implementazione tramite memoization}
@@ -722,16 +708,16 @@ Date due sequenze $T$ e $U$, trovare la più lunga sottosequenza comune di $T$ e
 \end{myboxtitle}
 
 \begin{myboxtitle}[Esempio]
-\TwoCols{
+%\TwoCols{
 \BIL
 \item $T = \texttt{“AAAATTGGA”}$
 \item $U = \texttt{“TAACGATATGGA”}$
 \item Output?
 \EIL
-}{
-wooclap.com, codice: \href{https://app.wooclap.com/ZAEBFA}{\alert{\underline{PBXUKB}}}
-\includegraphics[width=2.5cm]{qrcode-13-pd2.png}
-}
+% }{
+% wooclap.com, codice: \href{https://app.wooclap.com/ZAEBFA}{\alert{\underline{PBXUKB}}}
+% \includegraphics[width=2.5cm]{qrcode-13-pd2.png}
+% }
 \end{myboxtitle}
 
 \BB{Come risolvereste questo problema?}
@@ -778,7 +764,7 @@ $T$?\\ \pause \alert{$2^n$}
 
 \vspace{-9pt}
 \begin{myboxtitle}[Prefisso (\alert{Prefix})]
-Data una sequenza $T$ composta dai caratteri $t_1t_2{\ldots}t_n$, $T(i)$ denota 
+Data una sequenza $T$ composta dai caratteri $t_1t_2{\ldots}t_n$, denotiamo con $T(i)$
 il \alert{prefisso} di $T$ dato dai primi $i$ caratteri, i.e.:
 
 \[

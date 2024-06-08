@@ -449,7 +449,6 @@ T(n) = T(\lfloor n/2 \rfloor) + T(\lceil n/2 \rceil) + n
 	
 \end{frame}
 
-
 \begin{frame}{Ricorrenze lineari di ordine costante}
 
 \begin{myboxtitle}[Teorema]
@@ -460,7 +459,7 @@ costante positiva, $c$ e $\beta$ costanti reali tali che $c > 0$ e $\beta \ge
 \[
 T(n) = \begin{cases}
 \sum_{1 \le i \le h} a_iT(n - i) + cn^\beta & n > m \\
-\Theta(1) & n \le m \le h
+\Theta(1) & n \le m \ge h
 \end{cases}
 \]
 

@@ -1,9 +1,6 @@
 \input templates/header
 \title[ASD - Divide-et-impera]{\textbf{Algoritmi e Strutture Dati}\\[24pt]Divide-et-impera}
 
-\renewcommand{\Primo}{\mathit{lo}\xspace}
-\renewcommand{\Ultimo}{\mathit{hi}\xspace}
-
 \usepackage{tikz}
 \usepackage{xmpmulti}
 \usepackage{listings}
@@ -25,7 +22,6 @@
 
 %-------------------------------------------------------------------------
 \FrameContent
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -328,6 +324,7 @@ nel piolo di sinistra
 \end{myboxtitle}
 \end{frame}
 
+
 \section{Quicksort}
 
 \begin{frame}{Quicksort (Hoare, 1961)}
@@ -373,7 +370,7 @@ R. Sedgewick, "\alert{\emph{Implementing Quicksort Programs}}". Communications o
   detto \alert{perno} (\alert{pivot})
 \item Sposta gli elementi del vettore $A[\Primo \ldots \Ultimo]$ in modo che:
 
-\IG{0.7}{quicksort.pdf}
+\IG{0.7}{quicksort-spiegazione.pdf}
 
 
 % $\displaystyle
@@ -409,7 +406,6 @@ formano già un vettore ordinato
 \end{frame}
 
 
-
 \begin{frame}{Quicksort -- \textsf{pivot}()}
 
 \small
@@ -424,7 +420,7 @@ $\INTEGER\ j = \Primo$\;
   \If{$A[i] <\mathit{ pivot}$}
   {
     $j = j + 1$\;
-	$\;(A,i,j)$\;
+	$\Swap(A,i,j)$\;
   }
 }
 $A[\Primo] = A[j]$\;
@@ -449,8 +445,8 @@ $A[j] = \mathit{temp}$\;
 
 \vspace{-9pt}
 \begin{overprint}
-\includegraphics<1|handout:1>[width=0.95\textwidth,page=1]{quicksort1}
-\includegraphics<2|handout:2>[width=0.95\textwidth,page=2]{quicksort1}
+\includegraphics<1|handout:1>[width=0.95\textwidth]{pivot1}
+\includegraphics<2|handout:2>[width=0.95\textwidth]{pivot2}
 \end{overprint}
 
 \end{frame}
@@ -474,12 +470,9 @@ $A[j] = \mathit{temp}$\;
 \begin{frame}{Svolgimento ricorsione}
 
 \vspace{-12pt}
-\begin{overprint}
 \begin{center}
-\includegraphics<1|handout:1>[width=0.60\textwidth,page=1]{quicksort2}
-\includegraphics<2|handout:2>[width=0.60\textwidth,page=2]{quicksort2}
+\includegraphics[width=0.75\textwidth]{quicksort-esecuzione}
 \end{center}
-\end{overprint}
 
 \end{frame}
 
@@ -886,12 +879,12 @@ induttiva
 \begin{tabular}{|r|r|r|}
 \hline
 $n$ & \textbf{Iterativa (ms)} & \textbf{Ricorsiva (${\mu}$s)}\\\hline
-$10^3$ & 0.06 & 2.05\\\hline
-$10^4$ & 0.61 & 2.78\\\hline
-$10^5$ & 6.11 & 3.36\\\hline
-$10^6$ & 62.44 & 4.01\\\hline
-$10^7$ & 621.69 & 4.87\\\hline
-$10^8$ & 6205.72 & 5.47\\\hline
+$10^3$ & 60.00 & 2.05\\\hline
+$10^4$ & 610.00 & 2.78\\\hline
+$10^5$ & 6\,110.00 & 3.36\\\hline
+$10^6$ & 62\,440.00 & 4.01\\\hline
+$10^7$ & 621\,690.00 & 4.87\\\hline
+$10^8$ & 6\,205\,720.00 & 5.47\\\hline
 \end{tabular}
 \end{center}
 
